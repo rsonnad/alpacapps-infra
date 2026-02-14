@@ -40,6 +40,7 @@ Ask two things in a single message:
 - Payment processing (Square) — 2.9% + 30¢ per transaction
 - E-signatures (SignWell) — Free, 3–25 docs/month
 - AI-powered features (Google Gemini) — Free
+- Cloud server / VPS (for background jobs, cron tasks, or custom APIs) — $4–12/mo
 
 Remember their choices and skip everything they don't need.
 
@@ -64,14 +65,27 @@ The user likely cloned the `alpacapps-infra` starter repo. You need to disconnec
 3. After getting the URL, set remote and push: `git remote add origin {URL} && git push -u origin main`
 4. Tell the user: "Enable GitHub Pages at https://github.com/{USERNAME}/{REPO}/settings/pages — select Deploy from branch → main → / (root) → Save."
 
-**Then** create the project folder structure adapted to their domain, scaffold CLAUDE.md, commit, and push.
+**Then** customize the codebase for their project:
+1. Update `next.config.ts` — set `basePath` to `"/{REPO_NAME}"`
+2. Update `src/contexts/auth-context.tsx` — set the Google OAuth redirect to `window.location.origin + "/{REPO_NAME}/en/intranet"`
+3. Update `src/i18n/dictionaries/en.json` — set `metadata.title` to their org name, update `metadata.description`, and customize `home.hero.title` (e.g., "Welcome to {Org Name}")
+4. Update all other dictionary files with corresponding translations (or use Gemini to translate)
+5. Update `src/app/layout.tsx` — set `metadata.title` to their org name
+6. Update `index.html` — set the redirect URL to `en` (already correct in template)
+7. Scaffold CLAUDE.md with project name and URLs
+8. Commit and push
 
 ### Step 3: Supabase
 
 Ask the user to do these things (in a single message with all URLs):
 
-> 1. Create a project at https://supabase.com/dashboard/new/_
-> 2. Save the database password — you'll need it
+> 1. First, create a Supabase organization at https://supabase.com/dashboard/new (if you don't have one already)
+>    - Choose any name for the org (e.g., your company name)
+>    - Select the Free plan
+> 2. Then create a project at https://supabase.com/dashboard/new/_
+>    - Select the organization you just created
+>    - Choose a project name and region
+>    - **Save the database password** — you'll need it
 > 3. Once created, paste me these 3 values:
 >    - **Project ref** (the subdomain in the URL bar, e.g., `abcdefghijk`)
 >    - **Anon public key** (from the API settings page — I'll give you the direct link once I have your ref)
@@ -88,13 +102,14 @@ Once you have the ref, immediately construct and show the API settings URL:
 
 **Then you (silently, no user action needed):**
 1. `supabase login && supabase link --project-ref {REF}`
-2. Create `shared/supabase.js` with project URL and anon key
-3. Test the psql connection
-4. Create database tables tailored to the user's domain description (don't use hardcoded schemas)
-5. Enable RLS on all tables
-6. Create storage buckets with public read policies
-7. Append Supabase config to CLAUDE.md (ref, URL, anon key, psql string, CLI instructions)
-8. Commit and push
+2. Update `src/lib/supabase.ts` — replace `YOUR_SUPABASE_URL` and `YOUR_SUPABASE_ANON_KEY` with actual values
+3. Update `shared/supabase.js` — replace `YOUR_SUPABASE_URL` and `YOUR_SUPABASE_ANON_KEY` with actual values
+4. Test the psql connection
+5. Create database tables tailored to the user's domain description (don't use hardcoded schemas)
+6. Enable RLS on all tables
+7. Create storage buckets with public read policies
+8. Append Supabase config to CLAUDE.md (ref, URL, anon key, psql string, CLI instructions, database schema)
+9. Commit and push
 
 ### Step 4: Resend (Email) — if selected
 
@@ -174,7 +189,49 @@ Ask:
 **Then you:**
 1. `supabase secrets set GEMINI_API_KEY={key}`
 
-### Step 9: Final Summary
+### Step 9: Cloud Server / VPS — if selected
+
+The user needs a server for background jobs, cron tasks, or custom APIs that can't run as Supabase Edge Functions. This step is **provider-agnostic** — support whichever provider the user prefers.
+
+**Ask which provider they want to use:**
+
+> Do you have a cloud server, or would you like to set one up? We support any provider:
+> - **DigitalOcean** (~$4-12/mo) — https://cloud.digitalocean.com
+> - **Hostinger VPS** (~$4-8/mo) — https://www.hostinger.com/vps-hosting
+> - **AWS EC2** (free tier available) — https://aws.amazon.com/ec2
+> - **Google Cloud Compute** (free tier available) — https://cloud.google.com/compute
+> - **Any other provider** with SSH access
+>
+> If you already have a server, paste the **IP address** and **SSH username**.
+> If you need to create one, pick a provider and I'll walk you through it.
+
+**For new server setup (any provider):**
+1. Guide the user to create a basic Linux server (Ubuntu 22.04+ recommended)
+2. Smallest tier is fine ($4-12/mo) — 1 vCPU, 1GB RAM minimum
+3. Tell them to add their SSH key during creation
+4. Ask them to paste the IP address once created
+
+**Once you have SSH access:**
+1. Test connectivity: `ssh {USER}@{IP} "echo connected"`
+2. Install Node.js if needed: `ssh {USER}@{IP} "curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs"`
+3. Set up a project directory
+4. Configure any environment variables needed
+5. Set up PM2 or systemd for process management
+6. Append server details to CLAUDE.md:
+   - Server IP
+   - SSH command
+   - Project directory path
+   - Process manager (PM2/systemd)
+   - Any deployed services
+
+**Key technical details for VPS:**
+- Store secrets as environment variables (not in code)
+- Use PM2 for Node.js process management: `npm install -g pm2`
+- Set up a firewall: only open ports 22 (SSH), 80, 443
+- Use `certbot` for free HTTPS certificates if running a web server
+- For cron jobs, use `crontab -e` or PM2's cron feature
+
+### Step 10: Final Summary
 
 1. Verify GitHub Pages is live (curl the URL)
 2. Verify Supabase connection (run a test query)
