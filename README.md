@@ -6,6 +6,7 @@ A starter template for building full-stack business platforms with Claude Code. 
 
 - **Database + Auth + Storage** — Supabase (free)
 - **Website + Hosting** — GitHub Pages (free)
+- **Login + Admin Dashboard** — Profile button, login modal, admin CRUD pages (included)
 - **Email** — Resend (free, 3,000/month)
 - **SMS** — Telnyx (~$0.004/message)
 - **Payments** — Square (2.9% + 30¢)
@@ -42,8 +43,9 @@ The setup skill will:
 3. Disconnect from the `alpacapps-infra` template origin
 4. Customize the codebase for your organization (branding, basePath, i18n)
 5. Set up Supabase (create org + project), deploy edge functions, configure webhooks
-6. Build your `CLAUDE.md` with all credentials and connection details
-7. Push everything to your new repo — your site goes live on GitHub Pages
+6. Scaffold login/auth system and admin CRUD pages for your entities
+7. Build your `CLAUDE.md` with all credentials and connection details
+8. Push everything to your new repo — your site goes live on GitHub Pages
 
 ## Customization
 

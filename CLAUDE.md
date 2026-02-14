@@ -33,6 +33,48 @@ This file provides context for Claude (AI assistant) when working on this codeba
 Push to main and it's live. No build step, no PR process.
 **For Claude:** Always push changes immediately.
 
+## Shared Files
+
+- `shared/supabase.js` — Supabase client init (URL + anon key as globals)
+- `shared/auth.js` — Auth module: profile button, login modal, page guard
+- `shared/admin.css` — Admin styles: layout, tables, modals, badges (themeable via `--aap-*` CSS vars)
+
+### Auth System (`shared/auth.js`)
+
+Provides login/profile functionality on all pages:
+
+- **Profile button**: Auto-inserts into nav bar. Shows person icon when logged out, initials avatar when logged in.
+- **Login modal**: Email/password via `supabase.auth.signInWithPassword()`. Opens on profile icon click.
+- **Dropdown menu**: When logged in, clicking avatar shows dropdown with "Admin" link and "Sign Out".
+- **Page guard**: Admin pages call `requireAuth(callback)` — redirects to `../index.html` if not authenticated.
+- **Supabase client**: Exposed as `window.adminSupabase` for admin page data access.
+
+**Script loading order on every page:**
+```html
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="shared/supabase.js"></script>
+<script src="shared/auth.js"></script>
+```
+
+**`shared/supabase.js` must export globals** (auth.js reads these):
+```javascript
+var SUPABASE_URL = 'https://YOUR_REF.supabase.co';
+var SUPABASE_ANON_KEY = 'your-anon-key';
+```
+
+### Admin Pages (`admin/`)
+
+- All admin pages are in `admin/` directory with `<meta name="robots" content="noindex, nofollow">`
+- Each page loads `shared/admin.css` and calls `requireAuth()`:
+```javascript
+requireAuth(function(user, supabase) {
+    // Page is authenticated — load data using supabase client
+});
+```
+- Admin topbar nav links between admin sub-pages
+- CRUD pattern: `admin-table` for listing, `admin-modal` for add/edit forms
+- CSS classes are themeable via `--aap-*` custom properties
+
 ## Supabase Details
 
 - Project ID: `YOUR_PROJECT_REF`

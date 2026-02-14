@@ -103,13 +103,76 @@ Once you have the ref, immediately construct and show the API settings URL:
 **Then you (silently, no user action needed):**
 1. `supabase login && supabase link --project-ref {REF}`
 2. Update `src/lib/supabase.ts` — replace `YOUR_SUPABASE_URL` and `YOUR_SUPABASE_ANON_KEY` with actual values
-3. Update `shared/supabase.js` — replace `YOUR_SUPABASE_URL` and `YOUR_SUPABASE_ANON_KEY` with actual values
+3. Update `shared/supabase.js` — replace placeholders with actual values. **IMPORTANT:** `shared/supabase.js` must export globals as `var` (auth.js reads these):
+   ```javascript
+   var SUPABASE_URL = 'https://{REF}.supabase.co';
+   var SUPABASE_ANON_KEY = '{ANON_KEY}';
+   ```
 4. Test the psql connection
 5. Create database tables tailored to the user's domain description (don't use hardcoded schemas)
 6. Enable RLS on all tables
 7. Create storage buckets with public read policies
 8. Append Supabase config to CLAUDE.md (ref, URL, anon key, psql string, CLI instructions, database schema)
 9. Commit and push
+
+### Step 3b: Scaffold Auth + Admin Pages
+
+After Supabase is configured, scaffold the auth and admin system. This is automatic — no user input needed.
+
+**The repo already includes `shared/auth.js` and `shared/admin.css`.** You need to:
+
+1. **Add scripts to all public pages.** Every HTML page (index.html, etc.) must include these three scripts (in this order, before closing `</body>`):
+   ```html
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+   <script src="shared/supabase.js"></script>
+   <script src="shared/auth.js"></script>
+   ```
+   This adds the profile/login button to the nav automatically.
+
+2. **Add admin.css to all pages** that need admin styling (at minimum, admin pages):
+   ```html
+   <link rel="stylesheet" href="../shared/admin.css">
+   ```
+   Also add it to public pages if you want the auth widget styles to apply (the auth-related CSS classes are in admin.css).
+
+3. **Create `admin/index.html`** — Admin dashboard. Use this structure:
+   ```html
+   <meta name="robots" content="noindex, nofollow">
+   <link rel="stylesheet" href="../shared/admin.css">
+   <!-- Admin topbar with nav links -->
+   <div class="admin-topbar">
+       <span class="admin-topbar__label">&#128274; Admin</span>
+       <nav class="admin-topbar__nav">
+           <a href="index.html" class="active">Dashboard</a>
+           <!-- One link per entity -->
+       </nav>
+   </div>
+   <div class="admin-layout"><div class="admin-container">
+       <!-- Stat cards for each entity count -->
+       <div class="admin-stats">...</div>
+       <!-- Card grid linking to sub-pages -->
+       <div class="admin-cards">...</div>
+   </div></div>
+   <script>requireAuth(function(user, sb) { /* load counts */ });</script>
+   ```
+
+4. **Create one CRUD page per core entity** from Step 1 (e.g., `admin/services.html`, `admin/appointments.html`). Each follows this pattern:
+   - Search bar + filter tabs + data table (`admin-table`)
+   - Add/edit modal (`admin-modal`) with form fields matching the entity's database columns
+   - Uses `requireAuth()` for auth guard
+   - Uses `window.adminSupabase` for CRUD operations (`.from('table').select()`, `.insert()`, `.update()`)
+   - Toast notifications for success/error feedback
+
+5. **Create a Supabase auth user** for the project owner. Ask:
+   > "What email and password do you want for your admin login?"
+
+   Then create the user via psql:
+   ```sql
+   -- Use Supabase's auth.users table (or the dashboard)
+   ```
+   Or instruct the user to create their account at `https://supabase.com/dashboard/project/{REF}/auth/users`.
+
+6. Commit and push.
 
 ### Step 4: Resend (Email) — if selected
 
