@@ -11,6 +11,7 @@ A starter template for building full-stack business platforms with Claude Code. 
 - **Payments** — Square (2.9% + 30¢)
 - **E-Signatures** — SignWell (free, 3–25 docs/month)
 - **AI Features** — Google Gemini (free)
+- **Cloud Server** — Any VPS provider: DigitalOcean, Hostinger, AWS EC2, Google Cloud ($4-12/mo)
 - **AI Developer** — Claude Code (builds and manages everything)
 
 ## Quick start
@@ -39,9 +40,21 @@ The setup skill will:
 1. Ask what you're building and which services you need
 2. Create a new GitHub repo under your account (using the folder name you chose)
 3. Disconnect from the `alpacapps-infra` template origin
-4. Set up Supabase, deploy edge functions, configure webhooks
-5. Build your `CLAUDE.md` with all credentials and connection details
-6. Push everything to your new repo — your site goes live on GitHub Pages
+4. Customize the codebase for your organization (branding, basePath, i18n)
+5. Set up Supabase (create org + project), deploy edge functions, configure webhooks
+6. Build your `CLAUDE.md` with all credentials and connection details
+7. Push everything to your new repo — your site goes live on GitHub Pages
+
+## Customization
+
+See [CUSTOMIZATION.md](CUSTOMIZATION.md) for a detailed guide on what gets customized for each new organization and how to modify the template.
+
+## Tech Stack
+
+- **Frontend:** Next.js 16 (React 19, TypeScript, Tailwind CSS)
+- **Backend:** Supabase (PostgreSQL + Storage + Auth)
+- **Hosting:** GitHub Pages (static export)
+- **i18n:** Dictionary-based multi-language support (English, Spanish, French by default)
 
 ## Full guide
 

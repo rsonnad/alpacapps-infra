@@ -10,6 +10,7 @@ This file provides context for Claude (AI assistant) when working on this codeba
 > Always `git push` as soon as changes are ready.
 
 > **IMPORTANT: First-time setup!**
+> Run `/setup-alpacapps-infra` to set up the full infrastructure interactively.
 > If the Supabase CLI is not installed or linked, run:
 > `npm install -g supabase && supabase login && supabase link --project-ref YOUR_REF`
 
@@ -18,13 +19,14 @@ This file provides context for Claude (AI assistant) when working on this codeba
 [Your project] is a [type of system] for [purpose]. It manages [core entities].
 
 **Tech Stack:**
-- Frontend: Vanilla HTML/CSS/JavaScript (no framework)
+- Frontend: Next.js 16 (React 19, TypeScript, Tailwind CSS)
 - Backend: Supabase (PostgreSQL + Storage + Auth)
-- Hosting: GitHub Pages (static site)
+- Hosting: GitHub Pages (static export)
+- i18n: Dictionary-based multi-language support
 
 **Live URLs:**
-- Public view: https://USERNAME.github.io/REPO/
-- Admin view: https://USERNAME.github.io/REPO/admin/
+- Public site: https://USERNAME.github.io/REPO/
+- Intranet: https://USERNAME.github.io/REPO/en/intranet/
 
 ## Deployment
 
@@ -35,7 +37,7 @@ Push to main and it's live. No build step, no PR process.
 
 - Project ID: `YOUR_PROJECT_REF`
 - URL: `https://YOUR_PROJECT_REF.supabase.co`
-- Anon key is in `shared/supabase.js`
+- Anon key is in `src/lib/supabase.ts` and `shared/supabase.js`
 
 ### Direct Database Access (for Claude)
 
@@ -52,6 +54,15 @@ supabase secrets set KEY=value
 ```
 
 Run these directly. If CLI not installed, install and link first.
+
+## Key Files
+
+- `src/lib/supabase.ts` — Supabase client (Next.js app)
+- `shared/supabase.js` — Supabase client (vanilla JS pages)
+- `next.config.ts` — basePath must match GitHub repo name
+- `src/i18n/config.ts` — supported locales
+- `src/i18n/dictionaries/*.json` — translation files
+- `src/contexts/auth-context.tsx` — authentication
 
 ## External Services
 
