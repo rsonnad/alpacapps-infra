@@ -22,15 +22,14 @@ Before starting, make sure you have:
 | Tool | Install |
 |------|---------|
 | **Git** | [git-scm.com/downloads](https://git-scm.com/downloads) (Mac has it built in) |
-| **Node.js** | [nodejs.org](https://nodejs.org/) |
-| **Claude Code** | [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code/overview) |
+| **Claude Code** | [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code/overview) (installs Node.js automatically) |
 | **GitHub account** | [github.com/signup](https://github.com/signup) (free) |
 
 Quick check — paste into your terminal:
 ```bash
-git --version && node --version && claude --version
+git --version && claude --version
 ```
-All three should print version numbers.
+Both should print version numbers.
 
 ## Quick start
 
