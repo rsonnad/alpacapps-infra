@@ -62,12 +62,24 @@ The setup wizard will:
 4. Customize the codebase for your organization (branding, basePath, i18n)
 5. Set up Supabase (create org + project), deploy edge functions, configure webhooks
 6. Scaffold login/auth system and admin CRUD pages for your entities
-7. Build your `CLAUDE.md` with all credentials and connection details
+7. Build your context docs (`CLAUDE.md` + `docs/*.md`) with credentials, schema, and patterns
 8. Push everything to your new repo — your site goes live on GitHub Pages
 
 ## After setup
 
-Every new Claude Code session automatically reads your `CLAUDE.md` and knows your entire stack — database schema, API keys, deployment flow, everything. Just tell Claude what to build.
+The project uses an **on-demand context system** to keep Claude fast and efficient:
+
+- **`CLAUDE.md`** (~30 lines) is loaded every conversation — contains project directives and an index
+- **`docs/*.md`** files are loaded only when needed:
+  - `CREDENTIALS.md` — API keys, tokens (gitignored, never committed)
+  - `SCHEMA.md` — database tables and relationships
+  - `PATTERNS.md` — code conventions, Tailwind tokens, auth system
+  - `KEY-FILES.md` — project file structure
+  - `DEPLOY.md` — deployment workflow and live URLs
+  - `INTEGRATIONS.md` — external services and cost tiers
+  - `CHANGELOG.md` — recent changes
+
+Claude loads only what it needs per task — saving thousands of tokens per conversation. Just tell Claude what to build.
 
 ## Customization
 

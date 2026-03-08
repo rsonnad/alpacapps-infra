@@ -89,9 +89,11 @@ done
 ### Then
 
 - Create project folder structure adapted to user's domain
-- Scaffold `CLAUDE.md` (shareable context) and `CLAUDE.local.md` (private credentials)
-- Add `CLAUDE.local.md` to `.gitignore`
-- Add note at top of `CLAUDE.md`: "See `CLAUDE.local.md` for credentials and environment-specific configuration."
+- Fill in `CLAUDE.md` placeholders: replace `[Your Project Name]`, `USERNAME`, `REPO` with actual values
+- Create `CLAUDE.local.md` (gitignored) with operator directives and live URLs
+- Update `docs/DEPLOY.md` with actual GitHub Pages URL and repo link
+- Update `docs/KEY-FILES.md` with initial project file structure
+- Both `CLAUDE.local.md` and `docs/CREDENTIALS.md` are already in `.gitignore`
 - Commit and push
 
 ---
@@ -219,8 +221,11 @@ Store these for later steps.
 9. Create storage buckets with public read policies
 10. Validate tables: `\dt`
 11. Validate RLS: `SELECT tablename FROM pg_tables WHERE schemaname='public' AND rowsecurity=true`
-12. Append to CLAUDE.md: project ref, URL, storage buckets, webhook URLs, CLI reference
-13. Append to CLAUDE.local.md: project ref, URL, anon key, psql string, Management API token, operator directives
+12. Append to `docs/CREDENTIALS.md`: project ref, URL, anon key, psql string, Management API token, DB access commands
+13. Append to `docs/SCHEMA.md`: table definitions created in step 7
+14. Append to `docs/INTEGRATIONS.md`: storage buckets, webhook URLs
+15. Append to `docs/KEY-FILES.md`: `shared/supabase.js` and any new files created
+16. Append to `CLAUDE.local.md`: operator directives
 
 ---
 
@@ -246,5 +251,6 @@ Store these for later steps.
 1. Create `shared/auth.js` with `supabase.auth.signInWithOAuth({ provider: 'google' })`
 2. Add login/logout UI
 3. Add auth guards to admin pages
-4. Append to CLAUDE.md: sign-in method, redirect URI pattern
-5. Append to CLAUDE.local.md: Client ID
+4. Append to `docs/PATTERNS.md`: auth system details, sign-in method
+5. Append to `docs/CREDENTIALS.md`: Client ID
+6. Append to `docs/KEY-FILES.md`: `shared/auth.js`

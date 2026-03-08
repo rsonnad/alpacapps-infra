@@ -41,19 +41,24 @@ This repo is a **generic template**. It contains no organization-specific data, 
 | `src/i18n/dictionaries/` | Create/delete JSON files to match locales |
 | `src/app/[lang]/layout.tsx` | Update `fontFamilyMap` if adding non-Latin scripts (and add Google Fonts to `src/app/layout.tsx`) |
 
-### 5. CLAUDE.md
+### 5. Context System (CLAUDE.md + docs/)
 
-Replace all placeholders with actual values:
-- `[Your Project Name]` — organization name
-- `[Your project]`, `[type of system]`, `[purpose]`, `[core entities]` — project description
-- `YOUR_PROJECT_REF` — Supabase project ref
-- `YOUR_REF` — Supabase project ref (in psql string)
-- `YOUR_PASSWORD` — database password
-- `REGION` — Supabase region
-- `USERNAME` — GitHub username
-- `REPO` — GitHub repo name
+The project uses an **on-demand context loading** system to minimize tokens loaded per conversation:
 
-Also add the database schema section with actual table definitions after running migrations.
+- **`CLAUDE.md`** (~30 lines, always loaded): slim directives with on-demand doc index. Replace placeholders:
+  - `[Your Project Name]` — organization name
+  - `USERNAME` — GitHub username
+  - `REPO` — GitHub repo name
+
+- **`docs/CREDENTIALS.md`** (gitignored): all API keys, tokens, connection strings. Replace `YOUR_*` placeholders.
+- **`docs/SCHEMA.md`**: database table definitions — update after each migration
+- **`docs/PATTERNS.md`**: code patterns, Tailwind tokens, auth system, conventions
+- **`docs/KEY-FILES.md`**: project file structure reference
+- **`docs/DEPLOY.md`**: deployment workflow, live URLs, version format
+- **`docs/INTEGRATIONS.md`**: external service configs (non-secret), cost tiers
+- **`docs/CHANGELOG.md`**: recent changes log
+
+Claude reads CLAUDE.md every conversation but only loads the specific `docs/*.md` file when the task matches (e.g., only loads SCHEMA.md when writing queries).
 
 ### 6. Database Schema
 
@@ -105,7 +110,8 @@ Some organizations need a separate static HTML site (e.g., a donation page, land
 - [ ] OAuth redirect URL updated in `src/contexts/auth-context.tsx`
 - [ ] Organization name and content updated in all dictionary files
 - [ ] `src/app/layout.tsx` metadata updated
-- [ ] CLAUDE.md filled in with all actual values
-- [ ] Database schema created and documented in CLAUDE.md
+- [ ] CLAUDE.md placeholders replaced (project name, USERNAME, REPO)
+- [ ] docs/CREDENTIALS.md filled with actual credentials (gitignored)
+- [ ] docs/SCHEMA.md updated with actual table definitions
 - [ ] Locales configured for the org's languages
 - [ ] Site pushed and live on GitHub Pages

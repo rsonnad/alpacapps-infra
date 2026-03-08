@@ -981,7 +981,7 @@
       <a href="#gemini"><span class="num">10</span> Google Gemini (AI)</a>
       <a href="#workers"><span class="num">11</span> Background Workers</a>
       <a href="#domain"><span class="num">12</span> Custom Domain</a>
-      <a href="#template"><span class="num">13</span> CLAUDE.md Templates</a>
+      <a href="#template"><span class="num">13</span> Context System</a>
       <a href="#checklist"><span class="num">14</span> Day-One Checklist</a>
       <a href="#mobile"><span class="num">15</span> Mobile App (iOS &amp; Android)</a>
     </div>
@@ -1324,7 +1324,7 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
     <h3>Run the setup wizard</h3>
     <p>Once Claude Code is open in your project folder, type:</p>
     <pre data-lang="claude code"><code>/setup-alpacapps-infra</code></pre>
-    <p>Claude will ask you what you're building, which services you need, then walk you through the entire setup &mdash; creating your database, deploying edge functions, configuring webhooks, and building your <code>CLAUDE.md</code> (checked into repo) and <code>CLAUDE.local.md</code> (gitignored credentials). You don't need to read the rest of this guide unless you want to understand what's happening under the hood.</p>
+    <p>Claude will ask you what you're building, which services you need, then walk you through the entire setup &mdash; creating your database, deploying edge functions, configuring webhooks, and building your on-demand context system (<code>CLAUDE.md</code> directives + <code>docs/*.md</code> reference files). You don't need to read the rest of this guide unless you want to understand what's happening under the hood.</p>
 
     <div class="callout warning" style="font-size: 0.85rem;">
       <strong>Slash command not working?</strong>
@@ -1343,7 +1343,7 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
     <p>You never need to edit files yourself. Just tell Claude what you want in plain English.</p>
     <div class="conversation">
       <div class="you">"Set up Supabase. Here are my credentials: project ref is abc123, anon key is eyJ..."</div>
-      <div class="ai">installs Supabase CLI, links project, updates CLAUDE.md + CLAUDE.local.md, creates tables with RLS, creates storage buckets, commits and pushes</div>
+      <div class="ai">installs Supabase CLI, links project, updates docs/CREDENTIALS.md + docs/SCHEMA.md, creates tables with RLS, creates storage buckets, commits and pushes</div>
     </div>
   </div>
 
@@ -1844,36 +1844,41 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
 
   <!-- 14. CLAUDE.md Templates -->
   <div class="section" id="template">
-    <h2>14. CLAUDE.md Templates</h2>
-    <p>Claude Code uses two files for project context: <code>CLAUDE.md</code> (checked into the repo) for shareable project context, and <code>CLAUDE.local.md</code> (gitignored) for credentials and operator directives. Enter your project name and download both.</p>
+    <h2>14. On-Demand Context System</h2>
+    <p>Claude Code reads <code>CLAUDE.md</code> at the start of every conversation. To keep this fast and efficient, we use an <strong>on-demand context loading</strong> pattern: CLAUDE.md stays slim (~30 lines) and indexes separate <code>docs/*.md</code> files that Claude only loads when the task requires them.</p>
 
-    <div style="display: flex; gap: 0.75rem; align-items: center; margin: 1.5rem 0; flex-wrap: wrap;">
-      <input type="text" id="project-name-input" placeholder="My Project Name" style="font-family: inherit; font-size: 0.95rem; padding: 0.7rem 1rem; border: 2px solid var(--border); border-radius: 6px; width: 260px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
-      <button onclick="downloadClaudeMd()" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--text); color: #ffffff; padding: 0.7rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; font-family: inherit; transition: background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='var(--text)'">&darr;&ensp;CLAUDE.md</button>
-      <button onclick="downloadClaudeLocalMd()" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--text); color: #ffffff; padding: 0.7rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; border: none; cursor: pointer; font-family: inherit; transition: background 0.2s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='var(--text)'">&darr;&ensp;CLAUDE.local.md</button>
-    </div>
+    <h3>Why this matters</h3>
+    <p>A monolithic CLAUDE.md with credentials, schema, patterns, and integrations can easily reach 200+ lines &mdash; thousands of tokens loaded into every conversation whether needed or not. With on-demand loading, a conversation about Tailwind styling only loads <code>docs/PATTERNS.md</code>, while a database migration only loads <code>docs/SCHEMA.md</code> and <code>docs/CREDENTIALS.md</code>.</p>
 
-    <p><strong><code>CLAUDE.md</code></strong> (checked in) includes:</p>
-    <ul>
-      <li>Project overview and tech stack</li>
-      <li>Architecture and key files</li>
-      <li>Database schema and common patterns</li>
-      <li>Deployment workflow (push to main = live)</li>
-      <li>External systems overview (no credentials)</li>
-      <li>Coding conventions</li>
-    </ul>
+    <h3>File structure</h3>
+    <table>
+      <thead><tr><th>File</th><th>Purpose</th><th>Git status</th></tr></thead>
+      <tbody>
+        <tr><td><code>CLAUDE.md</code></td><td>Slim directives + on-demand doc index (~30 lines)</td><td>Checked in</td></tr>
+        <tr><td><code>CLAUDE.local.md</code></td><td>Operator directives, live URLs, push workflow</td><td>Gitignored</td></tr>
+        <tr><td><code>docs/CREDENTIALS.md</code></td><td>All API keys, tokens, connection strings</td><td>Gitignored</td></tr>
+        <tr><td><code>docs/SCHEMA.md</code></td><td>Database table definitions</td><td>Checked in</td></tr>
+        <tr><td><code>docs/PATTERNS.md</code></td><td>Code patterns, Tailwind tokens, auth system</td><td>Checked in</td></tr>
+        <tr><td><code>docs/KEY-FILES.md</code></td><td>Project file structure reference</td><td>Checked in</td></tr>
+        <tr><td><code>docs/DEPLOY.md</code></td><td>Deployment workflow, version format</td><td>Checked in</td></tr>
+        <tr><td><code>docs/INTEGRATIONS.md</code></td><td>External services, cost tiers</td><td>Checked in</td></tr>
+        <tr><td><code>docs/CHANGELOG.md</code></td><td>Recent changes log</td><td>Checked in</td></tr>
+      </tbody>
+    </table>
 
-    <p><strong><code>CLAUDE.local.md</code></strong> (gitignored) includes:</p>
-    <ul>
-      <li>Operator directives (push immediately, direct DB access, version bumping)</li>
-      <li>Supabase project ref, URL, psql connection string</li>
-      <li>Live URLs (GitHub Pages)</li>
-      <li>External service credentials: Resend, Telnyx, Square, SignWell</li>
-      <li>Server access (cloud VM SSH, worker configuration)</li>
-    </ul>
+    <h3>How the index works</h3>
+    <p>The top of <code>CLAUDE.md</code> contains trigger hints that tell Claude which doc to load for which task:</p>
+    <pre><code>&gt; **On-demand docs &mdash; load when the task matches:**
+&gt; - `docs/CREDENTIALS.md` &mdash; **load for:** SQL queries, deploying functions, SSH, API calls
+&gt; - `docs/SCHEMA.md` &mdash; **load for:** writing queries, modifying tables, debugging data
+&gt; - `docs/PATTERNS.md` &mdash; **load for:** writing UI code, Tailwind styling, code review
+&gt; - `docs/KEY-FILES.md` &mdash; **load for:** finding files, understanding project structure
+&gt; - `docs/DEPLOY.md` &mdash; **load for:** pushing, deploying, version questions
+&gt; - `docs/INTEGRATIONS.md` &mdash; **load for:** external APIs, vendor setup, pricing
+&gt; - `docs/CHANGELOG.md` &mdash; **load for:** understanding recent changes</code></pre>
 
     <div class="callout">
-      <strong>Tip:</strong> The setup wizard (Step 2) builds both files for you automatically as it sets up each service. Don't forget to add <code>CLAUDE.local.md</code> to your <code>.gitignore</code>.
+      <strong>Tip:</strong> The setup wizard builds all these files automatically as it sets up each service. Both <code>CLAUDE.local.md</code> and <code>docs/CREDENTIALS.md</code> are already in <code>.gitignore</code>.
     </div>
   </div>
 
@@ -2267,62 +2272,33 @@ function updateSupabaseLinks() {
   }
 }
 
-// Download CLAUDE.md (shareable, checked into repo)
+// Download CLAUDE.md (slim directives with on-demand doc index)
 function downloadClaudeMd() {
   var name = document.getElementById('project-name-input').value.trim() || 'My Project';
-  var template = '# CLAUDE.md - ' + name + '\n\n' +
-    'This file provides context for Claude (AI assistant) when working on this codebase.\n\n' +
-    '> **See `CLAUDE.local.md` for credentials, connection strings, and environment-specific configuration.**\n' +
-    '> That file is gitignored and contains operator directives, database access details, API keys, and deployment-specific settings.\n\n' +
-    '## Project Overview\n\n' +
-    name + ' is a [type of system] for [purpose]. It manages [core entities].\n\n' +
-    '**Tech Stack:**\n' +
-    '- Frontend: Vanilla HTML/CSS/JavaScript (no framework) + Tailwind CSS v4\n' +
-    '- CSS: CSS custom properties + Tailwind utility classes (coexist)\n' +
-    '- Backend: Supabase (PostgreSQL + Storage + Auth)\n' +
-    '- Hosting: GitHub Pages (static site)\n\n' +
-    '## Architecture\n\n' +
-    '```\n' +
-    'Browser \u2192 GitHub Pages (static HTML/JS) \u2192 Supabase (database + storage)\n' +
-    '```\n\n' +
-    'No server-side code - all logic runs client-side. Supabase handles data persistence.\n\n' +
-    '## Deployment\n\n' +
-    'Push to main and it\'s live. No build step, no PR process.\n\n' +
-    '```bash\n' +
-    'git add <files>\n' +
-    'git commit -m "Description"\n' +
-    'git push\n' +
-    '# Changes are live in 1-2 minutes\n' +
-    '```\n\n' +
-    '## Supabase Details\n\n' +
-    '- Anon key is in `shared/supabase.js` (safe to expose, RLS protects data)\n' +
-    '- Storage buckets: [list your buckets here]\n\n' +
-    '## Authentication\n\n' +
-    '### Google Sign-In (OAuth via Supabase)\n' +
-    '- Auth handled by Supabase Auth (no edge function needed)\n' +
-    '- Sign-in method: `supabase.auth.signInWithOAuth({ provider: \'google\' })`\n\n' +
-    '## External Systems\n\n' +
-    '### Email (Resend)\n' +
-    '- API key stored as Supabase secret: `RESEND_API_KEY`\n\n' +
-    '### SMS (Telnyx)\n' +
-    '- Config in `telnyx_config` table\n' +
-    '- Edge functions: `send-sms`, `telnyx-webhook`\n\n' +
-    '### Payments (Square)\n' +
-    '- Config in `square_config` table\n' +
-    '- Edge function: `process-square-payment`\n\n' +
-    '### Payments (Stripe)\n' +
-    '- Config in `stripe_config` table\n' +
-    '- Edge functions: `process-stripe-payment`, `stripe-webhook`\n' +
-    '- Client: `shared/stripe-service.js`\n' +
-    '- ACH: 0.8% capped at $5; Cards: 2.9% + 30\\u00a2\n\n' +
-    '### E-Signatures (SignWell)\n' +
-    '- Config in `signwell_config` table\n' +
-    '- Edge function: `signwell-webhook`\n\n' +
-    '## Conventions\n\n' +
-    '1. Use toast notifications, not alert()\n' +
-    '2. Filter archived items client-side\n' +
-    '3. Don\'t expose personal info in public views\n' +
-    '4. Client-side image compression for files > 500KB\n';
+  var template = '# ' + name + ' \u2014 Project Directives\n\n' +
+    '> **On-demand docs \u2014 load when the task matches:**\n' +
+    '> - `docs/CREDENTIALS.md` \u2014 **load for:** SQL queries, deploying functions, SSH, API calls\n' +
+    '> - `docs/SCHEMA.md` \u2014 **load for:** writing queries, modifying tables, debugging data\n' +
+    '> - `docs/PATTERNS.md` \u2014 **load for:** writing UI code, Tailwind styling, code review, testing\n' +
+    '> - `docs/KEY-FILES.md` \u2014 **load for:** finding files, understanding project structure\n' +
+    '> - `docs/DEPLOY.md` \u2014 **load for:** pushing, deploying, version questions\n' +
+    '> - `docs/INTEGRATIONS.md` \u2014 **load for:** external APIs, vendor setup, pricing\n' +
+    '> - `docs/CHANGELOG.md` \u2014 **load for:** understanding recent changes, migration context\n\n' +
+    '## Mandatory Behaviors\n\n' +
+    '1. After code changes: end response with `vYYMMDD.NN H:MMa [model]` + affected URLs (read `version.json`)\n' +
+    '2. Push immediately \u2014 GitHub Pages deploys on push to main. See `docs/DEPLOY.md`\n' +
+    '3. CI bumps version \u2014 never bump locally\n' +
+    '4. Run SQL migrations directly \u2014 never ask the user to run SQL manually\n\n' +
+    '## Code Guards\n\n' +
+    '- Filter archived items: `.filter(s => !s.is_archived)` client-side\n' +
+    '- No personal info in consumer/public views\n' +
+    '- `showToast()` not `alert()` in admin\n' +
+    '- `openLightbox(url)` for images\n' +
+    '- Tailwind: use design tokens from `@theme` block (see `docs/PATTERNS.md`). Run `npm run css:build` after new classes.\n\n' +
+    '## Quick Refs\n\n' +
+    '- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | GitHub Pages\n' +
+    '- **Live:** https://USERNAME.github.io/REPO/\n' +
+    '- **Architecture:** Browser \u2192 GitHub Pages \u2192 Supabase (no server-side code)\n';
 
   downloadFile(template, 'CLAUDE.md');
 }
@@ -2330,57 +2306,14 @@ function downloadClaudeMd() {
 // Download CLAUDE.local.md (private, gitignored)
 function downloadClaudeLocalMd() {
   var name = document.getElementById('project-name-input').value.trim() || 'My Project';
-  var template = '# CLAUDE.local.md - Private Configuration & Operator Directives\n\n' +
-    'This file contains credentials, connection strings, and operator-specific directives.\n' +
-    'It is gitignored and should NOT be checked into version control.\n\n' +
-    '## Operator Directives\n\n' +
-    '> **IMPORTANT: You have direct database access!**\n' +
-    '> See "Direct Database Access" section below.\n' +
-    '> Always run SQL migrations directly using `psql` - never ask the user to run SQL manually.\n\n' +
-    '> **IMPORTANT: Push changes immediately!**\n' +
-    '> This is a GitHub Pages site - changes only go live after pushing.\n' +
-    '> Always `git push` as soon as changes are ready. Don\'t wait for user to ask.\n\n' +
+  var template = '# Operator Directives\n\n' +
+    '> **DB access:** Read `docs/CREDENTIALS.md`. Use Supabase Management API (never psql).\n' +
+    '> **Push:** Always push immediately. Never bump version locally \u2014 CI handles it.\n' +
+    '> **After push:** Wait ~60s, `git pull --rebase origin main`, read `version.json`.\n' +
+    '> **Links:** Always include clickable URLs to affected pages after every push.\n' +
+    '> **SQL:** Run migrations directly via Management API \u2014 never ask user to run SQL manually.\n\n' +
     '## Live URLs\n\n' +
-    '- Public view: https://USERNAME.github.io/REPO/\n' +
-    '- Admin view: https://USERNAME.github.io/REPO/admin/\n\n' +
-    '## Supabase Credentials\n\n' +
-    '- Project ID: `YOUR_PROJECT_REF`\n' +
-    '- URL: `https://YOUR_PROJECT_REF.supabase.co`\n\n' +
-    '### Direct Database Access\n\n' +
-    '```bash\n' +
-    'psql "postgres://postgres.YOUR_REF:YOUR_PASSWORD@aws-0-REGION.pooler.supabase.com:5432/postgres" -c "SQL HERE"\n' +
-    '```\n\n' +
-    '- URL-encode special chars in password: `!` \u2192 `%21`, `@` \u2192 `%40`\n' +
-    '- Use session pooler (IPv4 compatible)\n' +
-    '- Always use this for database migrations\n\n' +
-    '### Supabase CLI Access\n\n' +
-    '```bash\n' +
-    'supabase functions deploy <function-name>\n' +
-    'supabase functions logs <function-name>\n' +
-    'supabase secrets set KEY=value\n' +
-    '```\n\n' +
-    'Run these directly - don\'t ask the user to run them manually.\n\n' +
-    '## Authentication\n\n' +
-    '- Google Client ID: `your-client-id.apps.googleusercontent.com`\n' +
-    '- Redirect URI: `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback`\n\n' +
-    '## External Service Credentials\n\n' +
-    '### Resend (Email)\n' +
-    '- API key: stored as Supabase secret `RESEND_API_KEY`\n\n' +
-    '### Telnyx (SMS)\n' +
-    '- Phone Number: YOUR_PHONE_NUMBER\n' +
-    '- Messaging Profile ID: YOUR_PROFILE_ID\n' +
-    '- Webhook URL: `https://YOUR_PROJECT_REF.supabase.co/functions/v1/telnyx-webhook`\n\n' +
-    '### Square (Payments)\n' +
-    '- Application ID: YOUR_APP_ID\n' +
-    '- Location ID: YOUR_LOCATION_ID\n\n' +
-    '### Stripe (Payments)\n' +
-    '- Publishable key (test): `pk_test_...`\n' +
-    '- Secret key (test): `sk_test_...`\n' +
-    '- Webhook secret: `whsec_...`\n' +
-    '- Webhook URL: `https://YOUR_PROJECT_REF.supabase.co/functions/v1/stripe-webhook`\n\n' +
-    '### SignWell (E-Signatures)\n' +
-    '- Account: YOUR_EMAIL\n' +
-    '- Webhook URL: `https://YOUR_PROJECT_REF.supabase.co/functions/v1/signwell-webhook`\n';
+    '- https://USERNAME.github.io/REPO/ (GitHub Pages)\n';
 
   downloadFile(template, 'CLAUDE.local.md');
 }
