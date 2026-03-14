@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlpacApps Infra &mdash; Open-Source Property Management Infrastructure Guide</title>
+  <title>AlpacApps Infra — Full Setup & Service Guide</title>
+  <meta name="description" content="Complete infrastructure guide for AlpacApps. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more — all for $20–$200/month.">
+  <meta property="og:title" content="AlpacApps Infra — Full Setup & Service Guide">
+  <meta property="og:description" content="Complete infrastructure guide for AlpacApps. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more.">
+  <meta property="og:image" content="https://alpacaplayhouse.com/infra/og-infra.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:url" content="https://alpacaplayhouse.com/docs/alpacappsinfra.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AlpacApps">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AlpacApps Infra — Full Setup & Service Guide">
+  <meta name="twitter:description" content="Complete infrastructure guide for AlpacApps. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more.">
+  <meta name="twitter:image" content="https://alpacaplayhouse.com/infra/og-infra.jpg">
+  <meta name="twitter:image:alt" content="AlpacApps Infra — AI-powered platform setup guide">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/styles/site.css">
   <link rel="stylesheet" href="/styles/tailwind.out.css">
@@ -38,51 +54,64 @@
     }
 
     .hero {
-      background: var(--text);
-      color: #ffffff;
-      padding: 3.5rem 2rem;
-    }
-    .hero-inner {
-      max-width: 1000px;
+      max-width: 860px;
       margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 3rem;
+      padding: 0 1.5rem;
+      padding-top: 2.5rem;
+    }
+    .hero-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(26,26,26,0.08), 0 1px 3px rgba(26,26,26,0.06);
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), rgba(201,168,124,0.3));
+      border-radius: 16px 16px 0 0;
     }
     .hero-image {
-      flex-shrink: 0;
-      width: 308px;
+      display: block;
+      width: 100%;
       height: auto;
-      border-radius: 14px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(201,168,124,0.2);
+      border-radius: 16px 16px 0 0;
     }
     .hero-text {
-      flex: 1;
+      padding: 2rem 2.5rem 2.5rem;
     }
     .hero h1 {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       font-weight: 400;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
       line-height: 1.2;
+      color: var(--text);
     }
     .hero h1 span { color: var(--accent); }
     .hero p {
-      font-size: 1.1rem;
-      color: #b0b0b0;
+      font-size: 1.05rem;
+      color: var(--text-muted);
       max-width: 620px;
       line-height: 1.7;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
     .hero .badge {
       display: inline-block;
-      background: rgba(201,168,124,0.15);
+      background: var(--accent-light);
       color: var(--accent);
-      padding: 0.5rem 1.5rem;
+      padding: 0.45rem 1.25rem;
       border-radius: 999px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       letter-spacing: 0.02em;
+      border: 1px solid rgba(201,168,124,0.2);
     }
 
     .container {
@@ -157,13 +186,57 @@
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
     }
+    details.section {
+      padding: 0;
+    }
+    details.section > summary {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 1.5rem 2.5rem;
+      list-style: none;
+      user-select: none;
+      transition: background 0.15s;
+      border-radius: 8px;
+    }
+    details.section > summary::-webkit-details-marker { display: none; }
+    details.section > summary::after {
+      content: '';
+      flex-shrink: 0;
+      width: 10px;
+      height: 10px;
+      margin-left: auto;
+      border-right: 2px solid var(--text-muted);
+      border-bottom: 2px solid var(--text-muted);
+      transform: rotate(-45deg);
+      transition: transform 0.2s;
+    }
+    details.section[open] > summary::after {
+      transform: rotate(45deg);
+    }
+    details.section > summary:hover {
+      background: var(--bg-warm);
+    }
+    details.section[open] > summary {
+      border-bottom: 1px solid var(--border);
+      border-radius: 8px 8px 0 0;
+    }
+    details.section > .section-body {
+      padding: 1.5rem 2.5rem 2.5rem;
+    }
+    details.section > summary h2 .service-icon {
+      display: inline-block;
+    }
     .section h2 {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
       font-size: 1.6rem;
       font-weight: 400;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0;
       color: var(--text);
       line-height: 1.3;
+    }
+    .section:not(details) h2 {
+      margin-bottom: 0.75rem;
     }
     .section h2 .cost-badge { margin-left: 0.75rem; vertical-align: middle; }
     .section h2 .service-icon {
@@ -381,11 +454,14 @@
     .conversation .ai { font-style: italic; color: var(--text-muted); }
 
     @media (max-width: 640px) {
-      .hero-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
-      .hero-image { width: 200px; height: auto; }
-      .hero h1 { font-size: 2rem; }
+      .hero { padding-top: 1.5rem; }
+      .hero-text { padding: 1.5rem 1.75rem 1.75rem; text-align: center; }
+      .hero h1 { font-size: 1.8rem; }
       .hero p { font-size: 0.95rem; }
       .section { padding: 1.5rem; }
+      details.section { padding: 0; }
+      details.section > summary { padding: 1rem 1.5rem; }
+      details.section > .section-body { padding: 1rem 1.5rem 1.5rem; }
       .toc-grid { grid-template-columns: 1fr; }
       table { font-size: 0.8rem; }
       td, thead th { padding: 0.5rem 0.6rem; }
@@ -884,24 +960,35 @@
     @media print {
       body { background: white; }
       .aap-header, .aap-mobile-nav { display: none; }
-      .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .hero, .hero-card { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
       .section { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
     }
   </style>
 </head>
 <body>
 
-<span data-site-version style="display:none;">v260308.01 10:40pm</span>
+<span data-site-version style="display:none;">v260312.23 9:23p</span>
 <div id="siteHeader"></div>
 
-<div class="hero" style="padding-top: calc(80px + 3.5rem);">
-  <div class="hero-inner">
+<!-- Claude Chat guided setup banner -->
+<div style="background: var(--claude-bg); border-bottom: 2px solid var(--claude-border); padding: 1rem 2rem; text-align: center; margin-top: 80px;">
+  <div style="max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+    <span style="font-size: 1.1rem; font-weight: 600; color: var(--claude-border);">New! Set up with Claude Chat</span>
+    <span style="color: var(--text-muted);">&mdash; your AI walks you through every step, adapted to your computer.</span>
+    <a href="/infra/" style="display: inline-flex; align-items: center; gap: 0.4rem; background: var(--claude-border); color: #fff; padding: 0.45rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: opacity 0.2s;">Go to setup &rarr;</a>
+  </div>
+</div>
+
+<!-- ⚠️ HERO BANNER — Intentionally designed as full-width banner card.
+     Do NOT replace with old dark/full-bleed hero. See docs/CHANGELOG.md. -->
+<div class="hero" style="padding-top: calc(80px + 1rem);">
+  <div class="hero-card">
+    <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/ai-gen/alpaca-wide-ai-banner.png" alt="AlpacApps — AI-powered platform with alpacas" class="hero-image" width="1509" height="475">
     <div class="hero-text">
       <h1><span>AlpacApps</span> Infra</h1>
-      <p><strong>AlpacApps is an open-source property management platform.</strong> Set up a super low cost do-it-all system from scratch &mdash; messaging, marketing, tenant management, and finance. You just need to set up the required (mostly free) accounts, then tell Claude Code what you have, where it is, and what you ideally want. Then watch the AI magic transpire.</p>
-      <span class="badge">Starting from: $0/month infrastructure &bull; ~$10/month for Claude Code (API + Sonnet)</span>
+      <p><strong>AlpacApps is an open-source AI-powered platform.</strong> Set up a super low cost do-it-all system from scratch &mdash; messaging, marketing, management, and finance. You just need to set up the required (mostly free) accounts, then tell Claude Code what you have, where it is, and what you ideally want. Then watch the AI magic transpire.</p>
+      <span class="badge">$20 &ndash; $200 / month</span>
     </div>
-    <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/infra/alpacaservers2.jpg" alt="Alpacas in a server room" class="hero-image">
   </div>
 </div>
 
@@ -910,6 +997,112 @@
   <div class="philosophy">
     <strong>The philosophy:</strong> You set up the (mostly free) vendor accounts and gather credentials. Then tell Claude Code what you have and what you want &mdash; it handles all the terminal work: database migrations, CLI setup, edge function deployment, git pushes.
   </div>
+
+  <!-- Profile Picker -->
+  <p style="font-weight: 600; font-size: 1.05rem; margin-bottom: 0.75rem; text-align: center;">What are you building?</p>
+  <div id="profile-picker" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;">
+    <button onclick="selectProfile('property')" id="profile-property" class="profile-card" style="background: var(--bg); border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); cursor: pointer; text-align: left; font-family: inherit; transition: border-color 0.2s, box-shadow 0.2s;">
+      <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent);">Property Management</div>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Full stack &mdash; spaces, tenants, devices, events, smart home, bookings. Everything you need to run a rental property or co-living space.</p>
+    </button>
+    <button onclick="selectProfile('personal')" id="profile-personal" class="profile-card" style="background: var(--bg); border: 2px solid var(--border); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); cursor: pointer; text-align: left; font-family: inherit; transition: border-color 0.2s, box-shadow 0.2s;">
+      <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent);">Personal / Business</div>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">SaaS apps, portfolios, CRMs, booking systems, personal tools &mdash; clean framework without property modules.</p>
+    </button>
+  </div>
+  <p style="font-size: 0.88rem; color: var(--text-muted); text-align: center; margin: 0 0 1rem 0;">Both profiles use the same template repo. The setup wizard tailors the project for you.</p>
+
+  <!-- Service picker (shown after Personal/Business is selected) -->
+  <div id="service-picker" style="display: none; background: var(--bg); border: 2px solid var(--accent); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 2.5rem; box-shadow: var(--shadow);">
+    <p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 0.25rem;">Which services do you want to set up now?</p>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">GitHub Pages, Supabase, and Claude Code are always included. Pick what else you need &mdash; you can add more later.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+
+      <!-- Recommended -->
+      <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--success); margin: 0.25rem 0 0.15rem;">Recommended</div>
+      <label class="svc-pick svc-pick--recommended" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 1rem; border: 2px solid var(--success); border-radius: 8px; background: var(--success-light); cursor: pointer;">
+        <input type="checkbox" checked data-pick="resend" onchange="updatePickedServices()" style="width: 18px; height: 18px; accent-color: var(--success);">
+        <span style="flex: 1;">
+          <span style="font-weight: 600;">Resend</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);"> &mdash; Transactional email (3,000/mo free)</span>
+        </span>
+        <span class="cost-badge cost-free" style="font-size: 0.75rem;">Free</span>
+      </label>
+
+      <!-- Nice to have -->
+      <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin: 0.75rem 0 0.15rem;">Nice to have</div>
+      <label class="svc-pick" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg-warm); cursor: pointer;">
+        <input type="checkbox" data-pick="google-auth" onchange="updatePickedServices()" style="width: 18px; height: 18px; accent-color: var(--accent);">
+        <span style="flex: 1;">
+          <span style="font-weight: 600;">Google Sign-In</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);"> &mdash; OAuth user login</span>
+        </span>
+        <span class="cost-badge cost-free" style="font-size: 0.75rem;">Free</span>
+      </label>
+      <label class="svc-pick" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; background: var(--bg-warm); cursor: pointer;">
+        <input type="checkbox" data-pick="gemini" onchange="updatePickedServices()" style="width: 18px; height: 18px; accent-color: var(--accent);">
+        <span style="flex: 1;">
+          <span style="font-weight: 600;">Google Gemini</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);"> &mdash; AI-powered features</span>
+        </span>
+        <span class="cost-badge cost-free" style="font-size: 0.75rem;">Free</span>
+      </label>
+
+      <!-- Add later -->
+      <details style="margin-top: 0.5rem;">
+        <summary style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); cursor: pointer; padding: 0.25rem 0;">Show more services (add anytime later)</summary>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+          <label class="svc-pick" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+            <input type="checkbox" data-pick="telnyx" onchange="updatePickedServices()" style="width: 16px; height: 16px;">
+            <span style="flex: 1; font-size: 0.9rem;"><strong>Telnyx</strong> &mdash; SMS notifications</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">~$0.004/SMS</span>
+          </label>
+          <label class="svc-pick" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+            <input type="checkbox" data-pick="square" onchange="updatePickedServices()" style="width: 16px; height: 16px;">
+            <span style="flex: 1; font-size: 0.9rem;"><strong>Square</strong> &mdash; Payment processing</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">2.9% + 30&cent;</span>
+          </label>
+          <label class="svc-pick" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+            <input type="checkbox" data-pick="stripe" onchange="updatePickedServices()" style="width: 16px; height: 16px;">
+            <span style="flex: 1; font-size: 0.9rem;"><strong>Stripe</strong> &mdash; ACH &amp; card payments</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">0.8%&ndash;2.9%</span>
+          </label>
+          <label class="svc-pick" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+            <input type="checkbox" data-pick="signwell" onchange="updatePickedServices()" style="width: 16px; height: 16px;">
+            <span style="flex: 1; font-size: 0.9rem;"><strong>SignWell</strong> &mdash; E-signatures</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Free</span>
+          </label>
+          <label class="svc-pick" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;">
+            <input type="checkbox" data-pick="cloudflare-r2" onchange="updatePickedServices()" style="width: 16px; height: 16px;">
+            <span style="flex: 1; font-size: 0.9rem;"><strong>Cloudflare R2</strong> &mdash; Object storage (10 GB free)</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Free</span>
+          </label>
+        </div>
+      </details>
+    </div>
+
+    <!-- Picked summary + scroll cue -->
+    <div id="picked-summary" style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.9rem;">
+      <strong>Your setup path:</strong> <span id="picked-list">GitHub Pages &rarr; Claude Code &rarr; Supabase &rarr; Resend</span>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0.35rem 0 0;">Follow the steps below in order. Only the sections you picked will be highlighted.</p>
+    </div>
+  </div>
+
+  <!-- Property profile message -->
+  <div id="property-message" style="display: none; background: var(--bg); border: 2px solid var(--accent); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 2.5rem; box-shadow: var(--shadow);">
+    <p style="font-weight: 600; margin-bottom: 0.5rem;">Property Management includes everything.</p>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">The setup wizard will configure all services for a full property management stack &mdash; spaces, tenants, bookings, smart home, payments, email, SMS, and more. Follow all the steps below in order.</p>
+  </div>
+
+  <style>
+    .profile-card:hover { border-color: var(--accent) !important; box-shadow: 0 2px 8px rgba(201,168,124,0.2) !important; }
+    .profile-card.active { border-color: var(--accent) !important; box-shadow: 0 0 0 3px rgba(201,168,124,0.2) !important; }
+    .svc-pick:hover { background: var(--accent-light) !important; }
+    @media (max-width: 640px) {
+      #profile-picker { grid-template-columns: 1fr !important; }
+    }
+  </style>
 
   <div class="capabilities">
     <h2>What can you build with this?</h2>
@@ -970,15 +1163,15 @@
     <div class="toc-grid">
       <a href="#architecture"><span class="num" style="background:var(--bg-warm);color:var(--text-muted);">&mdash;</span> Architecture &amp; Cost Calculator</a>
       <a href="#github"><span class="num">1</span> GitHub + Starter Template</a>
-      <a href="#claude-code"><span class="num">2</span> Install Claude Code</a>
+      <a href="#claude-code"><span class="num">2</span> Install Claude Code &mdash; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">Free week here</a></a>
       <a href="#supabase"><span class="num">3</span> Supabase</a>
       <a href="#google-auth"><span class="num">4</span> Google Sign-In</a>
-      <a href="#resend"><span class="num">5</span> Resend (Email)</a>
-      <a href="#telnyx"><span class="num">6</span> Telnyx (SMS)</a>
-      <a href="#square"><span class="num">7</span> Square (Payments)</a>
-      <a href="#stripe"><span class="num">8</span> Stripe (Payments)</a>
-      <a href="#signwell"><span class="num">9</span> SignWell (E-Signatures)</a>
-      <a href="#gemini"><span class="num">10</span> Google Gemini (AI)</a>
+      <a href="#gemini"><span class="num">5</span> Google Gemini (AI)</a>
+      <a href="#resend"><span class="num">6</span> Resend (Email)</a>
+      <a href="#telnyx"><span class="num">7</span> Telnyx (SMS)</a>
+      <a href="#square"><span class="num">8</span> Square (Payments)</a>
+      <a href="#stripe"><span class="num">9</span> Stripe (Payments)</a>
+      <a href="#signwell"><span class="num">10</span> SignWell (E-Signatures)</a>
       <a href="#workers"><span class="num">11</span> Background Workers</a>
       <a href="#domain"><span class="num">12</span> Custom Domain</a>
       <a href="#template"><span class="num">13</span> Context System</a>
@@ -1040,6 +1233,15 @@ Optional: Background Workers (cloud VM) &mdash;&rsaquo;    Cloudflare R2 (media 
         <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
       </label>
       <label class="calc-svc">
+        <input type="checkbox" data-svc="gemini" onchange="recalcCost()">
+        <span class="calc-svc__check">&check;</span>
+        <span class="calc-svc__info">
+          <span class="calc-svc__name">Google Gemini</span>
+          <span class="calc-svc__desc">AI-powered features</span>
+        </span>
+        <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
+      </label>
+      <label class="calc-svc">
         <input type="checkbox" data-svc="resend" onchange="recalcCost()">
         <span class="calc-svc__check">&check;</span>
         <span class="calc-svc__info">
@@ -1081,15 +1283,6 @@ Optional: Background Workers (cloud VM) &mdash;&rsaquo;    Cloudflare R2 (media 
         <span class="calc-svc__info">
           <span class="calc-svc__name">SignWell</span>
           <span class="calc-svc__desc">E-signatures (3&ndash;25 docs/mo free)</span>
-        </span>
-        <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
-      </label>
-      <label class="calc-svc">
-        <input type="checkbox" data-svc="gemini" onchange="recalcCost()">
-        <span class="calc-svc__check">&check;</span>
-        <span class="calc-svc__info">
-          <span class="calc-svc__name">Google Gemini</span>
-          <span class="calc-svc__desc">AI-powered features</span>
         </span>
         <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
       </label>
@@ -1183,8 +1376,9 @@ Optional: Background Workers (cloud VM) &mdash;&rsaquo;    Cloudflare R2 (media 
   </div>
 
   <!-- 1. GitHub + Starter Template -->
-  <div class="section" id="github">
-    <h2><img src="https://cdn.simpleicons.org/github" alt="GitHub" class="service-icon">1. GitHub + Starter Template <span class="cost-badge cost-free">Free</span></h2>
+  <details class="section" id="github">
+      <summary><h2><img src="https://cdn.simpleicons.org/github" alt="GitHub" class="service-icon">1. GitHub + Starter Template <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
     <p>First, get a GitHub account and create your project from the starter template. Everything here is done in your browser &mdash; no terminal needed.</p>
 
     <h3><span class="step-label step-you">Create a GitHub account</span></h3>
@@ -1293,11 +1487,17 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
 └── supabase/               # Edge functions (deployed via CLI)
     └── functions/</code></pre>
   </div>
+  </details>
 
   <!-- 2. Claude Code -->
-  <div class="section" id="claude-code">
-    <h2><img src="https://cdn.simpleicons.org/claude" alt="Claude" class="service-icon">2. Install Claude Code</h2>
+  <details class="section" id="claude-code">
+      <summary><h2><img src="https://cdn.simpleicons.org/claude" alt="Claude" class="service-icon">2. Install Claude Code &mdash; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">Get a free week</a></h2></summary>
+    <div class="section-body">
     <p>Claude Code is your AI developer. Once it's set up, you won't need to use the terminal again &mdash; but if Claude asks you to do something in the terminal or bash something, just ask it to do it by itself. Claude can handle everything from here, but sometimes forgets.</p>
+
+    <div class="callout" style="border-color: var(--accent); background: var(--accent-light);">
+      <strong><a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent);">Click here for a free week of Claude Pro</a></strong> &mdash; no credit card required to start. This referral link gives you a full week of Pro-level usage to get your project set up.
+    </div>
 
     <div class="callout">
       <strong>Recommended: Claude Pro ($20/month) or higher</strong>
@@ -1306,7 +1506,7 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
 
     <h3><span class="step-label step-you">You do (one time)</span></h3>
     <ol>
-      <li>Sign up for <a href="https://claude.ai" target="_blank">Claude Pro</a> ($20/month recommended)</li>
+      <li>Sign up for <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Claude Pro</a> ($20/month recommended &mdash; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">free week here</a>)</li>
       <li>Download the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> &mdash; Claude Code is built in</li>
       <li>Open the app and click the <strong>Code</strong> tab in the top right to open Claude Code</li>
       <li>Point it at the project folder you cloned in Step 1</li>
@@ -1324,7 +1524,15 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
     <h3>Run the setup wizard</h3>
     <p>Once Claude Code is open in your project folder, type:</p>
     <pre data-lang="claude code"><code>/setup-alpacapps-infra</code></pre>
-    <p>Claude will ask you what you're building, which services you need, then walk you through the entire setup &mdash; creating your database, deploying edge functions, configuring webhooks, and building your on-demand context system (<code>CLAUDE.md</code> directives + <code>docs/*.md</code> reference files). You don't need to read the rest of this guide unless you want to understand what's happening under the hood.</p>
+
+    <div style="background: rgba(217,119,6,0.06); border: 2px solid rgba(217,119,6,0.3); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1rem 0;">
+      <p style="font-weight: 600; font-size: 1rem; color: var(--accent); margin-bottom: 0.5rem;">The wizard configures your project based on the profile you picked above.</p>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">It prunes unused modules, configures <code>.claudeignore</code>, creates your database tables, and pushes everything. If you picked <strong>Personal / Business</strong>, only the services you selected will be set up.</p>
+    </div>
+
+    <div class="callout warning" style="font-size: 0.85rem; border-color: #EF4444;">
+      <strong>Don&rsquo;t skip this step.</strong> If you don&rsquo;t run the setup wizard, your project will have all the property management modules cluttering your codebase even if you don&rsquo;t need them. You don&rsquo;t need to read the rest of this guide unless you want to understand what&rsquo;s happening under the hood.
+    </div>
 
     <div class="callout warning" style="font-size: 0.85rem;">
       <strong>Slash command not working?</strong>
@@ -1346,10 +1554,12 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
       <div class="ai">installs Supabase CLI, links project, updates docs/CREDENTIALS.md + docs/SCHEMA.md, creates tables with RLS, creates storage buckets, commits and pushes</div>
     </div>
   </div>
+  </details>
 
   <!-- 3. Supabase -->
-  <div class="section" id="supabase">
-    <h2><img src="https://cdn.simpleicons.org/supabase" alt="Supabase" class="service-icon">3. Supabase <span class="cost-badge cost-free">Free</span></h2>
+  <details class="section" id="supabase">
+      <summary><h2><img src="https://cdn.simpleicons.org/supabase" alt="Supabase" class="service-icon">3. Supabase <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
     <p>Database, storage, auth, and serverless edge functions &mdash; all in one.</p>
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
@@ -1361,64 +1571,59 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
       <li>Choose a <strong>region</strong> close to your users, click <strong>Create new project</strong>, and wait 1-2 minutes</li>
     </ol>
 
-    <div class="callout" style="border-color: var(--accent); background: var(--accent-light);">
-      <strong>Where to find your project ref:</strong> After your project is created, look at the URL in your browser&rsquo;s address bar. It will look like:<br>
-      <code style="display:inline-block; margin: 0.5rem 0; font-size:0.9rem;">https://supabase.com/dashboard/project/<strong style="color:var(--accent);">abcdefghijk</strong>/...</code><br>
-      The highlighted part (a random string of letters and numbers) is your <strong>project ref</strong>. You can also find it on your project&rsquo;s home page under <strong>Project Settings</strong> &rarr; <strong>General</strong>.
+    <h3><span class="step-label step-paste">Tell Claude Code your two credentials</span></h3>
+    <p>These are the only two things Claude can&rsquo;t get on its own. Enter them here and hit <strong>Copy</strong> &mdash; Claude Code will log into Supabase, link your project, and fetch everything else (API keys, URLs, connection strings) automatically.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 1rem; margin: 1.25rem 0;">
+
+      <!-- 1. Project ref -->
+      <div style="background: var(--accent-light); border: 1px solid var(--accent); border-radius: 8px; padding: 1rem 1.25rem;">
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <label for="supabase-ref" style="font-weight: 600; white-space: nowrap; min-width: 160px;">① Project ref</label>
+          <input type="text" id="supabase-ref" placeholder="e.g. abcdefghijk or paste a Supabase URL" style="font-family: inherit; font-size: 0.95rem; padding: 0.55rem 0.85rem; border: 2px solid var(--border); border-radius: 6px; flex: 1; min-width: 220px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" oninput="updateSupabaseLinks(); buildSupabaseBlock()">
+        </div>
+        <p style="margin: 0.4rem 0 0 0; font-size: 0.82rem; color: var(--text-muted);">Look at your browser&rsquo;s address bar: <code>supabase.com/dashboard/project/<strong style="color:var(--accent);">abcdefghijk</strong>/...</code> &mdash; the highlighted part is the ref. Or go to <strong>Project Settings</strong> &rarr; <strong>General</strong>.</p>
+      </div>
+
+      <!-- 2. Database password -->
+      <div style="background: var(--bg-warm); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem;">
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <label for="supabase-dbpass" style="font-weight: 600; white-space: nowrap; min-width: 160px;">② Database password</label>
+          <input type="text" id="supabase-dbpass" placeholder="the password you set in step 4" style="font-family: monospace; font-size: 0.85rem; padding: 0.55rem 0.85rem; border: 2px solid var(--border); border-radius: 6px; flex: 1; min-width: 220px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" oninput="buildSupabaseBlock()">
+        </div>
+        <p style="margin: 0.4rem 0 0 0; font-size: 0.82rem; color: var(--text-muted);">The password you chose when creating the project. If you forgot it, reset it in <a id="supabase-db-link" href="https://supabase.com/dashboard/project/_/settings/database" target="_blank">Database settings</a>.</p>
+      </div>
+
     </div>
 
-    <p>Paste your project ref here &mdash; the links below will update so you can click straight to the right pages:</p>
+    <h3><span class="step-label step-claude">Copy this into Claude Code</span></h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">This auto-fills as you type above. Click <strong>Copy</strong>, paste into Claude Code, and it handles the rest.</p>
+    <div style="position: relative;">
+      <pre id="supabase-cred-block" data-lang="paste into Claude Code" style="white-space: pre-wrap; word-break: break-all;"><code>Set up Supabase for my project.
 
-    <div style="display: flex; gap: 0.75rem; align-items: center; margin: 1rem 0 1.5rem 0; flex-wrap: wrap;">
-      <input type="text" id="supabase-ref" placeholder="e.g. abcdefghijk" style="font-family: inherit; font-size: 0.95rem; padding: 0.7rem 1rem; border: 2px solid var(--border); border-radius: 6px; width: 260px; outline: none; transition: border-color 0.2s; letter-spacing: 0.02em;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" oninput="updateSupabaseLinks()">
+My project ref is: ___
+My database password is: ___
+
+Log into the Supabase CLI (supabase login), link my project (supabase link --project-ref), then fetch the project URL and anon key from the API settings automatically. Install the CLI if it's not already installed. Create the core database tables for [describe your app here], enable RLS on all tables, create storage buckets for photos and documents, commit, and push.
+
+Don't ask me for permission at each step — just do the work end to end and show me the results when you're done.</code></pre>
+      <button onclick="copySupabaseBlock(this)" style="position: absolute; top: 0.5rem; right: 0.5rem; background: var(--accent); color: #fff; border: none; border-radius: 4px; padding: 0.35rem 0.75rem; font-size: 0.8rem; cursor: pointer; font-weight: 600;">Copy</button>
     </div>
 
-    <ol start="5">
-      <li>Go to <strong>API settings</strong>: <a id="supabase-api-link" href="https://supabase.com/dashboard/project/_/settings/api" target="_blank">supabase.com/dashboard/project/<strong id="supabase-api-ref">___</strong>/settings/api</a> and copy:
-        <ul>
-          <li><strong>Project URL</strong> (e.g., <code>https://abcdefghijk.supabase.co</code>)</li>
-          <li><strong>Anon public key</strong> (safe to embed in frontend &mdash; RLS protects your data)</li>
-          <li><strong>Project ref</strong> (the <code>abcdefghijk</code> part of the URL)</li>
-        </ul>
-      </li>
-      <li>Go to <strong>Database settings</strong>: <a id="supabase-db-link" href="https://supabase.com/dashboard/project/_/settings/database" target="_blank">supabase.com/dashboard/project/<strong id="supabase-db-ref">___</strong>/settings/database</a> &rarr; <strong>Connection string</strong> &rarr; <strong>Session pooler</strong> tab and copy it</li>
-    </ol>
-
-    <h3><span class="step-label step-paste">Give Claude these credentials</span></h3>
-    <pre data-lang="markdown"><code>## Supabase Details
-- Project ID: `<span class="supa-ref">YOUR_PROJECT_REF</span>`
-- URL: `https://<span class="supa-ref">YOUR_PROJECT_REF</span>.supabase.co`
-- Anon key: `your-anon-key-here`
-- Database password: `your-db-password`
-
-### Direct Database Access (for Claude)
-Session pooler connection string (paste yours from Database settings):
-psql "postgres://postgres.<span class="supa-ref">YOUR_PROJECT_REF</span>:YOUR_URL_ENCODED_PASSWORD@aws-0-REGION.pooler.supabase.com:5432/postgres" -c "SQL HERE"
-
-URL-encode special characters in password (! = %21, @ = %40).
-
-### Supabase CLI Access (for Claude)
-If CLI not installed: npm install -g supabase &amp;&amp; supabase login &amp;&amp; supabase link --project-ref <span class="supa-ref">YOUR_PROJECT_REF</span>
-supabase functions deploy &lt;function-name&gt;
-supabase secrets set KEY=value
-
-For Claude: Run these directly. Don't ask the user.</code></pre>
-
-    <h3><span class="step-label step-claude">Then tell Claude</span></h3>
-    <div class="callout claude" style="position: relative;">
-      <strong>"Set up my Supabase project. Install the CLI, link it, create the core database tables for [your domain], enable RLS on all tables, and create storage buckets for photos and documents."</strong>
-      <button onclick="copyPrompt(this)" class="copy-prompt">Copy</button>
-      <span class="claude-detail">Claude will install the CLI, login, link, create <code>shared/supabase.js</code>, run SQL for tables + RLS + storage policies, commit, and push.</span>
+    <div class="callout" style="border-color: var(--text-muted); background: var(--bg-warm); margin-top: 1rem;">
+      <strong>What happens next:</strong> Claude Code will open your browser to log into Supabase, link to your project, then automatically retrieve your API keys, project URL, and connection string. It&rsquo;ll save everything to <code>docs/CREDENTIALS.md</code>, create your database tables, and push the code. You don&rsquo;t need to copy anything else from Supabase.
     </div>
   </div>
+  </details>
 
   <!-- 4. Google Auth -->
-  <div class="section" id="google-auth">
-    <h2><img src="https://cdn.simpleicons.org/google" alt="Google" class="service-icon">4. Google Sign-In (Optional) <span class="cost-badge cost-free">Free</span></h2>
+  <details class="section" id="google-auth">
+      <summary><h2><img src="https://cdn.simpleicons.org/google" alt="Google" class="service-icon">4. Google Sign-In (Optional) <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
     <p>If your app needs user login (admin dashboard, customer accounts, etc.), the easiest option is &ldquo;Sign in with Google.&rdquo; Supabase has built-in support &mdash; you just need to create a Google Cloud project and get OAuth credentials.</p>
 
     <div class="callout" style="border-color: var(--accent); background: var(--accent-light);">
-      <strong>Same Google Cloud project:</strong> This step and <a href="#gemini">Step 10 (Google Gemini)</a> both use Google Cloud. Create <strong>one project</strong> and use it for both &mdash; no need to set up two.
+      <strong>Same Google Cloud project:</strong> This step and <a href="#gemini">Step 5 (Google Gemini)</a> both use Google Cloud. Create <strong>one project</strong> and use it for both &mdash; no need to set up two.
     </div>
 
     <h3><span class="step-label step-you">1. Create a Google Cloud project</span></h3>
@@ -1481,10 +1686,40 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <span class="claude-detail">Claude will create <code>shared/auth.js</code>, add login/logout UI, set up auth guards on admin pages, commit, and push.</span>
     </div>
   </div>
+  </details>
 
-  <!-- 5. Resend -->
-  <div class="section" id="resend">
-    <h2><img src="https://cdn.simpleicons.org/resend" alt="Resend" class="service-icon">5. Resend (Email) <span class="cost-badge cost-free">Free</span></h2>
+  <!-- 5. Gemini -->
+  <details class="section" id="gemini">
+      <summary><h2><img src="https://cdn.simpleicons.org/googlegemini" alt="Google Gemini" class="service-icon">5. Google Gemini (AI) <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
+    <p>Optional. Useful for fuzzy matching (e.g., matching bank transaction sender names to tenants).</p>
+
+    <div class="callout" style="border-color: var(--accent); background: var(--accent-light);">
+      <strong>Already set up Google Sign-In?</strong> You already have a Google Cloud project from <a href="#google-auth">Step 4</a>. Use the same project &mdash; just grab a Gemini API key below.
+    </div>
+
+    <h3><span class="step-label step-you">You do (in your browser)</span></h3>
+    <ol>
+      <li>Get a free API key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a></li>
+    </ol>
+
+    <h3><span class="step-label step-paste">Give Claude these credentials</span></h3>
+    <pre data-lang="markdown"><code>### AI Matching (Google Gemini)
+- API key: `your-gemini-key` (store as Supabase secret: GEMINI_API_KEY)</code></pre>
+
+    <h3><span class="step-label step-claude">Then tell Claude</span></h3>
+    <div class="callout claude" style="position: relative;">
+      <strong>"Store my Gemini API key as a Supabase secret."</strong>
+      <button onclick="copyPrompt(this)" class="copy-prompt">Copy</button>
+      <span class="claude-detail">Claude will run: <code>supabase secrets set GEMINI_API_KEY=your_key_here</code></span>
+    </div>
+  </div>
+  </details>
+
+  <!-- 6. Resend -->
+  <details class="section" id="resend">
+      <summary><h2><img src="https://cdn.simpleicons.org/resend" alt="Resend" class="service-icon">6. Resend (Email) <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
     <ol>
@@ -1505,10 +1740,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <span class="claude-detail">Claude will run <code>supabase secrets set</code>, create the edge function, deploy it, commit, and push.</span>
     </div>
   </div>
+  </details>
 
-  <!-- 6. Telnyx -->
-  <div class="section" id="telnyx">
-    <h2><img src="https://www.google.com/s2/favicons?sz=64&amp;domain=telnyx.com" alt="Telnyx" class="service-icon">6. Telnyx (SMS) <span class="cost-badge cost-payg">Pay-as-you-go</span></h2>
+  <!-- 7. Telnyx -->
+  <details class="section" id="telnyx">
+      <summary><h2><img src="https://www.google.com/s2/favicons?sz=64&amp;domain=telnyx.com" alt="Telnyx" class="service-icon">7. Telnyx (SMS) <span class="cost-badge cost-payg">Pay-as-you-go</span></h2></summary>
+    <div class="section-body">
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
     <ol>
@@ -1546,10 +1783,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <span class="claude-detail">Claude will create tables, insert config, write both edge functions, deploy, create <code>shared/sms-service.js</code>, commit, and push.</span>
     </div>
   </div>
+  </details>
 
-  <!-- 7. Square -->
-  <div class="section" id="square">
-    <h2><img src="https://cdn.simpleicons.org/square" alt="Square" class="service-icon">7. Square (Payments) <span class="cost-badge cost-payg">Pay-as-you-go</span></h2>
+  <!-- 8. Square -->
+  <details class="section" id="square">
+      <summary><h2><img src="https://cdn.simpleicons.org/square" alt="Square" class="service-icon">8. Square (Payments) <span class="cost-badge cost-payg">Pay-as-you-go</span></h2></summary>
+    <div class="section-body">
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
     <ol>
@@ -1582,10 +1821,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <span class="claude-detail">Claude will create tables, insert config, write the edge function + client module, deploy, commit, and push.</span>
     </div>
   </div>
+  </details>
 
-  <!-- 8. Stripe -->
-  <div class="section" id="stripe">
-    <h2><img src="https://cdn.simpleicons.org/stripe" alt="Stripe" class="service-icon">8. Stripe (Payments) <span class="cost-badge cost-payg">Pay-as-you-go</span></h2>
+  <!-- 9. Stripe -->
+  <details class="section" id="stripe">
+      <summary><h2><img src="https://cdn.simpleicons.org/stripe" alt="Stripe" class="service-icon">9. Stripe (Payments) <span class="cost-badge cost-payg">Pay-as-you-go</span></h2></summary>
+    <div class="section-body">
     <p>Stripe handles ACH bank transfers (0.8% capped at $5), card payments (2.9% + 30&cent;), and outbound payouts to associates via Stripe Connect ($0.25/payout).</p>
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
@@ -1624,10 +1865,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <span class="claude-detail">Claude will create tables, insert config, write and deploy both edge functions, create the client module, commit, and push.</span>
     </div>
   </div>
+  </details>
 
-  <!-- 9. SignWell -->
-  <div class="section" id="signwell">
-    <h2><img src="https://www.google.com/s2/favicons?sz=64&amp;domain=signwell.com" alt="SignWell" class="service-icon">9. SignWell (E-Signatures) <span class="cost-badge cost-free">Free</span></h2>
+  <!-- 10. SignWell -->
+  <details class="section" id="signwell">
+      <summary><h2><img src="https://www.google.com/s2/favicons?sz=64&amp;domain=signwell.com" alt="SignWell" class="service-icon">10. SignWell (E-Signatures) <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
     <ol>
@@ -1654,36 +1897,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <span class="claude-detail">Claude will create the table, insert config, write and deploy the webhook, create client modules, commit, and push.</span>
     </div>
   </div>
-
-  <!-- 10. Gemini -->
-  <div class="section" id="gemini">
-    <h2><img src="https://cdn.simpleicons.org/googlegemini" alt="Google Gemini" class="service-icon">10. Google Gemini (AI Matching) <span class="cost-badge cost-free">Free</span></h2>
-    <p>Optional. Useful for fuzzy matching (e.g., matching bank transaction sender names to tenants).</p>
-
-    <div class="callout" style="border-color: var(--accent); background: var(--accent-light);">
-      <strong>Already set up Google Sign-In?</strong> You already have a Google Cloud project from <a href="#google-auth">Step 4</a>. Use the same project &mdash; just grab a Gemini API key below.
-    </div>
-
-    <h3><span class="step-label step-you">You do (in your browser)</span></h3>
-    <ol>
-      <li>Get a free API key at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a></li>
-    </ol>
-
-    <h3><span class="step-label step-paste">Give Claude these credentials</span></h3>
-    <pre data-lang="markdown"><code>### AI Matching (Google Gemini)
-- API key: `your-gemini-key` (store as Supabase secret: GEMINI_API_KEY)</code></pre>
-
-    <h3><span class="step-label step-claude">Then tell Claude</span></h3>
-    <div class="callout claude" style="position: relative;">
-      <strong>"Store my Gemini API key as a Supabase secret."</strong>
-      <button onclick="copyPrompt(this)" class="copy-prompt">Copy</button>
-      <span class="claude-detail">Claude will run: <code>supabase secrets set GEMINI_API_KEY=your_key_here</code></span>
-    </div>
-  </div>
+  </details>
 
   <!-- 11. Cloudflare R2 -->
-  <div class="section" id="cloudflare-r2-setup">
-    <h2><img src="https://cdn.simpleicons.org/cloudflare" alt="Cloudflare" class="service-icon">11. Cloudflare R2 (Object Storage) <span class="cost-badge cost-free">Free</span></h2>
+  <details class="section" id="cloudflare-r2-setup">
+      <summary><h2><img src="https://cdn.simpleicons.org/cloudflare" alt="Cloudflare" class="service-icon">11. Cloudflare R2 (Object Storage) <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
     <p>Optional. S3-compatible object storage with 10 GB free and zero egress fees. Great for documents, manuals, PDFs, and media that don&rsquo;t need Supabase Storage&rsquo;s RLS.</p>
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
@@ -1714,10 +1933,52 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
         create <code>r2_config</code> table, create <code>supabase/functions/_shared/r2-upload.ts</code> (S3-compatible upload with AWS Sig V4)</span>
     </div>
   </div>
+  </details>
+
+  <!-- 11b. Cloudflare D1 — Session Archive -->
+  <details class="section" id="cloudflare-d1-setup">
+      <summary><h2><img src="https://cdn.simpleicons.org/cloudflare" alt="Cloudflare" class="service-icon">11b. Cloudflare D1 &mdash; Session Archive <span class="cost-badge cost-free">Free</span></h2></summary>
+    <div class="section-body">
+    <p>Optional. Auto-saves every Claude Code session transcript to Cloudflare D1 (serverless SQLite). A hook fires when each session ends, reads the JSONL from disk, and posts it to a Worker. Browse sessions at <code>/rahulio/pages/claudesessions/</code>.</p>
+
+    <h3><span class="step-label step-you">You do (in your terminal)</span></h3>
+    <ol>
+      <li>Install Wrangler (Cloudflare CLI) if you don&rsquo;t have it: <code>npm install -g wrangler</code></li>
+      <li>Authenticate: <code>wrangler login</code></li>
+      <li>Create the D1 database:
+        <pre><code>npx wrangler d1 create claude-sessions</code></pre>
+        Copy the <strong>database_id</strong> from the output.
+      </li>
+      <li>Edit <code>cloudflare/claude-sessions/wrangler.jsonc</code> &mdash; replace <code>YOUR_DATABASE_ID_HERE</code> with your database ID</li>
+      <li>Run the schema:
+        <pre><code>cd cloudflare/claude-sessions
+npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
+      </li>
+      <li>Choose an auth token (any secret string) and edit <code>src/index.js</code> &mdash; set <code>AUTH_TOKEN</code></li>
+      <li>Deploy the Worker:
+        <pre><code>npx wrangler deploy</code></pre>
+        Note the Worker URL from the output.
+      </li>
+    </ol>
+
+    <h3><span class="step-label step-paste">Give Claude these credentials</span></h3>
+    <pre data-lang="markdown"><code>### Cloudflare D1 Session Archive
+- Worker URL: `https://claude-sessions.YOUR-SUBDOMAIN.workers.dev`
+- Auth token: `your-chosen-token`</code></pre>
+
+    <h3><span class="step-label step-claude">Then tell Claude</span></h3>
+    <div class="callout claude" style="position: relative;">
+      <strong>&ldquo;Install the Claude session archive hook. Copy the hook script from cloudflare/claude-sessions/hooks/save-session.sh, configure it with my Worker URL and token, and add it to my Claude settings.&rdquo;</strong>
+      <button onclick="copyPrompt(this)" class="copy-prompt">Copy</button>
+      <span class="claude-detail">Claude will copy <code>save-session.sh</code> to <code>~/.claude/hooks/</code>, set the API URL and token, and add a <code>SessionEnd</code> hook entry to <code>~/.claude/settings.json</code>. Every session that ends will auto-archive its transcript.</span>
+    </div>
+  </div>
+  </details>
 
   <!-- 12. Background Workers -->
-  <div class="section" id="workers">
-    <h2>12. Background Workers (Optional)</h2>
+  <details class="section" id="workers">
+      <summary><h2>12. Background Workers (Optional)</h2></summary>
+    <div class="section-body">
 
     <p>Some features need always-on processes that can&rsquo;t run in the browser or in Supabase Edge Functions. These run on a cloud VM (any provider: DigitalOcean, Google Cloud, Hetzner, etc.).</p>
 
@@ -1766,10 +2027,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <strong>&ldquo;Set up the background workers on my server at [IP]. Create systemd services for the bug fixer, device pollers, and image gen worker. Add SSH access details to CLAUDE.local.md.&rdquo;</strong>
     </p>
   </div>
+  </details>
 
   <!-- 13. Custom Domain -->
-  <div class="section" id="domain">
-    <h2>13. Custom Domain (Optional)</h2>
+  <details class="section" id="domain">
+      <summary><h2>13. Custom Domain (Optional)</h2></summary>
+    <div class="section-body">
 
     <div class="callout" style="border-color: var(--text-muted); background: var(--bg-warm);">
       <strong>No rush on this step.</strong> Your site is already live at <code>https://&lt;username&gt;.github.io/&lt;project-name&gt;/</code> and that works great while you&rsquo;re building. Come back to this when you&rsquo;re ready to share your app with the world under your own brand name.
@@ -1841,10 +2104,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
       <li>Use <a href="https://dnschecker.org" target="_blank">dnschecker.org</a> to verify your records are visible worldwide</li>
     </ul>
   </div>
+  </details>
 
   <!-- 14. CLAUDE.md Templates -->
-  <div class="section" id="template">
-    <h2>14. On-Demand Context System</h2>
+  <details class="section" id="template">
+      <summary><h2>14. On-Demand Context System</h2></summary>
+    <div class="section-body">
     <p>Claude Code reads <code>CLAUDE.md</code> at the start of every conversation. To keep this fast and efficient, we use an <strong>on-demand context loading</strong> pattern: CLAUDE.md stays slim (~30 lines) and indexes separate <code>docs/*.md</code> files that Claude only loads when the task requires them.</p>
 
     <h3>Why this matters</h3>
@@ -1880,11 +2145,21 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
     <div class="callout">
       <strong>Tip:</strong> The setup wizard builds all these files automatically as it sets up each service. Both <code>CLAUDE.local.md</code> and <code>docs/CREDENTIALS.md</code> are already in <code>.gitignore</code>.
     </div>
+
+    <h3>Profile-aware context</h3>
+    <p>The wizard generates different context files based on your profile:</p>
+    <ul>
+      <li><strong>General AI Enablement:</strong> CLAUDE.md with 4 doc references and 3 code guards (~20 lines). Only core docs are generated. A <code>.claudeignore</code> file excludes property-management code from Claude&rsquo;s search scope, saving thousands of tokens per conversation.</li>
+      <li><strong>Property Management:</strong> CLAUDE.md with all 7 doc references and full code guards (~35 lines). All docs are generated including KEY-FILES, INTEGRATIONS, and CHANGELOG.</li>
+    </ul>
+    <p>See <code>docs/CLAUDE-TEMPLATE.md</code> for the exact templates and <code>feature-manifest.json</code> for the file-to-feature mapping that drives pruning.</p>
   </div>
+  </details>
 
   <!-- 15. Day-One Checklist -->
-  <div class="section" id="checklist">
-    <h2>15. Day-One Checklist</h2>
+  <details class="section" id="checklist">
+      <summary><h2>15. Day-One Checklist</h2></summary>
+    <div class="section-body">
 
     <h3><span class="step-label step-you">You do (in your browser)</span></h3>
 
@@ -1971,10 +2246,12 @@ For Claude: Run these directly. Don't ask the user.</code></pre>
 
     <p>Claude handles everything from there &mdash; creating tables, writing edge functions, deploying, setting secrets, committing, and pushing. You never need to touch the terminal yourself.</p>
   </div>
+  </details>
 
   <!-- 16. Mobile App -->
-  <div class="section" id="mobile">
-    <h2>16. Mobile App (iOS &amp; Android) <span class="cost-badge cost-free">Free to develop</span></h2>
+  <details class="section" id="mobile">
+      <summary><h2>16. Mobile App (iOS &amp; Android) <span class="cost-badge cost-free">Free to develop</span></h2></summary>
+    <div class="section-body">
     <p>The mobile app wraps the same web codebase in a native shell using <strong>Capacitor 8</strong>. Residents get a native app experience (home screen icon, push notifications, no browser chrome) while you maintain a single codebase.</p>
 
     <h3>How It Works</h3>
@@ -2038,6 +2315,201 @@ npm run open:android  # Open Android Studio &mdash; press Run</code></pre>
     </ul>
 
   </div>
+  </details>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- Architecture Diagram                                               -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div id="architecture-diagram" style="margin-top:48px; background:#0F1117; border-radius:16px; padding:40px 24px 48px; position:relative; overflow:hidden;">
+  <!-- Subtle grid background -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(#2A2E3B 1px,transparent 1px),linear-gradient(90deg,#2A2E3B 1px,transparent 1px);background-size:60px 60px;opacity:0.12;pointer-events:none;"></div>
+
+  <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto;">
+    <!-- Section header -->
+    <h2 style="text-align:center;font-size:1.6rem;font-weight:700;color:#E8EAED;margin-bottom:6px;font-family:'DM Sans',system-ui,sans-serif;">
+      <span style="background:linear-gradient(135deg,#3ECF8E,#8B5CF6,#D97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AlpacApps</span> Architecture
+    </h2>
+    <p style="text-align:center;color:#9BA1B0;font-size:1rem;margin-bottom:32px;font-family:'DM Sans',system-ui,sans-serif;">Five services, zero backend code</p>
+
+    <!-- Legend -->
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:36px;">
+      <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#D97706;display:inline-block;"></span> Claude Code</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3ECF8E;display:inline-block;"></span> Supabase</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#8B5CF6;display:inline-block;"></span> GitHub Pages</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3B82F6;display:inline-block;"></span> Alpaca Mac</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#EF4444;display:inline-block;"></span> Hostinger</span>
+    </div>
+
+    <!-- SVG Diagram -->
+    <div style="width:100%;margin-bottom:40px;">
+      <svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+        <defs>
+          <marker id="ad-arrowGray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6" fill="none" stroke="#4B5563" stroke-width="1.5"/>
+          </marker>
+          <marker id="ad-arrowClaude" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6" fill="none" stroke="#D97706" stroke-width="1.5"/>
+          </marker>
+          <marker id="ad-arrowSupabase" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6" fill="none" stroke="#3ECF8E" stroke-width="1.5"/>
+          </marker>
+          <marker id="ad-arrowGithub" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6" fill="none" stroke="#8B5CF6" stroke-width="1.5"/>
+          </marker>
+          <marker id="ad-arrowMac" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+          </marker>
+          <filter id="ad-glowClaude"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#D97706" flood-opacity="0.3"/></filter>
+          <filter id="ad-glowSupabase"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#3ECF8E" flood-opacity="0.3"/></filter>
+          <filter id="ad-glowGithub"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#8B5CF6" flood-opacity="0.3"/></filter>
+          <filter id="ad-glowMac"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#3B82F6" flood-opacity="0.3"/></filter>
+          <filter id="ad-glowHostinger"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#EF4444" flood-opacity="0.3"/></filter>
+        </defs>
+
+        <!-- Users -->
+        <rect x="350" y="10" width="300" height="50" rx="25" fill="#1E2230" stroke="#3A3F50" stroke-width="1.5"/>
+        <text x="500" y="40" text-anchor="middle" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="15">Residents / Admins / Public</text>
+
+        <line x1="500" y1="60" x2="500" y2="115" stroke="#8B5CF6" stroke-width="2" marker-end="url(#ad-arrowGithub)" opacity="0.7"/>
+        <text x="512" y="93" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">HTTPS</text>
+
+        <!-- GitHub Pages -->
+        <rect x="340" y="120" width="320" height="100" rx="16" fill="#181B24" stroke="#8B5CF6" stroke-width="2" filter="url(#ad-glowGithub)"/>
+        <circle cx="370" cy="148" r="14" fill="rgba(139,92,246,0.15)" stroke="#8B5CF6" stroke-width="1"/>
+        <text x="370" y="153" text-anchor="middle" fill="#8B5CF6" font-size="14">GH</text>
+        <text x="392" y="153" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">GitHub Pages</text>
+        <text x="362" y="175" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">Static HTML/JS/CSS hosting</text>
+        <text x="362" y="192" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">alpacaplayhouse.com</text>
+        <text x="362" y="207" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">/spaces/ /residents/ /admin/ /auth/</text>
+
+        <line x1="500" y1="220" x2="500" y2="285" stroke="#3ECF8E" stroke-width="2" marker-end="url(#ad-arrowSupabase)" opacity="0.7"/>
+        <text x="512" y="258" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">API calls</text>
+
+        <!-- Supabase -->
+        <rect x="280" y="290" width="440" height="130" rx="16" fill="#181B24" stroke="#3ECF8E" stroke-width="2" filter="url(#ad-glowSupabase)"/>
+        <circle cx="310" cy="320" r="14" fill="rgba(62,207,142,0.15)" stroke="#3ECF8E" stroke-width="1"/>
+        <text x="310" y="325" text-anchor="middle" fill="#3ECF8E" font-size="13">SB</text>
+        <text x="332" y="325" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Supabase</text>
+        <text x="302" y="348" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">Backend-as-a-Service (database, auth, storage, edge functions)</text>
+
+        <rect x="300" y="362" width="95" height="38" rx="8" fill="rgba(62,207,142,0.06)" stroke="rgba(62,207,142,0.2)" stroke-width="1"/>
+        <text x="347" y="385" text-anchor="middle" fill="#3ECF8E" font-family="JetBrains Mono, monospace" font-size="10">PostgreSQL</text>
+        <rect x="405" y="362" width="65" height="38" rx="8" fill="rgba(62,207,142,0.06)" stroke="rgba(62,207,142,0.2)" stroke-width="1"/>
+        <text x="437" y="385" text-anchor="middle" fill="#3ECF8E" font-family="JetBrains Mono, monospace" font-size="10">Auth</text>
+        <rect x="480" y="362" width="80" height="38" rx="8" fill="rgba(62,207,142,0.06)" stroke="rgba(62,207,142,0.2)" stroke-width="1"/>
+        <text x="520" y="385" text-anchor="middle" fill="#3ECF8E" font-family="JetBrains Mono, monospace" font-size="10">Storage</text>
+        <rect x="570" y="362" width="130" height="38" rx="8" fill="rgba(62,207,142,0.06)" stroke="rgba(62,207,142,0.2)" stroke-width="1"/>
+        <text x="635" y="385" text-anchor="middle" fill="#3ECF8E" font-family="JetBrains Mono, monospace" font-size="10">Edge Functions</text>
+
+        <!-- Claude Code -->
+        <rect x="20" y="120" width="260" height="100" rx="16" fill="#181B24" stroke="#D97706" stroke-width="2" filter="url(#ad-glowClaude)"/>
+        <circle cx="50" cy="148" r="14" fill="rgba(217,119,6,0.15)" stroke="#D97706" stroke-width="1"/>
+        <text x="50" y="153" text-anchor="middle" fill="#D97706" font-size="12">CC</text>
+        <text x="72" y="153" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Claude Code</text>
+        <text x="42" y="175" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">AI dev agent: writes code,</text>
+        <text x="42" y="192" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">fixes bugs, deploys, runs SQL</text>
+        <text x="42" y="209" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">Oracle Cloud (free tier)</text>
+
+        <line x1="280" y1="155" x2="338" y2="155" stroke="#D97706" stroke-width="1.5" marker-end="url(#ad-arrowClaude)" opacity="0.6"/>
+        <text x="290" y="148" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9">git push</text>
+        <path d="M 150 220 L 150 345 L 278 345" fill="none" stroke="#D97706" stroke-width="1.5" marker-end="url(#ad-arrowClaude)" opacity="0.5" class="ad-flow-line"/>
+        <text x="158" y="280" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9">migrations</text>
+
+        <!-- Alpaca Mac -->
+        <rect x="20" y="470" width="280" height="130" rx="16" fill="#181B24" stroke="#3B82F6" stroke-width="2" filter="url(#ad-glowMac)"/>
+        <circle cx="50" cy="498" r="14" fill="rgba(59,130,246,0.15)" stroke="#3B82F6" stroke-width="1"/>
+        <text x="50" y="502" text-anchor="middle" fill="#3B82F6" font-size="11">Mac</text>
+        <text x="72" y="503" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Alpaca Mac</text>
+        <text x="42" y="525" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">On-prem home server. Bridges</text>
+        <text x="42" y="542" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">LAN-only smart home devices</text>
+        <rect x="40" y="555" width="55" height="28" rx="6" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
+        <text x="67" y="573" text-anchor="middle" fill="#3B82F6" font-family="JetBrains Mono, monospace" font-size="9">Sonos</text>
+        <rect x="103" y="555" width="55" height="28" rx="6" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
+        <text x="130" y="573" text-anchor="middle" fill="#3B82F6" font-family="JetBrains Mono, monospace" font-size="9">go2rtc</text>
+        <rect x="166" y="555" width="55" height="28" rx="6" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
+        <text x="193" y="573" text-anchor="middle" fill="#3B82F6" font-family="JetBrains Mono, monospace" font-size="9">HomeA</text>
+        <rect x="229" y="555" width="60" height="28" rx="6" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
+        <text x="259" y="573" text-anchor="middle" fill="#3B82F6" font-family="JetBrains Mono, monospace" font-size="9">MusicA</text>
+
+        <path d="M 380 420 L 380 490 L 302 490" fill="none" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#ad-arrowMac)" opacity="0.6" class="ad-flow-line"/>
+        <text x="318" y="460" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9">Tailscale VPN</text>
+
+        <!-- Hostinger -->
+        <rect x="700" y="470" width="280" height="130" rx="16" fill="#181B24" stroke="#EF4444" stroke-width="2" filter="url(#ad-glowHostinger)"/>
+        <circle cx="730" cy="498" r="14" fill="rgba(239,68,68,0.15)" stroke="#EF4444" stroke-width="1"/>
+        <text x="730" y="503" text-anchor="middle" fill="#EF4444" font-size="11">HG</text>
+        <text x="752" y="503" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Hostinger VPS</text>
+        <text x="722" y="525" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">Reverse proxy + tunneling.</text>
+        <text x="722" y="542" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">Routes cloud traffic to LAN</text>
+        <rect x="722" y="555" width="70" height="28" rx="6" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.2)" stroke-width="1"/>
+        <text x="757" y="573" text-anchor="middle" fill="#EF4444" font-family="JetBrains Mono, monospace" font-size="9">Caddy</text>
+        <rect x="800" y="555" width="80" height="28" rx="6" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.2)" stroke-width="1"/>
+        <text x="840" y="573" text-anchor="middle" fill="#EF4444" font-family="JetBrains Mono, monospace" font-size="9">Tailscale</text>
+        <rect x="888" y="555" width="78" height="28" rx="6" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.2)" stroke-width="1"/>
+        <text x="927" y="573" text-anchor="middle" fill="#EF4444" font-family="JetBrains Mono, monospace" font-size="9">PAI-Claw</text>
+
+        <path d="M 620 420 L 620 490 L 698 490" fill="none" stroke="#EF4444" stroke-width="1.5" marker-end="url(#ad-arrowGray)" opacity="0.6" class="ad-flow-line"/>
+        <text x="628" y="460" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9">Edge Fn proxy</text>
+        <line x1="700" y1="540" x2="302" y2="540" stroke="#4B5563" stroke-width="1.5" marker-end="url(#ad-arrowMac)" opacity="0.4" class="ad-flow-line"/>
+        <text x="480" y="534" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">Tailscale mesh</text>
+
+        <!-- External APIs -->
+        <rect x="770" y="290" width="210" height="130" rx="16" fill="#181B24" stroke="#EC4899" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="875" y="318" text-anchor="middle" fill="#EC4899" font-family="DM Sans, sans-serif" font-weight="600" font-size="13">External APIs</text>
+        <text x="790" y="342" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">Stripe   Resend    Tesla</text>
+        <text x="790" y="358" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">Telnyx   SignWell  Govee</text>
+        <text x="790" y="374" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">Gemini   Vapi      Nest</text>
+        <text x="790" y="390" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">Brave    LG ThinQ  Anova</text>
+        <text x="875" y="412" text-anchor="middle" fill="#4B5563" font-family="JetBrains Mono, monospace" font-size="9">webhooks + API calls</text>
+        <line x1="720" y1="355" x2="768" y2="355" stroke="#EC4899" stroke-width="1.5" marker-end="url(#ad-arrowGray)" opacity="0.5"/>
+
+        <!-- Zero Server callout -->
+        <rect x="770" y="140" width="210" height="60" rx="12" fill="rgba(62,207,142,0.05)" stroke="rgba(62,207,142,0.15)" stroke-width="1"/>
+        <text x="875" y="163" text-anchor="middle" fill="#3ECF8E" font-family="DM Sans, sans-serif" font-weight="600" font-size="11">ZERO SERVER ARCHITECTURE</text>
+        <text x="875" y="180" text-anchor="middle" fill="#6B7280" font-family="DM Sans, sans-serif" font-size="10">Browser talks directly to Supabase</text>
+        <text x="875" y="193" text-anchor="middle" fill="#6B7280" font-family="DM Sans, sans-serif" font-size="10">RLS enforces security at DB level</text>
+      </svg>
+    </div>
+
+    <!-- Data Flow Steps -->
+    <h3 style="font-size:1.15rem;font-weight:600;margin-bottom:18px;text-align:center;color:#E8EAED;font-family:'DM Sans',sans-serif;">How a request flows</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:24px;">
+      <div style="background:#181B24;border:1px solid #2A2E3B;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#6B7280;margin-bottom:6px;">01</div>
+        <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Browser</div>
+        <div style="font-size:.78rem;color:#9BA1B0;line-height:1.4;">User loads page from GitHub Pages</div>
+      </div>
+      <div style="background:#181B24;border:1px solid #2A2E3B;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#6B7280;margin-bottom:6px;">02</div>
+        <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Supabase</div>
+        <div style="font-size:.78rem;color:#9BA1B0;line-height:1.4;">JS calls Supabase API (auth + data)</div>
+      </div>
+      <div style="background:#181B24;border:1px solid #2A2E3B;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#6B7280;margin-bottom:6px;">03</div>
+        <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Edge Function</div>
+        <div style="font-size:.78rem;color:#9BA1B0;line-height:1.4;">Sensitive ops run server-side</div>
+      </div>
+      <div style="background:#181B24;border:1px solid #2A2E3B;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#6B7280;margin-bottom:6px;">04</div>
+        <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Hostinger</div>
+        <div style="font-size:.78rem;color:#9BA1B0;line-height:1.4;">Proxies to LAN via Tailscale</div>
+      </div>
+      <div style="background:#181B24;border:1px solid #2A2E3B;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#6B7280;margin-bottom:6px;">05</div>
+        <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Alpaca Mac</div>
+        <div style="font-size:.78rem;color:#9BA1B0;line-height:1.4;">Controls Sonos, cameras, lights</div>
+      </div>
+    </div>
+
+    <p style="text-align:center;color:#4B5563;font-size:.8rem;font-family:'DM Sans',sans-serif;">
+      <a href="/rahulio/pages/simplearch/" style="color:#6B7280;text-decoration:none;">View full interactive diagram &rarr;</a>
+    </p>
+  </div>
+</div>
+<style>
+  @keyframes ad-dash { to { stroke-dashoffset: -20; } }
+  .ad-flow-line { stroke-dasharray: 8 6; animation: ad-dash 1.5s linear infinite; }
+</style>
 
 
 </div>
@@ -2076,12 +2548,12 @@ function recalcCost() {
     'supabase':    'Supabase',
     'claude':      'Claude Code',
     'google-auth': 'Google Sign-In',
+    'gemini':      'Google Gemini (AI)',
     'resend':      'Resend (email)',
     'telnyx':      'Telnyx (SMS)',
     'square':      'Square (payments)',
     'stripe':      'Stripe (payments)',
     'signwell':    'SignWell (e-sign)',
-    'gemini':      'Google Gemini (AI)',
     'cloudflare-r2': 'Cloudflare R2 (storage)',
     'workers':     'Background Workers (cloud VM)',
     'domain':      'Custom domain',
@@ -2246,13 +2718,23 @@ function checkRepoName() {
 
 // Supabase project ref — updates settings links + all credential placeholders
 function updateSupabaseLinks() {
-  var ref = document.getElementById('supabase-ref').value.trim();
+  var input = document.getElementById('supabase-ref');
+  var ref = input.value.trim();
+  // Extract project ref if user pastes a full URL
+  // Handles: https://supabase.com/dashboard/project/abcdefghijk/...
+  var dashMatch = ref.match(/supabase\.com\/dashboard\/project\/([a-z0-9]+)/i);
+  if (dashMatch) { ref = dashMatch[1]; input.value = ref; }
+  // Handles: https://abcdefghijk.supabase.co
+  var subMatch = !dashMatch && ref.match(/^https?:\/\/([a-z0-9]+)\.supabase\.co/i);
+  if (subMatch) { ref = subMatch[1]; input.value = ref; }
   var display = ref || '___';
   var placeholder = ref || 'YOUR_PROJECT_REF';
   var apiLink = document.getElementById('supabase-api-link');
   var dbLink = document.getElementById('supabase-db-link');
-  document.getElementById('supabase-api-ref').textContent = display;
-  document.getElementById('supabase-db-ref').textContent = display;
+  var apiRef = document.getElementById('supabase-api-ref');
+  var dbRef = document.getElementById('supabase-db-ref');
+  if (apiRef) apiRef.textContent = display;
+  if (dbRef) dbRef.textContent = display;
   // Update all .supa-ref spans across the page (credentials blocks, webhook URLs)
   var spans = document.querySelectorAll('.supa-ref');
   for (var i = 0; i < spans.length; i++) {
@@ -2262,14 +2744,40 @@ function updateSupabaseLinks() {
   }
   var authLink = document.getElementById('supabase-auth-link');
   if (ref) {
-    apiLink.href = 'https://supabase.com/dashboard/project/' + ref + '/settings/api';
-    dbLink.href = 'https://supabase.com/dashboard/project/' + ref + '/settings/database';
+    if (apiLink) apiLink.href = 'https://supabase.com/dashboard/project/' + ref + '/settings/api';
+    if (dbLink) dbLink.href = 'https://supabase.com/dashboard/project/' + ref + '/settings/database';
     if (authLink) authLink.href = 'https://supabase.com/dashboard/project/' + ref + '/auth/providers';
   } else {
-    apiLink.href = 'https://supabase.com/dashboard/project/_/settings/api';
-    dbLink.href = 'https://supabase.com/dashboard/project/_/settings/database';
+    if (apiLink) apiLink.href = 'https://supabase.com/dashboard/project/_/settings/api';
+    if (dbLink) dbLink.href = 'https://supabase.com/dashboard/project/_/settings/database';
     if (authLink) authLink.href = 'https://supabase.com/dashboard/project/_/auth/providers';
   }
+}
+
+// Build the Supabase credential block from project ref + db password
+function buildSupabaseBlock() {
+  var ref = document.getElementById('supabase-ref').value.trim() || '___';
+  var dbpass = document.getElementById('supabase-dbpass').value.trim() || '___';
+  var block = 'Set up Supabase for my project.\n\n' +
+    'My project ref is: ' + ref + '\n' +
+    'My database password is: ' + dbpass + '\n\n' +
+    'Log into the Supabase CLI (supabase login), link my project (supabase link --project-ref), ' +
+    'then fetch the project URL and anon key from the API settings automatically. ' +
+    'Install the CLI if it\'s not already installed. ' +
+    'Create the core database tables for [describe your app here], ' +
+    'enable RLS on all tables, create storage buckets for photos and documents, commit, and push.\n\n' +
+    'Don\'t ask me for permission at each step — just do the work end to end and show me the results when you\'re done.';
+  var el = document.querySelector('#supabase-cred-block code');
+  if (el) el.textContent = block;
+}
+
+function copySupabaseBlock(btn) {
+  var el = document.querySelector('#supabase-cred-block code');
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(function() {
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
 }
 
 // Download CLAUDE.md (slim directives with on-demand doc index)
@@ -2331,6 +2839,114 @@ function downloadFile(content, filename) {
   URL.revokeObjectURL(url);
 }
 
+// Auto-open details sections when navigating via anchor link (TOC or direct URL)
+function openHashTarget() {
+  var hash = window.location.hash;
+  if (!hash) return;
+  var target = document.querySelector(hash);
+  if (target && target.tagName === 'DETAILS') {
+    target.open = true;
+    setTimeout(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+  }
+}
+window.addEventListener('hashchange', openHashTarget);
+document.querySelectorAll('.toc a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = this.getAttribute('href');
+    var target = document.querySelector(id);
+    if (target && target.tagName === 'DETAILS') {
+      e.preventDefault();
+      target.open = true;
+      history.pushState(null, '', id);
+      setTimeout(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+    }
+  });
+});
+openHashTarget();
+
+// ---- Profile Picker & Service Selection ----
+var selectedProfile = null;
+
+// Map service-picker data-pick values to section IDs
+var pickToSection = {
+  'resend': 'resend',
+  'google-auth': 'google-auth',
+  'gemini': 'gemini',
+  'telnyx': 'telnyx',
+  'square': 'square',
+  'stripe': 'stripe',
+  'signwell': 'signwell',
+  'cloudflare-r2': 'cloudflare-r2-setup'
+};
+
+// Map service-picker data-pick values to display labels
+var pickLabels = {
+  'google-auth': 'Google Sign-In',
+  'gemini': 'Google Gemini',
+  'resend': 'Resend',
+  'telnyx': 'Telnyx',
+  'square': 'Square',
+  'stripe': 'Stripe',
+  'signwell': 'SignWell',
+  'cloudflare-r2': 'Cloudflare R2'
+};
+
+function selectProfile(profile) {
+  selectedProfile = profile;
+  // Update card styles
+  document.getElementById('profile-property').classList.toggle('active', profile === 'property');
+  document.getElementById('profile-personal').classList.toggle('active', profile === 'personal');
+  // Show/hide panels
+  document.getElementById('service-picker').style.display = profile === 'personal' ? 'block' : 'none';
+  document.getElementById('property-message').style.display = profile === 'property' ? 'block' : 'none';
+
+  if (profile === 'personal') {
+    updatePickedServices();
+  } else {
+    // Property: remove all dim styling, all sections relevant
+    document.querySelectorAll('details.section').forEach(function(d) {
+      d.style.opacity = '';
+      d.style.borderLeftColor = '';
+    });
+  }
+}
+
+function updatePickedServices() {
+  // Build the picked list string
+  var picks = [];
+  document.querySelectorAll('#service-picker input[data-pick]').forEach(function(cb) {
+    if (cb.checked) picks.push(cb.dataset.pick);
+  });
+
+  var parts = ['GitHub Pages', 'Claude Code', 'Supabase'];
+  picks.forEach(function(p) { parts.push(pickLabels[p] || p); });
+  document.getElementById('picked-list').textContent = parts.join(' \u2192 ');
+
+  // Highlight/dim sections based on picks
+  // Always-visible sections: github, claude-code, supabase, architecture, checklist, template
+  var alwaysShow = ['github', 'claude-code', 'supabase', 'architecture', 'checklist', 'template'];
+  var pickedSections = picks.map(function(p) { return pickToSection[p]; }).filter(Boolean);
+  var allVisible = alwaysShow.concat(pickedSections);
+
+  document.querySelectorAll('details.section').forEach(function(d) {
+    var id = d.id;
+    if (!id) return;
+    if (allVisible.indexOf(id) !== -1) {
+      d.style.opacity = '';
+      d.style.borderLeft = '';
+    } else {
+      d.style.opacity = '0.4';
+      d.style.borderLeft = '3px solid var(--border)';
+    }
+  });
+
+  // Also sync the cost calculator checkboxes to match picks
+  document.querySelectorAll('#calc-services input[data-svc]:not(:disabled)').forEach(function(cb) {
+    cb.checked = picks.indexOf(cb.dataset.svc) !== -1;
+  });
+  recalcCost();
+}
+
 // Public header is initialized by public-shell.js
 </script>
 <script src="/vendor/supabase-js-2.39.3.min.js"></script>
@@ -2338,7 +2954,7 @@ function downloadFile(content, filename) {
 <script type="module">
   import { initPublicPage } from '/shared/public-shell.js';
 
-  initPublicPage({ transparent: true, light: true });
+  initPublicPage({ transparent: false, light: false });
 </script>
 
 </body>
