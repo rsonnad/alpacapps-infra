@@ -14,3 +14,4 @@ CREATE TABLE IF NOT EXISTS sessions (
 
 CREATE INDEX IF NOT EXISTS idx_sessions_project ON sessions(project);
 CREATE INDEX IF NOT EXISTS idx_sessions_ended ON sessions(ended_at);
+CREATE INDEX IF NOT EXISTS idx_sessions_started ON sessions(started_at);

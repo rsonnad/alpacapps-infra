@@ -1,32 +1,52 @@
 #!/bin/bash
-# Claude Code SessionEnd hook — saves full transcript to Cloudflare D1
+# Claude Code Stop hook — saves full transcript to Cloudflare D1
 # Reads session JSONL from disk, extracts conversation, posts to Worker
+# Rate-limited: only saves once per 5 minutes per session to avoid excessive API calls
 #
 # Installation:
 #   1. Copy this file to ~/.claude/hooks/save-session.sh
 #   2. chmod +x ~/.claude/hooks/save-session.sh
 #   3. Add to ~/.claude/settings.json:
 #      "hooks": {
-#        "SessionEnd": [{ "type": "command", "command": "bash ~/.claude/hooks/save-session.sh" }]
+#        "Stop": [{ "hooks": [{ "type": "command", "command": "$HOME/.claude/hooks/save-session.sh", "timeout": 15 }] }]
 #      }
 #   4. Update API_URL and API_TOKEN below with your Worker URL and token.
+#
+# IMPORTANT: Use the "Stop" event, NOT "SessionEnd".
+# SessionEnd does not fire for worktree/subagent sessions, so sessions would be lost.
+# The Stop hook fires on every agent response and includes built-in rate-limiting.
 
 set -euo pipefail
 
+# ── Configure these ──────────────────────────────────────────────
+# Your Cloudflare Worker URL (e.g., https://claude-sessions.YOUR_SUBDOMAIN.workers.dev/sessions)
 API_URL="https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/sessions"
+# The auth token you set in src/index.js or via `wrangler secret put AUTH_TOKEN`
 API_TOKEN="YOUR_AUTH_TOKEN"
+# ─────────────────────────────────────────────────────────────────
 
 # Read hook input from stdin
 INPUT=$(cat)
+
 SESSION_ID=$(echo "$INPUT" | /usr/bin/python3 -c "import sys,json; print(json.load(sys.stdin).get('session_id',''))" 2>/dev/null)
-CWD=$(echo "$INPUT" | /usr/bin/python3 -c "import sys,json; print(json.load(sys.stdin).get('cwd',''))" 2>/dev/null)
 
 if [ -z "$SESSION_ID" ]; then
   exit 0
 fi
 
+# Rate limit: only save once every 5 minutes per session
+LOCK_DIR="$HOME/.claude/hooks/.session-locks"
+mkdir -p "$LOCK_DIR" 2>/dev/null
+LOCK_FILE="$LOCK_DIR/$SESSION_ID"
+if [ -f "$LOCK_FILE" ]; then
+  LOCK_AGE=$(( $(date +%s) - $(stat -f %m "$LOCK_FILE" 2>/dev/null || stat -c %Y "$LOCK_FILE" 2>/dev/null || echo 0) ))
+  if [ "$LOCK_AGE" -lt 300 ]; then
+    exit 0
+  fi
+fi
+touch "$LOCK_FILE"
+
 # Find the session JSONL file
-# Claude stores sessions in ~/.claude/projects/<encoded-cwd>/<session-id>.jsonl
 PROJECTS_DIR="$HOME/.claude/projects"
 JSONL_FILE=""
 for dir in "$PROJECTS_DIR"/*/; do
@@ -45,6 +65,9 @@ fi
 PROJECT_DIR=$(dirname "$JSONL_FILE")
 PROJECT_NAME=$(basename "$PROJECT_DIR" | sed 's/^-Users-[^-]*-//' | sed 's/-/\//g')
 
+# Export variables so the Python heredoc can access them via os.environ
+export JSONL_FILE SESSION_ID PROJECT_NAME API_URL API_TOKEN
+
 # Extract conversation data using Python (handles JSON properly)
 /usr/bin/python3 << 'PYEOF'
 import json, sys, os, subprocess
@@ -62,6 +85,7 @@ if not jsonl_file or not os.path.exists(jsonl_file):
 messages = []
 model = None
 started_at = None
+ended_at = None
 total_tokens = 0
 
 with open(jsonl_file) as f:
@@ -79,6 +103,8 @@ with open(jsonl_file) as f:
 
         if not started_at and timestamp:
             started_at = timestamp
+        if timestamp:
+            ended_at = timestamp
 
         if msg_type == "user":
             content = entry.get("message", {}).get("content", "")
@@ -108,12 +134,13 @@ with open(jsonl_file) as f:
 
 transcript = "\n\n---\n\n".join(messages)
 
-# Calculate duration
+# Calculate duration from actual JSONL timestamps (not now() - start)
 duration_mins = None
-if started_at:
+if started_at and ended_at:
     try:
         start = datetime.fromisoformat(started_at.replace("Z", "+00:00"))
-        duration_mins = int((datetime.now(start.tzinfo) - start).total_seconds() / 60)
+        end = datetime.fromisoformat(ended_at.replace("Z", "+00:00"))
+        duration_mins = max(1, int((end - start).total_seconds() / 60))
     except Exception:
         pass
 
@@ -129,6 +156,7 @@ payload = json.dumps({
     "project": project_name,
     "model": model,
     "started_at": started_at,
+    "ended_at": ended_at,
     "duration_mins": duration_mins,
     "summary": summary,
     "transcript": transcript,
@@ -136,7 +164,7 @@ payload = json.dumps({
     "tags": None
 })
 
-# Post to Cloudflare Worker
+# Post to Cloudflare Worker (INSERT OR REPLACE — idempotent)
 try:
     subprocess.run(
         ["curl", "-s", "--tlsv1.2", "-X", "POST", api_url,
