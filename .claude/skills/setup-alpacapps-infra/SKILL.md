@@ -54,10 +54,28 @@ Ask two things in one message:
 - E-signatures (SignWell) — Free, 3–25 docs/month
 - AI-powered features (Google Gemini) — Free
 - Object storage / file hosting (Cloudflare R2) — Free, 10 GB
+- Session transcript archive (Cloudflare D1) — Free, auto-saves all Claude sessions
 - DigitalOcean Droplet (bots, workers) — ~$12/mo
 - Oracle Cloud ARM instance (free tier) — Always Free (4 cores, 24 GB RAM, 200 GB)
 
 Remember their choices and skip everything they don't need.
+
+### Step 1b: GitHub CLI Auth (broad scopes)
+
+Before any GitHub work, ensure `gh` is authenticated with broad permissions:
+
+1. Check: `gh auth status`
+2. If not logged in or missing scopes, run:
+   ```bash
+   gh auth login --scopes "repo,workflow,read:org,admin:repo_hook,delete_repo,project"
+   ```
+3. If already logged in but with limited scopes, refresh:
+   ```bash
+   gh auth refresh --scopes "repo,workflow,read:org,admin:repo_hook,delete_repo,project"
+   ```
+4. Validate: `gh auth status` should show the scopes
+
+**Why broad scopes:** Claude needs to create repos, enable Pages, manage hooks, push code, and create PRs across projects. Setting this up once avoids permission errors later.
 
 ### Step 2: GitHub + GitHub Pages
 
@@ -133,6 +151,7 @@ For each selected service, follow the detailed instructions in the appropriate r
 - **SignWell (E-Signatures)** → `references/optional-services.md` → "SignWell"
 - **Google Gemini (AI)** → `references/optional-services.md` → "Gemini"
 - **Cloudflare R2 (Storage)** → `references/optional-services.md` → "Cloudflare R2"
+- **Cloudflare D1 (Session Transcripts)** → see "D1 Session Logging" below
 
 **Pattern for each service:**
 1. Ask user for credentials/config in a single message with all URLs
@@ -141,6 +160,52 @@ For each selected service, follow the detailed instructions in the appropriate r
 4. Create and deploy edge functions (webhooks with `--no-verify-jwt`)
 5. Create client service module
 6. Append credentials to `docs/CREDENTIALS.md`, service config to `docs/INTEGRATIONS.md`, new tables to `docs/SCHEMA.md`, new files to `docs/KEY-FILES.md`
+
+### Step 10b: D1 Session Logging — if selected
+
+Auto-saves all Claude Code session transcripts to Cloudflare D1. The code lives in a standalone repo that Claude clones and deploys for the user.
+
+**Steps (all handled by you — user does nothing):**
+1. Clone the standalone repo to a temp directory:
+   ```bash
+   git clone https://github.com/rsonnad/claude-sessions.git /tmp/claude-sessions
+   cd /tmp/claude-sessions
+   ```
+2. Install Wrangler if needed: `npm install -g wrangler`
+3. Check `wrangler login` status — if not logged in, run it (opens browser)
+4. Create D1 database: `npx wrangler d1 create claude-sessions`
+5. Update `wrangler.jsonc` with the returned `database_id`
+6. Ask the user to choose an auth token (or generate one with `openssl rand -hex 16`)
+7. Set `AUTH_TOKEN` in `src/index.js`
+8. Apply schema: `npx wrangler d1 execute claude-sessions --file=schema.sql --remote`
+9. Deploy: `npx wrangler deploy` — note the Worker URL (serves both API and search UI)
+10. Install the hook:
+    ```bash
+    mkdir -p ~/.claude/hooks
+    cp hooks/save-session.sh ~/.claude/hooks/save-session.sh
+    chmod +x ~/.claude/hooks/save-session.sh
+    ```
+11. Update `~/.claude/hooks/save-session.sh` with the Worker URL and auth token
+12. Add Stop hook to `~/.claude/settings.json`:
+    ```json
+    {
+      "hooks": {
+        "Stop": [{
+          "hooks": [{
+            "type": "command",
+            "command": "$HOME/.claude/hooks/save-session.sh",
+            "timeout": 15
+          }]
+        }]
+      }
+    }
+    ```
+13. Validate: `curl -H "Authorization: Bearer TOKEN" https://WORKER_URL/stats`
+14. Clean up: `rm -rf /tmp/claude-sessions`
+15. Tell the user: "Your session UI is at {WORKER_URL} — visit it in your browser"
+16. Append Worker URL and auth token to `docs/CREDENTIALS.md` and `docs/INTEGRATIONS.md`
+
+**Important:** Use the `Stop` event, NOT `SessionEnd`. SessionEnd doesn't fire for worktree/subagent sessions.
 
 ### Step 11: Server Setup — if selected
 

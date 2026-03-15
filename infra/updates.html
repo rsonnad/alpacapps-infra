@@ -643,15 +643,21 @@ docs/CHANGELOG.md    (recent changes log)</code></pre>
   const featureMeta = {
     'd1-session-logging': {
       name: 'Session Logging to Cloudflare D1',
-      prompt: `Set up Cloudflare D1 session logging for my Claude Code sessions.
+      prompt: `Set up Cloudflare D1 session logging for my Claude Code sessions. Do everything for me automatically:
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Session Logging to Cloudflare D1" feature:
-- Clone the standalone repo: https://github.com/rsonnad/claude-sessions
-- Install wrangler, create the D1 database, configure and deploy the worker
-- The worker serves both the API and a built-in search/display UI at its root URL
-- Set up the save-session.sh hook with the Stop event
-- Ask me for the auth token I want to use
-- Update docs/KEY-FILES.md, docs/INTEGRATIONS.md, and docs/CHANGELOG.md`
+1. Clone the standalone repo to /tmp: git clone https://github.com/rsonnad/claude-sessions.git /tmp/claude-sessions
+2. cd into it and install wrangler if needed
+3. Run wrangler login if not already authenticated
+4. Create the D1 database: npx wrangler d1 create claude-sessions
+5. Update wrangler.jsonc with the database_id
+6. Ask me for an auth token or generate one with: openssl rand -hex 16
+7. Set AUTH_TOKEN in src/index.js
+8. Apply schema and deploy the worker
+9. Copy hooks/save-session.sh to ~/.claude/hooks/, configure it with the Worker URL and token
+10. Add the Stop hook to ~/.claude/settings.json
+11. Validate with curl, then clean up /tmp/claude-sessions
+12. Tell me the Worker URL (that's also where the search UI lives)
+13. Update docs/KEY-FILES.md, docs/INTEGRATIONS.md, and docs/CHANGELOG.md`
     },
     'on-demand-context': {
       name: 'On-Demand Context System',
