@@ -1,5 +1,7 @@
 # Open Brain — Setup Guide
 
+> **Reference:** [Every AI You Use Forgets You — Here's How to Fix That](https://natesnewsletter.substack.com/p/every-ai-you-use-forgets-you-heres)
+
 > **What this is:** A shared AI memory system. Captures thoughts from Slack (and any MCP client), stores them as vector embeddings in Supabase pgvector, and exposes semantic search via an MCP server that any AI tool can connect to.
 >
 > **Cost:** $0/month for embeddings (Google Gemini). ~$0.05/month for metadata extraction (OpenRouter).

@@ -1,5 +1,6 @@
 /**
  * Open Brain — MCP Server Edge Function
+ * Reference: https://natesnewsletter.substack.com/p/every-ai-you-use-forgets-you-heres
  *
  * Exposes 4 MCP tools for any AI client to interact with the thought database:
  *   - search_thoughts: Semantic vector search

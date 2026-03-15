@@ -1,5 +1,6 @@
 /**
  * Open Brain — Ingest Thought Edge Function
+ * Reference: https://natesnewsletter.substack.com/p/every-ai-you-use-forgets-you-heres
  *
  * Captures thoughts from two sources:
  * 1. Slack webhooks (message events from a capture channel)
