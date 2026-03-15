@@ -462,11 +462,13 @@ Ask me when you need credentials for optional services (API keys, etc.).</code><
 
     <h3>Cloudflare D1 &mdash; Session Archive (Claude Code transcripts)</h3>
     <ul>
+      <li>Standalone repo: <a href="https://github.com/rsonnad/claude-sessions">rsonnad/claude-sessions</a> &mdash; clone it, then follow its README</li>
       <li>Requires Wrangler CLI: <code>npm install -g wrangler</code>, then <code>wrangler login</code></li>
       <li>Create D1 database: <code>npx wrangler d1 create claude-sessions</code></li>
-      <li>Source files in <code>cloudflare/claude-sessions/</code> &mdash; edit <code>wrangler.jsonc</code> with the database ID, set auth token in <code>src/index.js</code></li>
-      <li>Deploy: <code>cd cloudflare/claude-sessions && npx wrangler d1 execute claude-sessions --file=schema.sql --remote && npx wrangler deploy</code></li>
-      <li>Install hook: copy <code>hooks/save-session.sh</code> to <code>~/.claude/hooks/</code>, add <code>SessionEnd</code> hook to <code>~/.claude/settings.json</code></li>
+      <li>Edit <code>wrangler.jsonc</code> with the database ID, set auth token in <code>src/index.js</code></li>
+      <li>Deploy: <code>npx wrangler d1 execute claude-sessions --file=schema.sql --remote && npx wrangler deploy</code></li>
+      <li>Worker serves both API and search/display UI at its root URL</li>
+      <li>Install hook: copy <code>hooks/save-session.sh</code> to <code>~/.claude/hooks/</code>, add <code>Stop</code> hook to <code>~/.claude/settings.json</code></li>
       <li>User provides: Worker URL, auth token</li>
     </ul>
   </div>

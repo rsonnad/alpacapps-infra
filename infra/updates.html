@@ -315,19 +315,19 @@
 
     <h3>What Claude does</h3>
     <ol>
-      <li>Check if <code>cloudflare/claude-sessions/</code> already exists in the project. If not, pull it from the template repo.</li>
+      <li>Clone the standalone repo: <code>git clone https://github.com/rsonnad/claude-sessions.git</code> (into a temp directory or the user's preferred location)</li>
       <li>Install Wrangler CLI globally if not present: <code>npm install -g wrangler</code></li>
       <li>Run <code>wrangler login</code> (opens browser for Cloudflare auth)</li>
       <li>Create D1 database: <code>npx wrangler d1 create claude-sessions</code></li>
-      <li>Update <code>cloudflare/claude-sessions/wrangler.jsonc</code> with the returned <code>database_id</code></li>
+      <li>Update <code>wrangler.jsonc</code> with the returned <code>database_id</code></li>
       <li>Ask the user to choose a secure auth token (or generate one)</li>
       <li>Set the auth token in <code>src/index.js</code> &mdash; replace <code>CHANGE_ME_TO_A_SECRET</code> with the chosen token</li>
-      <li>Apply the schema: <code>cd cloudflare/claude-sessions && npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></li>
-      <li>Deploy the worker: <code>cd cloudflare/claude-sessions && npx wrangler deploy</code></li>
-      <li>Note the worker URL from the deploy output (e.g., <code>https://claude-sessions.USERNAME.workers.dev</code>)</li>
+      <li>Apply the schema: <code>npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></li>
+      <li>Deploy the worker: <code>npx wrangler deploy</code></li>
+      <li>Note the worker URL from the deploy output (e.g., <code>https://claude-sessions.USERNAME.workers.dev</code>) &mdash; the UI is served at the root URL</li>
       <li>Copy the hook script to the user's home directory:
         <pre><code>mkdir -p ~/.claude/hooks
-cp cloudflare/claude-sessions/hooks/save-session.sh ~/.claude/hooks/save-session.sh
+cp hooks/save-session.sh ~/.claude/hooks/save-session.sh
 chmod +x ~/.claude/hooks/save-session.sh</code></pre>
       </li>
       <li>Update the hook script with the Worker URL and auth token (replace the placeholder values)</li>
@@ -349,10 +349,8 @@ chmod +x ~/.claude/hooks/save-session.sh</code></pre>
     </ol>
 
     <div class="callout">
-      <strong>Files added/modified</strong>
-      <code>cloudflare/claude-sessions/</code> (new directory with worker, schema, hook script, wrangler config) &bull;
-      <code>~/.claude/hooks/save-session.sh</code> &bull;
-      <code>~/.claude/settings.json</code> (hooks block)
+      <strong>Note:</strong> The worker, schema, hooks, and UI live in a standalone repo: <a href="https://github.com/rsonnad/claude-sessions">rsonnad/claude-sessions</a>.
+      The Worker serves both the API and a built-in search/display UI at its root URL. No code is added to your project &mdash; only the hook is installed at <code>~/.claude/hooks/save-session.sh</code> and registered in <code>~/.claude/settings.json</code>.
     </div>
   </div>
 
@@ -645,14 +643,21 @@ docs/CHANGELOG.md    (recent changes log)</code></pre>
   const featureMeta = {
     'd1-session-logging': {
       name: 'Session Logging to Cloudflare D1',
-      prompt: `Set up Cloudflare D1 session logging for my Claude Code sessions.
+      prompt: `Set up Cloudflare D1 session logging for my Claude Code sessions. Do everything for me automatically:
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Session Logging to Cloudflare D1" feature:
-- Pull the cloudflare/claude-sessions/ directory from the template repo (https://github.com/rsonnad/alpacapps-infra)
-- Install wrangler, create the D1 database, deploy the worker
-- Set up the save-session.sh hook with the Stop event
-- Ask me for the auth token I want to use
-- Update docs/KEY-FILES.md, docs/INTEGRATIONS.md, and docs/CHANGELOG.md`
+1. Clone the standalone repo to /tmp: git clone https://github.com/rsonnad/claude-sessions.git /tmp/claude-sessions
+2. cd into it and install wrangler if needed
+3. Run wrangler login if not already authenticated
+4. Create the D1 database: npx wrangler d1 create claude-sessions
+5. Update wrangler.jsonc with the database_id
+6. Ask me for an auth token or generate one with: openssl rand -hex 16
+7. Set AUTH_TOKEN in src/index.js
+8. Apply schema and deploy the worker
+9. Copy hooks/save-session.sh to ~/.claude/hooks/, configure it with the Worker URL and token
+10. Add the Stop hook to ~/.claude/settings.json
+11. Validate with curl, then clean up /tmp/claude-sessions
+12. Tell me the Worker URL (that's also where the search UI lives)
+13. Update docs/KEY-FILES.md, docs/INTEGRATIONS.md, and docs/CHANGELOG.md`
     },
     'on-demand-context': {
       name: 'On-Demand Context System',
@@ -710,7 +715,7 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
 
 Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Stop Hook Upgrade" feature:
 - Check ~/.claude/settings.json for a SessionEnd hook and replace with Stop
-- Update ~/.claude/hooks/save-session.sh with the latest version (includes rate-limiting)
+- Update ~/.claude/hooks/save-session.sh with the latest version from https://github.com/rsonnad/claude-sessions (includes rate-limiting)
 - Verify the lock directory is created at ~/.claude/hooks/.session-locks/`
     }
   };
