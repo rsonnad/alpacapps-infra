@@ -10,7 +10,7 @@
       "date": "2026-03-08",
       "description": "Auto-save Claude Code session transcripts to Cloudflare D1. Search past sessions, track tokens and costs.",
       "requires": ["cloudflare-account"],
-      "detects": ["cloudflare/claude-sessions/src/index.js"]
+      "detects": []
     },
     {
       "id": "on-demand-context",
