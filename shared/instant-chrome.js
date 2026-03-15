@@ -13,7 +13,7 @@
  */
 (function () {
   try {
-    var cached = localStorage.getItem('genalpaca-cached-auth');
+    var cached = localStorage.getItem('app-cached-auth');
     if (!cached) return;
     var data = JSON.parse(cached);
     if (!data || !data.appUser) return;
@@ -36,7 +36,7 @@
     // CSS applies .aap-header__icon { height: 30px }.
     var header = document.getElementById('siteHeader');
     if (header && !header.children.length) {
-      var logoBase = 'https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/logos';
+      var logoBase = 'YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos';
       header.innerHTML =
         '<header class="aap-header aap-header--solid aap-header--dark" id="aap-header">' +
           '<div class="aap-header__inner">' +
