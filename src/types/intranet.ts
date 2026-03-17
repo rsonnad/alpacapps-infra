@@ -75,6 +75,7 @@ export const DEFAULT_TABS: Record<IntranetSection, TabDefinition[]> = {
     { key: "tokens", label: "Tokens & Cost", defaultVisible: true },
     { key: "context", label: "Context Window", defaultVisible: true },
     { key: "backups", label: "Backups", defaultVisible: true },
+    { key: "planlist", label: "PlanList", defaultVisible: true },
   ],
 };
 

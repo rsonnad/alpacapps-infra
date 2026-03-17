@@ -7,6 +7,7 @@ import { SessionsTab } from "./sessions-tab";
 import { TokensTab } from "./tokens-tab";
 import { ContextTab } from "./context-tab";
 import { BackupsTab } from "./backups-tab";
+import { PlanlistTab } from "./planlist-tab";
 
 const TAB_COMPONENTS: Record<string, React.ComponentType> = {
   overview: OverviewTab,
@@ -15,6 +16,7 @@ const TAB_COMPONENTS: Record<string, React.ComponentType> = {
   tokens: TokensTab,
   context: ContextTab,
   backups: BackupsTab,
+  planlist: PlanlistTab,
 };
 
 export function DevControlTabContent() {
