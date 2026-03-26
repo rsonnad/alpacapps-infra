@@ -1,117 +1,116 @@
 # Customization Guide
 
-This document explains how to adapt the YOUR_APP_NAME template for a new organization. It is written for Claude Code sessions that will be customizing this codebase.
+This document explains how to adapt the AlpacApps template for a new organization. Written for Claude Code sessions customizing this codebase.
 
 ## Overview
 
-This repo is a **generic template**. It contains no organization-specific data, credentials, or branding. When a new organization clones it and runs `/setup-your-app-infra`, Claude should customize the following areas.
+This repo is a **generic template** with placeholder values (`YOUR_*`) throughout. When a new organization clones it and runs `/setup-alpacapps-infra`, Claude customizes everything below.
 
 ## What to Customize
 
-### 1. Supabase Credentials (set during `/setup-your-app-infra`)
+### 1. Supabase Credentials
 
 | File | What to replace |
 |------|----------------|
-| `src/lib/supabase.ts` | `YOUR_SUPABASE_URL` and `YOUR_SUPABASE_ANON_KEY` |
 | `shared/supabase.js` | `YOUR_SUPABASE_URL` and `YOUR_SUPABASE_ANON_KEY` |
 | `CLAUDE.md` | All `YOUR_*` placeholders |
+| `shared/config-loader.js` | Fallback property config values |
 
-### 2. GitHub Pages basePath
-
-| File | What to set |
-|------|------------|
-| `next.config.ts` | `basePath: "/{REPO_NAME}"` |
-| `src/contexts/auth-context.tsx` | Google OAuth redirect URL: `window.location.origin + "/{REPO_NAME}/en/intranet"` |
-
-### 3. Organization Branding
+### 2. Organization Branding
 
 | File | What to customize |
 |------|------------------|
-| `src/i18n/dictionaries/en.json` | `metadata.title` (org name), `metadata.description`, `home.hero.title`, `home.hero.subtitle`, `home.mission.description`, `about.history.content`, program names |
-| `src/i18n/dictionaries/*.json` | Same fields in all other locale files (translate using Gemini — see `translations/GEMINI_PROMPT.md`) |
-| `src/app/layout.tsx` | `metadata.title` and `metadata.description` |
-| `index.html` | Title text (optional, redirect page) |
+| `shared/config-loader.js` | Property name, address, domain, email addresses |
+| `shared/site-components.js` | Header/footer branding, navigation links |
+| `styles/tokens.css` | Color palette, typography, spacing |
+| `index.html` | Landing page content |
+| `assets/branding/` | Logos and wordmarks |
 
-### 4. Locales / Languages
+### 3. Page Shells (Navigation & Auth)
 
-| File | What to customize |
-|------|------------------|
-| `src/i18n/config.ts` | `locales` array — add/remove locale codes; update `INTRANET_LOCALES`, `localeNames`, `localeFlags` |
-| `src/i18n/get-dictionary.ts` | Add/remove import lines to match the locales in config |
-| `src/i18n/dictionaries/` | Create/delete JSON files to match locales |
-| `src/app/[lang]/layout.tsx` | Update `fontFamilyMap` if adding non-Latin scripts (and add Google Fonts to `src/app/layout.tsx`) |
+The platform uses three shell patterns that control navigation and access:
+
+| Shell | Pages | Customization |
+|-------|-------|--------------|
+| `shared/admin-shell.js` | `spaces/admin/*` | Tab names, feature flags, role permissions |
+| `shared/resident-shell.js` | `residents/*` | Device tabs, context switcher |
+| `shared/public-shell.js` | `index.html`, `contact/`, `events/` | Nav links, footer content |
+| `shared/associate-shell.js` | `associates/*` | Staff-specific tabs |
+
+### 4. Feature Selection
+
+Features are controlled by `feature-manifest.json`. The setup wizard enables/disables features based on the chosen persona. Each feature maps to:
+- Shared JS modules
+- Supabase edge functions
+- Database tables
+- Page directories
+
+To disable a feature post-setup: remove its entry from `feature-manifest.json` and delete the associated files.
 
 ### 5. Context System (CLAUDE.md + docs/)
 
-The project uses an **on-demand context loading** system to minimize tokens loaded per conversation:
+On-demand context loading minimizes tokens per conversation:
 
-- **`CLAUDE.md`** (~30 lines, always loaded): slim directives with on-demand doc index. Replace placeholders:
-  - `[Your Project Name]` — organization name
-  - `USERNAME` — GitHub username
-  - `REPO` — GitHub repo name
-
-- **`docs/CREDENTIALS.md`** (gitignored): all API keys, tokens, connection strings. Replace `YOUR_*` placeholders.
-- **`docs/SCHEMA.md`**: database table definitions — update after each migration
-- **`docs/PATTERNS.md`**: code patterns, Tailwind tokens, auth system, conventions
-- **`docs/KEY-FILES.md`**: project file structure reference
-- **`docs/DEPLOY.md`**: deployment workflow, live URLs, version format
-- **`docs/INTEGRATIONS.md`**: external service configs (non-secret), cost tiers
-- **`docs/CHANGELOG.md`**: recent changes log
-
-Claude reads CLAUDE.md every conversation but only loads the specific `docs/*.md` file when the task matches (e.g., only loads SCHEMA.md when writing queries).
+- **`CLAUDE.md`** (~30 lines, always loaded): Project directives + doc index
+- **`docs/CREDENTIALS.md`** (gitignored): API keys, tokens, connection strings
+- **`docs/SCHEMA.md`**: Database table definitions
+- **`docs/PATTERNS.md`**: Code patterns, Tailwind tokens, auth conventions
+- **`docs/KEY-FILES.md`**: Project file structure
+- **`docs/DEPLOY.md`**: Deployment workflow, live URLs
+- **`docs/INTEGRATIONS.md`**: External services, cost tiers
+- **`docs/CHANGELOG.md`**: Recent changes
 
 ### 6. Database Schema
 
-The setup skill creates tables tailored to the org's domain. There is no hardcoded schema — Claude generates tables based on what the user describes in Step 1. The common patterns are:
+33 migrations in `supabase/migrations/` define the full schema. The setup wizard runs these via Management API. Core tables:
 
-- Core tables: members, contacts, events, documents, transactions, messages, settings
-- Service configs: telnyx_config, square_config, signwell_config
-- All tables get: RLS enabled, `updated_at` trigger, UUID primary keys
-- Storage buckets: `photos` (public), `documents` (private)
+- `spaces` — Rental units, amenities, event venues
+- `people` — Tenants, guests, associates
+- `assignments` — Bookings (person + space + dates)
+- `media` / `media_spaces` / `media_tags` — Photo/video management
+- `app_users` — Auth users with roles (admin, staff, resident, associate, demo)
+- `property_config` / `brand_config` — Singleton configuration
+- Service configs: `stripe_config`, `telnyx_config`, `nest_config`, etc.
 
-### 7. Intranet Sections
+### 7. Edge Functions
 
-The intranet tab system is driven by the `page_display_config` table in Supabase. Customize which sections and tabs are visible:
+63 Supabase edge functions in `supabase/functions/`. Key ones:
 
-| Section | Typical tabs |
-|---------|-------------|
-| Admin | Users, Passwords, Settings, Releases, Templates, Brand, Accounting |
-| Devices | Inventory, Assignments, Maintenance, Procurement |
-| Residents/Members | Directory, Rooms/Groups, Check In/Out, Requests |
-| Associates/Contacts | Directory, Organizations, Donations, Communications |
-| Staff | Directory, Schedules, Roles, Attendance |
+| Function | Purpose |
+|----------|---------|
+| `api/` | Central REST gateway for all CRUD |
+| `send-email/` | Branded email via Resend (45+ templates) |
+| `send-sms/` | SMS via Telnyx |
+| `process-stripe-payment/` | Stripe payment processing |
+| `property-ai/` | Gemini-powered AI assistant |
+| `verify-identity/` | DL/ID verification via Gemini Vision |
+| `govee-control/`, `nest-control/`, `sonos-control/` | Device control proxies |
 
-Not all sections are relevant to every org — customize via the database.
+### 8. Admin Dashboard Tabs
 
-## Adding Non-Latin Language Support
+Tab visibility is controlled by `shared/feature-registry.js` and role permissions:
 
-If the organization needs scripts beyond Latin (e.g., Tibetan, Hindi, Chinese, Arabic):
+| Section | Tabs |
+|---------|------|
+| Staff | Spaces, Rentals, Events, Media, Passwords, Work Tracking, Users |
+| Admin | Settings, Brand, Templates, Accounting, SMS, Voice, DevControl |
+| Devices | Inventory, Purchases |
 
-1. Add the locale code to `src/i18n/config.ts`
-2. Create the dictionary JSON file in `src/i18n/dictionaries/`
-3. Add the import in `src/i18n/get-dictionary.ts`
-4. Add the font family mapping in `src/app/[lang]/layout.tsx`
-5. Add a Google Fonts link in `src/app/layout.tsx` `<head>`
+### 9. Mobile App
 
-## Adding a Static Site (e.g., Public-Facing Pages)
-
-Some organizations need a separate static HTML site (e.g., a donation page, landing page). To add one:
-
-1. Create a folder at the repo root (e.g., `public-site/`)
-2. Add HTML/CSS/JS files
-3. Update `index.html` to redirect to the appropriate page
-4. The static files are served directly by GitHub Pages alongside the Next.js export
+`mobile/` contains a Capacitor 8 wrapper (iOS + Android). Customize:
+- `mobile/capacitor.config.ts` — App ID, server URL
+- `mobile/android/.../AndroidManifest.xml` — Package name
+- `mobile/ios/.../Info.plist` — Bundle identifier
+- App icons and splash screens in platform-specific asset directories
 
 ## Checklist for New Organizations
 
-- [ ] Clone the repo and run `/setup-your-app-infra`
-- [ ] Supabase credentials set in `src/lib/supabase.ts` and `shared/supabase.js`
-- [ ] `next.config.ts` basePath matches repo name
-- [ ] OAuth redirect URL updated in `src/contexts/auth-context.tsx`
-- [ ] Organization name and content updated in all dictionary files
-- [ ] `src/app/layout.tsx` metadata updated
+- [ ] Clone repo and run `/setup-alpacapps-infra`
+- [ ] Supabase credentials set in `shared/supabase.js`
+- [ ] Property name/address updated in `shared/config-loader.js`
+- [ ] Branding (colors, logos) updated in `styles/tokens.css` and `assets/branding/`
 - [ ] CLAUDE.md placeholders replaced (project name, USERNAME, REPO)
-- [ ] docs/CREDENTIALS.md filled with actual credentials (gitignored)
-- [ ] docs/SCHEMA.md updated with actual table definitions
-- [ ] Locales configured for the org's languages
+- [ ] `docs/CREDENTIALS.md` filled with actual credentials (gitignored)
+- [ ] Feature manifest trimmed to selected features
 - [ ] Site pushed and live on GitHub Pages

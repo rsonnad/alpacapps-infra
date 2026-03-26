@@ -1,102 +1,121 @@
-# YOUR_APP_NAME Infra
+# AlpacApps Infra
 
-A starter template for building full-stack business platforms with Claude Code. Set up messaging, marketing, customer management, and finance — all on free or near-free infrastructure.
+A complete property management platform template. Clone it, run the setup wizard, and get a full-featured system for managing rentals, events, smart home devices, payments, and more — all on free or near-free infrastructure.
 
 ## What you get
 
-- **Database + Auth + Storage** — Supabase (free)
+### Core Platform
+- **Database + Auth + Storage** — Supabase (free tier)
 - **Website + Hosting** — GitHub Pages (free)
-- **Login + Admin Dashboard** — Profile button, login modal, admin CRUD pages (included)
-- **Email** — Resend (free, 3,000/month)
+- **Login + Admin Dashboard** — Role-based auth, 15+ admin pages
+- **Resident Portal** — Smart home controls, profile, bookkeeping
+
+### Communication
+- **Email** — Resend (free: 3,000/month)
 - **SMS** — Telnyx (~$0.004/message)
-- **Payments** — Square (2.9% + 30¢)
-- **E-Signatures** — SignWell (free, 3–25 docs/month)
-- **AI Features** — Google Gemini (free)
-- **Cloud Server** — Any VPS provider: DigitalOcean, Hostinger, AWS EC2, Google Cloud ($4-12/mo)
-- **AI Developer** — Claude Code (builds and manages everything)
+- **WhatsApp** — Meta Business API
+
+### Payments & Documents
+- **Payments** — Stripe, Square, or PayPal
+- **E-Signatures** — SignWell (free: 3 docs/month)
+- **PDF Generation** — Lease agreements, contracts, receipts
+
+### Smart Home & IoT
+- **Lighting** — Govee, Home Assistant, WiZ
+- **Climate** — Google Nest thermostats
+- **Music** — Sonos multi-room audio
+- **Cameras** — UniFi Protect / RTSP via go2rtc
+- **Laundry** — LG ThinQ washer/dryer monitoring
+- **Vehicles** — Tesla Fleet API
+- **Appliances** — Anova Precision Oven, 3D printers, laser cutters
+
+### AI & Voice
+- **AI Assistant** — Gemini-powered property assistant
+- **Voice Calling** — Vapi voice agent
+- **Alexa Skill** — Room control via Alexa
+
+### Property Operations
+- **Rental Pipeline** — Inquiry → apply → review → sign → move-in
+- **Event Hosting** — Full event management workflow
+- **Associate Management** — Clock in/out, timesheets, payouts
+- **Airbnb Sync** — iCal calendar integration
+- **Mobile App** — iOS/Android via Capacitor 8
 
 ## Prerequisites
 
-Before starting, make sure you have:
-
 | Tool | Install |
 |------|---------|
-| **Git** | [git-scm.com/downloads](https://git-scm.com/downloads) (Mac has it built in) |
-| **Claude Code** | [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code/overview) (installs Node.js automatically) |
-| **GitHub account** | [github.com/signup](https://github.com/signup) (free) |
-
-Quick check — paste into your terminal:
-```bash
-git --version && claude --version
-```
-Both should print version numbers.
+| **Git** | [git-scm.com/downloads](https://git-scm.com/downloads) |
+| **Claude Code** | [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code/overview) |
+| **GitHub account** | [github.com/signup](https://github.com/signup) |
 
 ## Quick start
 
-**1. Clone this repo** — replace `my-project` with your project name (lowercase, hyphens, no spaces):
 ```bash
-git clone https://github.com/USERNAME/REPO-infra.git my-project
+# 1. Clone this repo
+git clone https://github.com/rsonnad/alpacapps-infra.git my-project
 cd my-project
-```
 
-**2. Open Claude Code** — you must be inside the project folder:
-```bash
+# 2. Open Claude Code
 claude
+
+# 3. Run the setup wizard
+/setup-alpacapps-infra
 ```
 
-**3. Run the setup wizard:**
-```
-/setup-your-app-infra
-```
-
-That's it. Claude creates your own GitHub repo, disconnects from this template, walks you through setting up each service, and pushes everything live.
-
-> **⚠️ "Skill not found"?** You're not inside the cloned folder. The skill lives at `.claude/skills/` inside the project. Run `pwd` to check, then `cd my-project` if needed.
-
-## What happens during setup
-
-The setup wizard will:
-1. Ask what you're building and which services you need
+The wizard will:
+1. Ask what you're building (7 persona templates available)
 2. Create a new GitHub repo under your account
-3. Disconnect from the `your-app-infra` template origin
-4. Customize the codebase for your organization (branding, basePath, i18n)
-5. Set up Supabase (create org + project), deploy edge functions, configure webhooks
-6. Scaffold login/auth system and admin CRUD pages for your entities
-7. Build your context docs (`CLAUDE.md` + `docs/*.md`) with credentials, schema, and patterns
-8. Push everything to your new repo — your site goes live on GitHub Pages
+3. Set up Supabase (database, auth, storage, edge functions)
+4. Customize branding, domain, and credentials
+5. Deploy your site live on GitHub Pages
 
-## After setup
+## Architecture
 
-The project uses an **on-demand context system** to keep Claude fast and efficient:
+```
+Browser → GitHub Pages (static HTML/JS/CSS)
+                ↓
+         Supabase (PostgreSQL + Edge Functions + Auth + Storage)
+```
 
-- **`CLAUDE.md`** (~30 lines) is loaded every conversation — contains project directives and an index
-- **`docs/*.md`** files are loaded only when needed:
-  - `CREDENTIALS.md` — API keys, tokens (gitignored, never committed)
-  - `SCHEMA.md` — database tables and relationships
-  - `PATTERNS.md` — code conventions, Tailwind tokens, auth system
-  - `KEY-FILES.md` — project file structure
-  - `DEPLOY.md` — deployment workflow and live URLs
-  - `INTEGRATIONS.md` — external services and cost tiers
-  - `CHANGELOG.md` — recent changes
+- **Frontend:** Vanilla HTML/JS + Tailwind CSS v4
+- **Backend:** Supabase (75+ edge functions, RLS, JWT auth)
+- **Hosting:** GitHub Pages (no build step, push to deploy)
+- **Mobile:** Capacitor 8 (iOS + Android wrapper)
 
-Claude loads only what it needs per task — saving thousands of tokens per conversation. Just tell Claude what to build.
+## Project structure
+
+```
+shared/           — 47 JS modules (auth, services, shells, widgets)
+styles/           — Tailwind v4 design tokens + CSS
+login/            — Authentication pages
+spaces/           — Rental listing + admin dashboard (65+ pages)
+residents/        — Resident portal (device control, profile)
+associates/       — Staff hours tracking + work photos
+events/           — Event hosting pipeline
+pay/              — Self-service payment page
+supabase/
+  functions/      — 63 edge functions
+  migrations/     — 33 database migrations
+mobile/           — Capacitor iOS/Android app
+```
+
+## Persona templates
+
+| Template | Best for |
+|----------|----------|
+| Vacation Rental | Short-term rentals with Airbnb sync + smart home |
+| Long-term Landlord | Lease management + rent collection |
+| Event Venue | Event pipeline with contracts + payments |
+| Hostel / Co-living | Mixed rooms + work-trade + shared amenities |
+| Personal AI Hub | Smart home + AI assistant (no property mgmt) |
+| Small Business | CRM + invoicing + communication |
+| Developer Portfolio | Auth + payments starter kit |
 
 ## Customization
 
-See [CUSTOMIZATION.md](CUSTOMIZATION.md) for a detailed guide on what gets customized for each new organization and how to modify the template.
-
-## Tech Stack
-
-- **Frontend:** Next.js 16 (React 19, TypeScript, Tailwind CSS)
-- **Backend:** Supabase (PostgreSQL + Storage + Auth)
-- **Hosting:** GitHub Pages (static export)
-- **i18n:** Dictionary-based multi-language support (English, Spanish, French by default)
-
-## Guides
-
-- **[Getting Started](https://YOUR_DOMAIN/docs/getting-started.html)** — Visual step-by-step walkthrough
-- **[Full Infrastructure Guide](https://YOUR_DOMAIN/docs/your-appinfra.html)** — Detailed service-by-service setup reference
+See [CUSTOMIZATION.md](CUSTOMIZATION.md) for details on branding, features, and configuration.
 
 ## License
 
-AGPL-3.0 — see [LICENSE](LICENSE). If you modify and distribute this, you must share your changes under the same license.
+AGPL-3.0 — see [LICENSE](LICENSE).
