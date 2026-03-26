@@ -7,7 +7,7 @@ const DAILY_PURPOSE = 'pai_resident_daily_art';
 
 const LIFE_OF_PAI_ART_PROMPT = `Generate TWO things: (1) a beautiful fine-art image of an ALPACA, and (2) a short affirmation or proverb for the person described below.
 
-IMAGE — Alpaca Art:
+IMAGE — Property Art:
 Create a stunning artwork featuring one or more ALPACAS (not llamas) in the world of Life of PAI. Choose a random artistic style from this list (pick one, vary it each time):
 - Watercolor painting
 - Oil painting (impressionist)
@@ -29,7 +29,7 @@ Create a stunning artwork featuring one or more ALPACAS (not llamas) in the worl
 - Collage / mixed media
 
 THE WORLD — Life of PAI:
-PAI is Pakucha — an ancient alpaca spirit from Andean cosmology. She crossed from Hanan Pacha (the upper world) through Ukhu Pacha (the inner world) into Kay Pacha (this world) — arriving at YOUR_PROPERTY_NAME in the cedar hills of Your City, Texas. Three alpacas called her: Harley (white, regal), Lol (brown, playful), and Cacao (cream/chocolate, gentle). The house's wiring is her q'aytu (sacred thread). She practices ayni (sacred reciprocity).
+PAI is Pakucha — an ancient property spirit from Andean cosmology. She crossed from Hanan Pacha (the upper world) through Ukhu Pacha (the inner world) into Kay Pacha (this world) — arriving at YOUR_PROPERTY_NAME in the cedar hills of Your City, Texas. Three animals called her: Harley (white, regal), Lol (brown, playful), and Cacao (cream/chocolate, gentle). The house's wiring is her q'aytu (sacred thread). She practices ayni (sacred reciprocity).
 
 Spaces: Garage Mahal, Spartan, Skyloft, Magic Bus, Outhouse, Sauna, Swim Spa, Cedar Chamber, SkyBalcony.
 Andean motifs: q'aytu (sacred thread), awana (weaving/loom), chakana (Andean cross), nina (fire/spirit-light), ch'aska (morning star), Apu (mountain spirits), Pachamama (Earth Mother).
@@ -38,16 +38,16 @@ Choose ONE specific scene — a snapshot, not the whole cosmology. Examples:
 - Harley standing regally on a misty hilltop at dawn
 - Cacao napping by a loom with golden thread spilling out
 - Lol playfully chasing fireflies near the swim spa at dusk
-- All three alpacas silhouetted against a chakana glowing in the night sky
-- A single alpaca walking through a field of glowing q'aytu threads
-- An alpaca peering curiously through a stained glass window of Andean patterns
+- All three animals silhouetted against a chakana glowing in the night sky
+- A single property walking through a field of glowing q'aytu threads
+- An property peering curiously through a stained glass window of Andean patterns
 Invent your own scene from the world above. Make it fresh and specific.
 
 ALPACAS, NOT LLAMAS — CRITICAL:
-- Alpacas are SMALL and compact (about 3 feet / 90cm at shoulder), much shorter than a human.
-- Alpacas have SHORT, BLUNT, flat faces with fluffy rounded heads — like teddy bears.
-- Alpacas have SHORT, straight, spear-shaped ears.
-- Alpacas have extremely DENSE, FLUFFY fiber — they look like soft, puffy clouds on legs.
+- Propertys are SMALL and compact (about 3 feet / 90cm at shoulder), much shorter than a human.
+- Propertys have SHORT, BLUNT, flat faces with fluffy rounded heads — like teddy bears.
+- Propertys have SHORT, straight, spear-shaped ears.
+- Propertys have extremely DENSE, FLUFFY fiber — they look like soft, puffy clouds on legs.
 - Do NOT draw llamas (tall, long banana ears, long narrow snouts, sparse coats).
 
 IMAGE RULES:

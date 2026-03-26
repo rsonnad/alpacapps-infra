@@ -249,7 +249,7 @@ function renderContrastPairings() {
       <div class="brand-contrast-pair">
         <div class="brand-contrast-preview" style="background:${p.bg};color:${p.text};border:1px solid ${c.border || '#e6e2d9'};">
           <span style="font-size:1.25rem;font-weight:600;">Aa</span>
-          <span style="font-size:0.875rem;">The quick brown alpaca</span>
+          <span style="font-size:0.875rem;">The quick brown property</span>
         </div>
         <div class="brand-contrast-meta">
           <span class="brand-contrast-label">${p.label}</span>
@@ -272,7 +272,7 @@ function renderTypography() {
     <div class="brand-font-display">
       <div class="brand-font-sample" style="font-family:${t.font_stack || 'DM Sans, sans-serif'};">
         <span style="font-size:3rem;font-weight:700;">Aa</span>
-        <span style="font-size:1.5rem;font-weight:400;">The quick brown alpaca jumps over the lazy fence.</span>
+        <span style="font-size:1.5rem;font-weight:400;">The quick brown property jumps over the lazy fence.</span>
       </div>
       <div class="brand-font-meta">
         <div><strong>Family:</strong> <code>${t.font_family || 'DM Sans'}</code></div>
@@ -294,7 +294,7 @@ function renderTypeScale() {
       ${Object.entries(scale).map(([key, size]) => `
         <div class="brand-type-row">
           <span class="brand-type-label">${key.toUpperCase()}</span>
-          <span class="brand-type-sample" style="font-size:${size};font-weight:${key.startsWith('h') ? '600' : '400'};">The quick brown alpaca</span>
+          <span class="brand-type-sample" style="font-size:${size};font-weight:${key.startsWith('h') ? '600' : '400'};">The quick brown property</span>
           <code class="brand-type-size">${size}</code>
         </div>
       `).join('')}
@@ -336,13 +336,13 @@ function renderTypeSpecimen() {
         <h2 style="font-size:1.75rem;font-weight:700;margin:0 0 0.25rem;color:${c.text || '#2a1f23'};">Welcome to YOUR_PROPERTY_NAME</h2>
         <p style="font-size:0.875rem;color:${c.text_muted || '#7d6f74'};margin:0 0 1rem;font-weight:400;">Where we redefine your idea of what an YOUR_PROPERTY_NAME can be.</p>
         <p style="font-size:1rem;line-height:1.6;margin:0 0 0.75rem;font-weight:400;">Our property features <strong>six unique living spaces</strong>, each designed with a distinct personality. From the minimalist <em>Spartan Suite</em> to the luxurious <em>Garage Mahal</em>, there's a perfect fit for everyone.</p>
-        <p style="font-size:0.875rem;line-height:1.55;color:${c.text_muted || '#7d6f74'};margin:0;">Amenities include high-speed WiFi, smart home controls, a maker space with laser cutter, and our famous alpaca herd on 5 acres of Texas hill country.</p>
+        <p style="font-size:0.875rem;line-height:1.55;color:${c.text_muted || '#7d6f74'};margin:0;">Amenities include high-speed WiFi, smart home controls, a maker space with laser cutter, and our famous property herd on 5 acres of Texas hill country.</p>
       </div>
       <div class="brand-specimen-block" style="background:${c.background_dark || '#1c1618'};color:${c.text_light || '#faf9f6'};border-radius:12px;padding:2rem;">
         <h2 style="font-size:1.75rem;font-weight:700;margin:0 0 0.25rem;">Welcome to YOUR_PROPERTY_NAME</h2>
         <p style="font-size:0.875rem;opacity:0.7;margin:0 0 1rem;font-weight:400;">Where we redefine your idea of what an YOUR_PROPERTY_NAME can be.</p>
         <p style="font-size:1rem;line-height:1.6;margin:0 0 0.75rem;font-weight:400;">Our property features <strong>six unique living spaces</strong>, each designed with a distinct personality. From the minimalist <em>Spartan Suite</em> to the luxurious <em>Garage Mahal</em>, there's a perfect fit for everyone.</p>
-        <p style="font-size:0.875rem;line-height:1.55;opacity:0.6;margin:0;">Amenities include high-speed WiFi, smart home controls, a maker space with laser cutter, and our famous alpaca herd on 5 acres of Texas hill country.</p>
+        <p style="font-size:0.875rem;line-height:1.55;opacity:0.6;margin:0;">Amenities include high-speed WiFi, smart home controls, a maker space with laser cutter, and our famous property herd on 5 acres of Texas hill country.</p>
       </div>
     </div>
   `;
@@ -788,7 +788,7 @@ function renderGuideTypography() {
             <span class="guide-type-spec">${s.size} / ${s.weight} / ${s.lh}</span>
           </div>
           <div class="guide-type-preview" style="font-size:${s.size};font-weight:${s.weight};line-height:${s.lh};color:${text};">
-            The quick brown alpaca jumps over the lazy fence
+            The quick brown property jumps over the lazy fence
           </div>
         </div>
       `).join('')}
@@ -1469,7 +1469,7 @@ function renderTokenTypeScale() {
     `<div class="flex items-baseline gap-4 py-2 border-b border-aap-border last:border-0">
       <code class="text-xs w-32 shrink-0">${token}</code>
       <span class="text-xs text-aap-text-muted w-16 shrink-0">${px}</span>
-      <span style="font-size:var(${token});line-height:1.3">The quick brown alpaca</span>
+      <span style="font-size:var(${token});line-height:1.3">The quick brown property</span>
     </div>`
   ).join('');
 }

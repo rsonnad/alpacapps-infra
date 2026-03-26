@@ -1,6 +1,6 @@
 -- =============================================
 -- EXPOSE DWELLING SPACES BY DEFAULT
--- GenAlpaca - Migration 021
+-- AlpacApps Infra - Migration 021
 -- =============================================
 -- Makes dwelling spaces public/listed by default,
 -- with explicit secret exceptions.

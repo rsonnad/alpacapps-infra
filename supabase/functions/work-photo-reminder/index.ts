@@ -114,8 +114,8 @@ Deno.serve(async (req) => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              from: 'Alpaca Team <team@YOUR_DOMAIN>',
-              to: [appUser.email, 'alpacaautomatic@gmail.com'],
+              from: 'Property Team <team@YOUR_DOMAIN>',
+              to: [appUser.email, 'automation@YOUR_DOMAIN'],
               reply_to: 'team@YOUR_DOMAIN',
               subject: 'Reminder: Upload Before Photos for Your Work Session',
               html: buildHtml(firstName, 'clock_in', spaceName),
@@ -214,8 +214,8 @@ Deno.serve(async (req) => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              from: 'Alpaca Team <team@YOUR_DOMAIN>',
-              to: [appUser.email, 'alpacaautomatic@gmail.com'],
+              from: 'Property Team <team@YOUR_DOMAIN>',
+              to: [appUser.email, 'automation@YOUR_DOMAIN'],
               reply_to: 'team@YOUR_DOMAIN',
               subject: 'Reminder: Upload After Photos for Your Work Session',
               html: buildHtml(firstName, 'clock_out', spaceName),

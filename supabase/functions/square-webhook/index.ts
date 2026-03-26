@@ -185,7 +185,7 @@ async function sendPaymentStatusEmail(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Alpaca System <auto@YOUR_DOMAIN>',
+        from: 'Property System <auto@YOUR_DOMAIN>',
         to: [PAYMENTS_EMAIL],
         subject,
         html,

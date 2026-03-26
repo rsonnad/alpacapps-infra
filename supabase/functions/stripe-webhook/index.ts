@@ -355,7 +355,7 @@ YOUR_PROPERTY_NAME`;
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Alpaca Team <team@YOUR_DOMAIN>',
+        from: 'Property Team <team@YOUR_DOMAIN>',
         to: [person.email],
         reply_to: 'team@YOUR_DOMAIN',
         subject: `Payment Received - ${formatCurrency(row.amount)} - YOUR_PROPERTY_NAME`,
@@ -382,7 +382,7 @@ YOUR_PROPERTY_NAME`;
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Alpaca System <auto@YOUR_DOMAIN>',
+        from: 'Property System <auto@YOUR_DOMAIN>',
         to: [PAYMENTS_EMAIL],
         subject: `[Stripe] ${formatCurrency(row.amount)} received from ${person.first_name} ${person.last_name} - ${paymentTypeLabel}`,
         html: emailHtml,

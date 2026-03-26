@@ -156,7 +156,7 @@ async function saveTemplate(templateKey, templateData, makeActive = true, userId
     html_template: templateData.html_template,
     text_template: templateData.text_template,
     placeholders: templateData.placeholders || [],
-    image_template: templateData.image_template || 'random_alpaca',
+    image_template: templateData.image_template || 'random_property',
   };
 
   // Add audit trail fields if provided

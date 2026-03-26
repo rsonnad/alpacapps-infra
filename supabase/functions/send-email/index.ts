@@ -833,7 +833,7 @@ the YOUR_PROPERTY_NAME property AI agent`
               <p style="color:#94a3b8;font-size:13px;text-align:center;margin:24px 0 0;">Questions? Just reply to this email.</p>
             </div>
 
-            <!-- Alpaca art banner -->
+            <!-- Property art banner -->
             <div style="padding:0;">
               <img src="${bannerUrl}" alt="YOUR_PROPERTY_NAME" style="width:100%;display:block;border-radius:0;" />
             </div>
@@ -918,7 +918,7 @@ the YOUR_PROPERTY_NAME property AI agent`
           <p style="margin: 30px 0; text-align: center;">
             <a href="${data.continue_url}" style="background:${B.accent}; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold; font-size: 16px;">Complete Your Application</a>
           </p>
-          <p>We are excited by the potential to have you join us at the YOUR_PROPERTY_NAME. Where our mission is to let your Alpaca Dreams run free. Our goal is to redefine your idea of what an YOUR_PROPERTY_NAME can be. When it comes to selecting an YOUR_PROPERTY_NAME, we feel no one need settle.</p>
+          <p>We are excited by the potential to have you join us at the YOUR_PROPERTY_NAME. Where our mission is to let your Property Dreams run free. Our goal is to redefine your idea of what an YOUR_PROPERTY_NAME can be. When it comes to selecting an YOUR_PROPERTY_NAME, we feel no one need settle.</p>
         `,
         text: `Great news, ${data.first_name}!
 
@@ -928,7 +928,7 @@ Please review the available spaces here: https://USERNAME.github.io/REPO/spaces/
 
 Or complete your application here: ${data.continue_url}
 
-We are excited by the potential to have you join us at the YOUR_PROPERTY_NAME. Where our mission is to let your Alpaca Dreams run free. Our goal is to redefine your idea of what an YOUR_PROPERTY_NAME can be. When it comes to selecting an YOUR_PROPERTY_NAME, we feel no one need settle.
+We are excited by the potential to have you join us at the YOUR_PROPERTY_NAME. Where our mission is to let your Property Dreams run free. Our goal is to redefine your idea of what an YOUR_PROPERTY_NAME can be. When it comes to selecting an YOUR_PROPERTY_NAME, we feel no one need settle.
 
 Yours generatively,
 PAI
@@ -1752,7 +1752,7 @@ the YOUR_PROPERTY_NAME property AI agent`
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #1a1a2e; padding: 20px; border-radius: 12px 12px 0 0;">
               <h2 style="color: #e0d68a; margin: 0;">PAI</h2>
-              <p style="color: #aaa; margin: 4px 0 0 0; font-size: 13px;">Prompt Alpaca Intelligence</p>
+              <p style="color: #aaa; margin: 4px 0 0 0; font-size: 13px;">Prompt Property Intelligence</p>
             </div>
             <div style="background: #fff; padding: 24px; border: 1px solid #e0e0e0; border-top: none;">
               <div style="white-space: pre-wrap; line-height: 1.6;">${data.reply_body || ''}</div>
@@ -1764,7 +1764,7 @@ the YOUR_PROPERTY_NAME property AI agent`
             </div>
             ${data.pai_art_url ? `
             <div style="border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 12px 12px; overflow: hidden;">
-              <img src="${data.pai_art_url}" alt="PAI - Prompt Alpaca Intelligence" style="width: 100%; height: auto; display: block;" />
+              <img src="${data.pai_art_url}" alt="PAI - Prompt Property Intelligence" style="width: 100%; height: auto; display: block;" />
             </div>
             ` : '<div style="border-radius: 0 0 12px 12px; height: 4px; background: #1a1a2e;"></div>'}
             <p style="color: #999; font-size: 11px; text-align: center; margin-top: 12px;">
@@ -1772,7 +1772,7 @@ the YOUR_PROPERTY_NAME property AI agent`
             </p>
           </div>
         `,
-        text: `PAI - Prompt Alpaca Intelligence
+        text: `PAI - Prompt Property Intelligence
 
 ${data.reply_body || ''}
 

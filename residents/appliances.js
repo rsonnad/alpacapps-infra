@@ -1215,7 +1215,7 @@ async function renderPrinterSettings() {
       <div>
         <label style="font-weight:600;display:block;margin-bottom:0.25rem;">Proxy URL</label>
         <input type="text" id="printerProxyUrl" value="${c.proxy_url || ''}" placeholder="https://ai-admin.cloud/printer-proxy" style="width:100%;padding:0.5rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;">
-        <p style="font-size:0.75rem;color:var(--text-muted);margin:0.25rem 0 0;">URL to the printer proxy on Alpaca Mac (via Caddy/Tailscale).</p>
+        <p style="font-size:0.75rem;color:var(--text-muted);margin:0.25rem 0 0;">URL to the printer proxy on Property Mac (via Caddy/Tailscale).</p>
       </div>
       <div>
         <label style="font-weight:600;display:block;margin-bottom:0.25rem;">Proxy Secret</label>

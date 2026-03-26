@@ -38,7 +38,7 @@ function jsonResponse(data: any, status = 200) {
 }
 
 /**
- * Call the printer proxy running on Alpaca Mac (via Caddy/Tailscale).
+ * Call the printer proxy running on Property Mac (via Caddy/Tailscale).
  */
 async function callPrinterProxy(
   proxyUrl: string,
@@ -378,7 +378,7 @@ serve(async (req) => {
       return jsonResponse({ success: true, result });
     }
 
-    // ---- UPLOAD LOCAL FILE (file already on Alpaca Mac) ----
+    // ---- UPLOAD LOCAL FILE (file already on Property Mac) ----
     if (body.action === "uploadLocalFile") {
       if (!(await checkPermission("control_printer"))) {
         return jsonResponse({ error: "Insufficient permissions to upload files" }, 403);

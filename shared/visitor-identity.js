@@ -1,7 +1,7 @@
 // Visitor Identity - persists name/email/phone in localStorage
 // Used to auto-fill followup forms across the site
 
-const STORAGE_KEY = 'alpaca_visitor';
+const STORAGE_KEY = 'property_visitor';
 const MAX_AGE_MS = 90 * 24 * 60 * 60 * 1000; // 90 days
 
 export function saveVisitor({ name, email, phone }) {

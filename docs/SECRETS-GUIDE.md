@@ -25,7 +25,7 @@ DB Row-Level Secrets (per-account tokens in config tables)
 | `DevOps-shared` | `DevOps-shared` | Cross-project infra (Cloudflare, R2, domain registrars) |
 | `{Person} Financial` | `Rahul Financial` | Banks, cards, loans, investments |
 | `{Person} General` | `Rahul General` | Utilities, insurance, shopping, govt, medical |
-| `{Business} Internet` | `Alpaca Internet` | Business web accounts (Airbnb, VRBO, social media) |
+| `{Business} Internet` | `Business Internet` | Business web accounts (Airbnb, VRBO, social media) |
 | `Family Tax` | `Family Tax` | SSNs, security Q&A, identity info |
 
 ## Item Structure

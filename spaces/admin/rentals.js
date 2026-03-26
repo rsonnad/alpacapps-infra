@@ -2640,7 +2640,7 @@ function renderPaymentSummary(app) {
 
 /**
  * Generate a display filename for lease documents
- * Format: "Alpaca Rental Agreement [Name] [Date].pdf"
+ * Format: "Property Rental Agreement [Name] [Date].pdf"
  */
 function getLeaseDisplayFilename(app, isSigned = false) {
   const name = app.person
@@ -2652,7 +2652,7 @@ function getLeaseDisplayFilename(app, isSigned = false) {
   const dateStr = dateField
     ? formatDateAustin(dateField, { year: 'numeric', month: '2-digit', day: '2-digit' }).split('/').reverse().join('-')
     : getAustinTodayISO();
-  const prefix = isSigned ? 'Alpaca Rental Agreement (Signed)' : 'Alpaca Rental Agreement';
+  const prefix = isSigned ? 'Property Rental Agreement (Signed)' : 'Property Rental Agreement';
   return `${prefix} ${cleanName} ${dateStr}.pdf`;
 }
 
@@ -3264,7 +3264,7 @@ function copyPaymentInstructions() {
   const sec = app.security_deposit_amount || 0;
   const total = moveIn + sec;
 
-  const text = `Deposit Payment Instructions - YOUR_PROPERTY_NAME\n\nMove-in Reservation Deposit: $${moveIn}\nSecurity Deposit: $${sec}\nTotal Due: $${total}\n\nPayment Methods:\n• Venmo: @AlpacaPlayhouse\n• Zelle: admin@YOUR_DOMAIN\n\nPlease include your name in the payment memo.`;
+  const text = `Deposit Payment Instructions - YOUR_PROPERTY_NAME\n\nMove-in Reservation Deposit: $${moveIn}\nSecurity Deposit: $${sec}\nTotal Due: $${total}\n\nPayment Methods:\n• Venmo: @PropertyPlayhouse\n• Zelle: admin@YOUR_DOMAIN\n\nPlease include your name in the payment memo.`;
 
   navigator.clipboard.writeText(text).then(() => {
     showToast('Payment instructions copied to clipboard', 'success');

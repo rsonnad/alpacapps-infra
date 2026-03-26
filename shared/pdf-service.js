@@ -364,7 +364,7 @@ async function uploadPdfToStorage(pdfBlob, filename) {
 
 /**
  * Generate a smart filename for lease agreements
- * Format: "Alpaca Rental Agreement [Name] [Date].pdf"
+ * Format: "Property Rental Agreement [Name] [Date].pdf"
  */
 function generateLeaseFilename(tenantName, date = new Date()) {
   // Clean tenant name for filename (remove special chars, limit length)
@@ -376,7 +376,7 @@ function generateLeaseFilename(tenantName, date = new Date()) {
   // Format date as YYYY-MM-DD
   const dateStr = date.toISOString().split('T')[0];
 
-  return `Alpaca Rental Agreement ${cleanName} ${dateStr}.pdf`;
+  return `Property Rental Agreement ${cleanName} ${dateStr}.pdf`;
 }
 
 /**

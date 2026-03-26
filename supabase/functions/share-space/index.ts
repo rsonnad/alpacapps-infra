@@ -7,7 +7,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const SITE_URL = "https://YOUR_DOMAIN";
 const SITE_NAME = "YOUR_PROPERTY_NAME";
-const DEFAULT_IMAGE = "YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/branding/alpaca-head-dark.png";
+const DEFAULT_IMAGE = "YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/branding/logo-dark.png";
 const DEFAULT_DESCRIPTION = "Unique rental and event spaces at Austin's YOUR_PROPERTY_NAME — creative living for adventurous souls.";
 
 serve(async (req: Request) => {

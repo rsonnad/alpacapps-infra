@@ -429,7 +429,7 @@ export const emailService = {
    * @param {Array} data.photos - Array of {url, type, caption}
    */
   async sendWorkCheckoutSummary(data) {
-    const recipients = [data.associate_email, 'admin@YOUR_DOMAIN', 'alpacaautomatic@gmail.com'].filter(Boolean);
+    const recipients = [data.associate_email, 'admin@YOUR_DOMAIN', 'automation@YOUR_DOMAIN'].filter(Boolean);
     return sendEmail(EMAIL_TYPES.WORK_CHECKOUT_SUMMARY, recipients, data);
   },
 

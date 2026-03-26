@@ -10,7 +10,7 @@ import { getAuthState } from '../../shared/auth.js';
 // CONFIG — project-specific values
 // ═══════════════════════════════════════════════════════════
 const SESSIONS_API = 'https://claude-sessions.your-app.workers.dev';
-const SESSIONS_TOKEN = 'alpaca-sessions-2026';
+const SESSIONS_TOKEN = 'property-sessions-2026';
 const PROJECT_FILTER = 'your-project'; // Only show this project's sessions
 const GH_OWNER = 'USERNAME';
 const GH_REPO = 'your-app';

@@ -1,6 +1,6 @@
 -- =============================================
 -- MIGRATE EXISTING PHOTOS TO MEDIA SYSTEM
--- GenAlpaca - Migration 003
+-- AlpacApps Infra - Migration 003
 -- =============================================
 -- Run this AFTER 002-media-management.sql
 -- This migrates data from photos/photo_spaces to new media tables

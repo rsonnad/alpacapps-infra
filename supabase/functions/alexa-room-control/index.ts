@@ -293,7 +293,7 @@ serve(async (req) => {
     const requestType = body?.request?.type || "";
     if (requestType === "LaunchRequest") {
       return alexaResponse(
-        "Alpaca Home is ready. You can say turn master pasture lights on.",
+        "Property Home is ready. You can say turn master pasture lights on.",
       );
     }
 

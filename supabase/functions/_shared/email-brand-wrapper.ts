@@ -2,7 +2,7 @@
  * Email Brand Wrapper
  *
  * Wraps email HTML content in a consistent branded shell with:
- * - Branded header (dark background, alpaca icon + wordmark)
+ * - Branded header (dark background, property icon + wordmark)
  * - Consistent body styling (fonts, colors, spacing)
  * - Branded footer (address, tagline)
  * - Inline styles for email client compatibility
@@ -24,7 +24,7 @@ const FALLBACK = {
     primary_name: 'YOUR_PROPERTY_NAME',
     full_name: 'YOUR_PROPERTY_NAME Austin',
     platform_name: 'YOUR_APP_NAME',
-    tagline: 'We put the AI into Alpacas',
+    tagline: 'We put the AI into Propertys',
     address: '123 Main St, Your City, ST 00000',
     website: 'https://YOUR_DOMAIN',
   },
@@ -46,7 +46,7 @@ const FALLBACK = {
   },
   logos: {
     base_url: 'YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos',
-    icon_light: 'alpaca-head-white-transparent.png',
+    icon_light: 'logo-white-transparent.png',
     wordmark_light: 'wordmark-white-transparent.png',
   },
   email: {
@@ -90,7 +90,7 @@ async function loadBrandConfig(): Promise<any> {
 }
 
 /**
- * Load 1 random alpaca image for email footer (no cache — pick fresh each call).
+ * Load 1 random property image for email footer (no cache — pick fresh each call).
  * Prefers images tagged "email footer"; falls back to any mktg image.
  */
 async function loadGalleryImages(): Promise<string[]> {
@@ -99,7 +99,7 @@ async function loadGalleryImages(): Promise<string[]> {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const sb = createClient(supabaseUrl, supabaseKey);
 
-    // First: try images tagged "pai-email-art" (alpaca artwork for emails)
+    // First: try images tagged "pai-email-art" (property artwork for emails)
     const { data: tagRow } = await sb
       .from("media_tags")
       .select("id")
@@ -155,7 +155,7 @@ export interface WrapOptions {
   showHeader?: boolean;
   /** Show the branded footer with address (default: true) */
   showFooter?: boolean;
-  /** Show the alpaca image gallery above footer (default: true) */
+  /** Show the property image gallery above footer (default: true) */
   showGallery?: boolean;
   /** Show the PAI signature block (default: true) */
   showSignature?: boolean;
@@ -167,7 +167,7 @@ export interface WrapOptions {
   preheader?: string;
   /** Override accent color for the CTA button */
   accentColor?: string;
-  /** Extra images to show above the alpaca gallery (e.g. space photo) */
+  /** Extra images to show above the property gallery (e.g. space photo) */
   extraImages?: string[];
 }
 
@@ -255,7 +255,7 @@ export async function wrapEmailHtml(
       </td>
     </tr>` : '';
 
-  // Build gallery: extra images (e.g. space photo) + alpaca imagery, stacked vertically
+  // Build gallery: extra images (e.g. space photo) + property imagery, stacked vertically
   const allGalleryImages = [...(extraImages || []), ...galleryImages];
   const galleryHtml = allGalleryImages.length > 0 ? `
     <!-- Image Gallery -->

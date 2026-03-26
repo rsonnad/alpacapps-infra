@@ -1,6 +1,6 @@
 -- =============================================
 -- MEDIA MANAGEMENT SYSTEM
--- GenAlpaca - Migration 002
+-- AlpacApps Infra - Migration 002
 -- =============================================
 -- Run this in your Supabase SQL Editor
 -- This creates a flexible media system with:

@@ -23,9 +23,9 @@ const corsHeaders = {
 };
 
 // Email configuration
-const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'alpacaautomatic@gmail.com';
+const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'automation@YOUR_DOMAIN';
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
-const FROM_EMAIL = 'Alpaca Automaton Errors <auto@YOUR_DOMAIN>';
+const FROM_EMAIL = 'Property Automaton Errors <auto@YOUR_DOMAIN>';
 
 // =============================================
 // RISK EVALUATION CONFIG
@@ -357,8 +357,8 @@ async function handleErrorReport(report: ErrorReport) {
       const { error: bugError } = await supabase
         .from('bug_reports')
         .insert({
-          reporter_name: 'Alpaca Error Monitor',
-          reporter_email: 'alpacaautomatic@gmail.com',
+          reporter_name: 'Property Error Monitor',
+          reporter_email: 'automation@YOUR_DOMAIN',
           description,
           page_url: pageUrl,
           error_message: `${error.code}: ${error.message}`.substring(0, 500),

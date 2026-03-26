@@ -229,7 +229,7 @@ prompts         - Versioned prompt library (multiple versions per name)
                   Unique: (name, version); unique partial index on (name) WHERE is_active
                   Helper functions: get_prompt(name), create_prompt_version(name, content, ...)
                   Categories: image_gen, email, pai, marketing, general
-                  Seeded prompts: pai_daily_art (v1+v2), alpaca_trio_tech (v1)
+                  Seeded prompts: pai_daily_art (v1+v2), home-server_trio_tech (v1)
 ```
 
 ### User & Auth System

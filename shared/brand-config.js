@@ -61,8 +61,8 @@ const FALLBACK_CONFIG = {
   },
   logos: {
     base_url: 'YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos',
-    icon_dark: 'alpaca-head-black-transparent.png',
-    icon_light: 'alpaca-head-white-transparent.png',
+    icon_dark: 'logo-black-transparent.png',
+    icon_light: 'logo-white-transparent.png',
     wordmark_dark: 'wordmark-black-transparent.png',
     wordmark_light: 'wordmark-white-transparent.png',
     sizes: {

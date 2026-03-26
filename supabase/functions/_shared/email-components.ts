@@ -50,7 +50,7 @@ export const PAYMENT_BADGES: Record<string, { bg: string; label: string }> = {
 
 /** Default payment methods when _payment_methods_raw is not available */
 const DEFAULT_METHODS = [
-  { method_type: 'venmo', account_identifier: '@AlpacaPlayhouse' },
+  { method_type: 'venmo', account_identifier: '@PropertyPlayhouse' },
   { method_type: 'zelle', account_identifier: 'admin@YOUR_DOMAIN' },
 ];
 
@@ -370,7 +370,7 @@ export function balanceBox(
  * Configure in brand_config.email_image_templates or email_templates table.
  */
 export type ImageTemplateType =
-  | 'random_alpaca'     // Random alpaca photo from media library (default)
+  | 'random_property'     // Random property photo from media library (default)
   | 'space_photo'       // Photo of the specific space being discussed
   | 'welcome_banner'    // Ghibli-style welcome banner
   | 'branded_minimal'   // Just the logo, no gallery image
@@ -383,8 +383,8 @@ export type ImageTemplateType =
  */
 export const CATEGORY_IMAGE_DEFAULTS: Record<string, ImageTemplateType> = {
   rental:        'space_photo',    // Show the space they're renting
-  payment:       'random_alpaca',  // Friendly alpaca to soften payment emails
-  event:         'random_alpaca',  // Event imagery
+  payment:       'random_property',  // Friendly property to soften payment emails
+  event:         'random_property',  // Event imagery
   invitation:    'welcome_banner', // Welcoming banner for invites
   admin:         'branded_minimal',// Keep admin emails clean
   system:        'none',           // System emails are functional only
@@ -394,7 +394,7 @@ export const CATEGORY_IMAGE_DEFAULTS: Record<string, ImageTemplateType> = {
 
 /**
  * Resolve which image template to use for an email.
- * Priority: template-level override > category default > 'random_alpaca'
+ * Priority: template-level override > category default > 'random_property'
  */
 export function resolveImageTemplate(
   emailCategory?: string,
@@ -404,5 +404,5 @@ export function resolveImageTemplate(
   if (emailCategory && CATEGORY_IMAGE_DEFAULTS[emailCategory]) {
     return CATEGORY_IMAGE_DEFAULTS[emailCategory];
   }
-  return 'random_alpaca';
+  return 'random_property';
 }

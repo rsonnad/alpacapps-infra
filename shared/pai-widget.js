@@ -1,5 +1,5 @@
 /**
- * PAI (Prompt Alpaca Intelligence) - Floating chat widget for resident pages
+ * PAI (Prompt Property Intelligence) - Floating chat widget for resident pages
  * Allows residents to control smart home devices and ask property questions
  * via natural language, powered by Gemini AI with function calling.
  */
@@ -46,10 +46,10 @@ function injectHTML() {
     <div id="paiPanel" class="pai-panel hidden">
       <div class="pai-panel__header">
         <div class="pai-panel__title">
-          <img src="YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos/alpaca-head-black-transparent.png"
+          <img src="YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos/logo-black-transparent.png"
                alt="" class="pai-panel__avatar">
           <span>PAI</span>
-          <span class="pai-panel__subtitle">Prompt Alpaca Intelligence</span>
+          <span class="pai-panel__subtitle">Prompt Property Intelligence</span>
         </div>
         <button id="paiClose" class="pai-panel__close" aria-label="Close">&times;</button>
       </div>

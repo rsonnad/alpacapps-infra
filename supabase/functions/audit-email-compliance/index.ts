@@ -5,7 +5,7 @@
  * 1. Sender identity: "PAI at the YOUR_PROPERTY_NAME"
  * 2. Profile picture: BIMI DNS record (manual check — logged as reminder)
  * 3. Signature: "Yours generatively, PAI"
- * 4. Two alpaca footer images
+ * 4. Two property footer images
  * 5. Approval gate default (requires_approval unless explicitly approved)
  * 6. Payment method ordering (Zelle/Venmo first, card last with fee)
  * 7. Feedback box in rendered emails

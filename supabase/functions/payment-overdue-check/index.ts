@@ -888,7 +888,7 @@ YOUR_PROPERTY_NAME`;
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Alpaca Team <team@YOUR_DOMAIN>',
+            from: 'Property Team <team@YOUR_DOMAIN>',
             to: [first.personEmail],
             cc: [TEAM_EMAIL],
             reply_to: 'team@YOUR_DOMAIN',
@@ -962,7 +962,7 @@ YOUR_PROPERTY_NAME`;
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              from: 'Alpaca Team <team@YOUR_DOMAIN>',
+              from: 'Property Team <team@YOUR_DOMAIN>',
               to: [item.personEmail],
               cc: [TEAM_EMAIL],
               reply_to: 'team@YOUR_DOMAIN',
@@ -1141,7 +1141,7 @@ YOUR_PROPERTY_NAME`;
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Alpaca System <auto@YOUR_DOMAIN>',
+            from: 'Property System <auto@YOUR_DOMAIN>',
             to: [TEAM_EMAIL],
             subject: digestSubject,
             html: digestHtml,

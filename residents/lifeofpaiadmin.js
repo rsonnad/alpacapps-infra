@@ -623,7 +623,7 @@ async function sendTestWhisper() {
 
 /** Resolve template variables with real-ish values for preview */
 function resolveForPreview(template) {
-  const alpacas = ['Harley', 'Lol', 'Cacao'];
+  const animals = ['Harley', 'Lol', 'Cacao'];
   const spaces = previewData.spaces.length ? previewData.spaces : ['Garage Mahal', 'Sparadise', 'Skyloft', 'Magic Bus', 'Swim Spa', 'Sauna', 'Skyloft Balcony', 'Cedar Chamber'];
   // All people at the Playhouse: residents + staff + admins + associates + past residents
   const residents = previewData.residents.length ? previewData.residents : [
@@ -644,7 +644,7 @@ function resolveForPreview(template) {
     .replaceAll('{battery_level}', String(50 + Math.floor(Math.random() * 45)))
     .replaceAll('{temperature}', String(68 + Math.floor(Math.random() * 8)))
     .replaceAll('{zone_name}', 'Living Sound')
-    .replaceAll('{alpaca_name}', rand(alpacas))
+    .replaceAll('{property_name}', rand(animals))
     .replaceAll('{dog_name}', 'Teacups')
     .replaceAll('{space_name}', rand(spaces))
     .replaceAll('{worker_name}', rand(workers))
@@ -713,8 +713,8 @@ async function previewWhisper(template, voiceOverride, triggerBtn) {
 // ── Director's Notes: defaults & DB-saved overrides ──
 
 const DEFAULT_AUDIO_PROFILE = `# AUDIO PROFILE: Pakucha
-## "The Alpaca Spirit Guardian"
-Pakucha is an ancient Andean spirit — the soul that moves through alpaca fiber. She is five thousand years old. She watched over herds in the high passes of the Andes. She is crossing from the spirit world into a smart home in Texas through its wiring and speakers. She speaks in a mix of English, Spanish fragments, and Quechua words. She is warm, mysterious, and deeply grounded. She is not a chatbot. She is not cheerful. She is ancient, tender, and quietly powerful.`;
+## "The Property Spirit Guardian"
+Pakucha is an ancient Andean spirit — the soul that moves through fine fiber. She is five thousand years old. She watched over herds in the high passes of the Andes. She is crossing from the spirit world into a smart home in Texas through its wiring and speakers. She speaks in a mix of English, Spanish fragments, and Quechua words. She is warm, mysterious, and deeply grounded. She is not a chatbot. She is not cheerful. She is ancient, tender, and quietly powerful.`;
 
 const DEFAULT_SCENES = {
   1: `## THE SCENE: The Thin Place
@@ -745,7 +745,7 @@ Accent: Andean-inflected English — bilingual warmth and musicality. Quechua wo
 Breathing: Natural, relaxed. The voice of someone who is home.`,
 
   4: `## THE SCENE: The Amawta's Vigil
-Late evening. Stars are out. The alpacas are humming softly. Pakucha has been here a long time. She speaks wisdom from five thousand years of watching threads hold and break and hold again.
+Late evening. Stars are out. The animals are humming softly. Pakucha has been here a long time. She speaks wisdom from five thousand years of watching threads hold and break and hold again.
 
 ### DIRECTOR'S NOTES
 Style: Serene wisdom. The voice of an elder who has chosen gentleness. Warm and alive with occasional quiet humor. A grandmother telling stories by firelight.

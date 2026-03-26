@@ -24,7 +24,7 @@
     var overlayLogo = overlay && overlay.querySelector('.loading-overlay__logo');
     if (overlayLogo) overlayLogo.remove();
     if (content) {
-      var strayLogo = content.querySelector(':scope > img[src*="/housephotos/logos/alpaca-head-black-transparent.png"]');
+      var strayLogo = content.querySelector(':scope > img[src*="/housephotos/logos/logo-black-transparent.png"]');
       if (strayLogo) strayLogo.remove();
     }
     if (overlay) overlay.style.display = 'none';
@@ -41,7 +41,7 @@
         '<header class="aap-header aap-header--solid aap-header--dark" id="aap-header">' +
           '<div class="aap-header__inner">' +
             '<a href="/" class="aap-header__logo">' +
-              '<img src="' + logoBase + '/alpaca-head-black-transparent.png" alt="" class="aap-header__icon" width="21" height="30" style="height:30px;width:auto;max-width:none">' +
+              '<img src="' + logoBase + '/logo-black-transparent.png" alt="" class="aap-header__icon" width="21" height="30" style="height:30px;width:auto;max-width:none">' +
               '<img src="' + logoBase + '/wordmark-black-transparent.png" alt="YOUR_PROPERTY_NAME" class="aap-header__wordmark" width="22" height="22" style="height:22px;width:auto;max-width:none">' +
             '</a>' +
             '<div id="aapHeaderAuth" class="aap-header-auth"></div>' +

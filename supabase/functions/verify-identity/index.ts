@@ -409,7 +409,7 @@ If this is not an ID document, return: {"error": "not_a_valid_id"}`,
             }),
           });
         } else {
-          const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'alpacaautomatic@gmail.com';
+          const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'automation@YOUR_DOMAIN';
           const adminUrl = isAssociateContext
             ? `https://USERNAME.github.io/REPO/spaces/admin/worktracking.html`
             : `https://USERNAME.github.io/REPO/spaces/admin/rentals.html`;

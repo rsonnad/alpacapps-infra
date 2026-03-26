@@ -14,18 +14,18 @@ import { initAuth, getAuthState, signOut } from './auth.js';
 // Image URLs - transparent PNGs from Supabase storage
 const LOGO_BASE = 'YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos';
 const ALPACA_ICON_FALLBACK = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 30"><rect width="21" height="30" rx="4" fill="none"/><path d="M10.5 1.5C8.3 1.5 6.5 3.3 6.5 5.5v4.1L3.8 13c-1 1.3-1.5 2.8-1.5 4.4 0 4.6 3.7 8.3 8.2 8.3s8.2-3.7 8.2-8.3c0-1.6-.5-3.2-1.5-4.4l-2.7-3.4V5.5c0-2.2-1.8-4-4-4z" fill="#1f1720"/><ellipse cx="10.5" cy="18.6" rx="3.1" ry="4.7" fill="#f6f5f0"/></svg>');
-const ALPACA_WORDMARK_FALLBACK = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 28"><rect width="120" height="28" fill="none"/><text x="0" y="20" font-size="16" font-family="Arial,sans-serif" fill="#1f1720">Alpaca</text></svg>');
+const ALPACA_WORDMARK_FALLBACK = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 28"><rect width="120" height="28" fill="none"/><text x="0" y="20" font-size="16" font-family="Arial,sans-serif" fill="#1f1720">Property</text></svg>');
 const IMAGES = {
-  // Alpaca head icon (transparent PNGs)
-  icon: `${LOGO_BASE}/alpaca-head-black-transparent.png`,        // black on transparent - for light backgrounds
-  iconInverted: `${LOGO_BASE}/alpaca-head-white-transparent.png`, // white on transparent - for dark backgrounds
+  // Property head icon (transparent PNGs)
+  icon: `${LOGO_BASE}/logo-black-transparent.png`,        // black on transparent - for light backgrounds
+  iconInverted: `${LOGO_BASE}/logo-white-transparent.png`, // white on transparent - for dark backgrounds
   // Wordmark (transparent PNGs)
   wordmark: `${LOGO_BASE}/wordmark-black-transparent.png`,        // black on transparent - for light backgrounds
   wordmarkInverted: `${LOGO_BASE}/wordmark-white-transparent.png`, // white on transparent - for dark backgrounds
   // Legacy aliases
-  logo: `${LOGO_BASE}/alpaca-head-white-transparent.png`,
-  logoLight: `${LOGO_BASE}/alpaca-head-black-transparent.png`,
-  heroAlpacas: 'https://images.squarespace-cdn.com/content/v1/6213d804273001551ffe5b8c/4e23696e-623b-4621-8f3a-c223a521131b/P1020387.jpeg',
+  logo: `${LOGO_BASE}/logo-white-transparent.png`,
+  logoLight: `${LOGO_BASE}/logo-black-transparent.png`,
+  heroPropertys: 'https://images.squarespace-cdn.com/content/v1/6213d804273001551ffe5b8c/4e23696e-623b-4621-8f3a-c223a521131b/P1020387.jpeg',
 };
 
 // Base path for links (root on YOUR_DOMAIN)
@@ -156,12 +156,12 @@ function renderFooter() {
         </div>
 
         <div class="aap-footer__social">
-          <a href="https://www.facebook.com/alpacaplayhouse" target="_blank" rel="noopener" aria-label="Facebook">
+          <a href="https://www.facebook.com/yourorg" target="_blank" rel="noopener" aria-label="Facebook">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
             </svg>
           </a>
-          <a href="https://instagram.com/alpacaplayhouseatx" target="_blank" rel="noopener" aria-label="Instagram">
+          <a href="https://instagram.com/yourorgatx" target="_blank" rel="noopener" aria-label="Instagram">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
               <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -195,7 +195,7 @@ function renderFooter() {
  */
 function renderHero(options = {}) {
   const {
-    image = IMAGES.heroAlpacas,
+    image = IMAGES.heroPropertys,
     title = '',
     subtitle = '',
     height = 'full',

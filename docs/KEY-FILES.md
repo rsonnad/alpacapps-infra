@@ -46,7 +46,7 @@
 - `printer-data.js` - FlashForge 3D printer state + control via `printer-control` edge function
 
 ## Mobile App (`/mobile/`)
-- `capacitor.config.ts` - App config (ID: `com.alpacaplayhouse.app`, plugins, platform settings)
+- `capacitor.config.ts` - App config (ID: `com.yourorg.app`, plugins, platform settings)
 - `scripts/copy-web.js` - Build script: copies web assets → www/, injects capacitor.js, patches redirects
 - `app/index.html` - App shell (loading overlay, login overlay, tab sections, bottom nav bar)
 - `app/mobile.css` - Dark theme stylesheet (all mobile CSS in one file)
@@ -116,7 +116,7 @@
 - `approve-email/` - Email approval handler: validates token, sends held email to original recipient, supports "approve all" to disable approval for a type
 - `govee-control/` - Proxies requests to Govee Cloud API (resident+ auth)
 - `property-ai/` - PAI chat + voice assistant: Gemini-powered natural language smart home control + property Q&A + Vapi voice calling (resident+ auth)
-- `sonos-control/` - Proxies requests to Sonos HTTP API via Alpaca Mac (resident+ auth)
+- `sonos-control/` - Proxies requests to Sonos HTTP API via Home Server (resident+ auth)
 - `nest-control/` - Proxies requests to Google SDM API with OAuth token management (resident+ auth)
 - `nest-token-refresh/` - Standalone Nest OAuth token refresher (cron)
 - `tesla-command/` - Sends commands to Tesla vehicles via Fleet API (lock, unlock, wake, flash, honk) (resident+ auth)

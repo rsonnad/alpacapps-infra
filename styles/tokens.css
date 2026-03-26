@@ -5,7 +5,7 @@
  * All values use CSS custom properties prefixed with `--aap-`.
  *
  * Spacing uses a strict 4 px base grid (0.25 rem increments).
- * Colors are the warm alpaca palette — cream backgrounds, amber accents,
+ * Colors are the warm property palette — cream backgrounds, amber accents,
  * warm-dark text, and warm-tinted shadows.
  *
  * This file is imported by site.css and referenced by the Tailwind v4 @theme.

@@ -666,7 +666,7 @@ async function sendClockInEmail() {
     },
     body: JSON.stringify({
       type: 'work_clockin_summary',
-      to: [authState.appUser.email, 'alpacaautomatic@gmail.com'].filter(Boolean),
+      to: [authState.appUser.email, 'automation@YOUR_DOMAIN'].filter(Boolean),
       data: emailData,
     }),
   });

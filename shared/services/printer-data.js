@@ -186,7 +186,7 @@ export function isLedOn(printer) {
 
 /**
  * Get camera MJPEG stream URL for a printer.
- * This goes through the Caddy proxy on Hostinger → Alpaca Mac → printer LAN IP.
+ * This goes through the Caddy proxy on Hostinger → Property Mac → printer LAN IP.
  */
 export function getCameraUrl(printer) {
   // TODO: Once Caddy route is configured, use the proxied URL

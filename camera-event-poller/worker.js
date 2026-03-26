@@ -21,7 +21,7 @@ import https from 'https';
 const SUPABASE_URL = process.env.SUPABASE_URL || 'YOUR_SUPABASE_URL';
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const UDM_HOST = process.env.UDM_HOST || '192.168.1.1';
-const UDM_USER = process.env.UDM_USER || 'alpacaauto';
+const UDM_USER = process.env.UDM_USER || 'propertyauto';
 const UDM_PASS = process.env.UDM_PASS || '';
 const POLL_INTERVAL_MS = parseInt(process.env.POLL_INTERVAL_MS || '10000'); // 10s
 const STORAGE_BUCKET = 'housephotos';
@@ -29,7 +29,7 @@ const STORAGE_PREFIX = 'camera-events';
 
 // Known camera names (fallback if API doesn't return them)
 const CAMERA_NAMES = {
-  '694c550400317503e400044b': 'Alpacamera',
+  '694c550400317503e400044b': 'Propertymera',
   '696534fc003eed03e4028eee': 'Front Of House',
   '696537cc0067ed03e402929c': 'Side Yard',
 };

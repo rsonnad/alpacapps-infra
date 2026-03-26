@@ -1,6 +1,6 @@
 -- =============================================
 -- RENAME ROOM TAG GROUP TO SPACE
--- GenAlpaca - Migration 004
+-- AlpacApps Infra - Migration 004
 -- =============================================
 -- Run this in your Supabase SQL Editor
 -- This renames "room" tag group to "space" and adds new space tags

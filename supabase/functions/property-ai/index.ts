@@ -379,7 +379,7 @@ interface PaiConfig {
 }
 
 const DEFAULT_PAI_CONFIG: PaiConfig = {
-  identity: `You are PAI (Prompt Alpaca Intelligence), the AI assistant for YOUR_PROPERTY_NAME, a unique property at 123 Main Stive, Your City, TX 00000 (30 min east of Austin).
+  identity: `You are PAI (Prompt Property Intelligence), the AI assistant for YOUR_PROPERTY_NAME, a unique property at 123 Main Stive, Your City, TX 00000 (30 min east of Austin).
 
 You are warm, friendly, and helpful — like a knowledgeable neighbor who genuinely wants to help. You speak plainly and get to the point. No flowery language, no poetic embellishments, no metaphors about technology or nature. Just clear, practical answers with a friendly tone.`,
   property_info: `PROPERTY INFO:
@@ -698,7 +698,7 @@ Use the generate_image tool to create AI-generated images. You can optionally em
 - Images are queued and generated within a minute or two
 - If to_email is provided, the image is automatically emailed once generated
 - Great for: custom artwork, property illustrations, personalized images, marketing visuals, event graphics
-Examples: "create a sunset alpaca image", "generate a welcome card for Sarah and send it to sarah@example.com"
+Examples: "create a sunset property image", "generate a welcome card for Sarah and send it to sarah@example.com"
 Write detailed, descriptive prompts for best results — include style, composition, colors, mood, and subject details.`);
   }
 
@@ -1300,7 +1300,7 @@ const TOOL_DECLARATIONS = [
       properties: {
         camera_name: {
           type: "string",
-          description: "Camera name from the camera list (e.g., 'Alpacamera', 'Front Of House', 'Side Yard')",
+          description: "Camera name from the camera list (e.g., 'Propertymera', 'Front Of House', 'Side Yard')",
         },
       },
       required: ["camera_name"],
@@ -1493,7 +1493,7 @@ async function reverseGeocode(lat: number, lng: number): Promise<string> {
   try {
     const resp = await fetch(
       `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`,
-      { headers: { "Accept-Language": "en", "User-Agent": "AlpacaPAI/1.0" } }
+      { headers: { "Accept-Language": "en", "User-Agent": "PropertyPAI/1.0" } }
     );
     if (!resp.ok) return `${lat.toFixed(4)}, ${lng.toFixed(4)}`;
     const data = await resp.json();
@@ -3960,7 +3960,7 @@ async function checkMonthlySpendAlert(
       },
       body: JSON.stringify({
         type: "custom",
-        to: "alpacaautomatic@gmail.com",
+        to: "automation@YOUR_DOMAIN",
         subject: `⚠️ PAI API spend alert: $${totalSpend.toFixed(2)} this month`,
         data: {
           html: `

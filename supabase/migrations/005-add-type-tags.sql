@@ -1,6 +1,6 @@
 -- =============================================
 -- ADD TYPE TAGS
--- GenAlpaca - Migration 005
+-- AlpacApps Infra - Migration 005
 -- =============================================
 -- Run this in your Supabase SQL Editor
 -- This adds "type" tag category for media content types

@@ -519,7 +519,7 @@ async function loadRenderingsTab() {
   const allRenderings = [...RENDERINGS, ...extraFiles];
 
   if (!allRenderings.length) {
-    el.innerHTML = '<div class="pp-empty">No renderings yet. Run <code>blender -P render_property.py</code> on Alpaca Mac to generate.</div>';
+    el.innerHTML = '<div class="pp-empty">No renderings yet. Run <code>blender -P render_property.py</code> on Property Mac to generate.</div>';
     return;
   }
 

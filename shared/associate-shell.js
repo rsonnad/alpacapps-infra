@@ -284,7 +284,7 @@ export async function initAssociatePage({ activeTab, onReady }) {
     const topLevelLogoSelectors = [
       '#loadingOverlay .loading-overlay__logo',
       '#appContent > .loading-overlay__logo',
-      '#appContent > img[src*="/housephotos/logos/alpaca-head-black-transparent.png"]',
+      '#appContent > img[src*="/housephotos/logos/logo-black-transparent.png"]',
     ];
     document.querySelectorAll(topLevelLogoSelectors.join(',')).forEach((el) => el.remove());
   }

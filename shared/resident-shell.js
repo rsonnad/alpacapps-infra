@@ -503,7 +503,7 @@ export async function initResidentPage({ activeTab, requiredRole = 'resident', r
     const topLevelLogoSelectors = [
       '#loadingOverlay .loading-overlay__logo',
       '#appContent > .loading-overlay__logo',
-      '#appContent > img[src*="/housephotos/logos/alpaca-head-black-transparent.png"]',
+      '#appContent > img[src*="/housephotos/logos/logo-black-transparent.png"]',
     ];
     document.querySelectorAll(topLevelLogoSelectors.join(',')).forEach((el) => el.remove());
   }

@@ -285,7 +285,7 @@ googleSignInBtn.addEventListener('click', async () => {
     // In Capacitor (native app), use the custom URL scheme for OAuth redirect
     const isCapacitor = window.Capacitor?.isNativePlatform?.() ?? false;
     const loginRedirect = isCapacitor
-      ? 'com.alpacaplayhouse.app://login/'
+      ? 'com.yourorg.app://login/'
       : window.location.origin + '/login/';
     console.log('[LOGIN]', 'Calling signInWithGoogle()', { loginRedirect, storedRedirect: redirectUrl, isCapacitor });
     await signInWithGoogle(loginRedirect);

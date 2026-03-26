@@ -254,12 +254,12 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 ### Home Automation (Sonos, UniFi, Cameras)
 - Full documentation in `HOMEAUTOMATION.md`
 - Credentials and IPs in `HOMEAUTOMATION.local.md`
-- Alpaca Mac (home server) bridges Hostinger/Oracle nodes to local LAN via Tailscale
+- Home Server (home server) bridges Hostinger/Oracle nodes to local LAN via Tailscale
 - Sonos HTTP API on port 5005 remains for announce + EQ fallback path
-- Music Assistant on Alpaca Mac port 8095 is the primary Sonos control plane
+- Music Assistant on Home Server port 8095 is the primary Sonos control plane
 - Edge adapter mapping: `docs/music-assistant-api-mapping.md`
 - UniFi Network API on UDM Pro port 443: firewall, DHCP, WiFi management
-- 12 Sonos zones controllable via `http://<alpaca-tailscale-ip>:5005/{room}/{action}`
+- 12 Sonos zones controllable via `http://<home-server-ip>:5005/{room}/{action}`
 
 ### Google Nest (Thermostats)
 - **API**: Google Smart Device Management (SDM) API
@@ -339,7 +339,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **UI:** Lock/unlock and flash buttons on each car card in `residents/cars.js`
 
 ### Camera Streaming (go2rtc + Caddy)
-- **Server:** go2rtc v1.9.14 on Alpaca Mac (`~/go2rtc/go2rtc`)
+- **Server:** go2rtc v1.9.14 on Home Server (`~/go2rtc/go2rtc`)
 - **Config:** `~/go2rtc/go2rtc.yaml` (also in repo at `scripts/go2rtc/go2rtc.yaml`)
 - **Protocol:** `rtspx://` (RTSP over TLS, no SRTP) to UniFi Protect on UDM Pro
 - **Cameras:** 3 UniFi G5 PTZ cameras × 3 quality levels = 9 streams
@@ -378,7 +378,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Edge function**: `anova-control` — deployed with `--no-verify-jwt`
 - **Client**: `residents/appliances.js` renders oven cards with live data + controls
 - **PAI tools**: `get_oven_status`, `control_oven` (chat + voice)
-- **Device**: IP 192.168.1.181, MAC 10:52:1c:be:49:b8, Espressif ESP32, WiFi Alpacalypse
+- **Device**: IP 192.168.1.181, MAC 10:52:1c:be:49:b8, Espressif ESP32, WiFi YourWiFi
 - **Cost**: $0 (free API, no rate limits documented)
 
 ### Glowforge (Laser Cutter)
@@ -397,10 +397,10 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 
 ### FlashForge (3D Printer)
 - **API**: FlashForge TCP G-code protocol (port 8899, no auth needed on LAN)
-- **Printer**: "Alpaca Foundry" — Adventurer 5M Pro, SN SNMSQE9C09604, FW v3.2.7
-- **Architecture**: Per-request via printer proxy on Alpaca Mac (HTTP→TCP bridge, same pattern as Sonos/cameras)
-- **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Alpaca Mac printer-proxy.js (port 8903) → TCP to printer at 192.168.1.106:8899
-- **Proxy**: `scripts/printer-proxy/printer-proxy.js` on Alpaca Mac, health check on port 8904
+- **Printer**: "3D Printer" — Adventurer 5M Pro, SN SNMSQE9C09604, FW v3.2.7
+- **Architecture**: Per-request via printer proxy on Home Server (HTTP→TCP bridge, same pattern as Sonos/cameras)
+- **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Home Server printer-proxy.js (port 8903) → TCP to printer at 192.168.1.106:8899
+- **Proxy**: `scripts/printer-proxy/printer-proxy.js` on Home Server, health check on port 8904
 - **LaunchAgent**: `scripts/printer-proxy/com.printer-proxy.plist`
 - **Control flow**: M601 S1 (request control) → command → M602 (release control) — proxy handles this automatically
 - **Commands**: M115 (info), M105 (temps), M27 (progress), M119 (endstops), M23/M24/M25/M26 (print control), M104/M140 (set temps), M146 (LED), G28 (home), M661 (list files)
@@ -460,13 +460,13 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Gated on**: Associate identity verification status
 
 ### Camera Talkback (Two-Way Audio via FFmpeg)
-- **Relay server**: `scripts/talkback-relay/talkback-relay.js` on Alpaca Mac
+- **Relay server**: `scripts/talkback-relay/talkback-relay.js` on Home Server
 - **Protocol**: WebSocket (port 8902) → FFmpeg → UDP to camera:7004
 - **Audio pipeline**: Browser PCM S16LE 48kHz mono → FFmpeg → AAC-ADTS 22.05kHz mono 32kbps
-- **Cameras**: Alpacamera (192.168.1.173), Front Of House (.182), Side Yard (.110)
+- **Cameras**: Camera1 (192.168.1.173), Front Of House (.182), Side Yard (.110)
 - **Health check**: Port 8903
 - **LaunchAgent**: `com.talkback-relay.plist`
-- **Requires**: FFmpeg installed on Alpaca Mac (`FFMPEG_PATH` env var, defaults to `ffmpeg`)
+- **Requires**: FFmpeg installed on Home Server (`FFMPEG_PATH` env var, defaults to `ffmpeg`)
 - **Client**: `residents/cameras.js` CameraTalkback class — Web Audio API microphone capture, push-to-talk UI
 
 ### Airbnb (iCal Sync)

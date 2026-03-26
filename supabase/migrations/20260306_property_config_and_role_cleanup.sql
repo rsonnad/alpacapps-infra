@@ -51,7 +51,7 @@ INSERT INTO property_config (id, config) VALUES (1, '{
   "property": {
     "name": "YOUR_PROPERTY_NAME",
     "short_name": "YOUR_APP_NAME",
-    "tagline": "We put the AI into Alpacas",
+    "tagline": "Your tagline here",
     "address": "123 Main St, Your City, ST 00000",
     "city": "Your City",
     "state": "TX",
@@ -71,15 +71,15 @@ INSERT INTO property_config (id, config) VALUES (1, '{
     "admin_gmail": "admin@YOUR_DOMAIN",
     "notifications_from": "notifications@YOUR_DOMAIN",
     "noreply_from": "noreply@YOUR_DOMAIN",
-    "automation": "alpacaautomatic@gmail.com"
+    "automation": "automation@YOUR_DOMAIN"
   },
   "payment": {
     "zelle_email": "admin@YOUR_DOMAIN",
-    "venmo_handle": "@AlpacaPlayhouse"
+    "venmo_handle": "@YourVenmo"
   },
   "ai_assistant": {
     "name": "PAI",
-    "full_name": "Prompt Alpaca Intelligence",
+    "full_name": "Property AI Assistant",
     "personality": "the AI assistant for the property",
     "email_from": "pai@YOUR_DOMAIN"
   },
@@ -88,6 +88,6 @@ INSERT INTO property_config (id, config) VALUES (1, '{
   },
   "mobile_app": {
     "name": "YOUR_PROPERTY_NAME",
-    "id": "com.alpacaplayhouse.app"
+    "id": "com.yourorg.app"
   }
 }'::jsonb) ON CONFLICT (id) DO NOTHING;

@@ -1,7 +1,7 @@
 /**
  * Generate Daily Fact Edge Function
  *
- * Generates one alpaca fact per day using Gemini API, caches in kiosk_facts table.
+ * Generates one property fact per day using Gemini API, caches in kiosk_facts table.
  * Idempotent: returns cached fact if today's already exists.
  *
  * Deploy with: supabase functions deploy generate-daily-fact
@@ -70,7 +70,7 @@ serve(async (req) => {
       body: JSON.stringify({
         contents: [{
           parts: [{
-            text: 'Generate one fun, interesting, or surprising fact about alpacas. Keep it to 1-2 sentences. Be creative and varied. Do not start with "Did you know". Just state the fact directly.'
+            text: 'Generate one fun, interesting, or surprising fact about animals. Keep it to 1-2 sentences. Be creative and varied. Do not start with "Did you know". Just state the fact directly.'
           }]
         }],
         generationConfig: { temperature: 0.95, maxOutputTokens: 1024 },

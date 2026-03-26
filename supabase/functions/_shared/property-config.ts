@@ -8,7 +8,7 @@ const FALLBACK_CONFIG: Record<string, any> = {
   property: {
     name: "YOUR_PROPERTY_NAME",
     short_name: "YOUR_APP_NAME",
-    tagline: "We put the AI into Alpacas",
+    tagline: "We put the AI into Propertys",
     address: "123 Main St, Your City, ST 00000",
     city: "Your City",
     state: "TX",
@@ -28,15 +28,15 @@ const FALLBACK_CONFIG: Record<string, any> = {
     admin_gmail: "admin@YOUR_DOMAIN",
     notifications_from: "notifications@YOUR_DOMAIN",
     noreply_from: "noreply@YOUR_DOMAIN",
-    automation: "alpacaautomatic@gmail.com",
+    automation: "automation@YOUR_DOMAIN",
   },
   payment: {
     zelle_email: "admin@YOUR_DOMAIN",
-    venmo_handle: "@AlpacaPlayhouse",
+    venmo_handle: "@PropertyPlayhouse",
   },
   ai_assistant: {
     name: "PAI",
-    full_name: "Prompt Alpaca Intelligence",
+    full_name: "Prompt Property Intelligence",
     personality: "the AI assistant for the property",
     email_from: "pai@YOUR_DOMAIN",
   },
@@ -45,7 +45,7 @@ const FALLBACK_CONFIG: Record<string, any> = {
   },
   mobile_app: {
     name: "YOUR_PROPERTY_NAME",
-    id: "com.alpacaplayhouse.app",
+    id: "com.yourorg.app",
   },
 };
 

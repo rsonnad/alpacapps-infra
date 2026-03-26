@@ -258,7 +258,7 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Alpaca Payments <noreply@YOUR_DOMAIN>",
+          from: "Property Payments <noreply@YOUR_DOMAIN>",
           to: ["team@YOUR_DOMAIN"],
           subject: `Payment Confirmed: $${conf.amount} from ${conf.sender_name} → ${personName}`,
           html: `

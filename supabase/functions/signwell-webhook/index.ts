@@ -496,7 +496,7 @@ async function sendRentalSignedEmail(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Alpaca Team <team@YOUR_DOMAIN>',
+        from: 'Property Team <team@YOUR_DOMAIN>',
         to: [person.email],
         reply_to: 'team@YOUR_DOMAIN',
         subject: 'Lease Signed - Reservation Deposit Due - YOUR_PROPERTY_NAME',
@@ -610,7 +610,7 @@ async function sendEventSignedEmail(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Alpaca Team <team@YOUR_DOMAIN>',
+        from: 'Property Team <team@YOUR_DOMAIN>',
         to: [person.email],
         reply_to: 'team@YOUR_DOMAIN',
         subject: 'Event Agreement Signed - Outstanding Fees Due Before Event - YOUR_PROPERTY_NAME',
@@ -767,7 +767,7 @@ ${vehicleInfo.color ? `Color: ${vehicleInfo.color}\n` : ''}${vehicleInfo.vin ? `
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Alpaca Team <team@YOUR_DOMAIN>',
+        from: 'Property Team <team@YOUR_DOMAIN>',
         to: [person.email],
         reply_to: 'team@YOUR_DOMAIN',
         subject,
