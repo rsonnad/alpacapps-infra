@@ -31,17 +31,24 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# ── resolve psql ─────────────────────────────────────────────────────
-if [ -x "/opt/homebrew/opt/libpq/bin/psql" ]; then
-  PSQL="/opt/homebrew/opt/libpq/bin/psql"
-elif command -v psql &>/dev/null; then
-  PSQL="psql"
-else
-  echo "ERROR: psql not found" >&2; exit 1
-fi
-
+# ── resolve psql (optional — offline mode if no DB) ──────────────────
+PSQL=""
 DB_URL="${SUPABASE_DB_URL:-}"
-[ -z "$DB_URL" ] && { echo "ERROR: SUPABASE_DB_URL is required" >&2; exit 1; }
+OFFLINE_MODE=false
+
+if [ -z "$DB_URL" ]; then
+  OFFLINE_MODE=true
+  echo "INFO: SUPABASE_DB_URL not set — running in offline mode (no DB recording)"
+else
+  if [ -x "/opt/homebrew/opt/libpq/bin/psql" ]; then
+    PSQL="/opt/homebrew/opt/libpq/bin/psql"
+  elif command -v psql &>/dev/null; then
+    PSQL="psql"
+  else
+    OFFLINE_MODE=true
+    echo "INFO: psql not found — running in offline mode (no DB recording)"
+  fi
+fi
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$PROJECT_ROOT"
@@ -99,64 +106,85 @@ fi
 
 COMMIT_COUNT=$(echo "$COMMITS_FOR_DB" | python3 -c "import sys,json;print(len(json.loads(sys.stdin.read())))" 2>/dev/null || echo 0)
 
-# ── 1) record release event in DB ────────────────────────────────────
-# commit_summaries in metadata = same as COMMITS_FOR_DB (admin releases page reads .sha + .message)
-META="{\"workflow\":\"bump-version.sh\",\"commit_count\":$COMMIT_COUNT,\"commit_summaries\":$COMMITS_FOR_DB}"
-ROW=$($PSQL "$DB_URL" -t -A --no-psqlrc -F $'\t' -c "
-  SELECT seq::text, display_version, pushed_at::text, actor_login, source
-  FROM record_release_event(
-    '$(sql_esc "$PUSH_SHA")',
-    '$(sql_esc "$BRANCH")',
-    NULLIF('$(sql_esc "$FROM_SHA")', ''),
-    NULLIF('$(sql_esc "$TO_SHA")', ''),
-    '$(sql_esc "$PUSHED_AT")'::timestamptz,
-    '$(sql_esc "$ACTOR")',
-    NULL,
-    '$(sql_esc "$SOURCE")',
-    NULLIF('$(sql_esc "$MODEL")', ''),
-    NULLIF('$(sql_esc "$MACHINE")', ''),
-    '$(sql_esc "$META")'::jsonb,
-    '$(sql_esc "$COMMITS_FOR_DB")'::jsonb
-  );
-" | head -1)
+# ── 1) record release event ──────────────────────────────────────────
+if [ "$OFFLINE_MODE" = true ]; then
+  # Offline: generate version locally from date + sequence
+  TODAY=$(date -u +"%y%m%d")
+  # Read current version to determine sequence
+  CURRENT_VER=""
+  [ -f "$PROJECT_ROOT/version.json" ] && CURRENT_VER=$(python3 -c "import json;print(json.load(open('$PROJECT_ROOT/version.json')).get('version',''))" 2>/dev/null || true)
+  CURRENT_DATE=$(echo "$CURRENT_VER" | grep -o 'v[0-9]\{6\}' | sed 's/v//' || true)
+  CURRENT_SEQ=$(echo "$CURRENT_VER" | grep -o '\.[0-9]\{2\}' | sed 's/\.//' || echo "00")
+  if [ "$CURRENT_DATE" = "$TODAY" ]; then
+    SEQ=$((10#$CURRENT_SEQ + 1))
+  else
+    SEQ=1
+  fi
+  SEQ_PAD=$(printf "%02d" "$SEQ")
+  HOUR=$(date -u +"%l" | tr -d ' ')
+  MIN=$(date -u +"%M")
+  AMPM=$(date -u +"%p" | tr '[:upper:]' '[:lower:]' | head -c1)
+  VER="v${TODAY}.${SEQ_PAD} ${HOUR}:${MIN}${AMPM}"
+  R_AT="$PUSHED_AT"
+  R_ACT="$ACTOR"
+  R_SRC="$SOURCE"
+else
+  # Online: record in DB
+  META="{\"workflow\":\"bump-version.sh\",\"commit_count\":$COMMIT_COUNT,\"commit_summaries\":$COMMITS_FOR_DB}"
+  ROW=$($PSQL "$DB_URL" -t -A --no-psqlrc -F $'\t' -c "
+    SELECT seq::text, display_version, pushed_at::text, actor_login, source
+    FROM record_release_event(
+      '$(sql_esc "$PUSH_SHA")',
+      '$(sql_esc "$BRANCH")',
+      NULLIF('$(sql_esc "$FROM_SHA")', ''),
+      NULLIF('$(sql_esc "$TO_SHA")', ''),
+      '$(sql_esc "$PUSHED_AT")'::timestamptz,
+      '$(sql_esc "$ACTOR")',
+      NULL,
+      '$(sql_esc "$SOURCE")',
+      NULLIF('$(sql_esc "$MODEL")', ''),
+      NULLIF('$(sql_esc "$MACHINE")', ''),
+      '$(sql_esc "$META")'::jsonb,
+      '$(sql_esc "$COMMITS_FOR_DB")'::jsonb
+    );
+  " | head -1)
 
-[ -z "$ROW" ] && { echo "ERROR: Failed to record release event" >&2; exit 1; }
+  [ -z "$ROW" ] && { echo "ERROR: Failed to record release event" >&2; exit 1; }
 
-SEQ=$(echo "$ROW"  | awk -F $'\t' '{print $1}')
-VER=$(echo "$ROW"  | awk -F $'\t' '{print $2}')
-R_AT=$(echo "$ROW" | awk -F $'\t' '{print $3}')
-R_ACT=$(echo "$ROW"| awk -F $'\t' '{print $4}')
-R_SRC=$(echo "$ROW"| awk -F $'\t' '{print $5}')
-[ -z "$R_AT" ]  && R_AT="$PUSHED_AT"
-[ -z "$R_ACT" ] && R_ACT="$ACTOR"
-[ -z "$R_SRC" ] && R_SRC="$SOURCE"
+  SEQ=$(echo "$ROW"  | awk -F $'\t' '{print $1}')
+  VER=$(echo "$ROW"  | awk -F $'\t' '{print $2}')
+  R_AT=$(echo "$ROW" | awk -F $'\t' '{print $3}')
+  R_ACT=$(echo "$ROW"| awk -F $'\t' '{print $4}')
+  R_SRC=$(echo "$ROW"| awk -F $'\t' '{print $5}')
+  [ -z "$R_AT" ]  && R_AT="$PUSHED_AT"
+  [ -z "$R_ACT" ] && R_ACT="$ACTOR"
+  [ -z "$R_SRC" ] && R_SRC="$SOURCE"
 
-# Keep legacy site_config in sync
-$PSQL "$DB_URL" -t -A --no-psqlrc -c "
-  UPDATE site_config SET version = '$(sql_esc "$VER")', updated_at = now() WHERE id = 1;
-" >/dev/null 2>&1 || true
+  # Keep legacy site_config in sync
+  $PSQL "$DB_URL" -t -A --no-psqlrc -c "
+    UPDATE site_config SET version = '$(sql_esc "$VER")', updated_at = now() WHERE id = 1;
+  " >/dev/null 2>&1 || true
 
-# ── 1b) backfill deployed_version for feature requests whose commit is in this push ──
-# When a review branch is merged to main, the feature's commit_sha appears in the push range.
-# Match those and set deployed_version so the App Dev page shows the version.
-if [ -n "$COMMITS_FOR_DB" ] && [ "$COMMITS_FOR_DB" != "[]" ]; then
-  SHAS=$(echo "$COMMITS_FOR_DB" | python3 -c "
+  # Backfill deployed_version for feature requests whose commit is in this push
+  if [ -n "$COMMITS_FOR_DB" ] && [ "$COMMITS_FOR_DB" != "[]" ]; then
+    SHAS=$(echo "$COMMITS_FOR_DB" | python3 -c "
 import sys, json
 commits = json.loads(sys.stdin.read())
 for c in commits:
     print(c['sha'])
 " 2>/dev/null || true)
-  if [ -n "$SHAS" ]; then
-    while IFS= read -r sha; do
-      [ -z "$sha" ] && continue
-      $PSQL "$DB_URL" -t -A --no-psqlrc -c "
-        UPDATE feature_requests
-        SET deployed_version = '$(sql_esc "$VER")',
-            status = CASE WHEN status = 'review' THEN 'completed' ELSE status END
-        WHERE commit_sha = '$(sql_esc "$sha")'
-          AND deployed_version IS NULL;
-      " >/dev/null 2>&1 || true
-    done <<< "$SHAS"
+    if [ -n "$SHAS" ]; then
+      while IFS= read -r sha; do
+        [ -z "$sha" ] && continue
+        $PSQL "$DB_URL" -t -A --no-psqlrc -c "
+          UPDATE feature_requests
+          SET deployed_version = '$(sql_esc "$VER")',
+              status = CASE WHEN status = 'review' THEN 'completed' ELSE status END
+          WHERE commit_sha = '$(sql_esc "$sha")'
+            AND deployed_version IS NULL;
+        " >/dev/null 2>&1 || true
+      done <<< "$SHAS"
+    fi
   fi
 fi
 
