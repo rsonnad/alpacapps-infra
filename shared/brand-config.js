@@ -11,13 +11,13 @@ import { getSupabase } from './supabase.js';
 // Hardcoded fallback (matches the DB seed exactly)
 const FALLBACK_CONFIG = {
   brand: {
-    primary_name: 'Alpaca Playhouse',
-    full_name: 'Alpaca Playhouse Austin',
-    platform_name: 'AlpacApps',
-    legal_name: 'AlpacApps Residency',
+    primary_name: 'YOUR_PROPERTY_NAME',
+    full_name: 'YOUR_PROPERTY_NAME Austin',
+    platform_name: 'YOUR_APP_NAME',
+    legal_name: 'YOUR_APP_NAME Residency',
     tagline: 'Where the herd gathers',
-    address: '160 Still Forest Dr, Cedar Creek, TX 78612',
-    website: 'https://alpacaplayhouse.com',
+    address: '123 Main St, Your City, ST 00000',
+    website: 'https://YOUR_DOMAIN',
   },
   colors: {
     primary: {
@@ -61,8 +61,8 @@ const FALLBACK_CONFIG = {
   },
   logos: {
     base_url: 'YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos',
-    icon_dark: 'alpaca-head-black-transparent.png',
-    icon_light: 'alpaca-head-white-transparent.png',
+    icon_dark: 'logo-black-transparent.png',
+    icon_light: 'logo-white-transparent.png',
     wordmark_dark: 'wordmark-black-transparent.png',
     wordmark_light: 'wordmark-white-transparent.png',
     sizes: {

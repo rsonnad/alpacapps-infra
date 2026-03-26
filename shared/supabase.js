@@ -31,7 +31,7 @@ if (window.supabase?.createClient) {
       persistSession: true,
       detectSessionInUrl: true,
       storage: window.localStorage,
-      storageKey: 'app-auth',
+      storageKey: 'your-project-auth',
       flowType: 'pkce',
     },
   });
@@ -44,7 +44,7 @@ if (window.supabase?.createClient) {
       persistSession: true,
       detectSessionInUrl: true,
       storage: window.localStorage,
-      storageKey: 'app-auth',
+      storageKey: 'your-project-auth',
       flowType: 'pkce',
     },
   });

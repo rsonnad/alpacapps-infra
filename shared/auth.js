@@ -4,7 +4,7 @@ import { supabase } from './supabase.js';
 // Timeout configuration
 const AUTH_TIMEOUT_MS = 15000; // 15 seconds for auth operations
 const INIT_TIMEOUT_MS = 10000; // 10 seconds for initial auth check
-const CACHED_AUTH_KEY = 'app-cached-auth';
+const CACHED_AUTH_KEY = 'your-project-cached-auth';
 const CACHED_AUTH_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 /**
