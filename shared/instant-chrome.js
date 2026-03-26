@@ -13,7 +13,7 @@
  */
 (function () {
   try {
-    var cached = localStorage.getItem('app-cached-auth');
+    var cached = localStorage.getItem('your-project-cached-auth');
     if (!cached) return;
     var data = JSON.parse(cached);
     if (!data || !data.appUser) return;
@@ -42,7 +42,7 @@
           '<div class="aap-header__inner">' +
             '<a href="/" class="aap-header__logo">' +
               '<img src="' + logoBase + '/alpaca-head-black-transparent.png" alt="" class="aap-header__icon" width="21" height="30" style="height:30px;width:auto;max-width:none">' +
-              '<img src="' + logoBase + '/wordmark-black-transparent.png" alt="Alpaca Playhouse" class="aap-header__wordmark" width="22" height="22" style="height:22px;width:auto;max-width:none">' +
+              '<img src="' + logoBase + '/wordmark-black-transparent.png" alt="YOUR_PROPERTY_NAME" class="aap-header__wordmark" width="22" height="22" style="height:22px;width:auto;max-width:none">' +
             '</a>' +
             '<div id="aapHeaderAuth" class="aap-header-auth"></div>' +
           '</div>' +

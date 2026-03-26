@@ -1,14 +1,14 @@
 # Customization Guide
 
-This document explains how to adapt the AlpacApps template for a new organization. It is written for Claude Code sessions that will be customizing this codebase.
+This document explains how to adapt the YOUR_APP_NAME template for a new organization. It is written for Claude Code sessions that will be customizing this codebase.
 
 ## Overview
 
-This repo is a **generic template**. It contains no organization-specific data, credentials, or branding. When a new organization clones it and runs `/setup-alpacapps-infra`, Claude should customize the following areas.
+This repo is a **generic template**. It contains no organization-specific data, credentials, or branding. When a new organization clones it and runs `/setup-your-app-infra`, Claude should customize the following areas.
 
 ## What to Customize
 
-### 1. Supabase Credentials (set during `/setup-alpacapps-infra`)
+### 1. Supabase Credentials (set during `/setup-your-app-infra`)
 
 | File | What to replace |
 |------|----------------|
@@ -104,7 +104,7 @@ Some organizations need a separate static HTML site (e.g., a donation page, land
 
 ## Checklist for New Organizations
 
-- [ ] Clone the repo and run `/setup-alpacapps-infra`
+- [ ] Clone the repo and run `/setup-your-app-infra`
 - [ ] Supabase credentials set in `src/lib/supabase.ts` and `shared/supabase.js`
 - [ ] `next.config.ts` basePath matches repo name
 - [ ] OAuth redirect URL updated in `src/contexts/auth-context.tsx`

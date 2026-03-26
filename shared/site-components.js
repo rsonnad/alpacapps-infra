@@ -1,5 +1,5 @@
 /**
- * Austin Alpaca Playhouse - Site Components
+ * Austin YOUR_PROPERTY_NAME - Site Components
  *
  * Shared components for the main AAP website.
  * These components generate the header, navigation, and footer.
@@ -28,7 +28,7 @@ const IMAGES = {
   heroAlpacas: 'https://images.squarespace-cdn.com/content/v1/6213d804273001551ffe5b8c/4e23696e-623b-4621-8f3a-c223a521131b/P1020387.jpeg',
 };
 
-// Base path for links (root on alpacaplayhouse.com)
+// Base path for links (root on YOUR_DOMAIN)
 // Change this if deploying to a different subdirectory
 const BASE_PATH = '';
 
@@ -82,9 +82,9 @@ function renderHeader(options = {}) {
     <header class="aap-header ${headerClass} ${colorClass}" id="aap-header">
       <div class="aap-header__inner">
         <a href="${BASE_PATH}/" class="aap-header__logo">
-          <img src="${light ? IMAGES.iconInverted : IMAGES.icon}" alt="Alpaca Playhouse Austin" class="aap-header__icon" width="21" height="30" data-light-src="${IMAGES.iconInverted}" data-dark-src="${IMAGES.icon}" onerror="this.onerror=null;this.src='${ALPACA_ICON_FALLBACK}'">
-          <img src="${light ? IMAGES.wordmarkInverted : IMAGES.wordmark}" alt="Alpaca Playhouse Austin" class="aap-header__wordmark" width="22" height="22" data-light-src="${IMAGES.wordmarkInverted}" data-dark-src="${IMAGES.wordmark}" onerror="this.onerror=null;this.src='${ALPACA_WORDMARK_FALLBACK}'">
-          ${version ? `<span title="Site version" class="aap-header__version">${version}</span>` : ''}
+          <img src="${light ? IMAGES.iconInverted : IMAGES.icon}" alt="YOUR_PROPERTY_NAME Austin" class="aap-header__icon" width="21" height="30" data-light-src="${IMAGES.iconInverted}" data-dark-src="${IMAGES.icon}" onerror="this.onerror=null;this.src='${ALPACA_ICON_FALLBACK}'">
+          <img src="${light ? IMAGES.wordmarkInverted : IMAGES.wordmark}" alt="YOUR_PROPERTY_NAME Austin" class="aap-header__wordmark" width="22" height="22" data-light-src="${IMAGES.wordmarkInverted}" data-dark-src="${IMAGES.wordmark}" onerror="this.onerror=null;this.src='${ALPACA_WORDMARK_FALLBACK}'">
+          <span title="Site version" class="aap-header__version">${version || ''}</span>
         </a>
         <nav class="aap-nav" id="aap-nav">
           <ul class="aap-nav__list">
@@ -151,8 +151,8 @@ function renderFooter() {
     <footer class="aap-footer">
       <div class="aap-footer__content">
         <div class="aap-footer__logo">
-          <img src="${IMAGES.iconInverted}" alt="Alpaca Playhouse Austin" class="aap-footer__icon">
-          <img src="${IMAGES.wordmarkInverted}" alt="Alpaca Playhouse Austin" class="aap-footer__wordmark">
+          <img src="${IMAGES.iconInverted}" alt="YOUR_PROPERTY_NAME Austin" class="aap-footer__icon">
+          <img src="${IMAGES.wordmarkInverted}" alt="YOUR_PROPERTY_NAME Austin" class="aap-footer__wordmark">
         </div>
 
         <div class="aap-footer__social">
@@ -171,8 +171,8 @@ function renderFooter() {
         </div>
 
         <p class="aap-footer__copyright">
-          © ${currentYear} Austin Alpaca Playhouse. All rights reserved.<br>
-          160 Still Forest Drive, Cedar Creek, TX 78612
+          © ${currentYear} Austin YOUR_PROPERTY_NAME. All rights reserved.<br>
+          123 Main Stive, Your City, TX 00000
         </p>
       </div>
     </footer>
@@ -387,7 +387,7 @@ function renderUserMenuHTML(appUser, profileHref) {
 
   let navLinks = '';
   if (isResident) {
-    navLinks += `<a href="/residents/lighting.html" class="user-menu-item">Intranet</a>`;
+    navLinks += `<a href="/spaces/admin/rentals.html" class="user-menu-item">Intranet</a>`;
   }
 
   return `
@@ -434,7 +434,7 @@ export async function initPublicHeaderAuth({ authContainerId, signInLinkId, prof
         // Build mobile nav items for authenticated user
         const mobileItems = [];
         if (isResident) {
-          mobileItems.push(`<li class="aap-mobile-nav__item"><a href="/residents/lighting.html" class="aap-mobile-nav__link">Intranet</a></li>`);
+          mobileItems.push(`<li class="aap-mobile-nav__item"><a href="/spaces/admin/rentals.html" class="aap-mobile-nav__link">Intranet</a></li>`);
         }
         mobileItems.push(`<li class="aap-mobile-nav__item"><a href="/residents/profile.html" class="aap-mobile-nav__link">Profile</a></li>`);
         mobileItems.push(`<li class="aap-mobile-nav__item"><button class="aap-mobile-nav__link aap-mobile-nav__signout" id="mobileSignOutBtn" style="background:none;border:none;color:#c0392b;cursor:pointer;font:inherit;padding:inherit;width:100%;text-align:left;">Sign Out</button></li>`);

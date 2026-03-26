@@ -1,4 +1,4 @@
-# AlpacApps Infra
+# YOUR_APP_NAME Infra
 
 A starter template for building full-stack business platforms with Claude Code. Set up messaging, marketing, customer management, and finance — all on free or near-free infrastructure.
 
@@ -35,7 +35,7 @@ Both should print version numbers.
 
 **1. Clone this repo** — replace `my-project` with your project name (lowercase, hyphens, no spaces):
 ```bash
-git clone https://github.com/rsonnad/alpacapps-infra.git my-project
+git clone https://github.com/USERNAME/REPO-infra.git my-project
 cd my-project
 ```
 
@@ -46,7 +46,7 @@ claude
 
 **3. Run the setup wizard:**
 ```
-/setup-alpacapps-infra
+/setup-your-app-infra
 ```
 
 That's it. Claude creates your own GitHub repo, disconnects from this template, walks you through setting up each service, and pushes everything live.
@@ -58,7 +58,7 @@ That's it. Claude creates your own GitHub repo, disconnects from this template, 
 The setup wizard will:
 1. Ask what you're building and which services you need
 2. Create a new GitHub repo under your account
-3. Disconnect from the `alpacapps-infra` template origin
+3. Disconnect from the `your-app-infra` template origin
 4. Customize the codebase for your organization (branding, basePath, i18n)
 5. Set up Supabase (create org + project), deploy edge functions, configure webhooks
 6. Scaffold login/auth system and admin CRUD pages for your entities
@@ -94,8 +94,8 @@ See [CUSTOMIZATION.md](CUSTOMIZATION.md) for a detailed guide on what gets custo
 
 ## Guides
 
-- **[Getting Started](https://alpacaplayhouse.com/docs/getting-started.html)** — Visual step-by-step walkthrough
-- **[Full Infrastructure Guide](https://alpacaplayhouse.com/docs/alpacappsinfra.html)** — Detailed service-by-service setup reference
+- **[Getting Started](https://YOUR_DOMAIN/docs/getting-started.html)** — Visual step-by-step walkthrough
+- **[Full Infrastructure Guide](https://YOUR_DOMAIN/docs/your-appinfra.html)** — Detailed service-by-service setup reference
 
 ## License
 

@@ -1,5 +1,5 @@
 /**
- * Timezone utilities for AlpacApps
+ * Timezone utilities for YOUR_APP_NAME
  * All dates should be displayed in Austin, Texas timezone (America/Chicago)
  * regardless of the user's browser timezone.
  */

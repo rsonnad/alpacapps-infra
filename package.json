@@ -1,5 +1,5 @@
 {
-  "name": "alpacapps-infra",
+  "name": "your-app-infra",
   "version": "1.0.0",
   "description": "Property management platform template. Clone and customize for your organization.",
   "main": "app.js",

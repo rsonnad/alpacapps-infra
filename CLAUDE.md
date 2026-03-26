@@ -10,7 +10,7 @@
 > - `docs/CHANGELOG.md` — **load for:** understanding recent changes, migration context
 
 > **IMPORTANT: First-time setup!**
-> Run `/setup-alpacapps-infra` to set up the full infrastructure interactively.
+> Run `/setup-your-app-infra` to set up the full infrastructure interactively.
 
 ## Mandatory Behaviors
 

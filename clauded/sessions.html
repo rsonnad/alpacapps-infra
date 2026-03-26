@@ -333,7 +333,7 @@
 
   <div id="appContent" class="hidden">
     <div id="siteHeader"></div>
-    <span data-site-version style="display:none"></span>
+    <span data-site-version style="display:none">v260326.03 11:13a</span>
 
     <div class="container">
       <div class="breadcrumb"><a href="/clauded/">Claude Dev</a> &rsaquo; Sessions</div>
@@ -356,8 +356,8 @@
     // CONFIGURATION — Set these after deploying Cloudflare D1 session
     // logging. See: /infra/updates.html → "Session Logging to D1"
     // ═══════════════════════════════════════════════════════════════════
-    const CLAUDED_SESSIONS_API = 'YOUR_SESSIONS_WORKER_URL'; // YOUR_SESSIONS_WORKER_URL
-    const CLAUDED_SESSIONS_TOKEN = 'YOUR_SESSIONS_AUTH_TOKEN'; // YOUR_SESSIONS_AUTH_TOKEN
+    const CLAUDED_SESSIONS_API = 'https://claude-sessions.your-app.workers.dev'; // YOUR_SESSIONS_WORKER_URL
+    const CLAUDED_SESSIONS_TOKEN = 'alpaca-sessions-2026'; // YOUR_SESSIONS_AUTH_TOKEN
     // ═══════════════════════════════════════════════════════════════════
 
     const LIMIT = 50;

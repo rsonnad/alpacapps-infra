@@ -6,7 +6,8 @@ Deploys from `main` branch. No build step — push to main and it's live.
 
 ### Push Workflow
 ```bash
-git add -A && git commit -m "message" && git push
+git add -A && git commit -m "message"
+./scripts/push-main.sh   # pull --rebase, then push
 ```
 
 ### Post-Push Verification
@@ -15,16 +16,25 @@ git add -A && git commit -m "message" && git push
 3. Read `version.json` — report version
 
 ### Version Format
-`vYYMMDD.NN H:MMa` — date + daily counter + local time.
+`vYYMMDD.NN H:MMa` — date + daily counter + Austin time.
 CI bumps automatically via GitHub Action on every push. **Never bump locally.**
+
+### Post-Push Output Format
+- **Main branch:** "Deployed to main — ..." with test URLs
+- **Feature branch:** "Pushed to branch `name` (not yet deployed)" with changed files list
 
 ## Live URLs
 
 | Environment | URL |
 |---|---|
+| Custom domain | https://YOUR_DOMAIN/ |
 | GitHub Pages | https://USERNAME.github.io/REPO/ |
+| Resident portal | https://YOUR_DOMAIN/residents/ |
+| Admin | https://YOUR_DOMAIN/spaces/admin/manage.html |
+| Public spaces | https://YOUR_DOMAIN/spaces/ |
+| Payments | https://YOUR_DOMAIN/pay/ |
+| Repository | https://github.com/USERNAME/REPO |
 
 ## Tailwind CSS
 
 After adding new Tailwind classes, run: `npm run css:build`
-The built output (`styles/tailwind.out.css`) is committed — GitHub Pages has no server-side build.

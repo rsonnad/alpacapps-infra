@@ -354,7 +354,7 @@
     "dependencies": [],
     "shared": ["shared/pai-widget.js", "shared/chat-widget.js"],
     "edgeFunctions": [
-      "alpaca-pai",
+      "property-ai",
       "ask-question",
       "reprocess-pai-email",
       "generate-daily-fact",
@@ -484,8 +484,8 @@
     "dbTables": []
   },
 
-  "_alpacapps_specific": {
-    "_note": "AlpacApps Playhouse content — always excluded from template clones",
+  "_your-app_specific": {
+    "_note": "YOUR_APP_NAME Playhouse content — always excluded from template clones",
     "dirs": [
       "mistiq/",
       "jackie/",
@@ -493,7 +493,7 @@
       "sundays/",
       "house/",
       "spirit-whisper-worker/",
-      "alpaclaw/",
+      "ai-admin/",
       "pai-discord/",
       "image-gen/"
     ],
@@ -507,7 +507,7 @@
       "docs/home-assistant-lighting-design.md",
       "docs/AWS_VS_DIGITALOCEAN_COMPARISON.md",
       "docs/OPENCLAW_SAFE_PARTITIONED.md",
-      "docs/slack-alpaclaw-reinstall.md",
+      "docs/slack-ai-admin-reinstall.md",
       "docs/music-assistant-api-mapping.md",
       "docs/sauna-hifi.html"
     ]

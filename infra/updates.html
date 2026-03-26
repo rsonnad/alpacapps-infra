@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlpacApps Updates — Sync New Features</title>
-  <meta name="description" content="Catch up on new AlpacApps features and sync them into your project with Claude Code.">
+  <title>YOUR_APP_NAME Updates — Sync New Features</title>
+  <meta name="description" content="Catch up on new YOUR_APP_NAME features and sync them into your project with Claude Code.">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/styles/site.css">
   <link rel="stylesheet" href="/styles/tailwind.out.css">
@@ -254,13 +254,13 @@
 </head>
 <body>
 
-<span data-site-version style="display:none;"></span>
+<span data-site-version style="display:none;">v260326.03 11:13a</span>
 <div id="siteHeader"></div>
 
 <div class="guide-header">
   <div class="guide-header-inner">
-    <a href="/infra/">&larr; Back to AlpacApps Infra</a>
-    <h1><span>AlpacApps</span> Updates</h1>
+    <a href="/infra/">&larr; Back to YOUR_APP_NAME Infra</a>
+    <h1><span>YOUR_APP_NAME</span> Updates</h1>
     <p>New features added to the template since you first cloned it. Select the ones you want, copy the prompt, and paste it into Claude Code to adopt them.</p>
   </div>
 </div>
@@ -619,6 +619,85 @@ docs/CHANGELOG.md    (recent changes log)</code></pre>
 
 
   <!-- ════════════════════════════════════════════════════════════════
+       FEATURE: DevControl — AI Development Dashboard
+       ════════════════════════════════════════════════════════════════ -->
+  <div class="feature-card" data-feature="devcontrol">
+    <label class="feature-select"><input type="checkbox" data-feature-id="devcontrol"></label>
+    <h2>
+      <span class="badge badge-new">New</span>
+      DevControl &mdash; AI Development Dashboard
+    </h2>
+    <p><span class="badge badge-date">Added Mar 2026</span></p>
+    <p>A comprehensive admin dashboard for monitoring your AI-assisted development workflow. Six sub-tabs covering releases, sessions, token usage, context window analysis, and backup status &mdash; all in one place.</p>
+
+    <h3>What you get</h3>
+    <ul>
+      <li><strong>Overview</strong> &mdash; card grid linking to each sub-tab with quick descriptions</li>
+      <li><strong>Releases</strong> &mdash; GitHub PR changelog grouped by date, with version tags, line counts, and category badges</li>
+      <li><strong>Sessions</strong> &mdash; view Claude Code session history from D1 (single-project filtered), expandable transcripts, copy support</li>
+      <li><strong>Tokens &amp; Cost</strong> &mdash; token usage analytics, daily breakdown bar chart, per-model usage table</li>
+      <li><strong>Context Window</strong> &mdash; file-by-file token breakdown, stacked usage bar, 90-day history chart with daily snapshots to Supabase</li>
+      <li><strong>Backups</strong> &mdash; backup status cards (DB &rarr; R2, R2 &rarr; external drive) with activity log from Supabase</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <p>
+      <span class="prereq-tag">Supabase configured</span>
+      <span class="prereq-tag">GitHub repo (for Releases tab)</span>
+    </p>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Optional: D1 Session Logging (for Sessions tab), <code>backup_logs</code> table (for Backups tab)</p>
+
+    <h3>What Claude does</h3>
+    <ol>
+      <li>Pull the DevControl files from the template repo:
+        <pre><code>spaces/admin/devcontrol.html   (admin page shell)
+spaces/admin/devcontrol.js     (all 6 sub-tab logic)
+spaces/admin/devcontrol.css    (complete styling)</code></pre>
+      </li>
+      <li>Configure the project-specific values at the top of <code>devcontrol.js</code>:
+        <ul>
+          <li><code>GH_OWNER</code> / <code>GH_REPO</code> &mdash; for Releases and Context tabs (GitHub API)</li>
+          <li><code>SESSIONS_API</code> / <code>SESSIONS_TOKEN</code> / <code>PROJECT_FILTER</code> &mdash; for Sessions and Tokens tabs (D1 Worker)</li>
+        </ul>
+      </li>
+      <li>Add the DevControl tab to the admin navigation in <code>shared/admin-shell.js</code>:
+        <pre><code>{ id: 'devcontrol', label: 'DevControl', href: 'devcontrol.html',
+  permission: 'view_settings', section: 'admin' }</code></pre>
+      </li>
+      <li>Add the DevControl icon to <code>admin-shell.js</code> icon map</li>
+      <li>Create the <code>context_snapshots</code> Supabase table for 90-day history tracking:
+        <pre><code>CREATE TABLE context_snapshots (
+  snapshot_date DATE PRIMARY KEY,
+  always_loaded_tokens INTEGER NOT NULL,
+  total_tokens INTEGER NOT NULL,
+  breakdown JSONB DEFAULT '{}'
+);</code></pre>
+      </li>
+      <li>If the user already has a <code>backup_logs</code> table, the Backups tab will work immediately. Otherwise, create it:
+        <pre><code>CREATE TABLE backup_logs (
+  id SERIAL PRIMARY KEY,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  source TEXT NOT NULL,
+  backup_type TEXT NOT NULL,
+  status TEXT NOT NULL,
+  duration_seconds INTEGER,
+  details JSONB,
+  r2_key TEXT
+);</code></pre>
+      </li>
+      <li>Update <code>docs/KEY-FILES.md</code>, <code>docs/CHANGELOG.md</code>, and <code>docs/PATTERNS.md</code></li>
+    </ol>
+
+    <div class="callout">
+      <strong>Files added/modified</strong>
+      <code>spaces/admin/devcontrol.html</code> &bull;
+      <code>spaces/admin/devcontrol.js</code> &bull;
+      <code>spaces/admin/devcontrol.css</code> &bull;
+      <code>shared/admin-shell.js</code> (nav entry + icon)
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════
        PROMPT GENERATOR
        ════════════════════════════════════════════════════════════════ -->
   <div id="prompt-section" style="margin-top: 2rem;">
@@ -648,8 +727,8 @@ docs/CHANGELOG.md    (recent changes log)</code></pre>
       name: 'Session Logging to Cloudflare D1',
       prompt: `Set up Cloudflare D1 session logging for my Claude Code sessions.
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Session Logging to Cloudflare D1" feature:
-- Pull the cloudflare/claude-sessions/ directory from the template repo (https://github.com/rsonnad/alpacapps-infra)
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "Session Logging to Cloudflare D1" feature:
+- Pull the cloudflare/claude-sessions/ directory from the template repo (https://github.com/USERNAME/REPO-infra)
 - Install wrangler, create the D1 database, deploy the worker
 - Set up the save-session.sh hook with the Stop event
 - Ask me for the auth token I want to use
@@ -659,8 +738,8 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
       name: 'On-Demand Context System',
       prompt: `Set up the on-demand context system to reduce token usage.
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "On-Demand Context System" feature:
-- Pull the docs/ directory structure from the template repo (https://github.com/rsonnad/alpacapps-infra)
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "On-Demand Context System" feature:
+- Pull the docs/ directory structure from the template repo (https://github.com/USERNAME/REPO-infra)
 - Slim down CLAUDE.md to ~30 lines with on-demand doc index
 - Migrate any existing credentials/schema/patterns from CLAUDE.md to the appropriate docs/*.md file
 - Ensure docs/CREDENTIALS.md is in .gitignore
@@ -670,7 +749,7 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
       name: 'Open Brain — Session Transparency Dashboard',
       prompt: `Set up the Open Brain session transparency dashboard.
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Open Brain" feature:
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "Open Brain" feature:
 - Verify D1 session logging is working first
 - Create open-brain/index.html with stats, search, filters, and transcript viewer
 - Ask me whether it should be public or auth-gated
@@ -681,8 +760,8 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
       name: 'Smart Polling with Circuit Breaker',
       prompt: `Set up the PollManager with circuit breaker pattern.
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Smart Polling" feature:
-- Pull shared/services/poll-manager.js and shared/supabase-health.js from the template repo (https://github.com/rsonnad/alpacapps-infra)
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "Smart Polling" feature:
+- Pull shared/services/poll-manager.js and shared/supabase-health.js from the template repo (https://github.com/USERNAME/REPO-infra)
 - Replace any existing setInterval polling with PollManager
 - Update docs/KEY-FILES.md and docs/PATTERNS.md`
     },
@@ -690,9 +769,9 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
       name: 'Intranet Tab Visibility Config',
       prompt: `Set up database-driven tab visibility configuration.
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Tab Visibility Config" feature:
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "Tab Visibility Config" feature:
 - Run supabase/migrations/001_page_display_config.sql against my Supabase project
-- Pull updated intranet tab components from the template repo (https://github.com/rsonnad/alpacapps-infra)
+- Pull updated intranet tab components from the template repo (https://github.com/USERNAME/REPO-infra)
 - Customize the seed data for my specific sections/tabs
 - Update docs/SCHEMA.md and docs/CHANGELOG.md`
     },
@@ -700,8 +779,8 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
       name: 'Centralized Error Logger',
       prompt: `Set up the centralized error logger.
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Error Logger" feature:
-- Pull shared/error-logger.js from the template repo (https://github.com/rsonnad/alpacapps-infra)
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "Error Logger" feature:
+- Pull shared/error-logger.js from the template repo (https://github.com/USERNAME/REPO-infra)
 - Wire it into existing error handling patterns
 - Update docs/KEY-FILES.md and docs/PATTERNS.md`
     },
@@ -709,10 +788,22 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
       name: 'Stop Hook Upgrade',
       prompt: `Upgrade my session logging hook from SessionEnd to Stop.
 
-Follow the instructions on the AlpacApps updates page (infra/updates.html) for the "Stop Hook Upgrade" feature:
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "Stop Hook Upgrade" feature:
 - Check ~/.claude/settings.json for a SessionEnd hook and replace with Stop
 - Update ~/.claude/hooks/save-session.sh with the latest version (includes rate-limiting)
 - Verify the lock directory is created at ~/.claude/hooks/.session-locks/`
+    },
+    'devcontrol': {
+      name: 'DevControl — AI Development Dashboard',
+      prompt: `Set up the DevControl admin dashboard for monitoring AI development activity.
+
+Follow the instructions on the YOUR_APP_NAME updates page (infra/updates.html) for the "DevControl" feature:
+- Pull spaces/admin/devcontrol.html, devcontrol.js, and devcontrol.css from the template repo (https://github.com/USERNAME/REPO-infra)
+- Configure GH_OWNER, GH_REPO, SESSIONS_API, SESSIONS_TOKEN, and PROJECT_FILTER in devcontrol.js for my project
+- Add the DevControl tab and icon to shared/admin-shell.js
+- Create the context_snapshots Supabase table for 90-day history tracking
+- Create backup_logs table if I don't already have one
+- Update docs/KEY-FILES.md, docs/CHANGELOG.md, and docs/PATTERNS.md`
     }
   };
 
@@ -752,11 +843,11 @@ Follow the instructions on the AlpacApps updates page (infra/updates.html) for t
       warnings.push('Note: "Stop Hook Upgrade" requires D1 Session Logging to already be configured.');
     }
 
-    let prompt = `I cloned the AlpacApps template a while ago and want to adopt ${features.length === 1 ? 'this new feature' : 'these new features'}:
+    let prompt = `I cloned the YOUR_APP_NAME template a while ago and want to adopt ${features.length === 1 ? 'this new feature' : 'these new features'}:
 
 ${featureNames.map((n, i) => `${i + 1}. ${n}`).join('\n')}
 
-For each feature, pull the necessary files from the template repo at https://github.com/rsonnad/alpacapps-infra and set them up in my project. Handle all terminal work — installs, deploys, config. Ask me when you need credentials or preferences.
+For each feature, pull the necessary files from the template repo at https://github.com/USERNAME/REPO-infra and set them up in my project. Handle all terminal work — installs, deploys, config. Ask me when you need credentials or preferences.
 
 Commit and push after each feature so changes are easy to review.
 
