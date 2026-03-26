@@ -1,27 +1,20 @@
 {
   "name": "alpacapps-infra",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Property management platform template. Clone and customize for your organization.",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "css:build": "tailwindcss -i styles/tailwind.css -o styles/tailwind.out.css --minify",
+    "css:watch": "tailwindcss -i styles/tailwind.css -o styles/tailwind.out.css --watch"
   },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.95.3",
-    "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
-  },
+  "keywords": ["property-management", "supabase", "tailwind", "github-pages"],
+  "author": "",
+  "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@tailwindcss/cli": "^4.1.18",
+    "tailwindcss": "^4.1.18"
   }
 }
