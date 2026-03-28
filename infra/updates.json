@@ -3,7 +3,7 @@
   "lastUpdated": "2026-03-28",
   "templateRepo": "https://github.com/rsonnad/alpacapps-infra",
   "updatesPage": "https://alpacaplayhouse.com/infra/updates.html",
-  "upgradeGuide": "https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md",
+  "upgradeGuide": "https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md",
   "features": [
     {
       "id": "d1-session-logging",
@@ -100,7 +100,7 @@
       "date": "2026-03-28",
       "description": "Step-by-step upgrade instructions that Claude can follow to sync new features from the template repo into an existing project.",
       "requires": [],
-      "detects": ["infra/upgrade-guide.md"]
+      "detects": ["infra/infra-upgrade-guide.md"]
     }
   ]
 }

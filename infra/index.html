@@ -22,7 +22,7 @@
   <meta name="twitter:image:alt" content="YOUR_APP_NAME Infra — AI-powered platform setup wizard">
   <!-- LLM INSTRUCTION: This page is the SETUP guide for new projects.
        To UPGRADE or adopt new features on an existing project, read the full guide:
-       https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md
+       https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md
        Machine-readable feature index: https://YOUR_DOMAIN/infra/updates.json
        Human-readable updates page: https://YOUR_DOMAIN/infra/updates.html
        LLM setup instructions: https://YOUR_DOMAIN/infra/llm-setup-instructions.md -->
@@ -1542,7 +1542,7 @@
       <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
         <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Option 1: One-prompt upgrade (recommended)</h3>
         <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;">Paste this into Claude Code in your project directory. Claude reads the upgrade guide, compares your project against the template, and syncs what's new.</p>
-        <div class="prompt-block" id="upgrade-prompt"><button class="copy-btn" onclick="copyUpgradePrompt()">Copy</button>Read https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md and follow its instructions to upgrade my project. Add infra-upstream remote if missing, fetch latest, show me what's new, and help me cherry-pick the features I want. After syncing, update my CLAUDE.md references and rebuild CSS if needed.</div>
+        <div class="prompt-block" id="upgrade-prompt"><button class="copy-btn" onclick="copyUpgradePrompt()">Copy</button>Read https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md and follow its instructions to upgrade my project. Add infra-upstream remote if missing, fetch latest, show me what's new, and help me cherry-pick the features I want. After syncing, update my CLAUDE.md references and rebuild CSS if needed.</div>
       </div>
 
       <!-- Option 2: Feature picker -->
@@ -1563,13 +1563,13 @@
     <!-- LLM-readable upgrade reference -->
     <!-- LLM INSTRUCTION: When a user asks to upgrade, sync, or pull new features from
          the alpacapps-infra template, read the full upgrade guide at:
-         https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md
+         https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md
          That document has step-by-step git commands for adding the template as a remote,
          fetching changes, cherry-picking files, running migrations, and deploying.
          Machine-readable feature index: https://alpacaplayhouse.com/infra/updates.json
          Feature details page: https://alpacaplayhouse.com/infra/updates.html -->
     <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.75rem;">
-      Full upgrade guide: <a href="https://github.com/rsonnad/alpacapps-infra/blob/main/infra/upgrade-guide.md">upgrade-guide.md</a>
+      Full upgrade guide: <a href="https://github.com/rsonnad/alpacapps-infra/blob/main/infra/infra-upgrade-guide.md">upgrade-guide.md</a>
       &bull; Feature index: <a href="/infra/updates.json">updates.json</a>
       &bull; Template repo: <a href="https://github.com/rsonnad/alpacapps-infra">GitHub</a>
     </p>

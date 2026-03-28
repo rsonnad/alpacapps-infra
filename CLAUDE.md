@@ -15,7 +15,7 @@
 > Run `/setup-alpacapps-infra` to set up the full infrastructure interactively.
 
 > **Upgrading from the template?**
-> Read `infra/upgrade-guide.md` for step-by-step instructions to sync new features from
+> Read `infra/infra-upgrade-guide.md` for step-by-step instructions to sync new features from
 > the alpacapps-infra template repo. Machine-readable feature index: `infra/updates.json`
 
 ## Mandatory Behaviors
@@ -39,4 +39,4 @@
 - **Live:** https://USERNAME.github.io/REPO/
 - **Architecture:** Browser → GitHub Pages → Supabase (no server-side code)
 - **Template repo:** https://github.com/rsonnad/alpacapps-infra
-- **Upgrade guide:** `infra/upgrade-guide.md`
+- **Upgrade guide:** `infra/infra-upgrade-guide.md`
