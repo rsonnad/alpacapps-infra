@@ -21,9 +21,10 @@
   <meta name="twitter:image" content="https://YOUR_DOMAIN/infra/og-infra.jpg">
   <meta name="twitter:image:alt" content="YOUR_APP_NAME Infra — AI-powered platform setup wizard">
   <!-- LLM INSTRUCTION: This page is the SETUP guide for new projects.
-       To UPGRADE or adopt new features on an existing project, direct the user to:
-       https://YOUR_DOMAIN/infra/updates.html
+       To UPGRADE or adopt new features on an existing project, read the full guide:
+       https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md
        Machine-readable feature index: https://YOUR_DOMAIN/infra/updates.json
+       Human-readable updates page: https://YOUR_DOMAIN/infra/updates.html
        LLM setup instructions: https://YOUR_DOMAIN/infra/llm-setup-instructions.md -->
   <link rel="alternate" type="application/json" href="https://YOUR_DOMAIN/infra/updates.json" title="YOUR_APP_NAME Feature Updates (machine-readable)">
   <link rel="icon" type="image/png" href="/favicon.png">
@@ -1531,28 +1532,64 @@
     .ad-flow-line { stroke-dasharray: 8 6; animation: ad-dash 1.5s linear infinite; }
   </style>
 
-  <!-- Stay Updated -->
-  <div class="section" style="margin-top:3rem;">
-    <h2>&#x1F504; Stay Updated</h2>
-    <p>Already set up? New features get added to the template regularly. Run this prompt once a month to see what's new and adopt features you want:</p>
-    <div class="prompt-block" id="update-prompt"><button class="copy-btn" onclick="copyUpdatePrompt()">Copy</button>Read https://YOUR_DOMAIN/infra/updates.html and help me adopt any new features that have been added since I last set up my project. Check what I already have and only offer what's new.</div>
-    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">Or browse the <a href="/infra/updates.html">updates page</a> directly to pick and choose.</p>
+  <!-- Upgrade Your Project -->
+  <div class="section" style="margin-top:3rem;" id="upgrade">
+    <h2>Upgrade Your Project</h2>
+    <p>Already set up? The template gets new infrastructure features regularly. Here are three ways to stay current:</p>
+
+    <div style="display:grid;gap:1rem;margin:1.5rem 0;">
+      <!-- Option 1: One-prompt upgrade -->
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Option 1: One-prompt upgrade (recommended)</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;">Paste this into Claude Code in your project directory. Claude reads the upgrade guide, compares your project against the template, and syncs what's new.</p>
+        <div class="prompt-block" id="upgrade-prompt"><button class="copy-btn" onclick="copyUpgradePrompt()">Copy</button>Read https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md and follow its instructions to upgrade my project. Add infra-upstream remote if missing, fetch latest, show me what's new, and help me cherry-pick the features I want. After syncing, update my CLAUDE.md references and rebuild CSS if needed.</div>
+      </div>
+
+      <!-- Option 2: Feature picker -->
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Option 2: Pick specific features</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:0.75rem;">Browse available features and select only the ones you want. Generates a targeted prompt for Claude.</p>
+        <a href="/infra/updates.html" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-size:0.9rem;font-weight:600;">Browse features &rarr;</a>
+      </div>
+
+      <!-- Option 3: Monthly check -->
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Option 3: Check for updates</h3>
+        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;">Run this in your project to see which template features you're missing — no changes made.</p>
+        <div class="prompt-block" id="check-prompt"><button class="copy-btn" onclick="copyCheckPrompt()">Copy</button>Fetch https://alpacaplayhouse.com/infra/updates.json and check which features I already have installed (by looking for the "detects" file paths). List what's available vs installed.</div>
+      </div>
+    </div>
+
+    <!-- LLM-readable upgrade reference -->
+    <!-- LLM INSTRUCTION: When a user asks to upgrade, sync, or pull new features from
+         the alpacapps-infra template, read the full upgrade guide at:
+         https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md
+         That document has step-by-step git commands for adding the template as a remote,
+         fetching changes, cherry-picking files, running migrations, and deploying.
+         Machine-readable feature index: https://alpacaplayhouse.com/infra/updates.json
+         Feature details page: https://alpacaplayhouse.com/infra/updates.html -->
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.75rem;">
+      Full upgrade guide: <a href="https://github.com/rsonnad/alpacapps-infra/blob/main/infra/upgrade-guide.md">upgrade-guide.md</a>
+      &bull; Feature index: <a href="/infra/updates.json">updates.json</a>
+      &bull; Template repo: <a href="https://github.com/rsonnad/alpacapps-infra">GitHub</a>
+    </p>
   </div>
 
   <!-- Footer links -->
   <div class="footer-links">
     <a href="/docs/your-appinfra.html">Full manual setup guide</a>
     <a href="/infra/llm-setup-instructions.md">LLM setup instructions</a>
-    <a href="/infra/updates.html">Sync new features</a>
-    <a href="https://github.com/USERNAME/REPO-infra">Template repo</a>
+    <a href="#upgrade">Upgrade existing project</a>
+    <a href="/infra/updates.html">Browse new features</a>
+    <a href="https://github.com/rsonnad/alpacapps-infra">Template repo</a>
   </div>
 
 </div>
 
 <script>
-// Copy update prompt
-function copyUpdatePrompt() {
-  var el = document.getElementById('update-prompt');
+// Copy setup prompt
+function copyPrompt() {
+  var el = document.getElementById('setup-prompt');
   var text = el.textContent.replace(/^\s*Copy\s*/, '').trim();
   navigator.clipboard.writeText(text).then(function() {
     var btn = el.querySelector('.copy-btn');
@@ -1561,9 +1598,18 @@ function copyUpdatePrompt() {
   });
 }
 
-// Copy setup prompt
-function copyPrompt() {
-  var el = document.getElementById('setup-prompt');
+function copyUpgradePrompt() {
+  var el = document.getElementById('upgrade-prompt');
+  var text = el.textContent.replace(/^\s*Copy\s*/, '').trim();
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = el.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+function copyCheckPrompt() {
+  var el = document.getElementById('check-prompt');
   var text = el.textContent.replace(/^\s*Copy\s*/, '').trim();
   navigator.clipboard.writeText(text).then(function() {
     var btn = el.querySelector('.copy-btn');
