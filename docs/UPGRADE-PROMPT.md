@@ -5,7 +5,7 @@
 
 ---
 
-Read https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/upgrade-guide.md and upgrade my project to the latest template.
+Read https://alpacaplayhouse.com/infra/upgrade-guide.md and upgrade my project to the latest template.
 
 Here's what I need you to do:
 
