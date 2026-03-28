@@ -1,12 +1,12 @@
 {
-  "version": "v260328.02 8:27p",
-  "release": 2,
-  "sha": "d93434a",
-  "fullSha": "d93434ad29534a516e20deb4683bb1a7568da181",
+  "version": "v260328.03 8:32p",
+  "release": 3,
+  "sha": "55ea171",
+  "fullSha": "55ea171721c647ce5d9314fecb526cd2458df449",
   "actor": "rsonnad",
   "source": "github-main-push",
   "model": "ci",
   "machine": "runnervmrg6be",
-  "pushedAt": "2026-03-28T15:27:42-05:00",
-  "commits": [{"sha":"d93434a","message":"docs: update LOCAL-AI-SETUP with msty.app and Gemma 3 models","author":"Rahul"}]
+  "pushedAt": "2026-03-28T15:31:56-05:00",
+  "commits": [{"sha":"55ea171","message":"docs: add shareable upgrade prompt for existing adopters","author":"Rahul"}]
 }
