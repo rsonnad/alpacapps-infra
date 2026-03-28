@@ -1,12 +1,12 @@
 {
-  "version": "v260328.01 8:26p",
-  "release": 1,
-  "sha": "5f36aa3",
-  "fullSha": "5f36aa3ce5ab0829a0f3a7ffb667c99e72f1074e",
+  "version": "v260328.02 8:27p",
+  "release": 2,
+  "sha": "d93434a",
+  "fullSha": "d93434ad29534a516e20deb4683bb1a7568da181",
   "actor": "rsonnad",
   "source": "github-main-push",
   "model": "ci",
   "machine": "runnervmrg6be",
-  "pushedAt": "2026-03-28T15:26:06-05:00",
-  "commits": [{"sha":"5f36aa3","message":"feat: add upgrade guide, new features, and sync docs for adopters","author":"Rahul"}]
+  "pushedAt": "2026-03-28T15:27:42-05:00",
+  "commits": [{"sha":"d93434a","message":"docs: update LOCAL-AI-SETUP with msty.app and Gemma 3 models","author":"Rahul"}]
 }
