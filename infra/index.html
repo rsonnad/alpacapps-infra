@@ -3,30 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YOUR_APP_NAME Infra — Set Up Your AI-Powered Platform</title>
+  <title>AlpacApps Infra — Set Up Your AI-Powered Platform</title>
   <meta name="description" content="Set up a full-stack freely hosted AI-powered platform in 30 – 90 minutes for most. Claude walks you through every step.">
-  <meta property="og:title" content="YOUR_APP_NAME Infra — Set Up Your AI-Powered Platform">
+  <meta property="og:title" content="AlpacApps Infra — Set Up Your AI-Powered Platform">
   <meta property="og:description" content="Set up a full-stack freely hosted AI-powered platform in 30 – 90 minutes for most. Claude walks you through every step.">
-  <meta property="og:image" content="https://YOUR_DOMAIN/infra/og-infra.jpg">
+  <meta property="og:image" content="https://alpacaplayhouse.com/infra/og-infra.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:url" content="https://YOUR_DOMAIN/infra/">
+  <meta property="og:url" content="https://alpacaplayhouse.com/infra/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="YOUR_APP_NAME">
+  <meta property="og:site_name" content="AlpacApps">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="YOUR_APP_NAME Infra — Set Up Your AI-Powered Platform">
+  <meta name="twitter:title" content="AlpacApps Infra — Set Up Your AI-Powered Platform">
   <meta name="twitter:description" content="Set up a full-stack freely hosted AI-powered platform in 30 – 90 minutes for most. Claude walks you through every step.">
-  <meta name="twitter:image" content="https://YOUR_DOMAIN/infra/og-infra.jpg">
-  <meta name="twitter:image:alt" content="YOUR_APP_NAME Infra — AI-powered platform setup wizard">
+  <meta name="twitter:image" content="https://alpacaplayhouse.com/infra/og-infra.jpg">
+  <meta name="twitter:image:alt" content="AlpacApps Infra — AI-powered platform setup wizard">
   <!-- LLM INSTRUCTION: This page is the SETUP guide for new projects.
-       To UPGRADE or adopt new features on an existing project, read the full guide:
-       https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md
-       Machine-readable feature index: https://YOUR_DOMAIN/infra/updates.json
-       Human-readable updates page: https://YOUR_DOMAIN/infra/updates.html
-       LLM setup instructions: https://YOUR_DOMAIN/infra/llm-setup-instructions.md -->
-  <link rel="alternate" type="application/json" href="https://YOUR_DOMAIN/infra/updates.json" title="YOUR_APP_NAME Feature Updates (machine-readable)">
+       To UPGRADE or adopt new features on an existing project, direct the user to:
+       https://alpacaplayhouse.com/infra/updates.html
+       Machine-readable feature index: https://alpacaplayhouse.com/infra/updates.json
+       LLM setup instructions: https://alpacaplayhouse.com/infra/llm-setup-instructions.md -->
+  <link rel="alternate" type="application/json" href="https://alpacaplayhouse.com/infra/updates.json" title="AlpacApps Feature Updates (machine-readable)">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/styles/site.css">
   <link rel="stylesheet" href="/styles/tailwind.out.css">
@@ -678,16 +677,16 @@
 </head>
 <body>
 
-<span data-site-version style="display:none;">v260328.05 8:47p</span>
+<span data-site-version style="display:none;">v260401.08 5:34a</span>
 <div id="siteHeader"></div>
 
 <!-- ⚠️ HERO BANNER — Intentionally designed as full-width banner card.
      Do NOT replace with old dark/full-bleed hero. See docs/CHANGELOG.md. -->
 <div class="hero" style="padding-top: calc(80px + 1rem);">
   <div class="hero-card">
-    <img src="YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/ai-gen/property-ai-banner.png" alt="YOUR_APP_NAME — AI-powered platform with property" class="hero-image" width="1509" height="475">
+    <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/ai-gen/alpaca-wide-ai-banner.png" alt="AlpacApps — AI-powered platform with alpacas" class="hero-image" width="1509" height="475">
     <div class="hero-text">
-      <h1><span>YOUR_APP_NAME</span> Infra</h1>
+      <h1><span>AlpacApps</span> Infra</h1>
       <p><strong>Set up a full-stack freely hosted AI-powered platform in 30 – 90 minutes for most.</strong> Claude walks you through every step &mdash; adapting to your computer, your accounts, and what you want to build. Just install Claude and paste one prompt.</p>
       <span class="badge">$20 &ndash; $200 / month</span>
     </div>
@@ -700,10 +699,10 @@
   <div id="llm-instructions" style="display:none;" aria-hidden="true">
     <!--
       === INSTRUCTIONS FOR CLAUDE / LLM SETUP ASSISTANT ===
-      If you are an AI reading this page to help a user set up YOUR_APP_NAME:
-      1. Machine-readable setup overview: https://YOUR_DOMAIN/infra/llm-setup-instructions.md
-      2. Full step-by-step guide with checkpoints: https://YOUR_DOMAIN/infra/setup-guide.html
-      3. Feature updates index (JSON): https://YOUR_DOMAIN/infra/updates.json
+      If you are an AI reading this page to help a user set up AlpacApps:
+      1. Machine-readable setup overview: https://alpacaplayhouse.com/infra/llm-setup-instructions.md
+      2. Full step-by-step guide with checkpoints: https://alpacaplayhouse.com/infra/setup-guide.html
+      3. Feature updates index (JSON): https://alpacaplayhouse.com/infra/updates.json
       This HTML page is the human-friendly overview. Follow the above for the actual procedure.
     -->
   </div>
@@ -736,7 +735,7 @@
     <p>Open your terminal, run <code>claude</code>, and paste this prompt. Claude Code will take it from here &mdash; including helping you set up screenshots, install tools, and create accounts.</p>
 
     <div class="prompt-block" id="setup-prompt">
-      <button class="copy-btn" onclick="copyPrompt()">Copy</button>Set up an YOUR_APP_NAME project for me. Read the instructions at https://YOUR_DOMAIN/infra/llm-setup-instructions.md and walk me through it step by step.</div>
+      <button class="copy-btn" onclick="copyPrompt()">Copy</button>Set up an AlpacApps project for me. Read the instructions at https://alpacaplayhouse.com/infra/llm-setup-instructions.md and walk me through it step by step.</div>
 
     <div style="margin-top: 1rem; padding: 0.85rem 1rem; background: color-mix(in srgb, var(--accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); border-radius: 8px;">
       <p style="margin: 0; font-size: 0.9rem;">Claude will guide you through <strong>screenshots</strong>, <strong>Git</strong>, <strong>GitHub CLI</strong>, and everything else based on your specific computer. No need to figure out which instructions apply to you &mdash; Claude detects your OS and adapts.</p>
@@ -789,45 +788,32 @@
           <span class="guided-item-desc">Your AI developer that writes and deploys code</span>
         </div>
       </div>
-      <div class="guided-item" style="border-color: var(--claude-border); background: var(--claude-bg);">
-        <div class="guided-item-icon" style="color: #5a4a7a;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/></svg>
+      <div class="guided-item" style="border-color: #f48120; background: #fff8f0;">
+        <div class="guided-item-icon" style="color: #f48120;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         </div>
         <div>
-          <strong>Conductor</strong> <span style="font-size:0.68rem;background:#f0e6ff;color:#5a4a7a;padding:0.1rem 0.4rem;border-radius:4px;font-weight:600;vertical-align:middle;">macOS only</span>
-          <span class="guided-item-desc">Parallel AI agents &mdash; your dev hub after setup</span>
+          <strong>Cloudflare</strong>
+          <span class="guided-item-desc">Domain management + D1 session logging</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- STEP 4: Switchover to Conductor -->
-  <div class="setup-step" style="border-color: var(--claude-border); border-width: 2px;">
+  <!-- STEP 4: Cloudflare -->
+  <div class="setup-step" style="border-color: #f48120; border-width: 2px;">
     <h2>
       <span class="step-num">4</span>
-      <svg class="brand-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#7c6a9a" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#7c6a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Switch to Conductor
-      <span class="step-time">5 min</span>
+      <svg class="brand-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#f48120" stroke-width="2" stroke-linejoin="round"/><path d="M2 17l10 5 10-5" stroke="#f48120" stroke-width="2" stroke-linejoin="round"/><path d="M2 12l10 5 10-5" stroke="#f48120" stroke-width="2" stroke-linejoin="round"/></svg>
+      Get your Cloudflare key
+      <span class="step-time">2 min</span>
     </h2>
-    <p>Once Claude helps you install <strong>Conductor</strong>, you&rsquo;ll switch from Claude Desktop to Conductor for the rest of setup and all future development.</p>
-    <div style="display: flex; align-items: center; gap: 1.5rem; margin: 1rem 0; padding: 1rem 1.25rem; background: var(--claude-bg); border-radius: 8px; border: 1px solid rgba(124,106,154,0.2);">
-      <div style="text-align: center; flex-shrink: 0;">
-        <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600;">Before</div>
-        <div style="font-weight: 700; color: #D97706; font-size: 1rem; margin-top: 0.25rem;">Claude Desktop</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted);">Single conversation</div>
-      </div>
-      <div style="font-size: 1.5rem; color: var(--claude-border);">&rarr;</div>
-      <div style="text-align: center; flex-shrink: 0;">
-        <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600;">After</div>
-        <div style="font-weight: 700; color: #5a4a7a; font-size: 1rem; margin-top: 0.25rem;">Conductor</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted);">Parallel AI agents</div>
-      </div>
-    </div>
-    <p style="font-size: 0.88rem; color: var(--text-muted);">Conductor runs multiple Claude Code agents in parallel &mdash; each task gets its own workspace. Code pushes to GitHub and your site updates automatically.</p>
-    <div style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; background: #f0e6ff; border: 1px solid #d4c4f0; border-radius: 6px; font-size: 0.78rem; font-weight: 600; color: #5a4a7a; margin-top: 0.25rem;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      macOS only (for now)
-    </div>
+    <p>Cloudflare manages your domain&rsquo;s DNS and provides a D1 database for session logging. You only need two things:</p>
+    <ol style="margin: 1rem 0;">
+      <li><strong>Your Cloudflare email</strong> &mdash; the one on your account</li>
+      <li><strong>Global API Key</strong> &mdash; go to <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank">Profile &rarr; API Tokens</a>, find &ldquo;Global API Key&rdquo;, click &ldquo;View&rdquo;</li>
+    </ol>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">That&rsquo;s it. Claude uses this key once to create a scoped project token with only the permissions your project needs &mdash; then uses that for all ongoing operations.</p>
   </div>
 
   <!-- What you'll have -->
@@ -845,7 +831,7 @@
       <li>A <code>CLAUDE.md</code> file so Claude Code knows your project inside and out</li>
       <li>Version tracking and CI/CD built in</li>
     </ul>
-    <p>From there, just open <strong>Conductor</strong> and tell it what you want to build. Each task gets its own workspace with a dedicated AI agent.</p>
+    <p>From there, just open <strong>Claude Code</strong> and tell it what you want to build. It handles all the code, commits, and deploys.</p>
   </div>
 
   <!-- Profile overview -->
@@ -886,9 +872,11 @@
           <span>Payments</span>
           <span>E-Signatures</span>
           <span>AI Features</span>
+          <span>Smart Home</span>
+          <span>Voice Calling</span>
           <span>QA Testing</span>
         </div>
-        <div class="layer-services">Google OAuth &bull; Resend &bull; Telnyx &bull; Square &bull; SignWell &bull; Gemini &bull; gstack</div>
+        <div class="layer-services">Google OAuth &bull; Resend &bull; Telnyx &bull; Stripe &bull; PayPal &bull; Square &bull; SignWell &bull; Gemini &bull; HAOS &bull; gstack</div>
       </div>
       <div class="stack-layer layer-crm">
         <div class="layer-label">Your Business</div>
@@ -901,7 +889,7 @@
           <span>Website + Hosting</span>
           <span>Tailwind CSS v4</span>
         </div>
-        <div class="layer-services">Supabase &bull; GitHub Pages &bull; Conductor &bull; Tailwind &bull; Free</div>
+        <div class="layer-services">Supabase &bull; GitHub Pages &bull; Cloudflare &bull; Tailwind &bull; Free</div>
       </div>
     </div>
     <div class="stack-sidebar">
@@ -913,7 +901,7 @@
 
   <!-- Component Services (unified list with expandable details + cost checkboxes) -->
   <div class="calc-section" id="architecture">
-    <h2>YOUR_APP_NAME Component Services</h2>
+    <h2>AlpacApps Component Services</h2>
     <p style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; margin-bottom: 1.25rem;">Click checkboxes for cost estimate</p>
 
     <div class="calc-services" id="calc-services">
@@ -960,20 +948,21 @@
 
       <div class="svc-row">
         <label class="calc-svc calc-svc--core calc-svc--locked">
-          <input type="checkbox" checked disabled data-svc="conductor">
+          <input type="checkbox" checked disabled data-svc="cloudflare">
           <span class="calc-svc__check">&check;</span>
-          <span class="svc-icon"><img src="https://conductor.build/favicon.ico" alt="Conductor" style="border-radius:4px;"></span>
-          <span class="calc-svc__info"><span class="calc-svc__name">Conductor</span><span class="calc-svc__desc">Parallel AI coding agents &mdash; <strong>macOS only</strong></span></span>
+          <span class="svc-icon"><img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare"></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">Cloudflare</span><span class="calc-svc__desc">Domain management + D1 session logging</span></span>
           <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
         </label>
         <details class="svc-expand"><summary>Learn more</summary>
-          <p>Mac app that manages multiple Claude Code agents running in parallel. Instead of one agent doing one thing at a time, Conductor lets you tackle several tasks simultaneously.</p>
+          <p>Cloudflare manages your domain&rsquo;s DNS and provides a D1 serverless database for session logging. Claude sets everything up using your Global API Key.</p>
           <ul>
-            <li><strong>How it works:</strong> Create a workspace for each task (e.g., &ldquo;add payments page,&rdquo; &ldquo;fix login bug,&rdquo; &ldquo;write tests&rdquo;). Each gets its own Claude Code agent and git branch.</li>
-            <li><strong>Why it matters:</strong> Setup that takes 90 minutes sequentially can finish in 30 minutes with parallel workspaces. Ongoing development is faster too.</li>
-            <li><strong>No conflicts:</strong> Each workspace is isolated &mdash; agents never step on each other&rsquo;s code.</li>
+            <li><strong>DNS management:</strong> Authoritative DNS for your domain. Claude configures records for GitHub Pages, custom domains, and any other services.</li>
+            <li><strong>D1 database:</strong> Serverless SQLite for logging Claude Code sessions &mdash; tracks what was built, when, and by which agent.</li>
+            <li><strong>R2 storage:</strong> If you need object storage (images, files), Claude creates an R2 bucket using the same Cloudflare token.</li>
+            <li><strong>Setup:</strong> Just provide your Cloudflare email and Global API Key. Claude creates a scoped project token automatically.</li>
           </ul>
-          <p><a href="https://conductor.build" target="_blank">Go to Conductor &rarr;</a></p>
+          <p><a href="https://dash.cloudflare.com" target="_blank">Go to Cloudflare &rarr;</a></p>
         </details>
       </div>
 
@@ -989,7 +978,7 @@
           <p>AI-powered developer by Anthropic that writes, tests, and deploys your code. It reads your project&rsquo;s <code>CLAUDE.md</code> file to understand your codebase, conventions, and architecture.</p>
           <ul>
             <li><strong>What it does:</strong> Writes HTML/CSS/JS, creates database tables, deploys edge functions, configures services, commits and pushes to GitHub &mdash; all from natural language instructions.</li>
-            <li><strong>How you use it:</strong> Through Conductor. You describe what you want in plain English; Claude Code handles the implementation.</li>
+            <li><strong>How you use it:</strong> Describe what you want in plain English; Claude Code handles the implementation, commits, and deploys.</li>
             <li><strong>Plans:</strong> Free tier (daily limits), Pro ($20/mo, recommended), Max ($100/mo for heavy building), Max+ ($200/mo for intensive development).</li>
           </ul>
           <p><a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank">Go to Claude Code &rarr;</a></p>
@@ -1114,6 +1103,25 @@
 
       <div class="svc-row">
         <label class="calc-svc">
+          <input type="checkbox" data-svc="paypal" onchange="recalcCost()">
+          <span class="calc-svc__check">&check;</span>
+          <span class="svc-icon"><img src="https://cdn.simpleicons.org/paypal/003087" alt="PayPal"></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">PayPal</span><span class="calc-svc__desc">Checkout, payouts &amp; instant transfers</span></span>
+          <span class="cost-badge cost-payg" style="margin-left:auto;">2.9% + 30&cent;</span>
+        </label>
+        <details class="svc-expand"><summary>Learn more</summary>
+          <p>Accept payments via PayPal and send payouts to associates. Works alongside Stripe and Square for maximum payment flexibility.</p>
+          <ul>
+            <li><strong>Checkout:</strong> Buyers pay with PayPal balance, cards, or Venmo. 2.9% + 30&cent; per transaction.</li>
+            <li><strong>Payouts:</strong> Send money to vendors and associates via the PayPal Payouts API &mdash; instant to their PayPal account.</li>
+            <li><strong>How it integrates:</strong> Three Supabase edge functions handle checkout, payouts, and webhooks. Config stored in <code>paypal_config</code> table.</li>
+          </ul>
+          <p><a href="https://developer.paypal.com/" target="_blank">Go to PayPal Developer &rarr;</a></p>
+        </details>
+      </div>
+
+      <div class="svc-row">
+        <label class="calc-svc">
           <input type="checkbox" data-svc="signwell" onchange="recalcCost()">
           <span class="calc-svc__check">&check;</span>
           <span class="svc-icon"><svg viewBox="0 0 24 24" fill="#4A90D9" width="20" height="20"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg></span>
@@ -1213,17 +1221,17 @@
           <input type="checkbox" data-svc="workers" onchange="recalcCost()">
           <span class="calc-svc__check">&check;</span>
           <span class="svc-icon"><svg viewBox="0 0 24 24" fill="#0080FF" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></span>
-          <span class="calc-svc__info"><span class="calc-svc__name">Background Workers</span><span class="calc-svc__desc">Automated bug fixes, pollers, AI image gen on a cloud VM</span></span>
-          <span class="cost-badge cost-payg" style="margin-left:auto;">$12&ndash;32/mo</span>
+          <span class="calc-svc__info"><span class="calc-svc__name">Background Workers</span><span class="calc-svc__desc">11 workers: device pollers, AI image gen, Discord bot, live subtitles, and more on a VPS</span></span>
+          <span class="cost-badge cost-payg" style="margin-left:auto;">$5&ndash;12/mo</span>
         </label>
         <details class="svc-expand"><summary>Learn more</summary>
-          <p>Always-on cloud VM for background tasks that can&rsquo;t run in the browser or in serverless edge functions.</p>
+          <p>Always-on cloud VPS for background tasks that can&rsquo;t run in the browser or in serverless edge functions.</p>
           <ul>
-            <li><strong>What runs here:</strong> Device pollers (Tesla, LG, cameras), automated bug fixer (Claude Code on a schedule), AI image generation, and webhook processors.</li>
-            <li><strong>Options:</strong> DigitalOcean ($12&ndash;32/mo) or Oracle Cloud (free ARM tier &mdash; always free, 4 vCPU, 24 GB RAM).</li>
-            <li><strong>When you need it:</strong> Only if you have smart home devices, vehicles, or other integrations that need continuous background polling. Most projects don&rsquo;t need this.</li>
+            <li><strong>What runs here:</strong> Device pollers (Tesla, LG, cameras), OpenClaw (3D printer/laser cutter proxy), AI image generation, automated bug fixer, and webhook processors.</li>
+            <li><strong>Options:</strong> Hostinger VPS ($5&ndash;12/mo, recommended) or Oracle Cloud (free ARM tier &mdash; always free, 4 vCPU, 24 GB RAM).</li>
+            <li><strong>When you need it:</strong> Only if you have smart home devices, vehicles, maker tools, or other integrations that need continuous background polling. Most projects don&rsquo;t need this.</li>
           </ul>
-          <p><a href="https://www.digitalocean.com" target="_blank">Go to DigitalOcean &rarr;</a></p>
+          <p><a href="https://www.hostinger.com/vps-hosting" target="_blank">Go to Hostinger &rarr;</a></p>
         </details>
       </div>
 
@@ -1251,14 +1259,14 @@
           <input type="checkbox" data-svc="iphone" onchange="recalcCost()">
           <span class="calc-svc__check">&check;</span>
           <span class="svc-icon"><img src="https://cdn.simpleicons.org/apple/000000" alt="Apple"></span>
-          <span class="calc-svc__info"><span class="calc-svc__name">iPhone App</span><span class="calc-svc__desc">iOS via Capacitor + App Store</span></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">iPhone App</span><span class="calc-svc__desc">Native iOS (Swift/SwiftUI) + App Store</span></span>
           <span class="cost-badge cost-payg" style="margin-left:auto;">$99/yr</span>
         </label>
         <details class="svc-expand"><summary>Learn more</summary>
-          <p>Native iOS app using Capacitor 8. Your existing web app runs inside a native shell with access to push notifications, camera, GPS, and more.</p>
+          <p>Native iOS app built with Swift and SwiftUI. Full access to push notifications, camera, GPS, biometrics, and all native APIs.</p>
           <ul>
-            <li><strong>Same codebase:</strong> No Swift or Objective-C needed. Your HTML/CSS/JS runs in a WKWebView with native API bridges.</li>
-            <li><strong>OTA updates:</strong> After the initial App Store submission, code changes push live instantly via Capgo &mdash; no App Store review wait.</li>
+            <li><strong>Native performance:</strong> Built with SwiftUI for smooth 60fps animations, native navigation, and platform-idiomatic UI. Screens for lights, music, climate, cameras, vehicles, and more.</li>
+            <li><strong>Shared API layer:</strong> Connects to the same Supabase backend and Home Assistant APIs as the web app.</li>
             <li><strong>Cost:</strong> Apple Developer Program ($99/yr). Requires a Mac with Xcode to build.</li>
           </ul>
           <p><a href="https://developer.apple.com/programs/" target="_blank">Go to Apple Developer &rarr;</a></p>
@@ -1270,13 +1278,13 @@
           <input type="checkbox" data-svc="android" onchange="recalcCost()">
           <span class="calc-svc__check">&check;</span>
           <span class="svc-icon"><img src="https://cdn.simpleicons.org/android/34A853" alt="Android"></span>
-          <span class="calc-svc__info"><span class="calc-svc__name">Android App</span><span class="calc-svc__desc">Android via Capacitor + Play Store</span></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">Android App</span><span class="calc-svc__desc">Native Android (Kotlin/Jetpack Compose) + Play Store</span></span>
           <span class="cost-badge cost-payg" style="margin-left:auto;">$25 one-time</span>
         </label>
         <details class="svc-expand"><summary>Learn more</summary>
-          <p>Native Android app using Capacitor 8. Same codebase as your web app with native features and Play Store distribution.</p>
+          <p>Native Android app built with Kotlin and Jetpack Compose. Full Material 3 design with native performance.</p>
           <ul>
-            <li><strong>Same codebase:</strong> No Kotlin or Java needed. Your web app runs in an Android WebView (Chromium engine) with native API bridges.</li>
+            <li><strong>Native performance:</strong> Built with Jetpack Compose for native Android UI. Screens for lights, music, climate, cameras, vehicles, and an AI assistant.</li>
             <li><strong>Build anywhere:</strong> Android Studio runs on macOS, Windows, and Linux &mdash; no Mac required.</li>
             <li><strong>Cost:</strong> Google Play Console is a $25 one-time fee (not annual).</li>
           </ul>
@@ -1286,16 +1294,54 @@
 
       <div class="svc-row">
         <label class="calc-svc">
+          <input type="checkbox" data-svc="vapi" onchange="recalcCost()">
+          <span class="calc-svc__check">&check;</span>
+          <span class="svc-icon"><svg viewBox="0 0 24 24" fill="#7C3AED" width="20" height="20"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">VAPI</span><span class="calc-svc__desc">AI voice calling &amp; phone agents</span></span>
+          <span class="cost-badge cost-payg" style="margin-left:auto;">Pay-as-you-go</span>
+        </label>
+        <details class="svc-expand"><summary>Learn more</summary>
+          <p>Add AI-powered voice calling to your app. Create phone agents that answer calls, make outbound calls, and handle conversations with natural language.</p>
+          <ul>
+            <li><strong>How it works:</strong> VAPI handles the phone infrastructure. Your Supabase edge function (<code>vapi-webhook</code>) processes call events and transcripts.</li>
+            <li><strong>Use cases:</strong> Automated appointment reminders, AI receptionist, property inquiry hotline, emergency notification calls.</li>
+            <li><strong>Config:</strong> API key and assistant settings stored in <code>vapi_config</code> table.</li>
+          </ul>
+          <p><a href="https://vapi.ai" target="_blank">Go to VAPI &rarr;</a></p>
+        </details>
+      </div>
+
+      <div class="svc-row">
+        <label class="calc-svc">
+          <input type="checkbox" data-svc="discord" onchange="recalcCost()">
+          <span class="calc-svc__check">&check;</span>
+          <span class="svc-icon"><img src="https://cdn.simpleicons.org/discord/5865F2" alt="Discord"></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">Discord Bot</span><span class="calc-svc__desc">AI assistant bot for your community server</span></span>
+          <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
+        </label>
+        <details class="svc-expand"><summary>Learn more</summary>
+          <p>An AI-powered Discord bot that bridges your community server to your platform&rsquo;s AI assistant. Users can chat with PAI, ask questions about the property, and trigger actions.</p>
+          <ul>
+            <li><strong>How it works:</strong> A Node.js worker (<code>pai-discord</code>) listens for messages and forwards them to the <code>alpaca-pai</code> Supabase edge function.</li>
+            <li><strong>Runs on:</strong> Your background worker VPS as a systemd service.</li>
+            <li><strong>Cost:</strong> Free &mdash; Discord bot accounts are free to create and run.</li>
+          </ul>
+          <p><a href="https://discord.com/developers/applications" target="_blank">Go to Discord Developer Portal &rarr;</a></p>
+        </details>
+      </div>
+
+      <div class="svc-row">
+        <label class="calc-svc">
           <input type="checkbox" data-svc="homeserver" onchange="recalcCost()">
           <span class="calc-svc__check">&check;</span>
           <span class="svc-icon"><svg viewBox="0 0 24 24" fill="#6B7280" width="20" height="20"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span>
-          <span class="calc-svc__info"><span class="calc-svc__name">Home Server</span><span class="calc-svc__desc">Local Mac for smart home, cameras, media</span></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">Home Server</span><span class="calc-svc__desc">Local Mac for smart home, cameras, media &amp; 30+ device integrations</span></span>
           <span class="cost-badge cost-payg" style="margin-left:auto;">~$150 one-time</span>
         </label>
         <details class="svc-expand"><summary>Learn more</summary>
-          <p>A dedicated Mac on your local network that bridges LAN-only smart home devices to your cloud app.</p>
+          <p>A dedicated Mac on your local network that bridges LAN-only smart home devices to your cloud app. Runs Home Assistant OS (HAOS) as the central smart home hub.</p>
           <ul>
-            <li><strong>What it runs:</strong> Sonos HTTP API (music control), go2rtc (camera streams), Home Assistant (device automation), Music Assistant, and device pollers.</li>
+            <li><strong>What it runs:</strong> Home Assistant (HAOS &mdash; 30+ smart devices across WiZ, Govee, Tuya/SmartLife), Sonos HTTP API (music control), go2rtc (camera streams), Music Assistant, Blink camera poller, and device pollers.</li>
             <li><strong>How it connects:</strong> Tailscale VPN links the Mac to your cloud services. A reverse proxy (Hostinger or similar) routes external requests to the Mac.</li>
             <li><strong>Cost:</strong> A used Mac Mini runs ~$150 one-time. Low power draw (~10W idle).</li>
             <li><strong>When you need it:</strong> Only for smart home features (Sonos, cameras, climate control). Not needed for standard web apps.</li>
@@ -1348,16 +1394,16 @@
     <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto;">
       <!-- Section header -->
       <h2 style="text-align:center;font-size:1.6rem;font-weight:700;color:#E8EAED;margin-bottom:6px;font-family:'DM Sans',system-ui,sans-serif;">
-        <span style="background:linear-gradient(135deg,#3ECF8E,#8B5CF6,#D97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">YOUR_APP_NAME</span> Architecture
+        <span style="background:linear-gradient(135deg,#3ECF8E,#8B5CF6,#D97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AlpacApps</span> Architecture
       </h2>
-      <p style="text-align:center;color:#9BA1B0;font-size:1rem;margin-bottom:32px;font-family:'DM Sans',system-ui,sans-serif;">Five services, zero backend code</p>
+      <p style="text-align:center;color:#9BA1B0;font-size:1rem;margin-bottom:32px;font-family:'DM Sans',system-ui,sans-serif;">67 edge functions, 11 workers, 2 native mobile apps &mdash; zero backend code</p>
 
       <!-- Legend -->
       <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:36px;">
         <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#D97706;display:inline-block;"></span> Claude Code</span>
         <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3ECF8E;display:inline-block;"></span> Supabase</span>
         <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#8B5CF6;display:inline-block;"></span> GitHub Pages</span>
-        <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3B82F6;display:inline-block;"></span> Property Mac</span>
+        <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3B82F6;display:inline-block;"></span> Alpaca Mac</span>
         <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#EF4444;display:inline-block;"></span> Hostinger</span>
       </div>
 
@@ -1400,7 +1446,7 @@
           <text x="370" y="153" text-anchor="middle" fill="#8B5CF6" font-size="14">GH</text>
           <text x="392" y="153" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">GitHub Pages</text>
           <text x="362" y="175" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">Static HTML/JS/CSS hosting</text>
-          <text x="362" y="192" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">YOUR_DOMAIN</text>
+          <text x="362" y="192" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">alpacaplayhouse.com</text>
           <text x="362" y="207" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">/spaces/ /residents/ /admin/ /auth/</text>
 
           <line x1="500" y1="220" x2="500" y2="285" stroke="#3ECF8E" stroke-width="2" marker-end="url(#ad-arrowSupabase)" opacity="0.7"/>
@@ -1429,18 +1475,18 @@
           <text x="72" y="153" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Claude Code</text>
           <text x="42" y="175" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">AI dev agent: writes code,</text>
           <text x="42" y="192" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">fixes bugs, deploys, runs SQL</text>
-          <text x="42" y="209" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">Oracle Cloud (free tier)</text>
+          <text x="42" y="209" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">Local or cloud (Claude Max/Pro)</text>
 
           <line x1="280" y1="155" x2="338" y2="155" stroke="#D97706" stroke-width="1.5" marker-end="url(#ad-arrowClaude)" opacity="0.6"/>
           <text x="290" y="148" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9">git push</text>
           <path d="M 150 220 L 150 345 L 278 345" fill="none" stroke="#D97706" stroke-width="1.5" marker-end="url(#ad-arrowClaude)" opacity="0.5" class="ad-flow-line"/>
           <text x="158" y="280" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9">migrations</text>
 
-          <!-- Property Mac -->
+          <!-- Alpaca Mac -->
           <rect x="20" y="470" width="280" height="130" rx="16" fill="#181B24" stroke="#3B82F6" stroke-width="2" filter="url(#ad-glowMac)"/>
           <circle cx="50" cy="498" r="14" fill="rgba(59,130,246,0.15)" stroke="#3B82F6" stroke-width="1"/>
           <text x="50" y="502" text-anchor="middle" fill="#3B82F6" font-size="11">Mac</text>
-          <text x="72" y="503" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Property Mac</text>
+          <text x="72" y="503" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Alpaca Mac</text>
           <text x="42" y="525" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">On-prem home server. Bridges</text>
           <text x="42" y="542" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">LAN-only smart home devices</text>
           <rect x="40" y="555" width="55" height="28" rx="6" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
@@ -1517,13 +1563,13 @@
         </div>
         <div style="background:#181B24;border:1px solid #2A2E3B;border-radius:12px;padding:16px;text-align:center;">
           <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#6B7280;margin-bottom:6px;">05</div>
-          <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Property Mac</div>
+          <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Alpaca Mac</div>
           <div style="font-size:.78rem;color:#9BA1B0;line-height:1.4;">Controls Sonos, cameras, lights</div>
         </div>
       </div>
 
       <p style="text-align:center;color:#4B5563;font-size:.8rem;font-family:'DM Sans',sans-serif;">
-        <a href="/docs/your-appinfra.html#architecture-diagram" style="color:#6B7280;text-decoration:none;">View in full setup guide &rarr;</a>
+        <a href="/docs/alpacappsinfra.html#architecture-diagram" style="color:#6B7280;text-decoration:none;">View in full setup guide &rarr;</a>
       </p>
     </div>
   </div>
@@ -1532,84 +1578,39 @@
     .ad-flow-line { stroke-dasharray: 8 6; animation: ad-dash 1.5s linear infinite; }
   </style>
 
-  <!-- Upgrade Your Project -->
-  <div class="section" style="margin-top:3rem;" id="upgrade">
-    <h2>Upgrade Your Project</h2>
-    <p>Already set up? The template gets new infrastructure features regularly. Here are three ways to stay current:</p>
-
-    <div style="display:grid;gap:1rem;margin:1.5rem 0;">
-      <!-- Option 1: One-prompt upgrade -->
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Option 1: One-prompt upgrade (recommended)</h3>
-        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;">Paste this into Claude Code in your project directory. Claude reads the upgrade guide, compares your project against the template, and syncs what's new.</p>
-        <div class="prompt-block" id="upgrade-prompt"><button class="copy-btn" onclick="copyUpgradePrompt()">Copy</button>Read https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md and follow its instructions to upgrade my project. Add infra-upstream remote if missing, fetch latest, show me what's new, and help me cherry-pick the features I want. After syncing, update my CLAUDE.md references and rebuild CSS if needed.</div>
-      </div>
-
-      <!-- Option 2: Feature picker -->
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Option 2: Pick specific features</h3>
-        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:0.75rem;">Browse available features and select only the ones you want. Generates a targeted prompt for Claude.</p>
-        <a href="/infra/updates.html" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-size:0.9rem;font-weight:600;">Browse features &rarr;</a>
-      </div>
-
-      <!-- Option 3: Monthly check -->
-      <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
-        <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem;">Option 3: Check for updates</h3>
-        <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem;">Run this in your project to see which template features you're missing — no changes made.</p>
-        <div class="prompt-block" id="check-prompt"><button class="copy-btn" onclick="copyCheckPrompt()">Copy</button>Fetch https://alpacaplayhouse.com/infra/updates.json and check which features I already have installed (by looking for the "detects" file paths). List what's available vs installed.</div>
-      </div>
-    </div>
-
-    <!-- LLM-readable upgrade reference -->
-    <!-- LLM INSTRUCTION: When a user asks to upgrade, sync, or pull new features from
-         the alpacapps-infra template, read the full upgrade guide at:
-         https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md
-         That document has step-by-step git commands for adding the template as a remote,
-         fetching changes, cherry-picking files, running migrations, and deploying.
-         Machine-readable feature index: https://alpacaplayhouse.com/infra/updates.json
-         Feature details page: https://alpacaplayhouse.com/infra/updates.html -->
-    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.75rem;">
-      Full upgrade guide: <a href="https://github.com/rsonnad/alpacapps-infra/blob/main/infra/infra-upgrade-guide.md">upgrade-guide.md</a>
-      &bull; Feature index: <a href="/infra/updates.json">updates.json</a>
-      &bull; Template repo: <a href="https://github.com/rsonnad/alpacapps-infra">GitHub</a>
-    </p>
+  <!-- Stay Updated -->
+  <div class="section" style="margin-top:3rem;">
+    <h2>&#x1F504; Stay Updated</h2>
+    <p>Already set up? New features get added to the template regularly. Run this prompt once a month to see what's new and adopt features you want:</p>
+    <div class="prompt-block" id="update-prompt"><button class="copy-btn" onclick="copyUpdatePrompt()">Copy</button>Read https://alpacaplayhouse.com/infra/updates.html and help me adopt any new features that have been added since I last set up my project. Check what I already have and only offer what's new.</div>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.5rem;">Or browse the <a href="/infra/updates.html">updates page</a> directly to pick and choose.</p>
   </div>
 
   <!-- Footer links -->
   <div class="footer-links">
-    <a href="/docs/your-appinfra.html">Full manual setup guide</a>
+    <a href="/docs/alpacappsinfra.html">Full manual setup guide</a>
     <a href="/infra/llm-setup-instructions.md">LLM setup instructions</a>
-    <a href="#upgrade">Upgrade existing project</a>
-    <a href="/infra/updates.html">Browse new features</a>
+    <a href="/infra/updates.html">Sync new features</a>
     <a href="https://github.com/rsonnad/alpacapps-infra">Template repo</a>
   </div>
 
 </div>
 
 <script>
+// Copy update prompt
+function copyUpdatePrompt() {
+  var el = document.getElementById('update-prompt');
+  var text = el.textContent.replace(/^\s*Copy\s*/, '').trim();
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = el.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
 // Copy setup prompt
 function copyPrompt() {
   var el = document.getElementById('setup-prompt');
-  var text = el.textContent.replace(/^\s*Copy\s*/, '').trim();
-  navigator.clipboard.writeText(text).then(function() {
-    var btn = el.querySelector('.copy-btn');
-    btn.textContent = 'Copied!';
-    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
-  });
-}
-
-function copyUpgradePrompt() {
-  var el = document.getElementById('upgrade-prompt');
-  var text = el.textContent.replace(/^\s*Copy\s*/, '').trim();
-  navigator.clipboard.writeText(text).then(function() {
-    var btn = el.querySelector('.copy-btn');
-    btn.textContent = 'Copied!';
-    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
-  });
-}
-
-function copyCheckPrompt() {
-  var el = document.getElementById('check-prompt');
   var text = el.textContent.replace(/^\s*Copy\s*/, '').trim();
   navigator.clipboard.writeText(text).then(function() {
     var btn = el.querySelector('.copy-btn');
@@ -1628,7 +1629,7 @@ function recalcCost() {
   var svcCosts = {
     'github':      { basic: 0, complicated: 0, hyper: 0 },
     'supabase':    { basic: 0, complicated: 0, hyper: 300 },
-    'conductor':   { basic: 0, complicated: 0, hyper: 0 },
+    'cloudflare':  { basic: 0, complicated: 0, hyper: 0 },
     'claude':      { basic: 0, complicated: 320, hyper: 2400 },
     'google-auth': { basic: 0, complicated: 0, hyper: 0 },
     'resend':      { basic: 0, complicated: 0, hyper: 0 },
@@ -1641,7 +1642,7 @@ function recalcCost() {
     'cloudflare-d1': { basic: 0, complicated: 0, hyper: 0 },
     'open-brain':  { basic: 0, complicated: 0, hyper: 0 },
     'gstack':      { basic: 0, complicated: 0, hyper: 0 },
-    'workers':     { basic: 0, complicated: 144, hyper: 384 },
+    'workers':     { basic: 0, complicated: 60, hyper: 144 },
     'domain':      { basic: 10, complicated: 10, hyper: 10 },
     'iphone':      { basic: 99, complicated: 99, hyper: 99 },
     'android':     { basic: 25, complicated: 25, hyper: 25 },
@@ -1649,12 +1650,12 @@ function recalcCost() {
   };
 
   var svcLabels = {
-    'github': 'GitHub Pages', 'supabase': 'Supabase', 'conductor': 'Conductor', 'claude': 'Claude Code',
+    'github': 'GitHub Pages', 'supabase': 'Supabase', 'cloudflare': 'Cloudflare', 'claude': 'Claude Code',
     'google-auth': 'Google Sign-In', 'resend': 'Resend (email)', 'telnyx': 'Telnyx (SMS)',
     'square': 'Square (payments)', 'stripe': 'Stripe (payments)', 'signwell': 'SignWell (e-sign)',
     'gemini': 'Google Gemini (AI)', 'cloudflare-r2': 'Cloudflare R2 (storage)', 'cloudflare-d1': 'Cloudflare D1 (sessions)',
     'open-brain': 'Open Brain (session dashboard)',
-    'gstack': 'gstack (QA & skills)', 'workers': 'Background Workers (cloud VM)', 'domain': 'Custom domain',
+    'gstack': 'gstack (QA & skills)', 'workers': 'Background Workers (Hostinger VPS)', 'domain': 'Custom domain',
     'iphone': 'iPhone App (Apple Developer)', 'android': 'Android App (Google Play)',
     'homeserver': 'Home Server (used Mac)'
   };
@@ -1671,10 +1672,10 @@ function recalcCost() {
     'iphone':   { basic: 'Apple Developer Program ($99/yr)', complicated: 'Apple Developer Program ($99/yr)', hyper: 'Apple Developer Program ($99/yr)' },
     'android':  { basic: 'Google Play Console ($25 one-time)', complicated: 'Google Play Console ($25 one-time)', hyper: 'Google Play Console ($25 one-time)' },
     'homeserver': { basic: 'Used Mac Mini or MacBook (~$150 one-time)', complicated: 'Used Mac Mini or MacBook (~$150 one-time)', hyper: 'Used Mac Mini or MacBook (~$150 one-time)' },
-    'workers': { complicated: '$12/mo VM for bug fixer, pollers, image gen', hyper: '$32/mo VM for heavy workers + Claude Code automation' }
+    'workers': { complicated: '$5/mo Hostinger VPS for pollers, image gen, OpenClaw', hyper: '$12/mo Hostinger VPS for heavy workers + Claude Code automation' }
   };
 
-  var selected = ['github', 'supabase', 'conductor', 'claude'];
+  var selected = ['github', 'supabase', 'cloudflare', 'claude'];
   document.querySelectorAll('#calc-services input[data-svc]:not(:disabled)').forEach(function(cb) {
     if (cb.checked) selected.push(cb.dataset.svc);
   });
