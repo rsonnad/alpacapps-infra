@@ -1,3 +1,8 @@
+## Project Identity Check
+
+This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **sponic** and the request doesn't match this project, **STOP** and warn:
+> "You mentioned **{keyword}** but this session is in **alpacapps-infra**. Did you mean to run this in the other project?"
+
 # [Your Project Name] — Project Directives
 
 > **On-demand docs — load when the task matches:**
