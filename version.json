@@ -1,12 +1,12 @@
 {
-  "version": "v260401.01 7:04p",
+  "version": "v260403.01 6:48p",
   "release": 1,
-  "sha": "3d68bef",
-  "fullSha": "3d68beff24892cb7e7ffe42b863760b887c15005",
+  "sha": "445987c",
+  "fullSha": "445987c5f64b2a369c2532ad65525fba3b3f40e6",
   "actor": "rsonnad",
   "source": "github-main-push",
   "model": "ci",
   "machine": "runnervmrg6be",
-  "pushedAt": "2026-04-01T14:04:02-05:00",
-  "commits": [{"sha":"3d68bef","message":"Sync with alpacapps: admin tabs fix, infra page updates, LLM instructions","author":"Rahul"}]
+  "pushedAt": "2026-04-03T13:48:26-05:00",
+  "commits": [{"sha":"445987c","message":"chore: add project identity check to CLAUDE.md","author":"Rahul"}]
 }
