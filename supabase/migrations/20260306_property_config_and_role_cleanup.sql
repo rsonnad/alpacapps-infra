@@ -63,7 +63,7 @@ INSERT INTO property_config (id, config) VALUES (1, '{
   },
   "domain": {
     "primary": "YOUR_DOMAIN",
-    "github_pages": "USERNAME.github.io/REPO",
+    "cloudflare_pages": "YOUR_PROJECT.pages.dev",
     "camera_proxy": "YOUR_CAMERA_PROXY"
   },
   "email": {

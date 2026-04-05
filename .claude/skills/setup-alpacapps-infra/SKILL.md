@@ -234,6 +234,42 @@ See `references/core-services.md` → "Supabase" for detailed steps.
 7. Link CLI, create domain-specific tables with RLS, create storage buckets
 8. Validate everything: tables, RLS, secrets, edge functions
 
+### Step 3b: Feature Flags in Database
+
+After Supabase is configured and migrations are run, write the user's feature selections
+to `property_config.features`. **Only features the user explicitly selected should be `true`.**
+All other optional features must be `false` or omitted (they default to `false`).
+
+```sql
+-- Set ONLY selected features to true. Unselected features default to false.
+UPDATE property_config
+SET config = jsonb_set(
+  config,
+  '{features}',
+  '{"email": false, "sms": false, "whatsapp": false, "voice": false,
+    "payments_stripe": false, "payments_square": false, "payments_paypal": false,
+    "esignatures": false, "documents": false,
+    "lighting": false, "cameras": false, "music": false, "climate": false,
+    "laundry": false, "oven": false, "printer_3d": false, "glowforge": false,
+    "vehicles": false,
+    "rentals": false, "events": false, "associates": false, "residents": false, "airbnb": false,
+    "pai": false, "alexa": false}'::jsonb
+)
+WHERE id = 1;
+```
+
+Then set selected features to `true`:
+```sql
+-- Example: if user selected email, stripe, and rentals
+UPDATE property_config
+SET config = jsonb_set(config, '{features,email}', 'true')
+WHERE id = 1;
+-- Repeat for each selected feature
+```
+
+**Important:** Never enable features the user didn't select. The feature-registry.js
+defaults all optional features to `false` when not present in `property_config.features`.
+
 ### Step 4: Google Sign-In (OAuth) — if selected
 
 See `references/core-services.md` → "Google Sign-In" for detailed steps.

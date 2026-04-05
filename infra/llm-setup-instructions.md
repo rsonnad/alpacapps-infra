@@ -119,14 +119,20 @@ creates the permission rows, the normal permission filter takes over.
 
 ### Feature flags
 Optional features (rentals, events, SMS, voice, etc.) are toggled via `property_config.features` JSONB.
+**All optional features default to `false`** — only enable features the user explicitly selected during setup.
 If `property_config` doesn't exist or has no `features` key, only core tabs show (Spaces, Media,
-Purchases, Todo, PhyProp, Inventory, App Dev). To enable features, insert into property_config:
+Purchases, Todo, PhyProp, Inventory, App Dev). To enable specific features:
 
 ```sql
-INSERT INTO property_config (id, config) VALUES (1, '{"features": {"rentals": true, "events": true, "sms": true}}')
-ON CONFLICT (id) DO UPDATE SET config = jsonb_set(property_config.config, '{features}',
-  COALESCE(property_config.config->'features', '{}') || '{"rentals": true, "events": true, "sms": true}');
+-- Enable only the features the user selected (all others stay false)
+UPDATE property_config
+SET config = jsonb_set(config, '{features}',
+  COALESCE(config->'features', '{}'::jsonb) || '{"rentals": true, "events": true}'::jsonb)
+WHERE id = 1;
 ```
+
+**Never set all features to `true` by default.** Each feature should only be enabled after its
+corresponding service is configured (e.g., don't enable "sms" until Telnyx is set up).
 
 ### First user setup
 The first user to sign in should be granted admin role. After Supabase auth is configured:
