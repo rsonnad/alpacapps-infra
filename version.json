@@ -1,12 +1,12 @@
 {
-  "version": "v260403.01 6:48p",
+  "version": "v260405.01 3:22p",
   "release": 1,
-  "sha": "445987c",
-  "fullSha": "445987c5f64b2a369c2532ad65525fba3b3f40e6",
+  "sha": "7bcc8e4",
+  "fullSha": "7bcc8e4cc80d7d949e7679ed831f605f1a0bd903",
   "actor": "rsonnad",
-  "source": "github-main-push",
+  "source": "cloudflare-pages-deploy",
   "model": "ci",
-  "machine": "runnervmrg6be",
-  "pushedAt": "2026-04-03T13:48:26-05:00",
-  "commits": [{"sha":"445987c","message":"chore: add project identity check to CLAUDE.md","author":"Rahul"}]
+  "machine": "runnervm727z3",
+  "pushedAt": "2026-04-05T10:22:37-05:00",
+  "commits": [{"sha":"7bcc8e4","message":"Migrate to Cloudflare Pages + sync latest from alpacapps","author":"Rahul"}]
 }
