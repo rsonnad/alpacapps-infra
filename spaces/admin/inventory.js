@@ -131,7 +131,7 @@ const INFRASTRUCTURE = [
 
 const DATA_ASSETS = [
   {
-    name: 'Google Drive — rahulioson@gmail.com',
+    name: 'Google Drive — {OWNER_EMAIL}',
     meta: badge('Syncing', 'green') + ' ~5.5 GB',
     body: `<p>Personal Google Drive synced to RVAULT20 via rclone every 4 hours. Contains documents, spreadsheets, and project files.</p>
       <dl>
@@ -151,7 +151,7 @@ const DATA_ASSETS = [
       </dl>`
   },
   {
-    name: 'Google Photos — rahulioson@gmail.com',
+    name: 'Google Photos — {OWNER_EMAIL}',
     meta: badge('Complete', 'blue') + ' via Takeout',
     body: `<p>Full photo library exported via Google Takeout. Downloaded and stored on RVAULT20.</p>
       <dl><dt>Location</dt><dd><code>/Volumes/RVAULT20/GoogleTakeout/</code></dd></dl>`

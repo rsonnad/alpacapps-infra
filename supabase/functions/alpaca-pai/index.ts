@@ -2805,7 +2805,7 @@ async function executeToolCall(
             },
             body: JSON.stringify({
               type: "faq_unanswered",
-              to: "rahulioson@gmail.com",
+              to: "{OWNER_EMAIL}",
               data: {
                 question: `${question}\n\nPAI's attempted answer: ${attemptedAnswer}\nReason flagged: ${reason}`,
                 user_email: userEmail || "Not provided",

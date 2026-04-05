@@ -16,7 +16,7 @@ This retrieves the master password from macOS Keychain and returns a session tok
 |---|---|
 | Bitwarden CLI | `/opt/homebrew/bin/bw` |
 | Auto-unlock script | `~/bin/bw-unlock` |
-| Master password | macOS Keychain (service: `bitwarden-cli`, account: `rahulioson@gmail.com`) |
+| Master password | macOS Keychain (service: `bitwarden-cli`, account: `{OWNER_EMAIL}`) |
 
 ### How it works
 
@@ -27,7 +27,7 @@ This retrieves the master password from macOS Keychain and returns a session tok
 ### To update the master password
 
 ```bash
-security add-generic-password -a "rahulioson@gmail.com" -s "bitwarden-cli" -w "NEW_PASSWORD" -U
+security add-generic-password -a "{OWNER_EMAIL}" -s "bitwarden-cli" -w "NEW_PASSWORD" -U
 ```
 
 ## Organization Structure

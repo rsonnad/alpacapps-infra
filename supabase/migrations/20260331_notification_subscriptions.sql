@@ -97,7 +97,7 @@ VALUES
   (
     'time_entries.insert',
     '{"associate_id": "04b48bfc-07d8-4628-90ba-655120e07eaf"}'::jsonb,
-    ARRAY['sheppardsustainable@gmail.com', 'rahulioson@gmail.com'],
+    ARRAY['sheppardsustainable@gmail.com', '{OWNER_EMAIL}'],
     'Justin Gilbertson clock-in → Jon & Rahul',
     NULL
   ),
@@ -105,7 +105,7 @@ VALUES
   (
     'time_entries.update',
     '{"associate_id": "04b48bfc-07d8-4628-90ba-655120e07eaf"}'::jsonb,
-    ARRAY['sheppardsustainable@gmail.com', 'rahulioson@gmail.com'],
+    ARRAY['sheppardsustainable@gmail.com', '{OWNER_EMAIL}'],
     'Justin Gilbertson clock-out/edit → Jon & Rahul',
     ARRAY['status', 'clock_out', 'duration_minutes']
   );

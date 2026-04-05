@@ -78,7 +78,7 @@ CREATE POLICY "Admin users can delete email forwarding rules"
 -- Insert default forwarding rules based on CLAUDE.md documentation
 INSERT INTO email_forwarding_config (address_prefix, forward_to, label, is_active) VALUES
   ('haydn', 'hUSERNAME@gmail.com', 'Haydn personal', true),
-  ('rahulio', 'rahulioson@gmail.com', 'Rahulio personal', true),
+  ('rahulio', '{OWNER_EMAIL}', 'Rahulio personal', true),
   ('sonia', 'sonia245g@gmail.com', 'Sonia personal', true),
   ('team', 'admin@YOUR_DOMAIN', 'Main inbox', true)
 ON CONFLICT (address_prefix, forward_to) DO NOTHING;

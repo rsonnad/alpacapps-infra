@@ -100,7 +100,7 @@ ON CONFLICT (page_path) DO NOTHING;
 INSERT INTO page_access_grants (page_path, email) VALUES
   ('/jackie/pages/permittingplan/index.html', 'jackie61899280@gmail.com'),
   ('/jackie/pages/permittingplan/index.html', 'sheppardsustainable@gmail.com'),
-  ('/jackie/pages/permittingplan/index.html', 'rahulioson@gmail.com'),
+  ('/jackie/pages/permittingplan/index.html', '{OWNER_EMAIL}'),
   ('/jackie/pages/permittingplan/index.html', 'dpmoden8888@gmail.com'),
   ('/jackie/pages/permittingplan/index.html', 'justin.gilbertson1@gmail.com')
 ON CONFLICT (page_path, email) DO NOTHING;

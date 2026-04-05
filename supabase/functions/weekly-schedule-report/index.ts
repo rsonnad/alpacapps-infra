@@ -7,7 +7,7 @@
  *
  * Currently configured for:
  *   - Justin Gilbertson's schedule
- *   - Recipients: sheppardsustainable@gmail.com (Jon Sheppard), rahulioson@gmail.com
+ *   - Recipients: sheppardsustainable@gmail.com (Jon Sheppard), {OWNER_EMAIL}
  *
  * Deploy: supabase functions deploy weekly-schedule-report --no-verify-jwt
  */
@@ -18,7 +18,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 // Recipients for the weekly schedule report
 const SCHEDULE_REPORT_RECIPIENTS = [
   "sheppardsustainable@gmail.com",
-  "rahulioson@gmail.com",
+  "{OWNER_EMAIL}",
 ];
 
 // Associates to include in the report (by email)

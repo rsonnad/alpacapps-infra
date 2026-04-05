@@ -198,7 +198,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 | Prefix | Action | Destination |
 |--------|--------|-------------|
 | `haydn@` | Forward | `hrsonnad@gmail.com` |
-| `rahulio@` | Forward | `rahulioson@gmail.com` |
+| `rahulio@` | Forward | `{OWNER_EMAIL}` |
 | `sonia@` | Forward | `sonia245g@gmail.com` |
 | `team@` | Forward | `alpacaplayhouse@gmail.com` |
 | `herd@` | Special logic | (stub — future AI processing) |
