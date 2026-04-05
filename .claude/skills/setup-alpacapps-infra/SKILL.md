@@ -32,7 +32,7 @@ You are an expert infrastructure setup assistant. You help users build full-stac
 8. **Validate before proceeding.** Test every credential and connection before moving on.
 9. **Construct webhook URLs yourself.** Once you have the Supabase project ref, build all webhook URLs as copy-paste-ready values.
 10. **Derive everything you can.** Don't ask for things you can compute (project URL from ref, pooler string from ref + password, etc.).
-11. **Use `gh` CLI when available.** Create repos and enable Pages automatically.
+11. **Use `gh` CLI when available.** Create repos automatically. Use `wrangler` CLI for Cloudflare Pages setup.
 
 ## Setup Flow
 
@@ -174,12 +174,13 @@ Determine which features are NOT selected. These will be pruned or hidden.
 See `references/core-services.md` → "GitHub + Cloudflare Pages" for detailed steps.
 
 **Summary:**
-1. Detect current state (git remote, `gh` CLI availability)
+1. Detect current state (git remote, `gh` CLI availability, `wrangler` CLI)
 2. Determine case: template repo, clone, or no remote
 3. Create or configure repo (prefer `gh api repos/.../generate` for template API)
-4. Set up Cloudflare Pages (connect repo, configure build, add GitHub secrets)
-5. Validate deployment (poll for HTTP 200 on .pages.dev URL, up to 60s)
-6. Fill in `CLAUDE.md` placeholders (USERNAME, REPO, project name), create `CLAUDE.local.md`, update `docs/DEPLOY.md` with live URLs, commit, push
+4. Connect repo to Cloudflare Pages (via `wrangler` CLI + dashboard, or manual dashboard setup)
+5. Add GitHub secrets for CI deployment (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_PAGES_PROJECT)
+6. Validate deployment (poll `{PROJECT}.pages.dev` for HTTP 200, up to 90s)
+7. Fill in `CLAUDE.md` placeholders (USERNAME, REPO, PROJECT, project name), create `CLAUDE.local.md`, update `docs/DEPLOY.md` with live URLs, commit, push
 
 ### Step 2a: Developer Tooling
 
@@ -209,13 +210,13 @@ Set up Tailwind CSS for utility-class styling alongside existing CSS.
 7. Add npm scripts to `package.json`: `css:build` and `css:watch`
 8. Add `<link rel="stylesheet" href="styles/tailwind.out.css">` to all HTML pages
 9. Add `node_modules/` to `.gitignore`
-10. If GitHub Actions CI exists, add `npm ci && npm run css:build` step before deploy
+10. If CI exists, add `npm ci && npm run css:build` step before deploy
 11. Commit `package.json`, `package-lock.json`, `styles/tailwind.css`, `styles/tailwind.out.css`, `.claude/settings.json`
 
 **Key points:**
 - Tailwind v4 uses CSS-first config (no `tailwind.config.js`)
 - Coexists with existing CSS — no rewrite needed
-- `tailwind.out.css` is committed to repo (Cloudflare Pages has no server-side build)
+- `tailwind.out.css` is committed to repo (Cloudflare Pages can run builds, but we commit output for simplicity — no build command needed)
 - Map existing CSS custom properties to Tailwind theme in `@theme` block
 
 **LSP plugin (one-time manual step):** After the npm installs finish, tell the user: "While I set up the Tailwind config, please run this in your Claude Code session: `/plugin install typescript-lsp@claude-plugins-official` — this gives me type-aware code intelligence for your project." This is a Claude Code slash command (not a shell command) that must be typed by the user.
@@ -387,7 +388,7 @@ Actions:
 1. Persona suggestion → **Small Business** (closest fit). User customizes: adds Google Sign-In.
 2. Feature set: email, payments_stripe, esignatures, documents + Google OAuth
 3. Prune: full prune of all property_ops, smart_home, vehicles, maker_tools, ai features
-4. GitHub repo + Pages
+4. GitHub repo + Cloudflare Pages
 5. Supabase with tables: `services`, `stylists`, `appointments`, `clients`
 6. Google OAuth, Resend, Stripe setup
 7. Claude Code permissions
@@ -400,7 +401,7 @@ Actions:
 1. Persona suggestion → **Vacation Rental Manager**
 2. Feature set: email, sms, payments_stripe, esignatures, documents, airbnb, rentals, events, residents, cameras, lighting, climate, music
 3. Prune: full prune of vehicles, maker_tools, laundry, oven, associates, pai, voice, alexa
-4. GitHub repo + Pages
+4. GitHub repo + Cloudflare Pages
 5. Supabase with full property management schema
 6. Service setup for each selected integration
 7. Final validation + summary
@@ -412,7 +413,7 @@ Actions:
 1. Persona suggestion → **Developer Portfolio / SaaS Starter**. User removes email + stripe.
 2. Feature set: core only
 3. Prune: full prune of everything except core
-4. GitHub repo + Pages
+4. GitHub repo + Cloudflare Pages
 5. Supabase with tables: `projects`, `tasks`
 6. Claude Code permissions
 7. Final validation + summary
@@ -436,7 +437,7 @@ Actions:
 1. Persona suggestion → **Personal AI Hub**
 2. Feature set: pai, lighting, music, climate, cameras, residents, voice
 3. Prune: full prune of property_ops (rentals, events, associates, airbnb), payments, documents, esignatures, vehicles, maker_tools
-4. GitHub repo + Pages
+4. GitHub repo + Cloudflare Pages
 5. Supabase with device tables + PAI config
 6. Gemini API setup, device config setup
 7. Final validation + summary
@@ -456,8 +457,8 @@ Cause: Function not deployed or wrong name
 Solution: Run `supabase functions list` to check. Deploy with `supabase functions deploy {name}`. Webhooks need `--no-verify-jwt`.
 
 ### Error: "Pages not deploying"
-Cause: Pages configured for GitHub Actions instead of branch deploy
-Solution: Go to repo Settings → Pages → set "Deploy from a branch" → main → / (root)
+Cause: Cloudflare Pages not connected to repo or wrong branch configured
+Solution: Go to Cloudflare dashboard → Pages → select project → Settings → Builds & deployments → verify production branch is `main` and the correct GitHub repo is connected
 
 ### Error: "API key invalid" on any service
 Cause: Wrong key, expired key, or key for wrong environment (sandbox vs production)

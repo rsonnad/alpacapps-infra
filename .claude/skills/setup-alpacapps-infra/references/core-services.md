@@ -15,6 +15,9 @@ gh auth status 2>/dev/null
 
 # Get current user
 gh api user --jq .login
+
+# Check wrangler CLI
+wrangler --version 2>/dev/null
 ```
 
 ### Determine Case
@@ -27,9 +30,9 @@ gh api user --jq .login
 
 1. Extract owner/repo from remote URL
 2. Validate repo exists: `gh repo view {OWNER}/{REPO}`
-3. Check Pages: `gh api repos/{OWNER}/{REPO}/pages` — HTTP 200 = enabled, 404 = not
+3. Check Cloudflare Pages: `wrangler pages project list 2>/dev/null | grep {REPO}` — if found, project exists
 4. Push pending commits: `git push -u origin main`
-5. Enable Pages if not enabled (see below)
+5. Connect to Cloudflare Pages if not connected (see below)
 6. Validate deployment
 
 ### New Repo Needed
@@ -57,23 +60,41 @@ gh api user --jq .login
 3. Set remote and push: `git remote add origin {URL} && git push -u origin main`
 4. Tell user to enable Pages manually
 
-### Setting Up Cloudflare Pages
+### Connecting to Cloudflare Pages
 
-**Option A: Via Cloudflare Dashboard (preferred for first-time):**
+**With `wrangler` CLI (preferred):**
 
-Ask the user:
+1. Install if missing: `npm install -g wrangler`
+2. Login: `wrangler login` (opens browser for Cloudflare auth)
+3. Create Pages project:
+   ```bash
+   wrangler pages project create {REPO} --production-branch main
+   ```
+4. **Connect Git repo (dashboard step — wrangler cannot automate this):**
+   Tell user:
+   > Connect your GitHub repo to Cloudflare Pages:
+   > 1. Open https://dash.cloudflare.com/ → Workers & Pages → select **{REPO}**
+   > 2. Click **Settings** → **Builds & deployments** → **Connect to Git**
+   > 3. Select your GitHub account and the **{OWNER}/{REPO}** repository
+   > 4. Set: Production branch = `main`, Build command = _(leave empty)_, Build output directory = `/`
+   > 5. Click **Save and Deploy**
 
+**Without `wrangler` (manual fallback):**
+
+Tell user:
 > Set up Cloudflare Pages:
-> 1. Go to https://dash.cloudflare.com → Workers & Pages → Create → Pages → Connect to Git
-> 2. Select the GitHub repo `{OWNER}/{REPO}`
-> 3. Set build command: `npm run css:build`
-> 4. Set build output directory: `.` (dot — the root)
-> 5. Click **Save and Deploy**
-> 6. Once deployed, paste the `.pages.dev` URL here
+> 1. Open https://dash.cloudflare.com/ → Workers & Pages → **Create** → **Pages** → **Connect to Git**
+> 2. Select your GitHub account and the **{OWNER}/{REPO}** repository
+> 3. Set: Project name = `{REPO}`, Production branch = `main`, Build command = _(leave empty)_, Build output directory = `/`
+> 4. Click **Save and Deploy**
 
-Then add GitHub secrets for CI deployment:
+**Note:** No build command needed — this is a static site. The output directory `/` serves the repo root directly.
 
-> Now add these GitHub secrets so CI can deploy automatically:
+### GitHub Secrets for CI Deployment
+
+After Cloudflare Pages is connected, add GitHub secrets so CI can deploy automatically:
+
+> Add these GitHub secrets:
 > 1. Go to https://dash.cloudflare.com/profile/api-tokens → Create Token → Custom Token
 >    - Permissions: Account > Cloudflare Pages > Edit
 >    - Copy the token
@@ -83,33 +104,28 @@ Then add GitHub secrets for CI deployment:
 > 3. Go to https://github.com/{OWNER}/{REPO}/settings/variables/actions
 >    - Add `CLOUDFLARE_PAGES_PROJECT` with your Pages project name
 
-**Option B: Via Wrangler CLI (if `npx wrangler` available):**
-
-```bash
-npx wrangler pages project create {PROJECT_NAME}
-npx wrangler pages deploy . --project-name={PROJECT_NAME}
-```
-
 ### Validating Deployment
 
 ```bash
-for i in {1..12}; do
+for i in {1..18}; do
   status=$(curl -s -o /dev/null -w "%{http_code}" https://{PROJECT}.pages.dev/)
   if [ "$status" = "200" ]; then
     echo "Site is live"
     break
   fi
-  echo "Waiting for Cloudflare Pages deployment... ($i/12)"
+  echo "Waiting for Cloudflare Pages deployment... ($i/18)"
   sleep 5
 done
 ```
 
+**Note:** `{PROJECT}` defaults to the repo name. Confirm the actual project name from `wrangler pages project list` or the Cloudflare dashboard.
+
 ### Then
 
 - Create project folder structure adapted to user's domain
-- Fill in `CLAUDE.md` placeholders: replace `[Your Project Name]`, `USERNAME`, `REPO` with actual values
+- Fill in `CLAUDE.md` placeholders: replace `[Your Project Name]`, `USERNAME`, `REPO`, `PROJECT` with actual values
 - Create `CLAUDE.local.md` (gitignored) with operator directives and live URLs
-- Update `docs/DEPLOY.md` with actual Cloudflare Pages URL and repo link
+- Update `docs/DEPLOY.md` with actual Cloudflare Pages URL (`{PROJECT}.pages.dev`) and repo link
 - Update `docs/KEY-FILES.md` with initial project file structure
 - Both `CLAUDE.local.md` and `docs/CREDENTIALS.md` are already in `.gitignore`
 - Commit and push

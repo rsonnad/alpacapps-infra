@@ -70,7 +70,7 @@ const config: CapacitorConfig = {
   appName: '{APP_NAME}',
   webDir: 'mobile/app',
   server: {
-    url: '{LIVE_URL}',          // GitHub Pages URL for production
+    url: '{LIVE_URL}',          // Cloudflare Pages URL for production
     cleartext: false,
   },
   plugins: {
