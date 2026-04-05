@@ -1,11 +1,11 @@
 ---
 name: setup-alpacapps-infra
-description: Interactive infrastructure setup wizard for new projects. Walks through GitHub Pages, Supabase, auth, email, SMS, payments, e-signatures, AI, storage, and server setup — one service at a time. Use when user says "set up a new project", "start a project from scratch", "configure Supabase", "add a new service", "set up infrastructure", "help me deploy", or "setup wizard".
+description: Interactive infrastructure setup wizard for new projects. Walks through Cloudflare Pages, Supabase, auth, email, SMS, payments, e-signatures, AI, storage, and server setup — one service at a time. Use when user says "set up a new project", "start a project from scratch", "configure Supabase", "add a new service", "set up infrastructure", "help me deploy", or "setup wizard".
 ---
 
 # Infrastructure Setup Wizard
 
-You are an expert infrastructure setup assistant. You help users build full-stack systems using Supabase, GitHub Pages, and optional services (email, SMS, payments, AI, storage, servers).
+You are an expert infrastructure setup assistant. You help users build full-stack systems using Supabase, Cloudflare Pages, and optional services (email, SMS, payments, AI, storage, servers).
 
 ## Critical Rules
 
@@ -71,7 +71,7 @@ After the user picks a persona (or Custom), show the **feature grid** grouped by
 **Feature grid by category:**
 
 **Always included (core):**
-- Website + Admin Dashboard (GitHub Pages) — Free
+- Website + Admin Dashboard (Cloudflare Pages) — Free
 - Database + Storage + Auth (Supabase) — Free
 - Tailwind CSS v4 (utility-class styling) — Free
 - AI Developer (Claude Code) — you're already here
@@ -169,16 +169,16 @@ Determine which features are NOT selected. These will be pruned or hidden.
 
 **Important:** The `.claudeignore` is generated BEFORE any other setup steps, so Claude Code immediately benefits from the reduced search scope for the rest of the wizard.
 
-### Step 2: GitHub + GitHub Pages
+### Step 2: GitHub + Cloudflare Pages
 
-See `references/core-services.md` → "GitHub + GitHub Pages" for detailed steps.
+See `references/core-services.md` → "GitHub + Cloudflare Pages" for detailed steps.
 
 **Summary:**
 1. Detect current state (git remote, `gh` CLI availability)
 2. Determine case: template repo, clone, or no remote
 3. Create or configure repo (prefer `gh api repos/.../generate` for template API)
-4. Enable Pages (branch deploy from main, not GitHub Actions)
-5. Validate deployment (poll for HTTP 200, up to 60s)
+4. Set up Cloudflare Pages (connect repo, configure build, add GitHub secrets)
+5. Validate deployment (poll for HTTP 200 on .pages.dev URL, up to 60s)
 6. Fill in `CLAUDE.md` placeholders (USERNAME, REPO, project name), create `CLAUDE.local.md`, update `docs/DEPLOY.md` with live URLs, commit, push
 
 ### Step 2a: Developer Tooling
@@ -215,7 +215,7 @@ Set up Tailwind CSS for utility-class styling alongside existing CSS.
 **Key points:**
 - Tailwind v4 uses CSS-first config (no `tailwind.config.js`)
 - Coexists with existing CSS — no rewrite needed
-- `tailwind.out.css` is committed to repo (GitHub Pages has no server-side build)
+- `tailwind.out.css` is committed to repo (Cloudflare Pages has no server-side build)
 - Map existing CSS custom properties to Tailwind theme in `@theme` block
 
 **LSP plugin (one-time manual step):** After the npm installs finish, tell the user: "While I set up the Tailwind config, please run this in your Claude Code session: `/plugin install typescript-lsp@claude-plugins-official` — this gives me type-aware code intelligence for your project." This is a Claude Code slash command (not a shell command) that must be typed by the user.
@@ -306,7 +306,7 @@ Write updated file and confirm what was added.
 See `references/validation-checklist.md` for the full checklist and summary template.
 
 **Summary:**
-1. Validate GitHub Pages (HTTP 200)
+1. Validate Cloudflare Pages (HTTP 200)
 2. Validate Supabase (psql, CLI link, tables, RLS, secrets)
 3. Validate edge functions (expect auth error, NOT 404)
 4. Validate each service API key

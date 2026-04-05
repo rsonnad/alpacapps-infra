@@ -27,7 +27,7 @@ Use for projects with 3 or fewer features beyond core.
 ## Mandatory Behaviors
 
 1. After code changes: end response with `vYYMMDD.NN H:MMa [model]` + affected URLs (read `version.json`)
-2. Push immediately — GitHub Pages deploys on push to main. See `docs/DEPLOY.md`
+2. Push immediately — Cloudflare Pages deploys on push to main. See `docs/DEPLOY.md`
 3. CI bumps version — never bump locally
 
 ## Code Guards
@@ -38,9 +38,9 @@ Use for projects with 3 or fewer features beyond core.
 
 ## Quick Refs
 
-- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | GitHub Pages
-- **Live:** https://{USERNAME}.github.io/{REPO}/
-- **Architecture:** Browser → GitHub Pages → Supabase (no server-side code)
+- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | Cloudflare Pages
+- **Live:** https://{PROJECT}.pages.dev/
+- **Architecture:** Browser → Cloudflare Pages → Supabase (no server-side code)
 ```
 
 ---
@@ -65,7 +65,7 @@ Use for projects with 4+ features. Include all relevant doc references and code 
 
 1. After code changes: end response with `vYYMMDD.NN H:MMa [model]` + affected URLs (read `version.json`)
 2. On significant decisions: update `PRODUCTDESIGN.md` with **Decision** and **Why**
-3. Push immediately — GitHub Pages deploys on push to main. See `docs/DEPLOY.md`
+3. Push immediately — Cloudflare Pages deploys on push to main. See `docs/DEPLOY.md`
 4. CI bumps version — never bump locally
 
 ## Code Guards
@@ -80,9 +80,9 @@ Use for projects with 4+ features. Include all relevant doc references and code 
 
 ## Quick Refs
 
-- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | GitHub Pages | Capacitor 8
-- **Live:** https://{USERNAME}.github.io/{REPO}/
-- **Architecture:** Browser → GitHub Pages → Supabase (no server-side code)
+- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | Cloudflare Pages | Capacitor 8
+- **Live:** https://{PROJECT}.pages.dev/
+- **Architecture:** Browser → Cloudflare Pages → Supabase (no server-side code)
 ```
 
 ---
@@ -102,6 +102,6 @@ Always gitignored. Created during setup.
 
 ## Live URLs
 
-- https://{USERNAME}.github.io/{REPO}/ (GitHub Pages)
+- https://{PROJECT}.pages.dev/ (Cloudflare Pages)
 - https://github.com/{USERNAME}/{REPO} (repo)
 ```

@@ -76,7 +76,7 @@ git checkout infra-upstream/main -- shared/services/
 **Important:** After cherry-picking, review each file for template placeholders
 that need replacing:
 - `[Your Project Name]` → your project name
-- `USERNAME.github.io/REPO` → your actual GitHub Pages URL
+- `YOUR_PROJECT.pages.dev` → your actual Cloudflare Pages URL
 - `YOUR_SUPABASE_REF` → your Supabase project ref
 - `YOUR_SUPABASE_ANON_KEY` → your Supabase anon key
 
@@ -172,7 +172,7 @@ git commit -m "feat: upgrade infrastructure from alpacapps-infra template ($(dat
 git push origin main
 ```
 
-Wait ~60s for GitHub Pages to deploy, then verify the live site.
+Wait ~60s for Cloudflare Pages to deploy, then verify the live site.
 
 ---
 

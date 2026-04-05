@@ -1,15 +1,14 @@
-# Bump version on every push to main.
+# Bump version on every push to main, build Tailwind, deploy to Cloudflare Pages.
 # Runs only when the push is NOT our own bump commit ([skip ci]), so we avoid a loop.
-# Version is incremented and all HTML + version.json are updated, then committed and pushed.
 
-name: Bump version on push to main
+name: Build & Deploy to Cloudflare Pages
 
 on:
   push:
     branches: [main]
 
 jobs:
-  bump:
+  deploy:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     concurrency:
@@ -40,7 +39,7 @@ jobs:
           RELEASE_ACTOR_LOGIN: ${{ github.actor }}
           RELEASE_BRANCH: main
           RELEASE_PUSHED_AT: ${{ github.event.head_commit.timestamp }}
-          RELEASE_SOURCE: github-main-push
+          RELEASE_SOURCE: cloudflare-pages-deploy
         run: ./scripts/bump-version.sh --model ci
 
       - name: Commit and push version bump
@@ -51,3 +50,10 @@ jobs:
           git diff --staged --quiet && echo "No version changes (unexpected)" && exit 1 || true
           git commit -m "chore: bump version [skip ci]"
           git push origin main
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy . --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT || 'your-project' }}

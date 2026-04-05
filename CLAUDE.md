@@ -26,7 +26,7 @@ This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **
 ## Mandatory Behaviors
 
 1. After code changes: end response with `vYYMMDD.NN H:MMa [model]` + affected URLs (read `version.json`)
-2. Push immediately — GitHub Pages deploys on push to main. See `docs/DEPLOY.md`
+2. Push immediately — Cloudflare Pages deploys on push to main. See `docs/DEPLOY.md`
 3. CI bumps version — never bump locally
 4. Run SQL migrations directly — never ask the user to run SQL manually
 
@@ -40,8 +40,8 @@ This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **
 
 ## Quick Refs
 
-- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | GitHub Pages
-- **Live:** https://USERNAME.github.io/REPO/
-- **Architecture:** Browser → GitHub Pages → Supabase (no server-side code)
+- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | Cloudflare Pages
+- **Live:** https://YOUR_PROJECT.pages.dev/ (or custom domain)
+- **Architecture:** Browser → Cloudflare Pages → Supabase (no server-side code)
 - **Template repo:** https://github.com/rsonnad/alpacapps-infra
 - **Upgrade guide:** `infra/infra-upgrade-guide.md`

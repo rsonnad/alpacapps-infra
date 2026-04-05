@@ -6,7 +6,7 @@
   <title>Inventory - AlpacAPPs Admin</title>
   <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
-  <script>try{var c=localStorage.getItem("your-project-cached-auth");if(c&&JSON.parse(c).appUser)document.documentElement.dataset.cachedAuth="1"}catch(e){}</script>
+  <script>try{var c=localStorage.getItem("genalpaca-cached-auth");if(c&&JSON.parse(c).appUser)document.documentElement.dataset.cachedAuth="1"}catch(e){}</script>
   <style>.hidden{display:none!important}[data-cached-auth] #loadingOverlay{opacity:0!important;pointer-events:none!important;visibility:hidden!important}[data-cached-auth] #appContent.hidden{display:block!important}#loadingOverlay{position:fixed;inset:0;background:#f6f5f0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;transition:opacity .16s ease-out}.loading-overlay__logo{display:flex;align-items:center;gap:.75rem;min-height:40px}.loading-overlay__icon{height:40px;width:auto;max-width:none}.loading-overlay__wordmark{height:28px;width:auto;max-width:none}</style>
   <link rel="stylesheet" href="../styles.css?v=5">
   <link rel="stylesheet" href="styles.css?v=5">
@@ -75,19 +75,22 @@
       margin-right: 0.25rem; margin-top: 0.5rem;
     }
 
-    /* Subtabs */
+    /* Subtabs — aligned with manage-tabs above */
     .inv-subtabs {
-      display: flex; gap: 0; border-bottom: 2px solid var(--border-color, #e5e7eb);
-      margin-bottom: 1.5rem; overflow-x: auto;
+      display: flex; gap: 0; border-bottom: 1px solid var(--border, #e5e7eb);
+      margin-bottom: 0.25rem; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      max-width: 1200px; margin-left: auto; margin-right: auto;
+      padding-left: 2rem; padding-right: 2rem;
     }
     .inv-subtab {
-      padding: 0.625rem 1rem; font-size: 0.8125rem; font-weight: 500;
+      padding: 0.25rem 0.75rem; font-size: 0.85rem; font-weight: 500;
       color: var(--text-muted, #6b7280); background: none; border: none;
       border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap;
-      transition: color 0.15s, border-color 0.15s; margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s; margin-bottom: -1px;
+      font-family: inherit;
     }
-    .inv-subtab:hover { color: #1f2937; }
-    .inv-subtab.active { color: #1f2937; border-bottom-color: var(--accent, #b8a88a); }
+    .inv-subtab:hover { color: var(--text, #1f2937); }
+    .inv-subtab.active { color: var(--accent, #b8a88a); border-bottom-color: var(--accent, #b8a88a); }
 
     .inv-empty { text-align: center; padding: 2rem 1rem; color: var(--text-muted, #9ca3af); font-size: 0.875rem; }
 
@@ -113,6 +116,266 @@
 
     /* Summary row inside details */
     .inv-summary-meta { font-size: 0.75rem; color: var(--text-muted, #9ca3af); font-weight: 400; margin-left: auto; display: flex; gap: 0.75rem; align-items: center; }
+
+    /* ── DB Explorer ── */
+    .db-group-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .db-group-card {
+      background: white; border: 1px solid var(--border-color, #e5e7eb);
+      border-radius: 10px; padding: 1rem 1.125rem; cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      position: relative; overflow: hidden;
+    }
+    .db-group-card:hover { border-color: var(--accent, #b8a88a); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .db-group-card.active { border-color: var(--accent, #b8a88a); box-shadow: 0 2px 12px rgba(184,168,138,0.18); }
+    .db-group-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--db-accent, #b8a88a); opacity: 0; transition: opacity 0.15s;
+    }
+    .db-group-card:hover::before, .db-group-card.active::before { opacity: 1; }
+    .db-group-icon { font-size: 1.375rem; margin-bottom: 0.375rem; }
+    .db-group-name { font-size: 0.9375rem; font-weight: 600; color: #1f2937; margin-bottom: 0.125rem; }
+    .db-group-meta { font-size: 0.75rem; color: var(--text-muted, #9ca3af); }
+    .db-group-meta .db-rows { color: var(--accent, #b8a88a); font-weight: 500; }
+
+    /* Table list panel (shown below cards when a group is selected) */
+    .db-table-panel {
+      background: white; border: 1px solid var(--border-color, #e5e7eb);
+      border-radius: 10px; margin-bottom: 1.5rem; overflow: hidden;
+      animation: dbSlideDown 0.2s ease-out;
+    }
+    @keyframes dbSlideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .db-table-panel-header {
+      display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1.125rem;
+      border-bottom: 1px solid var(--border-color, #e5e7eb); background: #fafaf8;
+    }
+    .db-table-panel-header h4 { margin: 0; font-size: 0.9375rem; font-weight: 600; }
+    .db-table-panel-close {
+      margin-left: auto; background: none; border: none; font-size: 1.25rem;
+      color: var(--text-muted, #9ca3af); cursor: pointer; padding: 0 0.25rem; line-height: 1;
+    }
+    .db-table-panel-close:hover { color: #1f2937; }
+
+    .db-table-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0; }
+    .db-table-item {
+      display: flex; align-items: center; gap: 0.625rem; padding: 0.625rem 1.125rem;
+      cursor: pointer; transition: background 0.1s; border-bottom: 1px solid #f3f4f6;
+    }
+    .db-table-item:hover { background: #f9f8f5; }
+    .db-table-item.active { background: #f5f3ee; }
+    .db-table-item-name {
+      font-size: 0.8125rem; font-weight: 500; color: #1f2937;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .db-table-item-count {
+      font-size: 0.6875rem; color: var(--text-muted, #9ca3af);
+      margin-left: auto; white-space: nowrap;
+    }
+    .db-table-item-arrow { color: var(--text-muted, #d1d5db); font-size: 0.75rem; margin-left: 0.25rem; }
+
+    /* Table detail / data preview */
+    .db-detail-panel {
+      border-top: 1px solid var(--border-color, #e5e7eb);
+      padding: 1rem 1.125rem; background: #fafaf8;
+      animation: dbSlideDown 0.2s ease-out;
+    }
+    .db-detail-header {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap;
+    }
+    .db-detail-header h5 {
+      margin: 0; font-size: 0.9375rem; font-weight: 600; color: #1f2937;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .db-detail-header .inv-badge { font-size: 0.6875rem; }
+    .db-detail-actions { margin-left: auto; display: flex; gap: 0.5rem; }
+    .db-detail-btn {
+      padding: 0.3rem 0.625rem; font-size: 0.75rem; font-weight: 500;
+      border: 1px solid var(--border-color, #e5e7eb); border-radius: 6px;
+      background: white; color: #374151; cursor: pointer; transition: all 0.15s;
+      font-family: inherit;
+    }
+    .db-detail-btn:hover { border-color: var(--accent, #b8a88a); color: var(--accent-dark, #7a6e56); }
+    .db-detail-btn.active { background: var(--accent, #b8a88a); color: white; border-color: var(--accent, #b8a88a); }
+
+    /* Schema columns grid */
+    .db-columns-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.375rem; margin-bottom: 0.75rem;
+    }
+    .db-col-chip {
+      display: flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.625rem;
+      background: white; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 0.75rem;
+    }
+    .db-col-name { font-weight: 500; color: #1f2937; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .db-col-type { color: var(--text-muted, #9ca3af); font-size: 0.6875rem; }
+    .db-col-pk { color: #b45309; font-weight: 600; font-size: 0.6rem; }
+    .db-col-fk { color: #7c3aed; font-size: 0.6rem; }
+
+    /* Data preview table */
+    .db-data-wrap {
+      overflow-x: auto; border: 1px solid #e5e7eb; border-radius: 6px;
+      background: white; margin-top: 0.75rem;
+    }
+    .db-data-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+    .db-data-table thead tr { background: #f9fafb; }
+    .db-data-table th {
+      text-align: left; padding: 0.5rem 0.75rem; font-weight: 500;
+      color: var(--text-muted, #6b7280); font-size: 0.6875rem; text-transform: uppercase;
+      letter-spacing: 0.03em; border-bottom: 1px solid #e5e7eb; white-space: nowrap;
+      position: sticky; top: 0; background: #f9fafb; z-index: 1;
+    }
+    .db-data-table td {
+      padding: 0.4rem 0.75rem; border-bottom: 1px solid #f3f4f6;
+      max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.6875rem;
+      color: #374151;
+    }
+    .db-data-table td.db-null { color: #d1d5db; font-style: italic; }
+    .db-data-table tr:hover td { background: #f9f8f5; }
+    .db-data-wrap { max-height: 400px; overflow-y: auto; }
+    .db-data-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 0.75rem; border-top: 1px solid #e5e7eb; background: #fafaf8;
+      font-size: 0.75rem; color: var(--text-muted, #6b7280);
+    }
+    .db-loading { padding: 1.5rem; text-align: center; color: var(--text-muted, #9ca3af); font-size: 0.8125rem; }
+    .db-search-wrap { padding: 0.75rem 1.125rem; border-bottom: 1px solid #f3f4f6; }
+    .db-search {
+      width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #e5e7eb; border-radius: 6px;
+      font-size: 0.8125rem; font-family: inherit; outline: none; background: white;
+    }
+    .db-search:focus { border-color: var(--accent, #b8a88a); }
+
+    /* View toggle */
+    .inv-view-toggle { display: flex; gap: 0; border: 1px solid var(--border-color, #e5e7eb); border-radius: 6px; overflow: hidden; }
+    .inv-view-btn {
+      padding: 0.3rem 0.75rem; font-size: 0.75rem; font-weight: 500; border: none;
+      background: white; color: var(--text-muted, #6b7280); cursor: pointer; font-family: inherit;
+      border-right: 1px solid var(--border-color, #e5e7eb); transition: background 0.15s, color 0.15s;
+    }
+    .inv-view-btn:last-child { border-right: none; }
+    .inv-view-btn:hover { background: #f9fafb; }
+    .inv-view-btn.active { background: var(--accent, #b8a88a); color: white; }
+
+    /* ── Device Grouped Table — Dark Navy Theme (inv-dev- prefix) ── */
+    .inv-dev-wrap {
+      background: #0f172a; border-radius: 8px; padding: 1rem; color: #e2e8f0;
+    }
+    .inv-dev-filters {
+      display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.75rem;
+    }
+    .inv-dev-filters input[type="text"] {
+      flex: 1; min-width: 180px; padding: 0.5rem 0.75rem; border: 1px solid #334155;
+      border-radius: 6px; font-size: 0.8125rem; background: #1e293b; color: #e2e8f0;
+    }
+    .inv-dev-filters input[type="text"]::placeholder { color: #64748b; }
+    .inv-dev-filters select {
+      padding: 0.5rem 0.625rem; border: 1px solid #334155;
+      border-radius: 6px; font-size: 0.8125rem; background: #1e293b; color: #e2e8f0;
+    }
+    .inv-dev-wrap .inv-table-wrap { background: transparent; border-color: #1e293b; }
+    .inv-dev-wrap .inv-table { color: #e2e8f0; }
+    .inv-dev-wrap .inv-table thead tr { background: #1e293b; border-bottom-color: #334155; }
+    .inv-dev-wrap .inv-table thead th {
+      color: #94a3b8; border-bottom-color: #334155;
+      font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .inv-dev-wrap .inv-table tbody td { border-bottom-color: #1e293b; }
+    .inv-dev-wrap .inv-table tr:hover td { background: #1e293b; }
+
+    /* Group headers — bold section dividers */
+    tr.inv-dev-group-header { background: transparent; }
+    tr.inv-dev-group-header td { padding: 0; border-bottom: none !important; }
+    .inv-dev-group-inner {
+      display: flex; align-items: center; gap: 0.625rem; padding: 0.75rem 1rem;
+      cursor: pointer; user-select: none; font-size: 0.875rem; font-weight: 700;
+      color: #ffffff; border-left: 5px solid transparent;
+      margin-top: 0.25rem; border-radius: 0 4px 4px 0;
+    }
+    .inv-dev-group-inner .inv-dev-chevron {
+      font-size: 0.625rem; transition: transform 0.15s; color: #94a3b8;
+    }
+    tr.inv-dev-group-header.collapsed .inv-dev-chevron { transform: rotate(-90deg); }
+    .inv-dev-group-inner .inv-dev-group-count {
+      margin-left: auto; font-weight: 500; font-size: 0.75rem; color: #94a3b8;
+    }
+    /* Domain accent badges */
+    .inv-dev-accent {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .inv-dev-accent-lighting { background: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+    .inv-dev-accent-climate { background: #3b82f6; box-shadow: 0 0 6px rgba(59,130,246,0.5); }
+    .inv-dev-accent-appliance { background: #8b5cf6; box-shadow: 0 0 6px rgba(139,92,246,0.5); }
+    .inv-dev-accent-security { background: #ef4444; box-shadow: 0 0 6px rgba(239,68,68,0.5); }
+    .inv-dev-accent-vehicle { background: #22c55e; box-shadow: 0 0 6px rgba(34,197,94,0.5); }
+    /* Domain-colored header bars — bold & prominent */
+    tr.inv-dev-group-header[data-domain="lighting"] .inv-dev-group-inner { background: rgba(245,158,11,0.22); border-left-color: #f59e0b; }
+    tr.inv-dev-group-header[data-domain="climate"] .inv-dev-group-inner { background: rgba(59,130,246,0.22); border-left-color: #3b82f6; }
+    tr.inv-dev-group-header[data-domain="appliance"] .inv-dev-group-inner { background: rgba(139,92,246,0.22); border-left-color: #8b5cf6; }
+    tr.inv-dev-group-header[data-domain="security"] .inv-dev-group-inner { background: rgba(239,68,68,0.22); border-left-color: #ef4444; }
+    tr.inv-dev-group-header[data-domain="vehicle"] .inv-dev-group-inner { background: rgba(34,197,94,0.22); border-left-color: #22c55e; }
+
+    /* Device rows — force dark text colors over base .inv-table */
+    .inv-dev-row { cursor: pointer; }
+    .inv-dev-row td { height: 40px; padding-top: 0.25rem; padding-bottom: 0.25rem; color: #cbd5e1 !important; }
+    .inv-dev-row:hover td { background: #1e293b !important; }
+    .inv-dev-row td:first-child { width: 1.5rem; text-align: center; }
+    .inv-dev-row td:nth-child(2) { font-weight: 600; color: #f1f5f9 !important; }
+
+    .inv-dev-status { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+    .inv-dev-status-active { background: #14b8a6; }
+    .inv-dev-status-inactive { background: #475569; }
+
+    /* Recipe count — salmon */
+    .inv-dev-recipe-count {
+      display: inline-block; min-width: 1.25rem; text-align: center;
+      padding: 0.0625rem 0.375rem; border-radius: 999px; font-size: 0.6875rem; font-weight: 600;
+    }
+    .inv-dev-recipe-count.has-recipes { background: rgba(249,112,102,0.15); color: #f97066; }
+    .inv-dev-recipe-count.no-recipes { color: #475569; }
+
+    /* Protocol badge — teal */
+    .inv-dev-proto-badge {
+      font-size: 0.6875rem; padding: 0.0625rem 0.375rem; border-radius: 4px;
+      background: rgba(20,184,166,0.15); color: #14b8a6;
+    }
+
+    /* Expanded recipe sub-rows */
+    .inv-dev-expand-row td { padding: 0 !important; border-bottom: 1px solid #1e293b; }
+    .inv-dev-expand-inner {
+      padding: 0.5rem 1rem 0.75rem 2.5rem; background: #1e293b;
+      border-top: 1px solid #334155;
+    }
+    .inv-dev-recipe-item {
+      display: flex; align-items: baseline; gap: 0.75rem; padding: 0.375rem 0;
+      font-size: 0.8125rem; border-bottom: 1px solid #334155;
+    }
+    .inv-dev-recipe-item:last-child { border-bottom: none; }
+    .inv-dev-recipe-action {
+      font-weight: 600; color: #e2e8f0; min-width: 80px; text-transform: capitalize;
+    }
+    .inv-dev-recipe-proto {
+      font-size: 0.6875rem; padding: 0.0625rem 0.375rem; border-radius: 4px;
+      background: rgba(20,184,166,0.15); color: #14b8a6;
+    }
+    .inv-dev-recipe-cmd {
+      font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.6875rem;
+      color: #64748b; max-width: 400px; overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap;
+    }
+    .inv-dev-recipe-tag {
+      display: inline-block; padding: 0.0625rem 0.3rem; border-radius: 3px;
+      font-size: 0.625rem; background: #334155; color: #94a3b8; margin-right: 0.25rem;
+    }
+    .inv-dev-recipe-gotcha {
+      font-size: 0.6875rem; color: #d97706; font-style: italic;
+    }
+    .inv-dev-recipe-verified {
+      font-size: 0.6875rem; color: #64748b; margin-left: auto; white-space: nowrap;
+    }
+    .inv-dev-summary { margin-top: 0.5rem; font-size: 0.75rem; color: #475569; }
   </style>
 </head>
 <body>
@@ -120,8 +383,8 @@
 
   <div id="loadingOverlay" class="loading-overlay">
     <div class="loading-overlay__logo">
-      <img src="YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos/logo-black-transparent.png" alt="" class="loading-overlay__icon" width="28" height="40" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 21 30%22%3E%3Cpath d=%22M10.5 1.5C8.3 1.5 6.5 3.3 6.5 5.5v4.1L3.8 13c-1 1.3-1.5 2.8-1.5 4.4 0 4.6 3.7 8.3 8.2 8.3s8.2-3.7 8.2-8.3c0-1.6-.5-3.2-1.5-4.4l-2.7-3.4V5.5c0-2.2-1.8-4-4-4z%22 fill=%22%231f1720%22/%3E%3Cellipse cx=%2210.5%22 cy=%2218.6%22 rx=%223.1%22 ry=%224.7%22 fill=%22%23f6f5f0%22/%3E%3C/svg%3E'">
-      <img src="YOUR_SUPABASE_URL/storage/v1/object/public/housephotos/logos/wordmark-black-transparent.png" alt="YOUR_PROPERTY_NAME" class="loading-overlay__wordmark" width="28" height="28" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 28%22%3E%3Ctext x=%220%22 y=%2220%22 font-size=%2216%22 font-family=%22Arial,sans-serif%22 fill=%22%231f1720%22%3EProperty%3C/text%3E%3C/svg%3E'">
+      <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/logos/alpaca-head-black-transparent.png" alt="" class="loading-overlay__icon" width="28" height="40" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 21 30%22%3E%3Cpath d=%22M10.5 1.5C8.3 1.5 6.5 3.3 6.5 5.5v4.1L3.8 13c-1 1.3-1.5 2.8-1.5 4.4 0 4.6 3.7 8.3 8.2 8.3s8.2-3.7 8.2-8.3c0-1.6-.5-3.2-1.5-4.4l-2.7-3.4V5.5c0-2.2-1.8-4-4-4z%22 fill=%22%231f1720%22/%3E%3Cellipse cx=%2210.5%22 cy=%2218.6%22 rx=%223.1%22 ry=%224.7%22 fill=%22%23f6f5f0%22/%3E%3C/svg%3E'">
+      <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/logos/wordmark-black-transparent.png" alt="Alpaca Playhouse" class="loading-overlay__wordmark" width="28" height="28" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 28%22%3E%3Ctext x=%220%22 y=%2220%22 font-size=%2216%22 font-family=%22Arial,sans-serif%22 fill=%22%231f1720%22%3EAlpaca%3C/text%3E%3C/svg%3E'">
     </div>
     <div class="spinner spinner--sm"></div>
   </div>
@@ -139,31 +402,47 @@
 
     <div class="manage-tabs" id="tabNav"></div>
 
+    <!-- Inventory subtabs — promoted to top, right below admin nav -->
+    <div class="inv-subtabs" id="invSubtabs">
+      <button class="inv-subtab active" data-tab="dashboard">Dashboard</button>
+      <button class="inv-subtab" data-tab="infrastructure">Infrastructure</button>
+      <button class="inv-subtab" data-tab="data">Data</button>
+      <button class="inv-subtab" data-tab="software">Software</button>
+      <button class="inv-subtab" data-tab="services">Services</button>
+      <button class="inv-subtab" data-tab="cloud">Cloud</button>
+      <button class="inv-subtab" data-tab="devices">Devices</button>
+      <button class="inv-subtab" data-tab="codebase">Codebase</button>
+    </div>
+
     <main class="manage-content">
       <div style="max-width: 1200px; margin: 0 auto;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-          <div>
-            <h2 style="margin: 0;">Digital Inventory</h2>
-            <p style="margin: 0.25rem 0 0; color: var(--text-muted);">Complete catalog of data assets, software, hardware, services, and integrations across the YOUR_APP_NAME ecosystem</p>
-          </div>
-        </div>
-
-        <!-- Subtabs -->
-        <div class="inv-subtabs" id="invSubtabs">
-          <button class="inv-subtab active" data-tab="dashboard">Dashboard</button>
-          <button class="inv-subtab" data-tab="infrastructure">Infrastructure</button>
-          <button class="inv-subtab" data-tab="data">Data</button>
-          <button class="inv-subtab" data-tab="software">Software</button>
-          <button class="inv-subtab" data-tab="services">Services</button>
-          <button class="inv-subtab" data-tab="cloud">Cloud</button>
-          <button class="inv-subtab" data-tab="devices">Devices</button>
-          <button class="inv-subtab" data-tab="codebase">Codebase</button>
-        </div>
 
         <!-- ════════ DASHBOARD ════════ -->
         <div id="inv-panel-dashboard" class="inv-panel">
+          <div style="margin-bottom: 1rem;">
+            <h2 style="margin: 0;">Digital Inventory</h2>
+            <p style="margin: 0.25rem 0 0; color: var(--text-muted);">Complete catalog of data assets, software, hardware, services, and integrations</p>
+          </div>
+
+          <!-- How It All Connects -->
+          <details class="inv-details" style="margin-bottom: 1.5rem; border-color: var(--accent, #b8a88a);">
+            <summary style="font-weight: 600; color: var(--accent-dark, #7a6e56);">
+              <span>How It All Connects</span>
+              <span class="inv-summary-meta">Architecture overview for humans and AI sessions</span>
+            </summary>
+            <div class="inv-details-body" style="line-height: 1.8;">
+              <p style="margin-bottom: 1rem; color: #374151;">AlpacApps is a property management + smart home control platform. Static HTML/JS from GitHub Pages, business logic in Supabase edge functions or background services on a Mac Mini.</p>
+              <dl>
+              <dt>Request Path</dt><dd>Browser &rarr; GitHub Pages &rarr; Supabase (auth + data) &rarr; Edge functions &rarr; External APIs. No middleware.</dd>
+              <dt>Access Levels</dt><dd><strong>Public (0)</strong> &bull; <strong>Resident (1)</strong> &bull; <strong>Staff (2)</strong> &bull; <strong>Admin (3)</strong> &bull; <strong>Oracle (4)</strong> service-to-service</dd>
+              <dt>Smart Home</dt><dd>Browser &rarr; Edge function &rarr; Device API or local proxy (WiZ, Sonos, HAOS on Alpuca Mac)</dd>
+              <dt>Background</dt><dd>15 LaunchAgents, 6 cron jobs, 3 pg_cron jobs on Alpuca Mac + Supabase</dd>
+              </dl>
+            </div>
+          </details>
+
           <div class="inv-stat-grid" id="dashStatGrid">
-            <div class="inv-stat"><div class="inv-stat-label">Smart Home Devices</div><div class="inv-stat-value" id="statDevices">86+</div></div>
+            <div class="inv-stat"><div class="inv-stat-label">Home Devices</div><div class="inv-stat-value" id="statDevices">—</div></div>
             <div class="inv-stat"><div class="inv-stat-label">Supabase Tables</div><div class="inv-stat-value" id="statTables">70+</div></div>
             <div class="inv-stat"><div class="inv-stat-label">Edge Functions</div><div class="inv-stat-value" id="statFunctions">66</div></div>
             <div class="inv-stat"><div class="inv-stat-label">Running Services</div><div class="inv-stat-value" id="statServices">24</div></div>
@@ -175,7 +454,7 @@
 
           <div class="inv-section">
             <h3 class="inv-section-title">System Architecture</h3>
-            <p class="inv-section-sub">How data flows through the YOUR_APP_NAME ecosystem</p>
+            <p class="inv-section-sub">How data flows through the AlpacApps ecosystem</p>
             <svg class="inv-arch-svg" viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
               <!-- Row 1: Browser & GitHub Pages & Supabase -->
               <rect x="20" y="20" width="160" height="60" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
@@ -245,7 +524,7 @@
 
         <!-- ════════ INFRASTRUCTURE ════════ -->
         <div id="inv-panel-infrastructure" class="inv-panel" style="display:none">
-          <p class="inv-section-sub">Physical hardware, network equipment, virtual machines, and storage devices that form the backbone of the YOUR_APP_NAME platform.</p>
+          <p class="inv-section-sub">Physical hardware, network equipment, virtual machines, and storage devices that form the backbone of the AlpacApps platform.</p>
           <div id="infraContent"></div>
         </div>
 
@@ -275,7 +554,15 @@
 
         <!-- ════════ DEVICES ════════ -->
         <div id="inv-panel-devices" class="inv-panel" style="display:none">
-          <p class="inv-section-sub">Smart home devices organized by category: lighting, climate, audio, cameras, vehicles, and appliances.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+            <div>
+              <p class="inv-section-sub" style="margin:0">Smart home devices — live from database</p>
+            </div>
+            <div class="inv-view-toggle" id="deviceViewToggle">
+              <button class="inv-view-btn active" data-view="all">All Devices</button>
+              <button class="inv-view-btn" data-view="lighting">Lighting Detail</button>
+            </div>
+          </div>
           <div id="devicesContent"></div>
         </div>
 

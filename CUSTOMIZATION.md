@@ -62,7 +62,7 @@ On-demand context loading minimizes tokens per conversation:
 
 ### 6. Database Schema
 
-33 migrations in `supabase/migrations/` define the full schema. The setup wizard runs these via Management API. Core tables:
+68 migrations in `supabase/migrations/` define the full schema. The setup wizard runs these via Management API. Core tables:
 
 - `spaces` — Rental units, amenities, event venues
 - `people` — Tenants, guests, associates
@@ -74,7 +74,7 @@ On-demand context loading minimizes tokens per conversation:
 
 ### 7. Edge Functions
 
-63 Supabase edge functions in `supabase/functions/`. Key ones:
+67 Supabase edge functions in `supabase/functions/`. Key ones:
 
 | Function | Purpose |
 |----------|---------|
@@ -113,4 +113,6 @@ Tab visibility is controlled by `shared/feature-registry.js` and role permission
 - [ ] CLAUDE.md placeholders replaced (project name, USERNAME, REPO)
 - [ ] `docs/CREDENTIALS.md` filled with actual credentials (gitignored)
 - [ ] Feature manifest trimmed to selected features
-- [ ] Site pushed and live on GitHub Pages
+- [ ] Cloudflare Pages project created and connected to GitHub repo
+- [ ] GitHub secrets set: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
+- [ ] Site pushed and live on Cloudflare Pages

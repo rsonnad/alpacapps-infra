@@ -4,7 +4,7 @@ Run all applicable checks before presenting the final summary.
 
 ## Validation Checks
 
-### 1. GitHub Pages
+### 1. Cloudflare Pages
 
 ```bash
 # Check site is live
@@ -124,7 +124,7 @@ Setup Complete! Your infrastructure is ready.
 
 **Core Stack:**
 - GitHub repo: https://github.com/{OWNER}/{REPO}
-- GitHub Pages: https://{OWNER}.github.io/{REPO}/ (live)
+- Cloudflare Pages: https://{OWNER}.github.io/{REPO}/ (live)
 - Supabase project: https://{REF}.supabase.co
 - Database: {N} tables with RLS enabled
 - Storage: {N} buckets configured
@@ -171,7 +171,7 @@ Your CLAUDE.md and CLAUDE.local.md are complete. Any future Claude Code session 
 **Next steps:**
 1. Build your first feature: "Create a landing page with a contact form"
 2. Deploy: `git add -A && git commit -m "Add landing page" && git push`
-3. Site updates automatically on GitHub Pages (30-60 seconds)
+3. Site updates automatically on Cloudflare Pages (30-60 seconds)
 ```
 
 Only include sections for services that were actually configured. Omit unconfigured services entirely.

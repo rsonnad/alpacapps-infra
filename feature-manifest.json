@@ -59,15 +59,17 @@
   },
 
   "core": {
-    "_note": "Always included regardless of persona or feature selection. Cannot be disabled.",
+    "_note": "Always included regardless of persona or feature selection. Cannot be disabled. Includes login, devcontrol, and intranet by default.",
     "category": "core",
     "dirs": [
       "shared/supabase.js",
       "shared/auth.js",
       "shared/admin-shell.js",
+      "shared/admin-tabs.js",
       "shared/public-shell.js",
       "shared/brand-config.js",
       "shared/config-loader.js",
+      "shared/context-switcher.js",
       "shared/feature-registry.js",
       "shared/error-logger.js",
       "shared/supabase-health.js",
@@ -79,16 +81,25 @@
       "shared/pdf-service.js",
       "shared/identity-service.js",
       "shared/project-service.js",
+      "shared/reservation-service.js",
       "login/",
       "contact/",
       "styles/",
-      "assets/"
+      "assets/",
+      "spaces/admin/devcontrol/",
+      "spaces/admin/notifications.html",
+      "spaces/admin/notifications.js",
+      "spaces/admin/reservations.html",
+      "spaces/admin/reservations.js"
     ],
     "edgeFunctions": [
       "api",
       "contact-form",
       "error-report",
       "verify-identity",
+      "event-notify",
+      "event-staff-notify",
+      "release-info",
       "_shared"
     ],
     "dbTables": [

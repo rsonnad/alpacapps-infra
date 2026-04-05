@@ -13,20 +13,11 @@ import { setupVersionInfo } from './version-info.js';
 import { renderHeader, initSiteComponents } from './site-components.js';
 import { initNavTabList, scrollActiveIntoView } from './tab-utils.js';
 import { getEnabledFeatures } from './feature-registry.js';
+import { STAFF_PERMISSION_KEYS, ADMIN_PERMISSION_KEYS, DEVICE_PERMISSION_KEYS, renderContextSwitcher } from './context-switcher.js';
 
 // =============================================
 // TAB DEFINITIONS
 // =============================================
-// Permission keys for staff/admin section detection (context switcher)
-const STAFF_PERMISSION_KEYS = [
-  'view_spaces', 'view_rentals', 'view_events', 'view_media', 'view_sms',
-  'view_hours', 'view_faq', 'view_voice', 'view_todo', 'view_appdev',
-];
-const ADMIN_PERMISSION_KEYS = [
-  'view_users', 'view_passwords', 'view_settings', 'view_templates', 'view_accounting', 'view_testdev', 'admin_pai_settings',
-];
-
-const DEVICE_PERMISSION_KEYS = ['view_lighting', 'view_music', 'view_cameras', 'view_climate', 'view_laundry', 'view_cars', 'view_oven', 'view_glowforge', 'view_printer'];
 
 const DEVICE_PAGE_PATHS = new Set([
   'devices.html', 'devices',
@@ -254,72 +245,7 @@ function normalizeRouteToken(token) {
   return normalized.endsWith('.html') ? normalized : normalized;
 }
 
-// =============================================
-// CONTEXT SWITCHER (Devices / Resident / Associate / Staff / Admin)
-// =============================================
-function renderContextSwitcher(authState) {
-  const switcher = document.getElementById('contextSwitcher');
-  if (!switcher) return;
-
-  const role = authState?.appUser?.role;
-  const hasStaffPerms = hasAnyPermission(...STAFF_PERMISSION_KEYS);
-  const hasAdminPerms = hasAnyPermission(...ADMIN_PERMISSION_KEYS);
-  const hasDevicePerms = hasAnyPermission(...DEVICE_PERMISSION_KEYS);
-  const hasAssociatePerms = hasAnyPermission('clock_in_out', 'view_own_hours');
-
-  // Staff/Admin tab mapping: permission → first accessible page
-  const STAFF_TAB_MAP = [
-    { perm: 'view_spaces', href: 'spaces.html' },
-    { perm: 'view_rentals', href: 'rentals.html' },
-    { perm: 'view_events', href: 'events.html' },
-    { perm: 'view_media', href: 'media.html' },
-    { perm: 'view_sms', href: 'sms-messages.html' },
-    { perm: 'view_purchases', href: 'purchases.html' },
-    { perm: 'view_hours', href: 'worktracking.html' },
-    { perm: 'view_faq', href: 'faq.html' },
-    { perm: 'view_voice', href: 'voice.html' },
-    { perm: 'view_todo', href: 'devcontrol.html#planlist' },
-    { perm: 'view_appdev', href: 'appdev.html' },
-  ];
-  const ADMIN_TAB_MAP = [
-    { perm: 'view_users', href: 'users.html' },
-    { perm: 'view_passwords', href: 'passwords.html' },
-    { perm: 'view_settings', href: 'settings.html' },
-    { perm: 'view_templates', href: 'templates.html' },
-    { perm: 'view_accounting', href: 'accounting.html' },
-    { perm: 'view_testdev', href: 'testdev.html' },
-    { perm: 'admin_pai_settings', href: '/residents/lifeofpaiadmin.html' },
-  ];
-  const firstStaff = STAFF_TAB_MAP.find(t => hasAnyPermission(t.perm));
-  const firstAdmin = ADMIN_TAB_MAP.find(t => hasAnyPermission(t.perm));
-  const staffHref = firstStaff ? (firstStaff.href.startsWith('/') ? firstStaff.href : `/spaces/admin/${firstStaff.href}`) : '/spaces/admin/';
-  const adminHref = firstAdmin ? (firstAdmin.href.startsWith('/') ? firstAdmin.href : `/spaces/admin/${firstAdmin.href}`) : '/spaces/admin/users.html';
-
-  // Build tabs — only show tabs the user has access to
-  const tabs = [];
-  if (hasDevicePerms) tabs.push({ id: 'devices', label: 'Devices', href: '/residents/devices.html' });
-  tabs.push({ id: 'resident', label: 'Residents', href: '/residents/' });
-  if (hasAssociatePerms || ['staff', 'admin', 'oracle'].includes(role)) {
-    tabs.push({ id: 'associate', label: 'Associates', href: '/associates/worktracking.html' });
-  }
-  if (hasStaffPerms) tabs.push({ id: 'staff', label: 'Staff', href: staffHref });
-  if (hasAdminPerms) tabs.push({ id: 'admin', label: 'Admin', href: adminHref });
-
-  // Hide if only one tab (nothing to switch between)
-  if (tabs.length <= 1) {
-    switcher.classList.add('hidden');
-    return;
-  }
-
-  const currentPath = normalizeRouteToken(window.location.pathname.split('/').pop() || '');
-  const activeContext = DEVICE_PAGE_PATHS.has(currentPath) ? 'devices' : 'resident';
-
-  switcher.innerHTML = tabs.map(tab => {
-    const isActive = tab.id === activeContext;
-    const activeClass = isActive ? ' active' : '';
-    return `<a href="${tab.href}" class="context-switcher-btn${activeClass}">${tab.label}</a>`;
-  }).join('');
-}
+// Context switcher imported from ./context-switcher.js
 
 // =============================================
 // USER INFO (HEADER AVATAR + NAME)
@@ -460,7 +386,7 @@ function renderAccessDenied(state, activeTab) {
         await supabase.functions.invoke('send-email', {
           body: {
             template: 'access_request',
-            to: 'team@YOUR_DOMAIN',
+            to: 'team@alpacaplayhouse.com',
             data: {
               user_name: displayName,
               user_email: email,
@@ -503,7 +429,7 @@ export async function initResidentPage({ activeTab, requiredRole = 'resident', r
     const topLevelLogoSelectors = [
       '#loadingOverlay .loading-overlay__logo',
       '#appContent > .loading-overlay__logo',
-      '#appContent > img[src*="/housephotos/logos/logo-black-transparent.png"]',
+      '#appContent > img[src*="/housephotos/logos/alpaca-head-black-transparent.png"]',
     ];
     document.querySelectorAll(topLevelLogoSelectors.join(',')).forEach((el) => el.remove());
   }
@@ -517,7 +443,7 @@ export async function initResidentPage({ activeTab, requiredRole = 'resident', r
   let hasCachedAuthHint = rootEl.hasAttribute('data-cached-auth');
   if (!hasCachedAuthHint) {
     try {
-      const raw = localStorage.getItem('your-project-cached-auth');
+      const raw = localStorage.getItem('genalpaca-cached-auth');
       if (raw) {
         const cached = JSON.parse(raw);
         const ageMs = Date.now() - (cached?.timestamp || 0);
@@ -645,7 +571,10 @@ export async function initResidentPage({ activeTab, requiredRole = 'resident', r
         document.body.classList.remove('is-admin');
       }
 
-      renderContextSwitcher(state);
+      // Determine active context from current path
+      const currentPath = normalizeRouteToken(window.location.pathname.split('/').pop() || '');
+      const activeContext = DEVICE_PAGE_PATHS.has(currentPath) ? 'devices' : 'resident';
+      await renderContextSwitcher({ activeSection: activeContext, userRole: state.appUser?.role });
       // Render tab navigation (pass full auth state for permission checks)
       await renderResidentTabNav(activeTab, state);
 
@@ -684,7 +613,7 @@ export async function initResidentPage({ activeTab, requiredRole = 'resident', r
         if (!sessionData?.session) {
           // Refresh also failed — force re-login
           console.warn('[resident-shell] Token refresh failed — redirecting to login');
-          try { localStorage.removeItem('your-project-cached-auth'); } catch (e) { /* ignore */ }
+          try { localStorage.removeItem('genalpaca-cached-auth'); } catch (e) { /* ignore */ }
           transitionBootState('redirecting');
           window.location.href = '/login/?redirect=' + encodeURIComponent(window.location.pathname);
           return;

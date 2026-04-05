@@ -1,8 +1,8 @@
 # Core Services Setup
 
-These services are always configured (GitHub Pages + Supabase + optional Auth).
+These services are always configured (Cloudflare Pages + Supabase + optional Auth).
 
-## GitHub + GitHub Pages
+## GitHub + Cloudflare Pages
 
 ### Detect Current State
 
@@ -57,31 +57,49 @@ gh api user --jq .login
 3. Set remote and push: `git remote add origin {URL} && git push -u origin main`
 4. Tell user to enable Pages manually
 
-### Enabling Pages
+### Setting Up Cloudflare Pages
 
-**With `gh`:**
+**Option A: Via Cloudflare Dashboard (preferred for first-time):**
+
+Ask the user:
+
+> Set up Cloudflare Pages:
+> 1. Go to https://dash.cloudflare.com → Workers & Pages → Create → Pages → Connect to Git
+> 2. Select the GitHub repo `{OWNER}/{REPO}`
+> 3. Set build command: `npm run css:build`
+> 4. Set build output directory: `.` (dot — the root)
+> 5. Click **Save and Deploy**
+> 6. Once deployed, paste the `.pages.dev` URL here
+
+Then add GitHub secrets for CI deployment:
+
+> Now add these GitHub secrets so CI can deploy automatically:
+> 1. Go to https://dash.cloudflare.com/profile/api-tokens → Create Token → Custom Token
+>    - Permissions: Account > Cloudflare Pages > Edit
+>    - Copy the token
+> 2. Go to https://github.com/{OWNER}/{REPO}/settings/secrets/actions
+>    - Add `CLOUDFLARE_API_TOKEN` with the token from step 1
+>    - Add `CLOUDFLARE_ACCOUNT_ID` (find it at the bottom of any Cloudflare dashboard page)
+> 3. Go to https://github.com/{OWNER}/{REPO}/settings/variables/actions
+>    - Add `CLOUDFLARE_PAGES_PROJECT` with your Pages project name
+
+**Option B: Via Wrangler CLI (if `npx wrangler` available):**
+
 ```bash
-gh api repos/{OWNER}/{REPO}/pages -X POST \
-  -f build_type=legacy \
-  -f source='{"branch":"main","path":"/"}'
+npx wrangler pages project create {PROJECT_NAME}
+npx wrangler pages deploy . --project-name={PROJECT_NAME}
 ```
-- HTTP 409 = already enabled (fine)
-- HTTP 404 = repo not ready, wait 5s and retry
-
-**Without `gh`:** Tell user: Go to `https://github.com/{OWNER}/{REPO}/settings/pages` → Deploy from branch → main → / (root) → Save
-
-**Important:** Use branch deployment, NOT GitHub Actions — this is a static site with no build step.
 
 ### Validating Deployment
 
 ```bash
 for i in {1..12}; do
-  status=$(curl -s -o /dev/null -w "%{http_code}" https://{OWNER}.github.io/{REPO}/)
+  status=$(curl -s -o /dev/null -w "%{http_code}" https://{PROJECT}.pages.dev/)
   if [ "$status" = "200" ]; then
     echo "Site is live"
     break
   fi
-  echo "Waiting for Pages deployment... ($i/12)"
+  echo "Waiting for Cloudflare Pages deployment... ($i/12)"
   sleep 5
 done
 ```
@@ -91,7 +109,7 @@ done
 - Create project folder structure adapted to user's domain
 - Fill in `CLAUDE.md` placeholders: replace `[Your Project Name]`, `USERNAME`, `REPO` with actual values
 - Create `CLAUDE.local.md` (gitignored) with operator directives and live URLs
-- Update `docs/DEPLOY.md` with actual GitHub Pages URL and repo link
+- Update `docs/DEPLOY.md` with actual Cloudflare Pages URL and repo link
 - Update `docs/KEY-FILES.md` with initial project file structure
 - Both `CLAUDE.local.md` and `docs/CREDENTIALS.md` are already in `.gitignore`
 - Commit and push

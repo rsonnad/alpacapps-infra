@@ -6,13 +6,13 @@
 ## Overview
 
 AlpacApps is a full-stack platform using:
-- **GitHub Pages** — static site hosting (free)
+- **Cloudflare Pages** — static site hosting with global CDN (free tier: unlimited sites, 500 builds/month)
 - **Supabase** — PostgreSQL database, auth, storage, edge functions (free tier)
 - **Claude Code** — AI developer agent that writes and deploys code
 - **Conductor** — Mac app for running parallel Claude Code agents (macOS only)
 - **Tailwind CSS v4** — styling framework
 
-Architecture: Browser → GitHub Pages → Supabase (no server-side code). Edge functions handle sensitive operations.
+Architecture: Browser → Cloudflare Pages → Supabase (no server-side code). Edge functions handle sensitive operations.
 
 ## Setup Flow
 
@@ -32,7 +32,13 @@ The user pastes a setup prompt into Claude Code. Claude Code should:
 
 3. **Create GitHub repository** — From the template at `https://github.com/rsonnad/alpacapps-infra`
 
-4. **Enable GitHub Pages** — On the new repository, deploy from `main` branch
+4. **Set up Cloudflare Pages** — Create a Pages project connected to the GitHub repo:
+      - Go to Cloudflare Dashboard → Pages → Create a project → Connect to Git
+      - Select the new GitHub repo
+      - Build command: `npm run css:build`
+      - Build output directory: `.` (root)
+      - Add GitHub secrets: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`
+      - Optionally set `CLOUDFLARE_PAGES_PROJECT` as a GitHub variable
 
 5. **Set up Supabase** — Create project, configure auth, run initial migrations
 
@@ -54,7 +60,7 @@ For the full detailed setup procedure with checkpoints and validation steps, rea
 ### Core (always included, free)
 | Service | Purpose |
 |---------|---------|
-| GitHub Pages | Static site hosting, CI/CD via push to main |
+| Cloudflare Pages | Static site hosting, global CDN, preview deploys |
 | Supabase | PostgreSQL, auth, file storage, edge functions |
 | Conductor | Parallel AI coding agents (macOS only) |
 | Claude Code | AI developer — writes, tests, deploys code |

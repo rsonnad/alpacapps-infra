@@ -15,7 +15,7 @@ Generate `CLAUDE.md` with on-demand doc references only for docs that were actua
 ## Mandatory Behaviors
 
 1. After code changes: end response with `vYYMMDD.NN H:MMa [model]` + affected URLs (read `version.json`)
-2. Push immediately — GitHub Pages deploys on push to main. See `docs/DEPLOY.md`
+2. Push immediately — Cloudflare Pages deploys on push to main. See `docs/DEPLOY.md`
 3. CI bumps version — never bump locally
 
 ## Code Guards
@@ -26,9 +26,9 @@ Generate `CLAUDE.md` with on-demand doc references only for docs that were actua
 
 ## Quick Refs
 
-- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | GitHub Pages
+- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | Cloudflare Pages
 - **Live:** {LIVE_URL}
-- **Architecture:** Browser → GitHub Pages → Supabase (no server-side code)
+- **Architecture:** Browser → Cloudflare Pages → Supabase (no server-side code)
 ```
 
 ### DOC_REFS — include only for generated docs:

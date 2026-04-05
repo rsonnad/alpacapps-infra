@@ -6,8 +6,8 @@ A complete property management platform template. Clone it, run the setup wizard
 
 ### Core Platform
 - **Database + Auth + Storage** — Supabase (free tier)
-- **Website + Hosting** — GitHub Pages (free)
-- **Login + Admin Dashboard** — Role-based auth, 15+ admin pages
+- **Website + Hosting** — Cloudflare Pages (free tier: unlimited sites, 500 builds/month)
+- **Login + Admin Dashboard** — Role-based auth, 15+ admin pages, DevControl AI dashboard
 - **Resident Portal** — Smart home controls, profile, bookkeeping
 
 ### Communication
@@ -48,6 +48,7 @@ A complete property management platform template. Clone it, run the setup wizard
 | **Git** | [git-scm.com/downloads](https://git-scm.com/downloads) |
 | **Claude Code** | [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code/overview) |
 | **GitHub account** | [github.com/signup](https://github.com/signup) |
+| **Cloudflare account** | [dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) (free) |
 
 ## Quick start
 
@@ -68,35 +69,37 @@ The wizard will:
 2. Create a new GitHub repo under your account
 3. Set up Supabase (database, auth, storage, edge functions)
 4. Customize branding, domain, and credentials
-5. Deploy your site live on GitHub Pages
+5. Deploy your site live on Cloudflare Pages
 
 ## Architecture
 
 ```
-Browser → GitHub Pages (static HTML/JS/CSS)
+Browser → Cloudflare Pages (static HTML/JS/CSS, global CDN)
                 ↓
          Supabase (PostgreSQL + Edge Functions + Auth + Storage)
 ```
 
 - **Frontend:** Vanilla HTML/JS + Tailwind CSS v4
 - **Backend:** Supabase (75+ edge functions, RLS, JWT auth)
-- **Hosting:** GitHub Pages (no build step, push to deploy)
+- **Hosting:** Cloudflare Pages (global CDN, preview deploys, custom domains)
 - **Mobile:** Capacitor 8 (iOS + Android wrapper)
 
 ## Project structure
 
 ```
-shared/           — 47 JS modules (auth, services, shells, widgets)
+shared/           — 50 JS modules (auth, services, shells, widgets)
 styles/           — Tailwind v4 design tokens + CSS
-login/            — Authentication pages
+login/            — Authentication pages (auto-installed)
 spaces/           — Rental listing + admin dashboard (65+ pages)
+  admin/devcontrol/ — AI development dashboard (auto-installed)
 residents/        — Resident portal (device control, profile)
 associates/       — Staff hours tracking + work photos
 events/           — Event hosting pipeline
 pay/              — Self-service payment page
 supabase/
-  functions/      — 63 edge functions
-  migrations/     — 33 database migrations
+  functions/      — 67 edge functions
+  migrations/     — 68 database migrations
+cloudflare/       — Cloudflare Workers (session logging, downloads)
 mobile/           — Capacitor iOS/Android app
 ```
 

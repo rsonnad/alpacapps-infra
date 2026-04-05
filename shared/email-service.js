@@ -46,6 +46,12 @@ export const EMAIL_TYPES = {
   TASK_ASSIGNED: 'task_assigned',
   // Time entry edited
   TIME_ENTRY_EDITED: 'time_entry_edited',
+  // Event notification (from event-notify trigger system)
+  EVENT_NOTIFICATION: 'event_notification',
+  // Space reservations
+  RESERVATION_SUBMITTED: 'reservation_submitted',
+  RESERVATION_APPROVED: 'reservation_approved',
+  RESERVATION_DENIED: 'reservation_denied',
 };
 
 /**
@@ -429,7 +435,7 @@ export const emailService = {
    * @param {Array} data.photos - Array of {url, type, caption}
    */
   async sendWorkCheckoutSummary(data) {
-    const recipients = [data.associate_email, 'admin@YOUR_DOMAIN', 'automation@YOUR_DOMAIN'].filter(Boolean);
+    const recipients = [data.associate_email, 'alpacaplayhouse@gmail.com', 'alpacaautomatic@gmail.com'].filter(Boolean);
     return sendEmail(EMAIL_TYPES.WORK_CHECKOUT_SUMMARY, recipients, data);
   },
 
@@ -466,7 +472,7 @@ export const emailService = {
    * @param {Array} data.todo_list - [{title, priority, location, is_new}]
    */
   async sendTaskAssigned(email, data) {
-    const recipients = [email, 'admin@YOUR_DOMAIN'].filter(Boolean);
+    const recipients = [email, 'alpacaplayhouse@gmail.com'].filter(Boolean);
     return sendEmail(EMAIL_TYPES.TASK_ASSIGNED, recipients, data);
   },
 
@@ -488,7 +494,7 @@ export const emailService = {
    * @param {string} [data.space_name] - Space/location name
    */
   async sendTimeEntryEdited(data) {
-    const recipients = [data.associate_email, 'admin@YOUR_DOMAIN'].filter(Boolean);
+    const recipients = [data.associate_email, 'alpacaplayhouse@gmail.com'].filter(Boolean);
     return sendEmail(EMAIL_TYPES.TIME_ENTRY_EDITED, recipients, data);
   },
 
@@ -518,6 +524,76 @@ export const emailService = {
     }
 
     return results;
+  },
+
+  // ===== SPACE RESERVATION NOTIFICATIONS =====
+
+  /**
+   * Notify admin that a resident submitted a reservation request
+   * @param {object} reservation - With person and space joins
+   */
+  async sendReservationSubmitted(reservation) {
+    const person = reservation.person;
+    const space = reservation.space;
+    const startAt = new Date(reservation.start_at);
+    const endAt = new Date(reservation.end_at);
+    const dateStr = formatDate(reservation.start_at);
+    const timeRange = `${startAt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' })} - ${endAt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' })}`;
+
+    return sendEmail(EMAIL_TYPES.RESERVATION_SUBMITTED, 'team@alpacaplayhouse.com', {
+      resident_name: `${person.first_name} ${person.last_name}`,
+      resident_email: person.email,
+      space_name: space?.name || 'Unknown space',
+      date: dateStr,
+      time_range: timeRange,
+      title: reservation.title,
+      notes: reservation.notes || 'None',
+    }, {
+      subject: `Space Reservation Request: ${reservation.title} — ${person.first_name} ${person.last_name}`,
+    });
+  },
+
+  /**
+   * Notify resident their reservation was approved
+   * @param {object} reservation - With person and space joins
+   */
+  async sendReservationApproved(reservation) {
+    const person = reservation.person;
+    const space = reservation.space;
+    const startAt = new Date(reservation.start_at);
+    const endAt = new Date(reservation.end_at);
+    const dateStr = formatDate(reservation.start_at);
+    const timeRange = `${startAt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' })} - ${endAt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' })}`;
+
+    return sendEmail(EMAIL_TYPES.RESERVATION_APPROVED, person.email, {
+      first_name: person.first_name,
+      space_name: space?.name || 'Unknown space',
+      date: dateStr,
+      time_range: timeRange,
+      title: reservation.title,
+      admin_notes: reservation.admin_notes || null,
+    }, {
+      subject: `Reservation Approved: ${reservation.title} on ${dateStr}`,
+    });
+  },
+
+  /**
+   * Notify resident their reservation was denied
+   * @param {object} reservation - With person and space joins
+   */
+  async sendReservationDenied(reservation) {
+    const person = reservation.person;
+    const dateStr = formatDate(reservation.start_at);
+
+    return sendEmail(EMAIL_TYPES.RESERVATION_DENIED, person.email, {
+      first_name: person.first_name,
+      space_name: reservation.space?.name || 'Unknown space',
+      date: dateStr,
+      title: reservation.title,
+      admin_notes: reservation.admin_notes || 'No reason provided.',
+    }, {
+      subject: `Reservation Update: ${reservation.title}`,
+    });
   },
 };
 
