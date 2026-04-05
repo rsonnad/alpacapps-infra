@@ -1,12 +1,12 @@
 {
-  "version": "v260405.01 3:22p",
-  "release": 1,
-  "sha": "7bcc8e4",
-  "fullSha": "7bcc8e4cc80d7d949e7679ed831f605f1a0bd903",
+  "version": "v260405.02 4:44p",
+  "release": 2,
+  "sha": "5db2fba",
+  "fullSha": "5db2fbace5613c5c8d84287898a54e0a4f6df424",
   "actor": "rsonnad",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "runnervm727z3",
-  "pushedAt": "2026-04-05T10:22:37-05:00",
-  "commits": [{"sha":"7bcc8e4","message":"Migrate to Cloudflare Pages + sync latest from alpacapps","author":"Rahul"}]
+  "pushedAt": "2026-04-05T11:44:07-05:00",
+  "commits": [{"sha":"5db2fba","message":"Fix: features default to false for new setups, not true","author":"Rahul"}]
 }
