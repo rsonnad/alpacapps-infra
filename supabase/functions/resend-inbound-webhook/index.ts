@@ -1944,7 +1944,8 @@ async function handleOutboundZellePayment(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Property Payments <noreply@YOUR_DOMAIN>",
+        from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+        reply_to: "pai@YOUR_DOMAIN",
         to: [adminEmail],
         subject,
         html,
@@ -2622,7 +2623,8 @@ async function sendTenantReceipt(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "YOUR_APP_NAME <noreply@YOUR_DOMAIN>",
+        from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+        reply_to: "pai@YOUR_DOMAIN",
         to: [details.tenantEmail],
         bcc: ["automation@YOUR_DOMAIN"],
         subject,
@@ -2824,7 +2826,8 @@ async function sendPaymentNotification(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Property Payments <noreply@YOUR_DOMAIN>",
+        from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+        reply_to: "pai@YOUR_DOMAIN",
         to: [adminEmail],
         subject,
         html,
@@ -2879,7 +2882,8 @@ async function handlePaymentEmail(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Property Payments <noreply@YOUR_DOMAIN>",
+          from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+          reply_to: "pai@YOUR_DOMAIN",
           to: ["admin@YOUR_DOMAIN"],
           subject: `Unrecognized payment email: ${subject}`,
           html: `

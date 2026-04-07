@@ -2526,9 +2526,9 @@ async function holdForApproval(
     method: "POST",
     headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "YOUR_APP_NAME <noreply@YOUR_DOMAIN>",
+      from: "Alpaca Payments <pai@YOUR_DOMAIN>",
       to: ["admin@YOUR_DOMAIN"],
-      reply_to: "team@YOUR_DOMAIN",
+      reply_to: "pai@YOUR_DOMAIN",
       subject: `[Approval Required] ${typeLabel}: ${subject}`,
       html: reviewHtml,
       text: `Email Approval Required\nType: ${typeLabel}\nTo: ${recipientList}\nSubject: ${subject}\n\nApprove: ${approveOneUrl}\nApprove All: ${approveAllUrl}`,

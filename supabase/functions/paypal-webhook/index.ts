@@ -606,7 +606,8 @@ async function notifyUnknownEvent(event: PayPalWebhookEvent) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Property Payments <noreply@YOUR_DOMAIN>',
+        from: 'Alpaca Payments <pai@YOUR_DOMAIN>',
+        reply_to: 'pai@YOUR_DOMAIN',
         to: ['admin@YOUR_DOMAIN'],
         subject: `Unknown PayPal Event: ${event.event_type}`,
         html: `
