@@ -287,6 +287,48 @@
   </div>
 
   <!-- ════════════════════════════════════════════════════════════════
+       FEATURE: UI/UX Pro Max — AI Design Intelligence
+       ════════════════════════════════════════════════════════════════ -->
+  <div class="feature-card" data-feature="uipro">
+    <label class="feature-select"><input type="checkbox" data-feature-id="uipro"></label>
+    <h2>
+      <span class="badge badge-new">New</span>
+      UI/UX Pro Max &mdash; AI Design Intelligence
+    </h2>
+    <p><span class="badge badge-date">Added Apr 2026</span></p>
+    <p>Open-source Claude Code skill that gives your AI assistant structured design knowledge. 67 UI styles, 161 color palettes mapped to industry types, 57 curated font pairings, and 99 UX guidelines &mdash; all activated automatically when Claude works on UI/UX tasks.</p>
+
+    <h3>What you get</h3>
+    <ul>
+      <li>Auto-generated design systems (colors, typography, spacing, effects) based on your product type</li>
+      <li>67 UI styles: glassmorphism, brutalism, neumorphism, bento grid, and more</li>
+      <li>161 color palettes mapped 1:1 to industry/product types</li>
+      <li>57 Google Fonts pairings with ready-to-use imports</li>
+      <li>99 UX guidelines covering accessibility, touch targets, performance, layout, animation, forms, and navigation</li>
+      <li>25 chart types with library recommendations</li>
+      <li>15 tech-stack-specific guidelines (React, Next.js, Vue, Svelte, SwiftUI, Flutter, etc.)</li>
+    </ul>
+
+    <h3>Prerequisites</h3>
+    <p><span class="prereq-tag">Python 3.x</span> <span class="prereq-tag">Claude Code</span></p>
+
+    <h3>What Claude does</h3>
+    <ol>
+      <li>Verify the skill is already installed at <code>.claude/skills/ui-ux-pro-max/</code> (included in this repo)</li>
+      <li>If missing, install via: <code>npm install -g uipro-cli &amp;&amp; uipro init --ai claude</code></li>
+      <li>The skill activates automatically when you ask Claude to build or style UI &mdash; no manual invocation needed</li>
+      <li>For explicit use, invoke with <code>/ui-ux-pro-max</code> followed by your design request</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Files included</strong>
+      <code>.claude/skills/ui-ux-pro-max/SKILL.md</code> &bull;
+      <code>.claude/skills/ui-ux-pro-max/data/*.csv</code> &bull;
+      <code>.claude/skills/ui-ux-pro-max/scripts/*.py</code>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════════
        FEATURE: Session Logging to Cloudflare D1
        ════════════════════════════════════════════════════════════════ -->
   <div class="feature-card" data-feature="d1-session-logging">

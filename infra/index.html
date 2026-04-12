@@ -1045,6 +1045,28 @@
 
       <div class="svc-row">
         <label class="calc-svc">
+          <input type="checkbox" data-svc="uipro" onchange="recalcCost()">
+          <span class="calc-svc__check">&check;</span>
+          <span class="svc-icon"><svg viewBox="0 0 24 24" fill="#EC4899" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="3"/><text x="12" y="16.5" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="system-ui">UI</text></svg></span>
+          <span class="calc-svc__info"><span class="calc-svc__name">UI/UX Pro Max</span><span class="calc-svc__desc">AI design intelligence &mdash; 67 styles, 161 palettes, 57 font pairings</span></span>
+          <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
+        </label>
+        <details class="svc-expand"><summary>Learn more</summary>
+          <p>Open-source Claude Code skill that gives your AI assistant structured design knowledge for building professional UI/UX.</p>
+          <ul>
+            <li><strong>Design systems:</strong> Auto-generates complete design systems (colors, typography, spacing, effects) based on your product type.</li>
+            <li><strong>67 UI styles:</strong> Glassmorphism, brutalism, neumorphism, bento grid, and more &mdash; all with implementation guidance.</li>
+            <li><strong>161 color palettes:</strong> Mapped to industry/product types with automatic selection based on your app&rsquo;s domain.</li>
+            <li><strong>57 font pairings:</strong> Curated Google Fonts pairings with ready-to-use imports.</li>
+            <li><strong>99 UX guidelines:</strong> Accessibility, touch targets, performance, layout, animation, forms, navigation, and charts.</li>
+          </ul>
+          <p>Already included in this repo &mdash; the skill activates automatically when Claude works on UI/UX tasks.</p>
+          <p><a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank">Go to UI/UX Pro Max &rarr;</a></p>
+        </details>
+      </div>
+
+      <div class="svc-row">
+        <label class="calc-svc">
           <input type="checkbox" data-svc="telnyx" onchange="recalcCost()">
           <span class="calc-svc__check">&check;</span>
           <span class="svc-icon"><img src="https://cdn.simpleicons.org/telnyx/00C08B" alt="Telnyx"></span>
@@ -1642,6 +1664,7 @@ function recalcCost() {
     'cloudflare-d1': { basic: 0, complicated: 0, hyper: 0 },
     'open-brain':  { basic: 0, complicated: 0, hyper: 0 },
     'gstack':      { basic: 0, complicated: 0, hyper: 0 },
+    'uipro':       { basic: 0, complicated: 0, hyper: 0 },
     'workers':     { basic: 0, complicated: 60, hyper: 144 },
     'domain':      { basic: 10, complicated: 10, hyper: 10 },
     'iphone':      { basic: 99, complicated: 99, hyper: 99 },
@@ -1655,7 +1678,7 @@ function recalcCost() {
     'square': 'Square (payments)', 'stripe': 'Stripe (payments)', 'signwell': 'SignWell (e-sign)',
     'gemini': 'Google Gemini (AI)', 'cloudflare-r2': 'Cloudflare R2 (storage)', 'cloudflare-d1': 'Cloudflare D1 (sessions)',
     'open-brain': 'Open Brain (session dashboard)',
-    'gstack': 'gstack (QA & skills)', 'workers': 'Background Workers (Hostinger VPS)', 'domain': 'Custom domain',
+    'gstack': 'gstack (QA & skills)', 'uipro': 'UI/UX Pro Max (design intelligence)', 'workers': 'Background Workers (Hostinger VPS)', 'domain': 'Custom domain',
     'iphone': 'iPhone App (Apple Developer)', 'android': 'Android App (Google Play)',
     'homeserver': 'Home Server (used Mac)'
   };
