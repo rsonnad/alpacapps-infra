@@ -121,5 +121,5 @@ See [CUSTOMIZATION.md](CUSTOMIZATION.md) for details on branding, features, and 
 
 ## License
 
-AGPL-3.0 — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
 
