@@ -88,8 +88,8 @@ INSERT INTO payment_methods (method_type, name, account_identifier, instructions
 VALUES (
   'paypal',
   'PayPal',
-  'alpacaplayhouse@gmail.com',
-  'Send payment to alpacaplayhouse@gmail.com via PayPal. Include your name and what the payment is for in the note.',
+  'payments@YOUR_DOMAIN',
+  'Send payment to the project payment address. Include your name and payment purpose in the note.',
   true,
   1  -- First in display order (preferred)
 )

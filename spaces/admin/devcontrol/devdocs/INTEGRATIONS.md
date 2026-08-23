@@ -176,7 +176,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 
 ### Resend (Email)
 - **Domain**: `alpacaplayhouse.com` (verified, sending + receiving)
-- **Account**: wingsiebird@gmail.com
+- **Account**: configure in the adopting project's credential manager
 - **API Key**: Stored as Supabase secret `RESEND_API_KEY`
 - **Webhook Secret**: Stored as Supabase secret `RESEND_WEBHOOK_SECRET` (SVIX-based)
 - **Outbound**: `send-email` Edge Function sends via Resend API (43 templates)
@@ -197,14 +197,14 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 **Inbound Email Routing** (`*@alpacaplayhouse.com`):
 | Prefix | Action | Destination |
 |--------|--------|-------------|
-| `haydn@` | Forward | `hrsonnad@gmail.com` |
+| `support@` | Forward | `support@YOUR_DOMAIN` |
 | `rahulio@` | Forward | `{OWNER_EMAIL}` |
-| `sonia@` | Forward | `sonia245g@gmail.com` |
-| `team@` | Forward | `alpacaplayhouse@gmail.com` |
+| `billing@` | Forward | `billing@YOUR_DOMAIN` |
+| `team@` | Forward | `team@YOUR_DOMAIN` |
 | `herd@` | Special logic | (stub — future AI processing) |
 | `auto@` | Special logic | Bug report replies → new bug report; others → admin |
 | `pai@` | Special logic | Gemini classifies → questions/commands get PAI reply; documents uploaded to R2; other forwarded to admin |
-| Everything else | Forward | `alpacaplayhouse@gmail.com` |
+| Everything else | Forward | `support@YOUR_DOMAIN` |
 
 ### Telnyx (SMS)
 - Config stored in `telnyx_config` table (api_key, messaging_profile_id, phone_number, test_mode)
@@ -348,7 +348,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **DB:** `camera_streams` table stores stream config (stream_name, proxy_base_url, quality, location)
 - **Client:** `residents/cameras.js` loads streams from DB, plays via HLS.js with fMP4 mode (`&mp4` parameter)
 - **PTZ:** UniFi Protect API — continuous move at `POST /proxy/protect/api/cameras/{id}/move`, presets at `POST .../ptz/goto/{slot}`
-- **CORS:** Caddy strips go2rtc's CORS headers, adds origin-specific ones for `rsonnad.github.io` and `alpacaplayhouse.com`
+- **CORS:** Configure origin-specific CORS headers for the adopting project's domains.
 - **Launchd:** `com.go2rtc` service (KeepAlive + RunAtLoad)
 - **Full docs:** `HOMEAUTOMATION.md`
 
@@ -477,7 +477,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **DB columns on spaces**: `airbnb_ical_url`, `airbnb_link`, `airbnb_rate`, `airbnb_blocked_dates`
 
 ### Cloudflare R2 (Object Storage)
-- **Account**: Cloudflare AlpacApps (wingsiebird@gmail.com)
+- **Account**: configure the Cloudflare project account locally
 - **Bucket**: `alpacapps` (APAC region)
 - **S3 API**: `https://<account_id>.r2.cloudflarestorage.com`
 - **Public URL**: `https://pub-5a7344c4dab2467eb917ff4b897e066d.r2.dev`
@@ -493,4 +493,3 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 ### Google Drive (Legacy)
 - Rental agreements stored in a shared folder (legacy)
 - Not programmatically accessed
-

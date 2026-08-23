@@ -18,8 +18,8 @@ spaces.location           - Matches residence_location for filtering
 
 NOTE: Secondary Location is a SEPARATE tax entity from YOUR_PROPERTY_NAME.
       YOUR_APP_NAME only manages late rent email tracking for Secondary Location.
-      Accounting is handled elsewhere (Finleg). Forward payment notifications
-      to agent@finleg.net.
+      Configure payment notifications for the adopting project's accounting
+      contact in its local, gitignored credentials documentation.
 ```
 
 ### Media System (New - use this, not legacy photos)
@@ -409,4 +409,3 @@ photo_spaces    - DEPRECATED: migrated to media_spaces
 - `start_date`, `end_date` - Assignment period
 - `desired_departure_date` - Early exit date (tenant wants to leave early)
 - `desired_departure_listed` - Boolean, when true the early exit date is shown to consumers for availability
-

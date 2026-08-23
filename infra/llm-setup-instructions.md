@@ -30,7 +30,7 @@ The user pastes a setup prompt into Claude Code. Claude Code should:
    - GitHub CLI (`gh`)
    - Node.js (for Claude Code)
 
-3. **Create GitHub repository** — From the template at `https://github.com/rsonnad/alpacapps-infra`
+3. **Create GitHub repository** — From the organization-approved AlpacApps template repository
 
 4. **Set up Cloudflare Pages** — Create a Pages project connected to the GitHub repo:
       - Go to Cloudflare Dashboard → Pages → Create a project → Connect to Git
@@ -164,7 +164,7 @@ If the user already has a running project and wants to adopt new features:
 4. **Run the upgrade prompt**: `https://alpacaplayhouse.com/infra/infra-upgrade-prompt.md` can be pasted into Claude Code to auto-upgrade
 
 ### Key files to sync from template
-When updating an existing project from the template (`https://github.com/rsonnad/alpacapps-infra`):
+When updating an existing project from its approved AlpacApps template repository:
 - `shared/admin-shell.js` — tab navigation, auth flow, permission system
 - `shared/feature-registry.js` — feature flag definitions
 - `shared/config-loader.js` — property config loader with fallbacks

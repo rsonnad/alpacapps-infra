@@ -3,10 +3,10 @@
   "release": 1,
   "sha": "cd352f0",
   "fullSha": "cd352f0fe65279470a18f70bd374afaeee43d790",
-  "actor": "rsonnad",
+  "actor": "automated-deploy",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
-  "machine": "runnervm76f27",
+  "machine": "ci",
   "pushedAt": "2026-08-23T15:37:52+02:00",
-  "commits": [{"sha":"cd352f0","message":"security: remove committed credentials and personal vault data","author":"Otto"}]
+  "commits": [{"sha":"cd352f0","message":"security: remove committed credentials and personal vault data"}]
 }

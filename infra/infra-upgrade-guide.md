@@ -10,7 +10,7 @@ AlpacApps Infra is a template repo. Projects cloned from it diverge over time as
 add custom content. This guide lets you pull **new infrastructure features** from the
 template without overwriting project-specific files.
 
-**Template repo:** `https://github.com/rsonnad/alpacapps-infra.git`
+**Template repo:** `https://github.com/YOUR_ORG/alpacapps-infra.git`
 **Feature index (machine-readable):** `https://alpacaplayhouse.com/infra/updates.json`
 **Human-readable updates page:** `https://alpacaplayhouse.com/infra/updates.html`
 
@@ -23,7 +23,7 @@ template without overwriting project-specific files.
 git remote -v | grep alpacapps-infra
 
 # If not present, add it:
-git remote add infra-upstream https://github.com/rsonnad/alpacapps-infra.git
+git remote add infra-upstream https://github.com/YOUR_ORG/alpacapps-infra.git
 ```
 
 If the remote already exists under a different name, use that name in place of

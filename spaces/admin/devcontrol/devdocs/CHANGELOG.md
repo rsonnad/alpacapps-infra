@@ -176,7 +176,7 @@
    - `resend-inbound-webhook` detects Zelle payment confirmation emails
    - Parses sender name, amount, date from email body
    - Auto-creates ledger entry for the payment
-   - Fixes Zelle email address: `alpacaplayhouse@gmail.com` (not payments@)
+   - Configure the project's payment-notification email in local settings.
 30. **Airbnb iCal Sync** - Two-way calendar sync with Airbnb
    - `airbnb-sync` edge function: fetch Airbnb iCal → create blocking assignments
    - `ical` edge function: export assignments as iCal per space
@@ -196,7 +196,7 @@
    - Systemd service: `feature-builder.service`
 33. **Emergency Contacts Page** - `lost.html` for lockout scenarios
    - Phone numbers displayed reversed (obfuscation against scraping)
-   - Clean card UI with Haydn, Rahulio, Sonia contacts
+   - Clean card UI with generic contact placeholders
 34. **Space Access Codes** - Removed (replaced by `password_vault` table with category='house')
 35. **UP-SENSE Smart Sensors** - UniFi Protect sensor installation guide
    - `residents/sensorinstallation.html` — step-by-step installation instructions
@@ -365,4 +365,3 @@
    - **Camera**: MJPEG stream at port 8080 (proxied via Caddy/Tailscale)
    - **Network**: LAN IP 192.168.1.106, TCP 8899 (G-code), 8080 (MJPEG camera)
    - **Cost**: $0 (direct TCP, no cloud API)
-

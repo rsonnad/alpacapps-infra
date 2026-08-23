@@ -1445,7 +1445,7 @@ async function inviteToApply(applicationId) {
 
   if (error) throw error;
 
-  const continueUrl = `https://rsonnad.github.io/alpacapps/spaces/apply/?continue=${applicationId}`;
+  const continueUrl = `${window.location.origin}/spaces/apply/?continue=${applicationId}`;
 
   return {
     application: data,

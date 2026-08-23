@@ -36,7 +36,7 @@ jobs:
           RELEASE_COMPARE_FROM_SHA: ${{ github.event.before }}
           RELEASE_COMPARE_TO_SHA: ${{ github.sha }}
           RELEASE_PUSH_SHA: ${{ github.sha }}
-          RELEASE_ACTOR_LOGIN: ${{ github.actor }}
+          RELEASE_ACTOR_LOGIN: automated-deploy
           RELEASE_BRANCH: main
           RELEASE_PUSHED_AT: ${{ github.event.head_commit.timestamp }}
           RELEASE_SOURCE: cloudflare-pages-deploy

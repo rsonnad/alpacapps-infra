@@ -10,7 +10,7 @@ Read https://alpacaplayhouse.com/infra/infra-upgrade-guide.md and upgrade my pro
 Here's what I need you to do:
 
 1. Add the template as a git remote (if not already):
-   git remote add infra-upstream https://github.com/rsonnad/alpacapps-infra.git
+   git remote add infra-upstream https://github.com/YOUR_ORG/alpacapps-infra.git
 
 2. Fetch the latest:
    git fetch infra-upstream main
@@ -45,7 +45,7 @@ Here's what I need you to do:
    > the alpacapps-infra template repo. Machine-readable feature index: `infra/updates.json`
 
    And add to Quick Refs:
-   - **Template repo:** https://github.com/rsonnad/alpacapps-infra
+   - **Template repo:** https://github.com/YOUR_ORG/alpacapps-infra
    - **Upgrade guide:** `infra/infra-upgrade-guide.md`
 
 5. Check for new shared/ files I'm missing:

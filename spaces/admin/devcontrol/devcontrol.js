@@ -12,8 +12,8 @@ import { getAuthState } from '../../../shared/auth.js';
 const SESSIONS_API = 'https://claude-sessions.alpacapps.workers.dev';
 const SESSIONS_TOKEN = 'alpaca-sessions-2026';
 const PROJECT_FILTER = 'genalpaca'; // Only show this project's sessions
-const GH_OWNER = 'rsonnad';
-const GH_REPO = 'alpacapps';
+const GH_OWNER = '';
+const GH_REPO = '';
 const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`;
 const RAW_BASE = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}`;
 const CONTEXT_WINDOW = 200_000;
@@ -591,7 +591,7 @@ async function loadContext() {
     { name: 'TESTING-GUIDE.md', path: 'devdocs/TESTING-GUIDE.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/TESTING-GUIDE.md',
       desc: 'Testing guide with test account credentials (testuser@alpacaplayhouse.com), auth architecture overview, and testing workflows for admin pages. Documents how to authenticate as a test user, role-based access patterns, and QA checklists for verifying UI changes. Loaded when testing admin pages, debugging auth issues, or running manual QA.' },
     { name: 'SECRETS-GUIDE.md', path: 'devdocs/SECRETS-GUIDE.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/SECRETS-GUIDE.md',
-      desc: 'Cross-project secrets management guide using Bitwarden as the source of truth. Documents the bw-read helper script, Bitwarden CLI patterns (bw unlock, bw list items), secret naming conventions, how to store and retrieve API keys/tokens/passwords, and the DevOps-alpacapps vault organization. Replicable across all projects (alpacapps, finleg, portsie, etc.). Loaded when managing secrets, setting up new API keys, or debugging credential access.' },
+      desc: 'Generic secrets-management guidance for a project-specific credential manager. Loaded when managing secrets, setting up new API keys, or debugging credential access.' },
     { name: 'ARCHITECTURE.md', path: 'ARCHITECTURE.md', category: 'docs', gh: 'ARCHITECTURE.md',
       desc: 'Comprehensive system architecture documentation. Covers the full AlpacApps stack — browser-only frontend, GitHub Pages hosting, Supabase backend (auth, storage, realtime, edge functions), module boundaries (spaces, residents, jackie, rahulio, community), shared utilities, and data flow patterns. Essential for understanding how components connect and where to make changes.' },
     { name: 'API.md', path: 'API.md', category: 'docs', gh: 'API.md',
@@ -1463,9 +1463,8 @@ async function loadBackups() {
       )}
 
       ${serviceBlock('active', 'GitHub Repo',
-        'Bare mirror of the rsonnad/alpacapps repository — all branches, tags, and full commit history',
-        `/Volumes/RVAULT20/backups/alpacapps/github/ &nbsp;·&nbsp; Cron on Alpuca
-         &nbsp;·&nbsp; ${link('https://github.com/rsonnad/alpacapps','github.com/rsonnad/alpacapps ↗')}`,
+        'Configure project-specific source control backup outside the template repository.',
+        'No source-project backup path or account is included in this template.',
         'Every Monday at 1:00 AM CT', nextRvault,
         instanceTable(rvaultCols('github-repo'), rvaultRowsFor('github','github','github-repo'), 'github'),
         'github-repo'

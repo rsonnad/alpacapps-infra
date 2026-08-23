@@ -57,7 +57,7 @@ cd "$PROJECT_ROOT"
 [ -z "$PUSH_SHA" ]  && PUSH_SHA=$(git rev-parse HEAD 2>/dev/null || echo "")
 [ -z "$TO_SHA" ]    && TO_SHA="$PUSH_SHA"
 [ -z "$BRANCH" ]    && BRANCH=$(git branch --show-current 2>/dev/null || echo "main")
-[ -z "$ACTOR" ]     && ACTOR=$(git log -1 --pretty='%an' 2>/dev/null || echo "${USER:-unknown}")
+[ -z "$ACTOR" ]     && ACTOR="automated-deploy"
 [ -z "$SOURCE" ]    && SOURCE="local-script"
 [ -z "$PUSHED_AT" ] && PUSHED_AT=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
@@ -71,9 +71,7 @@ fi
 
 # Machine name
 MACHINE="${AAP_MACHINE_NAME:-}"
-[ -z "$MACHINE" ] && [ -f "$PROJECT_ROOT/.machine-name" ] && MACHINE=$(head -1 "$PROJECT_ROOT/.machine-name" | tr -d '\r')
-[ -z "$MACHINE" ] && command -v scutil >/dev/null 2>&1 && MACHINE=$(scutil --get ComputerName 2>/dev/null || true)
-[ -z "$MACHINE" ] && MACHINE=$(hostname -s 2>/dev/null || hostname 2>/dev/null || echo "unknown")
+[ -z "$MACHINE" ] && MACHINE="ci"
 
 # ── gather commits in the push range ─────────────────────────────────
 RANGE=""
@@ -86,18 +84,18 @@ fi
 COMMITS_JSON="[]"
 COMMITS_FOR_DB="[]"
 if [ -n "$RANGE" ]; then
-  LOG=$(git log --reverse --pretty=format:'%H%x09%h%x09%an%x09%ae%x09%cI%x09%s' "$RANGE" 2>/dev/null || true)
+  LOG=$(git log --reverse --pretty=format:'%H%x09%h%x09%cI%x09%s' "$RANGE" 2>/dev/null || true)
   if [ -n "$LOG" ]; then
     DB_ENTRIES=""
     VJ_ENTRIES=""
-    while IFS=$'\t' read -r sha short aname aemail cat subj; do
+    while IFS=$'\t' read -r sha short cat subj; do
       [ -z "$sha" ] && continue
       # For version.json (simple)
       [ -n "$VJ_ENTRIES" ] && VJ_ENTRIES="$VJ_ENTRIES,"
-      VJ_ENTRIES="$VJ_ENTRIES{\"sha\":\"$(json_esc "$short")\",\"message\":\"$(json_esc "$subj")\",\"author\":\"$(json_esc "$aname")\"}"
+      VJ_ENTRIES="$VJ_ENTRIES{\"sha\":\"$(json_esc "$short")\",\"message\":\"$(json_esc "$subj")\"}"
       # For DB (full)
       [ -n "$DB_ENTRIES" ] && DB_ENTRIES="$DB_ENTRIES,"
-      DB_ENTRIES="$DB_ENTRIES{\"sha\":\"$(json_esc "$sha")\",\"short\":\"$(json_esc "$short")\",\"author_name\":\"$(json_esc "$aname")\",\"author_email\":\"$(json_esc "$aemail")\",\"committed_at\":\"$(json_esc "$cat")\",\"message\":\"$(json_esc "$subj")\"}"
+      DB_ENTRIES="$DB_ENTRIES{\"sha\":\"$(json_esc "$sha")\",\"short\":\"$(json_esc "$short")\",\"committed_at\":\"$(json_esc "$cat")\",\"message\":\"$(json_esc "$subj")\"}"
     done <<< "$LOG"
     [ -n "$VJ_ENTRIES" ] && COMMITS_JSON="[$VJ_ENTRIES]"
     [ -n "$DB_ENTRIES" ] && COMMITS_FOR_DB="[$DB_ENTRIES]"

@@ -272,7 +272,7 @@ function getTemplatePreview(templateContent) {
     agreementStartDate: 'June 30, 2024',
     noticePeriod: '2 weeks',
     signingDate: 'February 6, 2026',
-    houseManager: 'Rahul Sonnad',
+    houseManager: 'YOUR_HOUSE_MANAGER',
     excludedWorkTypes: 'None specified',
     workSchedule: 'Flexible, coordinated with house manager',
     additionalTerms: 'Renter agrees to maintain the garden area.',
@@ -291,7 +291,7 @@ function getDefaultTemplate() {
 
 ---
 
-The following are the Terms of the Worktrade agreement between the Revocable Trust of Subhash Sonnad (dba the "YOUR_PROPERTY_NAME"), and the following individual, referred to as "renter":
+The following are the Terms of the Worktrade agreement between YOUR_LEGAL_ENTITY (dba "YOUR_PROPERTY_NAME"), and the following individual, referred to as "renter":
 
 **{{tenant_name}}**
 
@@ -377,8 +377,8 @@ Renter will be paid at the end of each month for any excess hours (beyond the va
 
 Signature: _________________________
 
-Rahul Sonnad - Revocable Trust of Subhash Sonnad - dba YOUR_PROPERTY_NAME
-123 Main Stive Your City TX 00000
+YOUR_AUTHORIZED_SIGNER - YOUR_LEGAL_ENTITY - dba YOUR_PROPERTY_NAME
+YOUR_PROPERTY_ADDRESS
 
 Date: _________________________
 

@@ -1,7 +1,7 @@
 # Secrets Management Guide
 
 > Cross-project guide for managing secrets with Bitwarden as source of truth.
-> Replicable across all projects (alpacapps, finleg, portsie, etc.)
+> Use only for the adopting project's own infrastructure.
 
 ## Architecture: 4-Tier Model
 

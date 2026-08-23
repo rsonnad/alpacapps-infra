@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "lastUpdated": "2026-04-12",
-  "templateRepo": "https://github.com/rsonnad/alpacapps-infra",
+  "templateRepo": "https://github.com/YOUR_ORG/alpacapps-infra",
   "updatesPage": "https://alpacaplayhouse.com/infra/updates.html",
-  "upgradeGuide": "https://raw.githubusercontent.com/rsonnad/alpacapps-infra/main/infra/infra-upgrade-guide.md",
+  "upgradeGuide": "https://raw.githubusercontent.com/YOUR_ORG/alpacapps-infra/main/infra/infra-upgrade-guide.md",
   "features": [
     {
       "id": "uipro",

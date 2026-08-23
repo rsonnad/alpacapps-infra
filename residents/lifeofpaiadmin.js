@@ -628,13 +628,13 @@ function resolveForPreview(template) {
   // All people at the Playhouse: residents + staff + admins + associates + past residents
   const residents = previewData.residents.length ? previewData.residents : [
     'Jon', 'Kymberly', 'Aseem', 'Safiyya', 'Ai', 'John', 'Rachel',
-    'Haydn', 'Rahul', 'Sonia', 'Donald', 'Jackie',
-    'Ivan', 'Oscar', 'Emina', 'Maya', 'Phoebe', 'Kathy', 'Rob', 'Matthew'
+    'Worker A', 'Worker B', 'Worker C', 'Worker D', 'Worker E',
+    'Worker F', 'Worker G', 'Worker H', 'Worker I', 'Worker J', 'Worker K', 'Worker L', 'Worker M'
   ];
   const vehicles = previewData.vehicles.length ? previewData.vehicles : ['Casper', 'Delphi', 'Cygnus', 'Sloop', 'Brisa Branca'];
   const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
-  const workers = previewData.workers.length ? previewData.workers : ['Jackie', 'Donald', 'Rahul', 'Haydn', 'Sonia'];
+  const workers = previewData.workers.length ? previewData.workers : ['Worker A', 'Worker B', 'Worker C', 'Worker D', 'Worker E'];
   const workSpaces = previewData.spaces.length ? previewData.spaces : ['Outhouse', 'Garage Mahal', 'Sparadise', 'Skyloft', 'Main House', 'Swim Spa'];
 
   return template

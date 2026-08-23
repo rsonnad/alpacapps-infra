@@ -154,7 +154,7 @@ The old HA Core instance on Almaca (192.168.1.200:8123) is still running as refe
 
 ## 2. Migration — Completed 2026-03-25
 
-HAOS successfully migrated from Rahul M4 Airtop to Alpuca (Mac mini M4).
+Document only project-specific local migrations in gitignored operator notes.
 
 ### What was done
 

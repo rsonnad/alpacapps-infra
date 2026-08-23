@@ -435,7 +435,7 @@ export const emailService = {
    * @param {Array} data.photos - Array of {url, type, caption}
    */
   async sendWorkCheckoutSummary(data) {
-    const recipients = [data.associate_email, 'alpacaplayhouse@gmail.com', 'alpacaautomatic@gmail.com'].filter(Boolean);
+    const recipients = [data.associate_email, window.APP_ADMIN_EMAIL, window.APP_AUTOMATION_EMAIL].filter(Boolean);
     return sendEmail(EMAIL_TYPES.WORK_CHECKOUT_SUMMARY, recipients, data);
   },
 
@@ -472,7 +472,7 @@ export const emailService = {
    * @param {Array} data.todo_list - [{title, priority, location, is_new}]
    */
   async sendTaskAssigned(email, data) {
-    const recipients = [email, 'alpacaplayhouse@gmail.com'].filter(Boolean);
+    const recipients = [email, window.APP_ADMIN_EMAIL].filter(Boolean);
     return sendEmail(EMAIL_TYPES.TASK_ASSIGNED, recipients, data);
   },
 
@@ -494,7 +494,7 @@ export const emailService = {
    * @param {string} [data.space_name] - Space/location name
    */
   async sendTimeEntryEdited(data) {
-    const recipients = [data.associate_email, 'alpacaplayhouse@gmail.com'].filter(Boolean);
+    const recipients = [data.associate_email, window.APP_ADMIN_EMAIL].filter(Boolean);
     return sendEmail(EMAIL_TYPES.TIME_ENTRY_EDITED, recipients, data);
   },
 

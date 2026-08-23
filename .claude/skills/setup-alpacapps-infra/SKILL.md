@@ -370,7 +370,7 @@ When Step 0 detects an existing setup, enter Add Mode instead of starting fresh.
 5. **If prune_mode was "full"**, restore files for newly added features from the template repo:
    ```bash
    # Fetch just the needed dirs from the template
-   git archive --remote=https://github.com/rsonnad/alpacapps-infra.git main -- <dirs> | tar -x
+   git archive --remote=https://github.com/YOUR_ORG/alpacapps-infra.git main -- <dirs> | tar -x
    ```
 6. **If prune_mode was "soft"**, remove newly added feature paths from `.claudeignore`.
 7. **Update `.setup-state.json`:**

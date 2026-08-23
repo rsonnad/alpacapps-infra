@@ -57,7 +57,7 @@
         └─────────────────────────────────┘</code></pre>
     </div></div></details><details><summary><span id="hosting-locations"></span>Hosting Locations</summary><div class="dv-section-body">
 <div class="dv-table-wrap"><table><thead><tr><th>Component</th><th>Host</th><th>URL/Location</th></tr></thead><tbody><tr><td>Admin UI</td><td>GitHub Pages</td><td>https://alpacaplayhouse.com/</td></tr>
-<tr><td>Source Code</td><td>GitHub</td><td>https://github.com/rsonnad/alpacapps</td></tr>
+<tr><td>Source Code</td><td>GitHub</td><td>https://github.com/YOUR_ORG/YOUR_REPOSITORY</td></tr>
 <tr><td>Database</td><td>Supabase</td><td>https://aphrrfprbixmhissnjfn.supabase.co</td></tr>
 <tr><td>Photo Storage</td><td>Supabase Storage</td><td>bucket: `housephotos`</td></tr>
 <tr><td>Lease Documents</td><td>Supabase Storage</td><td>bucket: `lease-documents`</td></tr>
@@ -1014,7 +1014,7 @@
 <h3><span id="signwell-e-signatures"></span>SignWell (E-Signatures)</h3>
 <ul>
 <li>API: <code>https://www.signwell.com/api/v1</code></li>
-<li>Account: <a href="mailto:wingsiebird@gmail.com">wingsiebird@gmail.com</a></li>
+<li>Account: configure in the adopting project's credential manager</li>
 <li>API key stored in <code>signwell_config</code> table</li>
 <li>Webhook: Supabase Edge Function at <code>/functions/v1/signwell-webhook</code></li>
 </ul>
@@ -1231,7 +1231,7 @@ Rich receipt with payment history, outstanding balance calculation, and &quot;Pa
 </ul>
 <h3><span id="resend-email-sending-receiving"></span>Resend (Email Sending &amp; Receiving)</h3>
 <ul>
-<li><strong>Account</strong>: <a href="mailto:wingsiebird@gmail.com">wingsiebird@gmail.com</a></li>
+<li><strong>Account</strong>: configure in the adopting project's credential manager</li>
 <li><strong>Domain</strong>: <code>alpacaplayhouse.com</code> (verified for both sending and receiving)</li>
 <li><strong>Region</strong>: North Virginia (us-east-1)</li>
 <li><strong>API</strong>: <code>https://api.resend.com</code></li>
@@ -1260,13 +1260,13 @@ Rich receipt with payment history, outstanding balance calculation, and &quot;Pa
 </ul>
 <p><strong>Inbound Email Routing Rules</strong> (<code>*@alpacaplayhouse.com</code>):
 All inbound emails are logged to the <code>inbound_emails</code> table, then routed by prefix:</p>
-<div class="dv-table-wrap"><table><thead><tr><th>Prefix</th><th>Action</th><th>Destination</th></tr></thead><tbody><tr><td>`haydn@`</td><td>Forward</td><td>`hrsonnad@gmail.com`</td></tr>
+<div class="dv-table-wrap"><table><thead><tr><th>Prefix</th><th>Action</th><th>Destination</th></tr></thead><tbody><tr><td>`support@`</td><td>Forward</td><td>`support@YOUR_DOMAIN`</td></tr>
 <tr><td>`rahulio@`</td><td>Forward</td><td>`{OWNER_EMAIL}`</td></tr>
-<tr><td>`sonia@`</td><td>Forward</td><td>`sonia245g@gmail.com`</td></tr>
-<tr><td>`team@`</td><td>Forward</td><td>`alpacaplayhouse@gmail.com`</td></tr>
+<tr><td>`billing@`</td><td>Forward</td><td>`billing@YOUR_DOMAIN`</td></tr>
+<tr><td>`team@`</td><td>Forward</td><td>`team@YOUR_DOMAIN`</td></tr>
 <tr><td>`herd@`</td><td>Special logic</td><td>Stub for future AI processing</td></tr>
 <tr><td>`auto@`</td><td>Special logic</td><td>Bug report replies create follow-up `bug_reports` row; other replies forwarded to admin</td></tr>
-<tr><td>(default)</td><td>Forward</td><td>`alpacaplayhouse@gmail.com`</td></tr></tbody></table></div><p><strong>Inbound Email Flow:</strong></p>
+<tr><td>(default)</td><td>Forward</td><td>`support@YOUR_DOMAIN`</td></tr></tbody></table></div><p><strong>Inbound Email Flow:</strong></p>
 <ol>
 <li>External sender emails <code>someone@alpacaplayhouse.com</code></li>
 <li>MX record routes to Resend (via <code>inbound-smtp.us-east-1.amazonaws.com</code>)</li>
@@ -1298,7 +1298,7 @@ All inbound emails are logged to the <code>inbound_emails</code> table, then rou
 </ul>
 <h3><span id="telnyx-sms-notifications"></span>Telnyx (SMS Notifications)</h3>
 <ul>
-<li><strong>Portal</strong>: <a href="https://portal.telnyx.com">https://portal.telnyx.com</a> (account: <a href="mailto:wingsiebird@gmail.com">wingsiebird@gmail.com</a>)</li>
+<li><strong>Portal</strong>: <a href="https://portal.telnyx.com">https://portal.telnyx.com</a> (account configured locally)</li>
 <li><strong>API Base</strong>: <code>https://api.telnyx.com/v2/messages</code></li>
 <li><strong>Auth</strong>: Bearer token — <code>Authorization: Bearer &lt;api_key&gt;</code> (NOT Basic auth like Twilio)</li>
 <li><strong>Phone Number</strong>: +17377474737</li>
@@ -1436,7 +1436,7 @@ Response: { &quot;data&quot;: { &quot;id&quot;: &quot;msg-uuid&quot;, &quot;to&q
 <li>Errors stored in <code>error_logs</code> table for analysis</li>
 <li>Daily digest email sent via <code>error-report</code> Edge Function</li>
 <li>Triggered automatically when users visit the consumer spaces page</li>
-<li>Recipient: <code>alpacaautomatic@gmail.com</code></li>
+<li>Recipient: <code>automation@YOUR_DOMAIN</code></li>
 </ul>
 <p><strong>Error Categories Tracked:</strong></p>
 <ul>
@@ -1460,11 +1460,9 @@ Response: { &quot;data&quot;: { &quot;id&quot;: &quot;msg-uuid&quot;, &quot;to&q
 <span class="dv-kw">GROUP</span> <span class="dv-kw">BY</span> category, code
 <span class="dv-kw">ORDER</span> <span class="dv-kw">BY</span> count DESC;</code></pre>
     </div></div></details><details><summary><span id="contacts-accounts"></span>Contacts &amp; Accounts</summary><div class="dv-section-body">
-<div class="dv-table-wrap"><table><thead><tr><th>Service</th><th>Account</th></tr></thead><tbody><tr><td>GitHub</td><td>rsonnad</td></tr>
-<tr><td>Supabase</td><td>(Rahul's account)</td></tr>
-<tr><td>Hostinger</td><td>alpacaplayhouse@gmail.com</td></tr>
-<tr><td>DigitalOcean</td><td>(Rahul's account) — DEPRECATED</td></tr>
-<tr><td>Oracle Cloud</td><td>wingsiebird@gmail.com (alpacapps-ops)</td></tr></tbody></table></div></div></details><details><summary><span id="recent-features"></span>Recent Features</summary><div class="dv-section-body">
+<div class="dv-table-wrap"><table><thead><tr><th>Service</th><th>Account</th></tr></thead><tbody><tr><td>GitHub</td><td>YOUR_GITHUB_ORG</td></tr>
+<tr><td>Supabase</td><td>YOUR_PROJECT_ACCOUNT</td></tr>
+<tr><td>Hosting</td><td>Configure for your project</td></tr></tbody></table></div></div></details><details><summary><span id="recent-features"></span>Recent Features</summary><div class="dv-section-body">
 <h3><span id="space-archiving"></span>Space Archiving</h3>
 <p>Spaces can be soft-deleted via archive/unarchive. Archived spaces have <code>is_archived = true</code> and are filtered out of all views.</p>
 <h3><span id="admin-ui-improvements"></span>Admin UI Improvements</h3>
@@ -1904,7 +1902,7 @@ EOF
         <button class="dv-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('cb-etfj0o').textContent).then(()=>{this.textContent='Copied!';this.classList.add('copied');setTimeout(()=>{this.textContent='Copy';this.classList.remove('copied')},1500)})">Copy</button>
       </div>
       <pre><code id="cb-etfj0o"><span class="dv-kw">cd</span> /opt/bug-fixer/repo
-<span class="dv-kw">git</span> remote set-url origin <span class="dv-kw">git</span>@github.com:rsonnad/alpacapps.<span class="dv-kw">git</span></code></pre>
+<span class="dv-kw">git</span> remote set-url origin <span class="dv-kw">git</span>@github.com:YOUR_ORG/YOUR_REPOSITORY.<span class="dv-kw">git</span></code></pre>
     </div></li>
 <li><p><strong>Git user config for commits:</strong> The worker commits as &quot;Bug Fixer Bot&quot;:</p>
 <div class="dv-code-wrap">
@@ -1947,7 +1945,7 @@ useradd -m -s /bin/bash bugfixer || true
 <span class="dv-kw">chown</span> bugfixer:bugfixer /opt/bug-fixer
 
 <span class=<span class="dv-str">"dv-cmt"</span>># Clone repo (as bugfixer user)</span>
-su - bugfixer -c &quot;<span class="dv-kw">git</span> clone <span class="dv-kw">git</span>@github.com:rsonnad/alpacapps.<span class="dv-kw">git</span> /opt/bug-fixer/repo&quot;
+su - bugfixer -c &quot;<span class="dv-kw">git</span> clone <span class="dv-kw">git</span>@github.com:YOUR_ORG/YOUR_REPOSITORY.<span class="dv-kw">git</span> /opt/bug-fixer/repo&quot;
 
 <span class=<span class="dv-str">"dv-cmt"</span>># Install dependencies</span>
 <span class="dv-kw">cd</span> /opt/bug-fixer
@@ -2036,7 +2034,7 @@ su - bugfixer -c &quot;<span class="dv-kw">cd</span> /opt/bug-fixer/repo &amp;&a
 </ul>
 </li>
 </ol>
-<p>All bug emails CC the admin (<code>alpacaautomatic@gmail.com</code>).</p>
+<p>Configure the project admin address in local settings.</p>
 <h3><span id="hosting-infrastructure"></span>Hosting &amp; Infrastructure</h3>
 <div class="dv-table-wrap"><table><thead><tr><th>Component</th><th>Location</th></tr></thead><tbody><tr><td>Chrome Extension</td><td>Local install (not published to Chrome Web Store)</td></tr>
 <tr><td>Bug Reports DB</td><td>Supabase `bug_reports` table</td></tr>

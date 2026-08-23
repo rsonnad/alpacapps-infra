@@ -176,7 +176,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 
 ### Resend (Email)
 - **Domain**: `YOUR_DOMAIN` (verified, sending + receiving)
-- **Account**: wingsiebird@gmail.com
+- **Account**: configure in the adopting project's credential manager
 - **API Key**: Stored as Supabase secret `RESEND_API_KEY`
 - **Webhook Secret**: Stored as Supabase secret `RESEND_WEBHOOK_SECRET` (SVIX-based)
 - **Outbound**: `send-email` Edge Function sends via Resend API (43 templates)
@@ -197,9 +197,9 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 **Inbound Email Routing** (`*@YOUR_DOMAIN`):
 | Prefix | Action | Destination |
 |--------|--------|-------------|
-| `haydn@` | Forward | `hUSERNAME@gmail.com` |
+| `support@` | Forward | `support@YOUR_DOMAIN` |
 | `rahulio@` | Forward | `{OWNER_EMAIL}` |
-| `sonia@` | Forward | `sonia245g@gmail.com` |
+| `billing@` | Forward | `billing@YOUR_DOMAIN` |
 | `team@` | Forward | `admin@YOUR_DOMAIN` |
 | `herd@` | Special logic | (stub — future AI processing) |
 | `auto@` | Special logic | Bug report replies → new bug report; others → admin |
@@ -477,7 +477,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **DB columns on spaces**: `airbnb_ical_url`, `airbnb_link`, `airbnb_rate`, `airbnb_blocked_dates`
 
 ### Cloudflare R2 (Object Storage)
-- **Account**: Cloudflare YOUR_APP_NAME (wingsiebird@gmail.com)
+- **Account**: Cloudflare YOUR_APP_NAME (configure locally)
 - **Bucket**: `your-app` (APAC region)
 - **S3 API**: `https://<account_id>.r2.cloudflarestorage.com`
 - **Public URL**: `https://pub-5a7344c4dab2467eb917ff4b897e066d.r2.dev`
@@ -493,4 +493,3 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 ### Google Drive (Legacy)
 - Rental agreements stored in a shared folder (legacy)
 - Not programmatically accessed
-

@@ -92,15 +92,5 @@ CREATE POLICY "Admins can delete grants"
     (SELECT role FROM app_users WHERE auth_user_id = auth.uid()) IN ('admin','oracle')
   );
 
--- Seed: migrate jackie/pages/permittingplan allowed users to grants
-INSERT INTO page_access_settings (page_path, visibility)
-VALUES ('/jackie/pages/permittingplan/index.html', 'private')
-ON CONFLICT (page_path) DO NOTHING;
-
-INSERT INTO page_access_grants (page_path, email) VALUES
-  ('/jackie/pages/permittingplan/index.html', 'jackie61899280@gmail.com'),
-  ('/jackie/pages/permittingplan/index.html', 'sheppardsustainable@gmail.com'),
-  ('/jackie/pages/permittingplan/index.html', '{OWNER_EMAIL}'),
-  ('/jackie/pages/permittingplan/index.html', 'dpmoden8888@gmail.com'),
-  ('/jackie/pages/permittingplan/index.html', 'justin.gilbertson1@gmail.com')
-ON CONFLICT (page_path, email) DO NOTHING;
+-- Do not seed source-project private pages or personal email grants. Each
+-- adopting project creates its own access settings after deployment.

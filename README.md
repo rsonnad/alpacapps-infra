@@ -54,7 +54,7 @@ A complete property management platform template. Clone it, run the setup wizard
 
 ```bash
 # 1. Clone this repo
-git clone https://github.com/rsonnad/alpacapps-infra.git my-project
+git clone https://github.com/YOUR_ORG/alpacapps-infra.git my-project
 cd my-project
 
 # 2. Open Claude Code
@@ -122,4 +122,3 @@ See [CUSTOMIZATION.md](CUSTOMIZATION.md) for details on branding, features, and 
 ## License
 
 MIT — see [LICENSE](LICENSE).
-

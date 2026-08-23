@@ -50,7 +50,7 @@
 
 Example:
 
-- Real: `Rahul Sonnad`  
+- Real: `YOUR_DEMO_OPERATOR`
 - Demo: **R▇h▇l S▇n▇a▇** (fake name + black boxes every 3rd character, bold/boxy font).
 
 ---

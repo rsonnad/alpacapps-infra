@@ -482,7 +482,7 @@ const DEFAULT_RENTER_WAIVER = `# WAIVER OF LIABILITY, ASSUMPTION OF RISK, AND IN
 
 ---
 
-**Property Owner:** Revocable Trust of Subhash Sonnad ("Owner")
+**Property Owner:** YOUR_LEGAL_ENTITY ("Owner")
 **Property Address:** 123 Main Stive, Your City, Texas 00000
 
 **Resident/Renter:** {{tenant_name}} ("Participant")
@@ -525,7 +525,7 @@ I represent and warrant that I am physically fit and sufficiently healthy to par
 
 ## 5. WAIVER AND RELEASE OF LIABILITY
 
-**TO THE FULLEST EXTENT PERMITTED BY TEXAS LAW, I HEREBY RELEASE, WAIVE, DISCHARGE, AND COVENANT NOT TO SUE** the Revocable Trust of Subhash Sonnad, its trustees, agents, employees, representatives, successors, and assigns (collectively, the "Released Parties") from **any and all liability, claims, demands, causes of action, costs, and expenses** (including attorneys' fees) arising out of or related to any loss, damage, or injury, including death, that may be sustained by me, or to any property belonging to me, **WHETHER CAUSED BY THE NEGLIGENCE OF THE RELEASED PARTIES OR OTHERWISE,** while participating in or using the facilities and amenities at 123 Main Stive, Your City, Texas 00000.
+**TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, I HEREBY RELEASE, WAIVE, DISCHARGE, AND COVENANT NOT TO SUE** YOUR_LEGAL_ENTITY, its trustees, agents, employees, representatives, successors, and assigns (collectively, the "Released Parties") from **any and all liability, claims, demands, causes of action, costs, and expenses** (including attorneys' fees) arising out of or related to any loss, damage, or injury, including death, that may be sustained by me, or to any property belonging to me, **WHETHER CAUSED BY THE NEGLIGENCE OF THE RELEASED PARTIES OR OTHERWISE,** while participating in or using the facilities and amenities at YOUR_PROPERTY_ADDRESS.
 
 ## 6. INDEMNIFICATION
 
@@ -574,7 +574,7 @@ const DEFAULT_EVENT_WAIVER = `# WAIVER OF LIABILITY, ASSUMPTION OF RISK, AND IND
 
 ---
 
-**Property Owner:** Revocable Trust of Subhash Sonnad ("Owner")
+**Property Owner:** YOUR_LEGAL_ENTITY ("Owner")
 **Property Address:** 123 Main Stive, Your City, Texas 00000
 
 **Guest/Attendee:** {{client_name}} ("Participant")
@@ -620,7 +620,7 @@ I represent and warrant that I am physically fit and sufficiently healthy to par
 
 ## 5. WAIVER AND RELEASE OF LIABILITY
 
-**TO THE FULLEST EXTENT PERMITTED BY TEXAS LAW, I HEREBY RELEASE, WAIVE, DISCHARGE, AND COVENANT NOT TO SUE** the Revocable Trust of Subhash Sonnad, its trustees, agents, employees, representatives, event hosts, event organizers, successors, and assigns (collectively, the "Released Parties") from **any and all liability, claims, demands, causes of action, costs, and expenses** (including attorneys' fees) arising out of or related to any loss, damage, or injury, including death, that may be sustained by me, or to any property belonging to me, **WHETHER CAUSED BY THE NEGLIGENCE OF THE RELEASED PARTIES OR OTHERWISE,** while present at or using the facilities and amenities at 123 Main Stive, Your City, Texas 00000.
+**TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, I HEREBY RELEASE, WAIVE, DISCHARGE, AND COVENANT NOT TO SUE** YOUR_LEGAL_ENTITY, its trustees, agents, employees, representatives, event hosts, event organizers, successors, and assigns (collectively, the "Released Parties") from **any and all liability, claims, demands, causes of action, costs, and expenses** (including attorneys' fees) arising out of or related to any loss, damage, or injury, including death, that may be sustained by me, or to any property belonging to me, **WHETHER CAUSED BY THE NEGLIGENCE OF THE RELEASED PARTIES OR OTHERWISE,** while present at or using the facilities and amenities at YOUR_PROPERTY_ADDRESS.
 
 ## 6. INDEMNIFICATION
 

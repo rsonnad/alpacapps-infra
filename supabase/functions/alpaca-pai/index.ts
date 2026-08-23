@@ -4023,7 +4023,7 @@ async function checkMonthlySpendAlert(
       },
       body: JSON.stringify({
         type: "custom",
-        to: "alpacaautomatic@gmail.com",
+        to: Deno.env.get("ADMIN_EMAIL") || "admin@YOUR_DOMAIN",
         subject: `⚠️ PAI API spend alert: $${totalSpend.toFixed(2)} this month`,
         data: {
           html: `

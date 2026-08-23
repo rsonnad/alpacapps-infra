@@ -159,7 +159,7 @@ await supabaseAdmin.from('api_usage_log').insert({
 <h3><span id="resend-email"></span>Resend (Email)</h3>
 <ul>
 <li><strong>Domain</strong>: <code>alpacaplayhouse.com</code> (verified, sending + receiving)</li>
-<li><strong>Account</strong>: <a href="mailto:wingsiebird@gmail.com">wingsiebird@gmail.com</a></li>
+<li><strong>Account</strong>: configure in the adopting project's credential manager</li>
 <li><strong>API Key</strong>: Stored as Supabase secret <code>RESEND_API_KEY</code></li>
 <li><strong>Webhook Secret</strong>: Stored as Supabase secret <code>RESEND_WEBHOOK_SECRET</code> (SVIX-based)</li>
 <li><strong>Outbound</strong>: <code>send-email</code> Edge Function sends via Resend API (43 templates)<ul>
@@ -183,14 +183,14 @@ await supabaseAdmin.from('api_usage_log').insert({
 <li>TXT <code>resend._domainkey</code> → DKIM record</li>
 </ul>
 <p><strong>Inbound Email Routing</strong> (<code>*@alpacaplayhouse.com</code>):</p>
-<div class="dv-table-wrap"><table><thead><tr><th>Prefix</th><th>Action</th><th>Destination</th></tr></thead><tbody><tr><td>`haydn@`</td><td>Forward</td><td>`hrsonnad@gmail.com`</td></tr>
+<div class="dv-table-wrap"><table><thead><tr><th>Prefix</th><th>Action</th><th>Destination</th></tr></thead><tbody><tr><td>`support@`</td><td>Forward</td><td>`support@YOUR_DOMAIN`</td></tr>
 <tr><td>`rahulio@`</td><td>Forward</td><td>`{OWNER_EMAIL}`</td></tr>
-<tr><td>`sonia@`</td><td>Forward</td><td>`sonia245g@gmail.com`</td></tr>
-<tr><td>`team@`</td><td>Forward</td><td>`alpacaplayhouse@gmail.com`</td></tr>
+<tr><td>`billing@`</td><td>Forward</td><td>`billing@YOUR_DOMAIN`</td></tr>
+<tr><td>`team@`</td><td>Forward</td><td>`team@YOUR_DOMAIN`</td></tr>
 <tr><td>`herd@`</td><td>Special logic</td><td>(stub — future AI processing)</td></tr>
 <tr><td>`auto@`</td><td>Special logic</td><td>Bug report replies → new bug report; others → admin</td></tr>
 <tr><td>`pai@`</td><td>Special logic</td><td>Gemini classifies → questions/commands get PAI reply; documents uploaded to R2; other forwarded to admin</td></tr>
-<tr><td>Everything else</td><td>Forward</td><td>`alpacaplayhouse@gmail.com`</td></tr></tbody></table></div><h3><span id="telnyx-sms"></span>Telnyx (SMS)</h3>
+<tr><td>Everything else</td><td>Forward</td><td>`support@YOUR_DOMAIN`</td></tr></tbody></table></div><h3><span id="telnyx-sms"></span>Telnyx (SMS)</h3>
 <ul>
 <li>Config stored in <code>telnyx_config</code> table (api_key, messaging_profile_id, phone_number, test_mode)</li>
 <li>Outbound: <code>send-sms</code> Edge Function calls Telnyx Messages API</li>
@@ -348,7 +348,7 @@ await supabaseAdmin.from('api_usage_log').insert({
 <li><strong>DB:</strong> <code>camera_streams</code> table stores stream config (stream_name, proxy_base_url, quality, location)</li>
 <li><strong>Client:</strong> <code>residents/cameras.js</code> loads streams from DB, plays via HLS.js with fMP4 mode (<code>&amp;mp4</code> parameter)</li>
 <li><strong>PTZ:</strong> UniFi Protect API — continuous move at <code>POST /proxy/protect/api/cameras/{id}/move</code>, presets at <code>POST .../ptz/goto/{slot}</code></li>
-<li><strong>CORS:</strong> Caddy strips go2rtc&#39;s CORS headers, adds origin-specific ones for <code>rsonnad.github.io</code> and <code>alpacaplayhouse.com</code></li>
+<li><strong>CORS:</strong> Configure origin-specific CORS headers for the adopting project's domains.</li>
 <li><strong>Launchd:</strong> <code>com.go2rtc</code> service (KeepAlive + RunAtLoad)</li>
 <li><strong>Full docs:</strong> <code>HOMEAUTOMATION.md</code></li>
 </ul>
@@ -488,7 +488,7 @@ await supabaseAdmin.from('api_usage_log').insert({
 </ul>
 <h3><span id="cloudflare-r2-object-storage"></span>Cloudflare R2 (Object Storage)</h3>
 <ul>
-<li><strong>Account</strong>: Cloudflare AlpacApps (<a href="mailto:wingsiebird@gmail.com">wingsiebird@gmail.com</a>)</li>
+<li><strong>Account</strong>: configure the Cloudflare project account locally</li>
 <li><strong>Bucket</strong>: <code>alpacapps</code> (APAC region)</li>
 <li><strong>S3 API</strong>: <code>https://&lt;account_id&gt;.r2.cloudflarestorage.com</code></li>
 <li><strong>Public URL</strong>: <code>https://pub-5a7344c4dab2467eb917ff4b897e066d.r2.dev</code></li>

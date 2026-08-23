@@ -172,7 +172,7 @@ async function createDocument(pdfUrl, recipientEmail, recipientName, options = {
     recipients: [
       {
         id: '1',
-        name: 'Rahul Sonnad',
+        name: 'YOUR_AUTHORIZED_SIGNER',
         email: 'admin@YOUR_DOMAIN',
         role: 'Landlord',
       },

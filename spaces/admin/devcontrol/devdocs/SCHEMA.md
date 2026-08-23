@@ -19,7 +19,7 @@ spaces.location           - Matches residence_location for filtering
 NOTE: Sharingwood is a SEPARATE tax entity from Alpaca Playhouse.
       AlpacApps only manages late rent email tracking for Sharingwood.
       Accounting is handled elsewhere (Finleg). Forward payment notifications
-      to agent@finleg.net.
+      to the adopting project's configured accounting contact.
 ```
 
 ### Media System (New - use this, not legacy photos)
@@ -459,4 +459,3 @@ When user asks about property data, query via Management API. Route by topic:
 | Property settings, address | `property_config` | `id=1` (singleton) | JSONB blob |
 | Brand colors, logos | `brand_config` | `id=1` (singleton) | JSONB blob |
 | Amazon purchases, electronics | `amazon_orders` | `product_name ILIKE '%...'` | Search by ASIN or product name |
-

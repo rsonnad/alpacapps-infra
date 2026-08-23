@@ -53,7 +53,7 @@ Deno.serve(async (req) => {
       staff,
     } = payload;
 
-    const ADMIN_EMAIL = 'alpacaplayhouse@gmail.com';
+    const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'admin@YOUR_DOMAIN';
     const results: string[] = [];
 
     // 1. Send admin notification

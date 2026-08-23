@@ -38,7 +38,7 @@ CREATE POLICY "Authenticated users can insert media" ON media
 INSERT INTO associate_profiles (app_user_id, hourly_rate)
 SELECT id, 0
 FROM app_users
-WHERE email = 'jackie61899280@gmail.com'
+WHERE email = 'associate@YOUR_DOMAIN'
   AND NOT EXISTS (
     SELECT 1 FROM associate_profiles WHERE app_user_id = app_users.id
   );

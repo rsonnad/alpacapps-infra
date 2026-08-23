@@ -1,7 +1,7 @@
 ## Project Identity Check
 
-This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **sponic** and the request doesn't match this project, **STOP** and warn:
-> "You mentioned **{keyword}** but this session is in **alpacapps-infra**. Did you mean to run this in the other project?"
+This is **alpacapps-infra**, a generic project template. Do not inherit any
+source-project identity, credentials, domains, people, or infrastructure.
 
 # [Your Project Name] — Project Directives
 
@@ -43,5 +43,5 @@ This is **alpacapps-infra**. If the user mentions **finleg**, **portsie**, or **
 - **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | Cloudflare Pages
 - **Live:** https://YOUR_PROJECT.pages.dev/ (or custom domain)
 - **Architecture:** Browser → Cloudflare Pages → Supabase (no server-side code)
-- **Template repo:** https://github.com/rsonnad/alpacapps-infra
+- **Template repo:** the repository from which this project was generated
 - **Upgrade guide:** `infra/infra-upgrade-guide.md`

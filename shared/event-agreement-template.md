@@ -4,7 +4,7 @@
 
 ---
 
-This Rental Agreement (hereinafter, "Agreement") is made by and between the Revocable Trust of Subhash Sonnad (dba YOUR_PROPERTY_NAME), (hereinafter, "Company"), and the person(s)/company/organization renting the venue (hereinafter, "Client" or "Renter"), **{{client_name}}**.
+This Rental Agreement (hereinafter, "Agreement") is made by and between YOUR_LEGAL_ENTITY (dba YOUR_PROPERTY_NAME), (hereinafter, "Company"), and the person(s)/company/organization renting the venue (hereinafter, "Client" or "Renter"), **{{client_name}}**.
 
 - **Email:** {{client_email}}
 - **Phone:** {{client_phone}}
@@ -114,7 +114,7 @@ This Agreement may be executed in one or more counterparts, each of which shall 
 |                          | **Owner's Signature**                           |
 |--------------------------|------------------------------------------------|
 |                          |                                                |
-| **{{client_name}}**      | Rahul Sonnad                                   |
+| **{{client_name}}**      | YOUR_AUTHORIZED_SIGNER                         |
 | Date:                    | Date:                                          |
 |                          | Administrator Austin YOUR_PROPERTY_NAME          |
 | Address                  | 123 Main St DR                            |
