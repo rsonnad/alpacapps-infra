@@ -1,7 +1,8 @@
--- Save AlpacAppsPay sandbox credentials (Merchant type app)
+-- Do not commit sandbox credentials. Configure them through the approved
+-- runtime secret store after migration.
 UPDATE paypal_config SET
-  sandbox_client_id = 'AWWEekmOcpfVoypOACdRbNIwZMROPPjw_pAgU-GxZAszMMKwdScRwpmXLYMOF6YW2PNFT7N2ugBcKQTG',
-  sandbox_client_secret = 'EDRtBcqCOBdZMrtBr5voMST7Kj6aVO_xmqWmKXkeXWt4Sc1559cI79WR7vn2czmQuSAmuKmRfHvafZ9N',
+  sandbox_client_id = NULL,
+  sandbox_client_secret = NULL,
   test_mode = true,
   is_active = true,
   updated_at = now()

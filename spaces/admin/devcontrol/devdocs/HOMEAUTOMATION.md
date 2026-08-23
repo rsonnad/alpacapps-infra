@@ -105,14 +105,14 @@ alpuca ha <endpoint> '<json>' # Raw Home Assistant service call
 | **Web UI** | http://192.168.1.39:8123 |
 | **Login** | `alpacaadmin` / `playhouse` |
 | **Host Machine** | Alpuca — Mac mini M4 (Apple Silicon), 24 GB RAM |
-| **Host IP** | `192.168.1.200` |
-| **Host SSH** | `ssh alpuca@192.168.1.200` (key auth — see §0 below) |
-| **Hypervisor** | Raw QEMU with `vmnet-bridged` on en1 (NOT UTM — UTM can't do bridged networking in QEMU mode) |
-| **Start Script** | `sudo ~/homeassistant-vm/start-ha.sh` |
-| **Auto-start** | LaunchDaemon at `/Library/LaunchDaemons/com.alpacapps.homeassistant-vm.plist` |
-| **Migrated from** | Rahul M4 Airtop (2026-03-25) |
-| **API Token (long-lived)** | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxN2FlNmMyNTdhYWY0NGMxODBjZmMxOWU3ZDBiZWExMiIsImlhdCI6MTc3NDE1NTUzNSwiZXhwIjoyMDg5NTE1NTM1fQ.MdIZq95i9pJBKuKxn_aeyrK1O55JbMhsgtnM7GcTkXQ` |
-| **Token Name** | `claude-automation` |
+| **Host IP** | Configure locally; never commit it |
+| **Host SSH** | Configure locally; use key authentication |
+| **Hypervisor** | Choose for the operator's environment |
+| **Start Script** | Store in local operator documentation |
+| **Auto-start** | Store in local operator documentation |
+| **Migration details** | Project-specific; do not commit personal device history |
+| **API Token** | Store only in the approved credential manager |
+| **Token Name** | Choose a project-specific name |
 
 ### API Usage
 

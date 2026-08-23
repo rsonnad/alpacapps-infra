@@ -21,7 +21,7 @@ cp package.json "$INSTALL_DIR/"
 if [ ! -f "$INSTALL_DIR/.env" ]; then
   cat > "$INSTALL_DIR/.env" <<'EOF'
 SUPABASE_URL=YOUR_SUPABASE_URL
-SUPABASE_SERVICE_ROLE_KEY=<paste-service-role-key>
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY
 POLL_INTERVAL_MS=30000
 API_DELAY_MS=1000
 # FCM push notifications (optional - set up Firebase first)
