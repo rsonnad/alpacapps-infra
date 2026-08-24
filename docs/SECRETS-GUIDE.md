@@ -6,7 +6,7 @@ financial records, account inventories, or device-specific instructions.
 
 ## Safe pattern
 
-1. Create a vault or collection named `DevOps-your-project`.
+1. Create a vault or collection named after your own project.
 2. Store service credentials only in that vault.
 3. Keep local credential references in a gitignored file such as
    `docs/CREDENTIALS.md`.

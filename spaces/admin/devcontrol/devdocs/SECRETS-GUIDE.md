@@ -19,10 +19,13 @@ DB Row-Level Secrets (per-account tokens in config tables)
 
 ## Vault Naming Convention
 
+One Bitwarden folder named after **your own project**, holding every secret for
+this build and nothing else.
+
 | Pattern | Example | Contents |
 |---------|---------|----------|
-| `DevOps-{project}` | `DevOps-alpacapps` | API keys, OAuth, bot tokens, server access for one project |
-| `DevOps-shared` | `DevOps-shared` | Cross-project infra (Cloudflare, R2, domain registrars) |
+| `{project}` | `my-project` | API keys, OAuth, bot tokens, server access for this project |
+| `{project}-shared` | `my-project-shared` | Infra shared across your own projects (Cloudflare, R2, registrars) |
 
 ## Item Structure
 
@@ -79,7 +82,7 @@ sshpass -p "$(bw-read "Hostinger VPS — OpenClaw Server")" ssh root@host
 
 ## Setting Up a New Project
 
-1. **Create folder:** `DevOps-{project}` in Bitwarden
+1. **Create folder:** one named after your own project in Bitwarden
 2. **Add items:** Follow the structure patterns above
 3. **Create CREDENTIALS.md:** Use `bw-read` references (never plaintext)
 4. **Supabase secrets:** `supabase secrets set KEY=$(bw-read "Item" "Field")`

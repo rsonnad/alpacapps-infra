@@ -7,7 +7,7 @@ counts, Keychain item names, local paths, or credentials from another project.
 ## Project setup
 
 1. Create a project-specific Bitwarden organization or collection, for example
-   `DevOps-your-project`.
+   named after your own project.
 2. Store every password, recovery code, API token, OAuth secret, and SSH
    credential there.
 3. Install the Bitwarden CLI using the vendor's current instructions.
