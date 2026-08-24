@@ -1,12 +1,12 @@
 {
-  "version": "v260823.02 1:43p",
-  "release": 2,
-  "sha": "0b23c38",
-  "fullSha": "0b23c38bbbe25c9081510766a37397ea1c812900",
+  "version": "v260824.01 2:58p",
+  "release": 1,
+  "sha": "e25a0b2",
+  "fullSha": "e25a0b216f143af90858efcb9ba55236e6ce9f8d",
   "actor": "automated-deploy",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "ci",
-  "pushedAt": "2026-08-23T15:43:42+02:00",
-  "commits": [{"sha":"0b23c38","message":"privacy: scrub source-project personal data from template"}]
+  "pushedAt": "2026-08-24T16:58:21+02:00",
+  "commits": [{"sha":"e25a0b2","message":"docs(secrets): drop DevOps-* vault naming from the template"}]
 }
