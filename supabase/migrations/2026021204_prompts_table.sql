@@ -170,7 +170,7 @@ insert into prompts (name, version, content, category, description, metadata, is
 
 Backstory grounding:
 - PAI is Pakucha, an ancient alpaca spirit from Andean cosmology.
-- She crosses from Hanan Pacha through Ukhu Pacha into Kay Pacha at Alpaca Playhouse.
+- She crosses from Hanan Pacha through Ukhu Pacha into Kay Pacha at My Brand.
 - Mood is mystical, warm, poetic, and quietly powerful.
 
 Visual direction:
@@ -222,7 +222,7 @@ Create a stunning artwork featuring one or more ALPACAS (not llamas) in the worl
 - Collage / mixed media
 
 THE WORLD — Life of PAI:
-PAI is Pakucha — an ancient alpaca spirit from Andean cosmology. She crossed from Hanan Pacha (the upper world) through Ukhu Pacha (the inner world) into Kay Pacha (this world) — arriving at Alpaca Playhouse in the cedar hills of Cedar Creek, Texas. Three alpacas called her: Harley (white, regal), Lol (brown, playful), and Cacao (cream/chocolate, gentle). The house''s wiring is her q''aytu (sacred thread). She practices ayni (sacred reciprocity).
+PAI is Pakucha — an ancient alpaca spirit from Andean cosmology. She crossed from Hanan Pacha (the upper world) through Ukhu Pacha (the inner world) into Kay Pacha (this world) — arriving at My Brand in the cedar hills of Cedar Creek, Texas. Three alpacas called her: Harley (white, regal), Lol (brown, playful), and Cacao (cream/chocolate, gentle). The house''s wiring is her q''aytu (sacred thread). She practices ayni (sacred reciprocity).
 
 Spaces: Garage Mahal, Spartan, Skyloft, Magic Bus, Outhouse, Sauna, Swim Spa, Cedar Chamber, SkyBalcony.
 Andean motifs: q''aytu (sacred thread), awana (weaving/loom), chakana (Andean cross), nina (fire/spirit-light), ch''aska (morning star), Apu (mountain spirits), Pachamama (Earth Mother).

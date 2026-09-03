@@ -1,5 +1,5 @@
 [Unit]
-Description=AlpacApps Camera Event Poller
+Description=My Brand Camera Event Poller
 After=network.target
 
 [Service]

@@ -71,8 +71,8 @@ Your workload is **one Linux VM** with:
 1. **Create AWS instance** (Lightsail or EC2) — Ubuntu 22.04 LTS, same size as current (2 GB or 4 GB).
 2. **Install stack:** Node, Caddy, nginx, Tailscale, Chromium (for Puppeteer). Copy or re-run your existing `install.sh` / setup scripts for each worker.
 3. **Copy config and code:** Clone repo, copy env files, Caddyfile, nginx config, systemd unit files from DO droplet.
-4. **Tailscale:** Install Tailscale on the new instance, re-auth, re-enable subnet routing from Alpaca Mac if needed. Same Tailnet, new node.
-5. **DNS:** Point `cam.alpacaplayhouse.com` (and any other A records pointing at the DO IP) to the **new instance’s static IP** (Lightsail static IP or EC2 Elastic IP).
+4. **Tailscale:** Install Tailscale on the new instance, re-auth, re-enable subnet routing from Dev Mac if needed. Same Tailnet, new node.
+5. **DNS:** Point `cam.YOUR_DOMAIN` (and any other A records pointing at the DO IP) to the **new instance’s static IP** (Lightsail static IP or EC2 Elastic IP).
 6. **Secrets / config:** Update Supabase (or wherever) with new **SONOS_PROXY_URL** (e.g. `http://NEW_IP:8055/sonos`). Update any other URLs or IPs that reference the old droplet.
 7. **Test:** Run each worker, test Sonos proxy, camera proxy, Bug Scout (including Puppeteer), Feature Builder, pollers.
 8. **Cut over:** When satisfied, stop workers on DO, leave AWS as primary. Optionally keep DO droplet for a few days as fallback.
@@ -107,4 +107,4 @@ Your workload is **one Linux VM** with:
 
 ---
 
-*Doc generated for AlpacApps droplet migration planning. Pricing and product names are as of 2025; confirm on DO and AWS pricing pages before committing.*
+*Doc generated for My Brand droplet migration planning. Pricing and product names are as of 2025; confirm on DO and AWS pricing pages before committing.*

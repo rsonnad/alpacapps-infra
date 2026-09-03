@@ -32,7 +32,7 @@ const FALLBACK_CONFIG: Record<string, any> = {
   },
   payment: {
     zelle_email: "admin@YOUR_DOMAIN",
-    venmo_handle: "@PropertyPlayhouse",
+    venmo_handle: "@Propertyproperty",
   },
   ai_assistant: {
     name: "PAI",

@@ -175,26 +175,26 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 5. `agreement_status` updated to "signed"
 
 ### Resend (Email)
-- **Domain**: `alpacaplayhouse.com` (verified, sending + receiving)
+- **Domain**: `YOUR_DOMAIN` (verified, sending + receiving)
 - **Account**: configure in the adopting project's credential manager
 - **API Key**: Stored as Supabase secret `RESEND_API_KEY`
 - **Webhook Secret**: Stored as Supabase secret `RESEND_WEBHOOK_SECRET` (SVIX-based)
 - **Outbound**: `send-email` Edge Function sends via Resend API (43 templates)
-  - From: `notifications@alpacaplayhouse.com` (forwarded emails) or `noreply@alpacaplayhouse.com` (system emails)
+  - From: `notifications@YOUR_DOMAIN` (forwarded emails) or `noreply@YOUR_DOMAIN` (system emails)
   - Client service: `shared/email-service.js`
 - **Inbound**: `resend-inbound-webhook` Edge Function (deployed with `--no-verify-jwt`)
-  - Webhook URL: `https://aphrrfprbixmhissnjfn.supabase.co/functions/v1/resend-inbound-webhook`
+  - Webhook URL: `https://YOUR_PROJECT_REF.supabase.co/functions/v1/resend-inbound-webhook`
   - Event: `email.received`
   - All inbound emails logged to `inbound_emails` table
   - Webhook payload doesn't include body — fetched separately via Resend API
 
-**DNS Records** (GoDaddy, domain: `alpacaplayhouse.com`):
+**DNS Records** (GoDaddy, domain: `YOUR_DOMAIN`):
 - MX `@` → `inbound-smtp.us-east-1.amazonaws.com` (priority 10) — inbound receiving
 - MX `send` → `feedback-smtp.us-east-1.amazonses.com` (priority 10) — SPF for outbound
 - TXT `send` → SPF record for outbound
 - TXT `resend._domainkey` → DKIM record
 
-**Inbound Email Routing** (`*@alpacaplayhouse.com`):
+**Inbound Email Routing** (`*@YOUR_DOMAIN`):
 | Prefix | Action | Destination |
 |--------|--------|-------------|
 | `support@` | Forward | `support@YOUR_DOMAIN` |
@@ -214,8 +214,8 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - Admin UI: Settings tab has test mode toggle, compose SMS, bulk SMS, inbound SMS view
 
 ### Hostinger VPS (OpenClaw Server)
-- **URL:** https://alpaclaw.cloud (domain: `alpaclaw.cloud`, auto-HTTPS via Caddy + Let's Encrypt)
-- **IP:** `93.188.164.224` | **SSH:** use password file: `sshpass -f ~/.ssh/alpacapps-hostinger.pass ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no root@93.188.164.224` (key auth broken on Hostinger; see CLAUDE.local.md for setup)
+- **URL:** https://ai-assistant.cloud (domain: `ai-assistant.cloud`, auto-HTTPS via Caddy + Let's Encrypt)
+- **IP:** `93.188.164.224` | **SSH:** use password file: `sshpass -f ~/.ssh/my-brand-hostinger.pass ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no root@93.188.164.224` (key auth broken on Hostinger; see CLAUDE.local.md for setup)
 - **OS:** Ubuntu 24.04, KVM 4, 15 GB RAM, 200 GB disk
 - **Docker:** OpenClaw v2026.2.23 chatbot gateway (multi-channel: Discord, WhatsApp, Telegram, Slack)
 - **Docker Compose:** `/docker/openclaw-vnfd/docker-compose.yml` with `.env` file
@@ -228,9 +228,9 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **IMPORTANT:** OpenClaw's `server.mjs` overwrites config on restart. `.env` sets tokens but does NOT auto-enable Discord — must use `openclaw config set` CLI inside container after recreation.
 - **Channels enabled:** Discord (Alpaclaw bot), Telegram
 - **Discord Bot:** Alpaclaw (ID: `1476649970823335998`) — DM policy: open, allowFrom: `["*"]`
-- **Multi-agent routing:** 2 agents (Alpaclaw 🦙 + PAI 🧠), channel-based bindings route `#alpaclaw` → Alpaclaw, `#pai-in-the-sky` → PAI, DMs → Alpaclaw
+- **Multi-agent routing:** 2 agents (Alpaclaw 🦙 + PAI 🧠), channel-based bindings route `#ai-assistant` → Alpaclaw, `#pai-in-the-sky` → PAI, DMs → Alpaclaw
 - **Discord Server:** Alpacord (ID: `1471023710755487867`)
-- **Discord Channels:** `#alpaclaw` (ID: `1477048544501174474`), `#pai-in-the-sky` (ID: `1471024050343247894`)
+- **Discord Channels:** `#ai-assistant` (ID: `1477048544501174474`), `#pai-in-the-sky` (ID: `1471024050343247894`)
 - **Credentials:** See `CLAUDE.local.md` for SSH password, API tokens, bot tokens, full `.env` contents
 
 ### DigitalOcean Droplet (DEPRECATED — migrating to Hostinger + Oracle)
@@ -244,19 +244,19 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 
 ### Spotify (Music Integration)
 - **API**: Spotify Web API + Authorization Code Flow with PKCE
-- **App**: AlpacApps (Development mode)
+- **App**: My Brand (Development mode)
 - **Dashboard**: https://developer.spotify.com/dashboard
 - **Config**: `spotify_config` table (client_id, client_secret, tokens)
-- **Redirect URIs**: `http://127.0.0.1:8080` (local dev), `https://alpacaplayhouse.com/auth/spotify/callback` (production)
+- **Redirect URIs**: `http://127.0.0.1:8080` (local dev), `https://YOUR_DOMAIN/auth/spotify/callback` (production)
 - **Scopes**: TBD (will need `user-read-playback-state`, `user-modify-playback-state`, etc.)
 - **DB**: `spotify_config` (single row, id=1)
 
 ### Home Automation (Sonos, UniFi, Cameras)
 - Full documentation in `HOMEAUTOMATION.md`
 - Credentials and IPs in `HOMEAUTOMATION.local.md`
-- Alpaca Mac (home server) bridges Hostinger/Oracle nodes to local LAN via Tailscale
+- Dev Mac (home server) bridges Hostinger/Oracle nodes to local LAN via Tailscale
 - Sonos HTTP API on port 5005 remains for announce + EQ fallback path
-- Music Assistant on Alpaca Mac port 8095 is the primary Sonos control plane
+- Music Assistant on Dev Mac port 8095 is the primary Sonos control plane
 - Edge adapter mapping: `docs/music-assistant-api-mapping.md`
 - UniFi Network API on UDM Pro port 443: firewall, DHCP, WiFi management
 - 12 Sonos zones controllable via `http://<alpaca-tailscale-ip>:5005/{room}/{action}`
@@ -271,7 +271,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Traits used**: Temperature, Humidity, ThermostatMode, ThermostatHvac, ThermostatEco, ThermostatTemperatureSetpoint, Connectivity
 - **Temperature**: SDM API uses Celsius, UI shows Fahrenheit, edge function converts
 - **Rate limit**: 5 QPS per SDM project (polling at 0.1 QPS is well within limit)
-- **OAuth setup**: One-time admin flow via Climate tab Settings → "Authorize Google Account". If you get Error 400 redirect_uri_mismatch, add `https://alpacaplayhouse.com/residents/climate.html` to the OAuth client's Authorized redirect URIs in Google Cloud Console (APIs & Services → Credentials).
+- **OAuth setup**: One-time admin flow via Climate tab Settings → "Authorize Google Account". If you get Error 400 redirect_uri_mismatch, add `https://YOUR_DOMAIN/residents/climate.html` to the OAuth client's Authorized redirect URIs in Google Cloud Console (APIs & Services → Credentials).
 
 ### OpenWeatherMap (Weather)
 - **API**: One Call API 3.0 (with 2.5 free tier fallback)
@@ -285,7 +285,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Auth**: `X-Subscription-Token` header with API key
 - **Supabase Secret**: `BRAVE_API_KEY`
 - **Purpose**: Real-time web search for PAI — answers questions about current events, local info, businesses, prices, and anything not in the property knowledge base
-- **Used by**: `alpaca-pai` edge function (PAI chat + voice) as a dedicated `search_web` tool
+- **Used by**: `pai` edge function (PAI chat + voice) as a dedicated `search_web` tool
 - **Why not Google**: Gemini's built-in `google_search` tool is limited and opaque — Brave gives full control over search queries, result count, and response parsing
 - **Rate limit**: 1 query/second, 2,000 queries/month (free tier) or 20,000/month (paid)
 - **Pricing**: Free tier: 2,000 queries/month; Base: $5/mo for 20,000 queries; $0.003/query overage
@@ -339,12 +339,12 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **UI:** Lock/unlock and flash buttons on each car card in `residents/cars.js`
 
 ### Camera Streaming (go2rtc + Caddy)
-- **Server:** go2rtc v1.9.14 on Alpaca Mac (`~/go2rtc/go2rtc`)
+- **Server:** go2rtc v1.9.14 on Dev Mac (`~/go2rtc/go2rtc`)
 - **Config:** `~/go2rtc/go2rtc.yaml` (also in repo at `scripts/go2rtc/go2rtc.yaml`)
 - **Protocol:** `rtspx://` (RTSP over TLS, no SRTP) to UniFi Protect on UDM Pro
 - **Cameras:** 3 UniFi G5 PTZ cameras × 3 quality levels = 9 streams
-- **Proxy:** Caddy on DO droplet at `cam.alpacaplayhouse.com/api/*` → go2rtc:1984 via Tailscale
-- **HLS URL format:** `https://cam.alpacaplayhouse.com/api/stream.m3u8?src={stream_name}&mp4`
+- **Proxy:** Caddy on DO droplet at `cam.YOUR_DOMAIN/api/*` → go2rtc:1984 via Tailscale
+- **HLS URL format:** `https://cam.YOUR_DOMAIN/api/stream.m3u8?src={stream_name}&mp4`
 - **DB:** `camera_streams` table stores stream config (stream_name, proxy_base_url, quality, location)
 - **Client:** `residents/cameras.js` loads streams from DB, plays via HLS.js with fMP4 mode (`&mp4` parameter)
 - **PTZ:** UniFi Protect API — continuous move at `POST /proxy/protect/api/cameras/{id}/move`, presets at `POST .../ptz/goto/{slot}`
@@ -398,9 +398,9 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 ### FlashForge (3D Printer)
 - **API**: FlashForge TCP G-code protocol (port 8899, no auth needed on LAN)
 - **Printer**: "Alpaca Foundry" — Adventurer 5M Pro, SN SNMSQE9C09604, FW v3.2.7
-- **Architecture**: Per-request via printer proxy on Alpaca Mac (HTTP→TCP bridge, same pattern as Sonos/cameras)
-- **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Alpaca Mac printer-proxy.js (port 8903) → TCP to printer at 192.168.1.106:8899
-- **Proxy**: `scripts/printer-proxy/printer-proxy.js` on Alpaca Mac, health check on port 8904
+- **Architecture**: Per-request via printer proxy on Dev Mac (HTTP→TCP bridge, same pattern as Sonos/cameras)
+- **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Dev Mac printer-proxy.js (port 8903) → TCP to printer at 192.168.1.106:8899
+- **Proxy**: `scripts/printer-proxy/printer-proxy.js` on Dev Mac, health check on port 8904
 - **LaunchAgent**: `scripts/printer-proxy/com.printer-proxy.plist`
 - **Control flow**: M601 S1 (request control) → command → M602 (release control) — proxy handles this automatically
 - **Commands**: M115 (info), M105 (temps), M27 (progress), M119 (endstops), M23/M24/M25/M26 (print control), M104/M140 (set temps), M146 (LED), G28 (home), M661 (list files)
@@ -425,11 +425,11 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Cost**: ~$0.10-$0.30 per call
 
 ### PAI Discord Bot
-- **Architecture**: Lightweight Node.js bot that bridges Discord → `alpaca-pai` edge function
+- **Architecture**: Lightweight Node.js bot that bridges Discord → `pai` edge function
 - **Source**: `pai-discord/bot.js` (in repo), deployed to `/opt/pai-discord/` on DO droplet
 - **Library**: discord.js v14
 - **Service**: `pai-discord.service` (systemd, runs as `bugfixer` user)
-- **Auth**: Service role key → `alpaca-pai` with `context.source: "discord"`
+- **Auth**: Service role key → `pai` with `context.source: "discord"`
 - **User lookup**: Matches `discord_user_id` → `app_users.discord_id` for role-based access
 - **Channels**: Listens to configured `CHANNEL_IDS` + DMs + @mentions
 - **History**: In-memory per-user conversation history (12 messages, 30 min TTL)
@@ -460,13 +460,13 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Gated on**: Associate identity verification status
 
 ### Camera Talkback (Two-Way Audio via FFmpeg)
-- **Relay server**: `scripts/talkback-relay/talkback-relay.js` on Alpaca Mac
+- **Relay server**: `scripts/talkback-relay/talkback-relay.js` on Dev Mac
 - **Protocol**: WebSocket (port 8902) → FFmpeg → UDP to camera:7004
 - **Audio pipeline**: Browser PCM S16LE 48kHz mono → FFmpeg → AAC-ADTS 22.05kHz mono 32kbps
 - **Cameras**: Alpacamera (192.168.1.173), Front Of House (.182), Side Yard (.110)
 - **Health check**: Port 8903
 - **LaunchAgent**: `com.talkback-relay.plist`
-- **Requires**: FFmpeg installed on Alpaca Mac (`FFMPEG_PATH` env var, defaults to `ffmpeg`)
+- **Requires**: FFmpeg installed on Dev Mac (`FFMPEG_PATH` env var, defaults to `ffmpeg`)
 - **Client**: `residents/cameras.js` CameraTalkback class — Web Audio API microphone capture, push-to-talk UI
 
 ### Airbnb (iCal Sync)
@@ -478,7 +478,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 
 ### Cloudflare R2 (Object Storage)
 - **Account**: configure the Cloudflare project account locally
-- **Bucket**: `alpacapps` (APAC region)
+- **Bucket**: `my-brand` (APAC region)
 - **S3 API**: `https://<account_id>.r2.cloudflarestorage.com`
 - **Public URL**: `https://pub-5a7344c4dab2467eb917ff4b897e066d.r2.dev`
 - **Auth**: S3-compatible API with AWS Signature V4

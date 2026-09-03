@@ -42,7 +42,7 @@ Set these in Supabase project secrets:
 - `ALEXA_MASTER_PASTURE_WIZ_IPS` = comma-separated WiZ bulb IPs for Master
   Pasture (if using WiZ instead of Govee)
 - `WIZ_PROXY_URL` = HTTPS URL to WiZ proxy (for example
-  `https://alpaclaw.cloud/wiz`)
+  `https://ai-assistant.cloud/wiz`)
 - `WIZ_PROXY_TOKEN` = bearer token shared by `alexa-room-control` and proxy
 
 `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` already exist for edge functions.
@@ -54,7 +54,7 @@ Set these in Supabase project secrets:
 3. Create intents from `integrations/alexa/master-pasture-interaction-model.json`.
 4. Endpoint type: HTTPS
    - URL:
-     `https://aphrrfprbixmhissnjfn.supabase.co/functions/v1/alexa-room-control`
+     `https://YOUR_PROJECT_REF.supabase.co/functions/v1/alexa-room-control`
 5. Build model and test in Alexa simulator.
 
 ## Testing utterances

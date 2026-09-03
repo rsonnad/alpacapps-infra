@@ -14,12 +14,12 @@ Scope includes:
 ## Current State (as of 2026-03-27)
 
 ### Implemented
-- **HAOS is live** on Alpuca (192.168.1.200), running at `192.168.1.39:8123`. All WiZ, OREIN Matter, Leedarson Matter, and TP-Link lights are controllable via HAOS.
+- **HAOS is live** on my-server (192.168.1.200), running at `192.168.1.39:8123`. All WiZ, OREIN Matter, Leedarson Matter, and TP-Link lights are controllable via HAOS.
 - **WiZ Proxy is deprecated** — all WiZ bulbs now in HAOS. `scripts/wiz-proxy/server.js` remains but is no longer the control path.
 - **DB tables live**: `lighting_devices` (per-bulb inventory), `lighting_groups` (room groups), `lighting_group_targets` (backend mappings). Seeded with all known rooms. `lighting_devices` has per-bulb HA entity IDs, MAC addresses, brands.
 - `govee-control` edge function still controls Govee (~63 devices) via cloud API — not yet in HAOS.
 - Tuya/SmartLife (~32 devices) still cloud-only via SmartLife app — not yet in HAOS.
-- Current command path: SSH to Alpuca → `~/ha-cmd.sh` → HAOS REST API. See `devdocs/LIGHTINGAUTOMATION.md`.
+- Current command path: SSH to my-server → `~/ha-cmd.sh` → HAOS REST API. See `devdocs/LIGHTINGAUTOMATION.md`.
 
 ### Not yet implemented
 - No `home-assistant-control` edge function — app/PAI cannot call HA without SSH.
@@ -151,7 +151,7 @@ This keeps PAI prompt/API stable while infrastructure changes underneath.
 
 ### Phase 1: Backend gateway — IN PROGRESS
 - `home-assistant-control` edge function **not yet built**.
-- Current workaround: SSH to Alpuca → `ha-cmd.sh` directly.
+- Current workaround: SSH to my-server → `ha-cmd.sh` directly.
 - Next: implement edge function with `set_power`, `set_brightness`, `set_color`, `activate_scene`.
 - Add command audit logging.
 

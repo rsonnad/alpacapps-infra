@@ -1,5 +1,5 @@
 /**
- * AlpaClaw Configuration - Admin page for managing AlpaClaw chatbot (OpenClaw gateway)
+ * AI Assistant Configuration - Admin page for managing AI Assistant chatbot (OpenClaw gateway)
  */
 
 import { supabase } from '../../shared/supabase.js';
@@ -47,8 +47,8 @@ async function loadConfig() {
     config = data;
     populateFields();
   } catch (err) {
-    console.error('Error loading AlpaClaw config:', err);
-    showToast('Failed to load AlpaClaw configuration', 'error');
+    console.error('Error loading AI Assistant config:', err);
+    showToast('Failed to load AI Assistant configuration', 'error');
   }
 }
 

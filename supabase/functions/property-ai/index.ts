@@ -3572,7 +3572,7 @@ async function handleChatRequest(req: Request, body: any, supabase: any): Promis
   let appUser: any;
   let userLevel: number;
 
-  // Email/API/AlpaClaw channel: internal services call with service role key (no user JWT)
+  // Email/API/AI Assistant channel: internal services call with service role key (no user JWT)
   if ((isEmailChannel || isApiChannel || isAI AdminEmailChannel) && isServiceKey) {
     const senderEmail = (context.sender || "").trim().toLowerCase();
     if (senderEmail) {

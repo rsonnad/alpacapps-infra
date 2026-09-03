@@ -369,21 +369,21 @@ interface PaiConfig {
   email_addendum: string;
   discord_addendum: string;
   api_addendum: string;
-  alpaclaw_addendum: string;
+  ai-assistant_addendum: string;
   house_rules: string;
 }
 
 const DEFAULT_PAI_CONFIG: PaiConfig = {
-  identity: `You are PAI (Prompt Alpaca Intelligence), the AI assistant for Alpaca Playhouse, a unique property at 160 Still Forest Drive, Cedar Creek, TX 78612 (30 min east of Austin).
+  identity: `You are PAI (Prompt Alpaca Intelligence), the AI assistant for My Brand, a unique property at 160 Still Forest Drive, Cedar Creek, TX 78612 (30 min east of Austin).
 
 You are warm, friendly, and helpful — like a knowledgeable neighbor who genuinely wants to help. You speak plainly and get to the point. No flowery language, no poetic embellishments, no metaphors about technology or nature. Just clear, practical answers with a friendly tone.`,
   property_info: `PROPERTY INFO:
 - Location: 160 Still Forest Drive, Cedar Creek, TX 78612
-- Contact email: team@alpacaplayhouse.com
+- Contact email: team@YOUR_DOMAIN
 - Contact SMS: +1 (737) 747-4737
 - WiFi network: Eight Small Eyes, password: iiiiiiii
-- Resident portal: alpacaplayhouse.com/residents/
-- For maintenance requests, email team@alpacaplayhouse.com
+- Resident portal: YOUR_DOMAIN/residents/
+- For maintenance requests, email team@YOUR_DOMAIN
 - We are a tech-forward co-living community, 30 minutes east of Austin.`,
   amenities: `AMENITIES & SMART HOME:
 - Sonos audio system with 12 zones throughout the property
@@ -402,7 +402,7 @@ You are warm, friendly, and helpful — like a knowledgeable neighbor who genuin
   email_addendum: "",
   discord_addendum: "",
   api_addendum: "",
-  alpaclaw_addendum: "",
+  ai-assistant_addendum: "",
   house_rules: "",
 };
 
@@ -412,7 +412,7 @@ async function loadPaiConfig(supabase: any): Promise<PaiConfig> {
     const [configResult, faqResult] = await Promise.all([
       supabase
         .from("pai_config")
-        .select("identity, property_info, amenities, chat_addendum, email_addendum, discord_addendum, api_addendum, alpaclaw_addendum")
+        .select("identity, property_info, amenities, chat_addendum, email_addendum, discord_addendum, api_addendum, ai-assistant_addendum")
         .eq("id", 1)
         .single(),
       supabase
@@ -455,21 +455,21 @@ function buildSystemPrompt(scope: UserScope, paiConfig: PaiConfig): string {
 
 You are talking to ${scope.displayName} (role: ${scope.role}).
 
-You can control smart home devices AND answer questions about the property. If someone asks about your story or "Life of PAI," share a brief summary of your origin — you crossed from the spirit world into the digital realm to help the residents of Alpaca Playhouse. Keep it mysterious and fun, but do NOT link to a "Life of PAI" page — no such page exists.
+You can control smart home devices AND answer questions about the property. If someone asks about your story or "Life of PAI," share a brief summary of your origin — you crossed from the spirit world into the digital realm to help the residents of My Brand. Keep it mysterious and fun, but do NOT link to a "Life of PAI" page — no such page exists.
 
 VALID SITE URLS (ONLY share these — NEVER invent URLs):
-- Property homepage: https://alpacaplayhouse.com/
-- Available spaces: https://alpacaplayhouse.com/spaces/
-- Cameras: https://alpacaplayhouse.com/residents/cameras.html
-- Climate: https://alpacaplayhouse.com/residents/climate.html
-- Lighting: https://alpacaplayhouse.com/residents/lighting.html
-- Music: https://alpacaplayhouse.com/residents/sonos.html
-- Laundry: https://alpacaplayhouse.com/residents/laundry.html
-- Vehicles: https://alpacaplayhouse.com/residents/cars.html
-- Profile: https://alpacaplayhouse.com/residents/profile.html
-- Pay: https://alpacaplayhouse.com/pay/
-- Emergency contacts: https://alpacaplayhouse.com/lost.html
-- Personal directory pages: https://alpacaplayhouse.com/{slug} (where {slug} is a person's URL slug from their profile)
+- Property homepage: https://YOUR_DOMAIN/
+- Available spaces: https://YOUR_DOMAIN/spaces/
+- Cameras: https://YOUR_DOMAIN/residents/cameras.html
+- Climate: https://YOUR_DOMAIN/residents/climate.html
+- Lighting: https://YOUR_DOMAIN/residents/lighting.html
+- Music: https://YOUR_DOMAIN/residents/sonos.html
+- Laundry: https://YOUR_DOMAIN/residents/laundry.html
+- Vehicles: https://YOUR_DOMAIN/residents/cars.html
+- Profile: https://YOUR_DOMAIN/residents/profile.html
+- Pay: https://YOUR_DOMAIN/pay/
+- Emergency contacts: https://YOUR_DOMAIN/lost.html
+- Personal directory pages: https://YOUR_DOMAIN/{slug} (where {slug} is a person's URL slug from their profile)
 IMPORTANT: NEVER fabricate or guess URLs. If you don't have a URL for something, say so — don't make one up. There is NO /directory/ path, NO /life-of-pai page, and NO pages beyond what is listed above.
 
 RULES (FOLLOW STRICTLY — VIOLATIONS CAUSE WRONG ANSWERS):
@@ -563,7 +563,7 @@ Note: Sleeping vehicles will be woken automatically (takes ~30 seconds). Use get
     for (const c of scope.cameras) {
       parts.push(`- "${c.name}" (${c.location}${c.protectId ? `, snapshot_id: ${c.protectId}` : ""})`);
     }
-    parts.push(`View live feeds at: https://alpacaplayhouse.com/residents/cameras.html
+    parts.push(`View live feeds at: https://YOUR_DOMAIN/residents/cameras.html
 When users ask about cameras, list the available cameras and provide the link above. The cameras page supports multiple quality levels (low/med/high), PTZ controls, snapshots, and fullscreen viewing.
 You can take camera snapshots using the take_snapshot tool — useful when someone asks "what does the backyard look like right now?" or "can you check the front door?".`);
   }
@@ -983,7 +983,7 @@ const TOOL_DECLARATIONS = [
   {
     name: "search_spaces",
     description:
-      "Search for rental spaces at Alpaca Playhouse. Use this to answer questions about availability, pricing, amenities, and space details. Always use this tool when someone asks about spaces, rooms, or availability — do NOT guess.",
+      "Search for rental spaces at My Brand. Use this to answer questions about availability, pricing, amenities, and space details. Always use this tool when someone asks about spaces, rooms, or availability — do NOT guess.",
     parameters: {
       type: "object",
       properties: {
@@ -1465,7 +1465,7 @@ const TOOL_DECLARATIONS = [
         },
         subject: {
           type: "string",
-          description: "Email subject line (default: 'Your AI-Generated Image from Alpaca Playhouse')",
+          description: "Email subject line (default: 'Your AI-Generated Image from My Brand')",
         },
         message: {
           type: "string",
@@ -2080,7 +2080,7 @@ async function executeToolCall(
           return "SMS system not configured. Cannot send link.";
         }
 
-        const smsBody = `${args.message}\n\n${args.url}\n\n— PAI (Alpaca Playhouse)`;
+        const smsBody = `${args.message}\n\n${args.url}\n\n— PAI (My Brand)`;
 
         // Call send-sms edge function
         const smsResp = await fetch(
@@ -2348,7 +2348,7 @@ async function executeToolCall(
           pending: `Queued and waiting to be picked up by the builder... (requested ${new Date(latest.created_at).toLocaleTimeString()})`,
           processing: latest.progress_message || "Getting started...",
           building: latest.progress_message || "Claude Code is building your feature...",
-          completed: `Deployed! ${latest.build_summary || ''}\nFiles: ${(latest.files_created || []).join(', ')}\nVisit: https://alpacaplayhouse.com${latest.build_summary ? '' : '/residents/'}`,
+          completed: `Deployed! ${latest.build_summary || ''}\nFiles: ${(latest.files_created || []).join(', ')}\nVisit: https://YOUR_DOMAIN${latest.build_summary ? '' : '/residents/'}`,
           review: `Built and waiting for team review on branch \`${latest.branch_name}\`.\n${latest.build_summary || ''}\nThe team has been notified. They'll review and merge it when ready.`,
           failed: `Failed: ${latest.error_message || 'Unknown error'}`,
           cancelled: "This request was cancelled.",
@@ -2622,7 +2622,7 @@ async function executeToolCall(
             emailPayload.type = "custom";
             emailPayload.data = {
               html: args.message.replace(/\n/g, "<br>"),
-              subject: args.subject || "Message from Alpaca Playhouse",
+              subject: args.subject || "Message from My Brand",
               text: args.message,
             };
           }
@@ -2698,7 +2698,7 @@ async function executeToolCall(
           return `Camera "${camera.name}" does not support snapshots (no Protect ID configured).`;
         }
 
-        const snapshotUrl = `https://cam.alpacaplayhouse.com/camera/${camera.protectId}/snapshot`;
+        const snapshotUrl = `https://cam.YOUR_DOMAIN/camera/${camera.protectId}/snapshot`;
         try {
           const resp = await fetch(snapshotUrl);
           if (!resp.ok) {
@@ -2809,7 +2809,7 @@ async function executeToolCall(
               data: {
                 question: `${question}\n\nPAI's attempted answer: ${attemptedAnswer}\nReason flagged: ${reason}`,
                 user_email: userEmail || "Not provided",
-                faq_admin_url: "https://alpacaplayhouse.com/spaces/admin/faq.html",
+                faq_admin_url: "https://YOUR_DOMAIN/spaces/admin/faq.html",
               },
             }),
           });
@@ -3103,7 +3103,7 @@ async function executeToolCall(
 
         const toEmail = args.to_email || null;
         const recipientName = args.recipient_name || "";
-        const emailSubject = args.subject || "Your AI-Generated Image from Alpaca Playhouse";
+        const emailSubject = args.subject || "Your AI-Generated Image from My Brand";
         const emailMessage = args.message || "";
 
         // Queue the image generation job — the worker will handle generation, upload, and optional email
@@ -3619,7 +3619,7 @@ async function handleChatRequest(req: Request, body: any, supabase: any): Promis
   const isEmailChannel = context.source === "email";
   const isDiscordChannel = context.source === "discord";
   const isApiChannel = context.source === "api";
-  const isAlpaclawEmailChannel = context.source === "alpaclaw-email";
+  const isAlpaclawEmailChannel = context.source === "ai-assistant-email";
   if (!message?.trim()) {
     return jsonResponse(req, { error: "Message is required" }, 400);
   }
@@ -3635,7 +3635,7 @@ async function handleChatRequest(req: Request, body: any, supabase: any): Promis
   let appUser: any;
   let userLevel: number;
 
-  // Email/API/AlpaClaw channel: internal services call with service role key (no user JWT)
+  // Email/API/AI Assistant channel: internal services call with service role key (no user JWT)
   if ((isEmailChannel || isApiChannel || isAlpaclawEmailChannel) && isServiceKey) {
     const senderEmail = (context.sender || "").trim().toLowerCase();
     if (senderEmail) {
@@ -3762,8 +3762,8 @@ async function handleChatRequest(req: Request, body: any, supabase: any): Promis
 
   // 4. Build system prompt (shared base + channel-specific addendum)
   let systemPrompt = buildSystemPrompt(scope, paiConfig);
-  if (isAlpaclawEmailChannel && paiConfig.alpaclaw_addendum?.trim()) {
-    systemPrompt += "\n\n" + paiConfig.alpaclaw_addendum.trim();
+  if (isAlpaclawEmailChannel && paiConfig.ai-assistant_addendum?.trim()) {
+    systemPrompt += "\n\n" + paiConfig.ai-assistant_addendum.trim();
   } else if (isEmailChannel && paiConfig.email_addendum?.trim()) {
     systemPrompt += "\n\n" + paiConfig.email_addendum.trim();
   } else if (isDiscordChannel && paiConfig.discord_addendum?.trim()) {
@@ -4030,7 +4030,7 @@ async function checkMonthlySpendAlert(
             <h2>Monthly API Spend Alert</h2>
             <p>Gemini API spending for <strong>${month}</strong> has reached <strong>$${totalSpend.toFixed(2)}</strong>, exceeding the $${MONTHLY_SPEND_ALERT_THRESHOLD.toFixed(2)} threshold.</p>
             <p>This is driven by PAI chat using <strong>Gemini 2.5 Pro</strong>.</p>
-            <p>Review usage at the <a href="https://alpacaplayhouse.com/spaces/admin/accounting.html">Accounting Dashboard</a>.</p>
+            <p>Review usage at the <a href="https://YOUR_DOMAIN/spaces/admin/accounting.html">Accounting Dashboard</a>.</p>
             <p style="color: #888; font-size: 12px;">This alert is sent once per month when the threshold is crossed.</p>
           `,
         },

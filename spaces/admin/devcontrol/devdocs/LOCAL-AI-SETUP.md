@@ -1,9 +1,9 @@
 # Local AI Setup Guide
 
 > For installing local AI tools on any Apple Silicon Mac.
-> Alpuca (Mac mini M4 24GB) is already set up — this guide covers both Alpuca and additional machines.
+> my-server (Mac mini M4 24GB) is already set up — this guide covers both my-server and additional machines.
 
-## What's Installed on Alpuca (192.168.1.200)
+## What's Installed on my-server (192.168.1.200)
 
 | Component | Version | Location |
 |-----------|---------|----------|
@@ -41,7 +41,7 @@ Ollama API: `http://192.168.1.200:11434` (accessible from LAN)
 ### Quick picks
 
 - **16GB MacBook Air**: Gemma 3 12B (Q4) + Qwen 3.5 9B (Q4)
-- **24GB+ Mac (like Alpuca)**: Gemma 3 27B (Q4) + Qwen 3.5 9B (Q8)
+- **24GB+ Mac (like my-server)**: Gemma 3 27B (Q4) + Qwen 3.5 9B (Q8)
 - **Coding focus**: Qwen 3.5 9B is strongest for structured output and tool use
 - **General chat**: Gemma 3 is more natural and conversational
 
@@ -68,7 +68,7 @@ ollama pull gemma3:12b
 ollama pull qwen3.5:9b
 ```
 
-For **24GB+ RAM** — match Alpuca's setup:
+For **24GB+ RAM** — match my-server's setup:
 
 ```bash
 # Primary — Gemma 3 27B, near-frontier quality
@@ -116,7 +116,7 @@ ollama run gemma3:12b "Hello, what model are you?"
 
 ## Use Cases
 
-### As OpenClaw Backend (Alpuca)
+### As OpenClaw Backend (my-server)
 Point OpenClaw edge functions at `http://192.168.1.200:11434/v1/chat/completions` (OpenAI-compatible endpoint). Zero token cost.
 
 ### Claude Max Overflow
@@ -143,7 +143,7 @@ Feed large docs into the 128K context window for summarization, analysis, extrac
 
 ```bash
 ollama list                     # Show installed models
-ollama run gemma3:27b           # Interactive chat (Alpuca)
+ollama run gemma3:27b           # Interactive chat (my-server)
 ollama run gemma3:12b           # Interactive chat (MacBook Air)
 ollama run qwen3.5:9b           # Switch to coding model
 ollama ps                       # Show loaded models (RAM usage)
@@ -171,7 +171,7 @@ curl http://localhost:11434/v1/chat/completions -d '{
 
 ---
 
-## Network Access (Alpuca as LAN AI Server)
+## Network Access (my-server as LAN AI Server)
 
 By default, ollama binds to `localhost`. To serve other machines on LAN:
 

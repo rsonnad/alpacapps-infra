@@ -224,9 +224,9 @@ Use `mcp-remote` bridge or native remote MCP support with the URL above.
 
 ---
 
-## AlpacApps-Specific Notes
+## My Brand-Specific Notes
 
-- **Supabase project:** `aphrrfprbixmhissnjfn` (existing AlpacApps project)
+- **Supabase project:** `YOUR_PROJECT_REF` (existing My Brand project)
 - **Current DB usage:** 43 MB / 500 MB free tier — plenty of headroom
 - **OpenRouter key:** Already stored in `docs/CREDENTIALS.md`
 - **Embedding model:** `text-embedding-3-small` via OpenRouter (~$0.02/M tokens)

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Site Health Test Suite — AlpacApps
+ * Site Health Test Suite — My Brand
  *
  * Tests page loads, camera feeds, device inventory, and Supabase health.
  * Runs via Node.js with zero dependencies (uses native fetch).
@@ -76,7 +76,7 @@ const PAGES = [
   '/spaces/apply/',
   '/events/',
   '/docs/getting-started.html',
-  '/docs/alpacappsinfra.html',
+  '/docs/my-brandinfra.html',
   // Resident portal
   '/residents/',
   '/residents/devices.html',
@@ -255,7 +255,7 @@ async function testSupabase() {
 
 // ── Main ────────────────────────────────────────────────────
 async function main() {
-  if (!jsonMode) console.log('\x1b[1m\n🏥 AlpacApps Site Health Check\x1b[0m');
+  if (!jsonMode) console.log('\x1b[1m\n🏥 My Brand Site Health Check\x1b[0m');
   if (!jsonMode) console.log(`   Target: ${SITE_BASE}`);
   if (!jsonMode) console.log(`   Time:   ${new Date().toLocaleString()}\n`);
 

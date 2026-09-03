@@ -1,4 +1,4 @@
-# Lighting Automation — Alpaca Playhouse
+# Lighting Automation — My Brand
 
 > Reference for all smart light devices, control commands, entity names, and backends.
 > For HAOS setup, SSH access, and non-lighting devices see `devdocs/HOMEAUTOMATION.md`.
@@ -12,10 +12,10 @@ Three ways to control lights, from simplest to lowest-level:
 
 ### 1. `lights.sh` — Human-friendly CLI (recommended)
 
-On Alpuca or via SSH. No entity IDs needed.
+On my-server or via SSH. No entity IDs needed.
 
 ```bash
-# On Alpuca directly
+# On my-server directly
 ~/lights.sh kitchen,living red
 ~/lights.sh all off
 ~/lights.sh skyloft 2700k 50%
@@ -32,30 +32,30 @@ ssh paca@192.168.1.200 "~/lights.sh kitchen,living red"
 
 Public URL via Cloudflare Tunnel. Works from anywhere — cloud services, mobile apps, PAI agent.
 
-- **URL:** `https://lights.alpacaplayhouse.com`
-- **Auth:** Bearer token (stored in Bitwarden: "Light API — Alpuca")
+- **URL:** `https://lights.YOUR_DOMAIN`
+- **Auth:** Bearer token (stored in Bitwarden: "Light API — my-server")
 - **LAN URL:** `http://192.168.1.200:8100` (no tunnel, faster)
 
 ```bash
 # Control lights
-curl -X POST https://lights.alpacaplayhouse.com/lights \
+curl -X POST https://lights.YOUR_DOMAIN/lights \
   -H "Authorization: Bearer <token>" \
   -H "Content-Type: application/json" \
   -d '{"rooms":"kitchen,living","color":"red","brightness":"50%"}'
 
 # Health check (no auth)
-curl https://lights.alpacaplayhouse.com/health
+curl https://lights.YOUR_DOMAIN/health
 
 # List rooms/colors (auth required)
-curl -H "Authorization: Bearer <token>" https://lights.alpacaplayhouse.com/lights/rooms
-curl -H "Authorization: Bearer <token>" https://lights.alpacaplayhouse.com/lights/colors
+curl -H "Authorization: Bearer <token>" https://lights.YOUR_DOMAIN/lights/rooms
+curl -H "Authorization: Bearer <token>" https://lights.YOUR_DOMAIN/lights/colors
 ```
 
 **Response:** `{"status":"ok","rooms":"kitchen,living","color":"red","brightness":"50%"}`
 
-**Service:** Python HTTP server at `~/light-api/server.py` on Alpuca, port 8100.
-**LaunchAgent:** `com.alpacapps.light-api` (auto-start, keep-alive).
-**Token file:** `~/light-api/.token` on Alpuca.
+**Service:** Python HTTP server at `~/light-api/server.py` on my-server, port 8100.
+**LaunchAgent:** `com.my-brand.light-api` (auto-start, keep-alive).
+**Token file:** `~/light-api/.token` on my-server.
 **Logs:** `/tmp/light-api.log`, `/tmp/light-api.err`
 
 ### 3. `ha-cmd.sh` — Raw HAOS service calls (low-level)
@@ -74,8 +74,8 @@ Uses a long-lived HAOS API token (expires 2036). Token in `devdocs/HOMEAUTOMATIO
 | Caller | Use | Latency |
 |--------|-----|---------|
 | Claude Code (LAN) | `ssh paca@... "~/lights.sh ..."` | ~0.7s |
-| Claude Desktop (Alpuca) | `~/lights.sh ...` | ~0.5s |
-| PAI agent / edge functions | `POST https://lights.alpacaplayhouse.com/lights` | ~0.7s |
+| Claude Desktop (my-server) | `~/lights.sh ...` | ~0.5s |
+| PAI agent / edge functions | `POST https://lights.YOUR_DOMAIN/lights` | ~0.7s |
 | Mobile apps | Same HTTP API | ~0.7s |
 | Hostinger workers | Same HTTP API | ~0.7s |
 | Alexa | Native HA Alexa integration (separate) | varies |
@@ -148,7 +148,7 @@ Three tables in Supabase track all lighting state. Query via Management API (see
 
 ## Room Command Reference
 
-> All commands below use `~/ha-cmd.sh` directly (assumes running on Alpuca).
+> All commands below use `~/ha-cmd.sh` directly (assumes running on my-server).
 > From another machine, wrap with: `ssh -o StrictHostKeyChecking=no paca@192.168.1.200 "~/ha-cmd.sh '...' '{...}'"` (escape inner quotes).
 > **Prefer `~/lights.sh` or the HTTP API** for standard room+color control.
 
@@ -451,7 +451,7 @@ Individual: `light.smart_rgbtw_bulb_6` (Top), `light.smart_rgbtw_bulb_7` (Bottom
 ~/lights.sh garage-dj-strip off
 
 # Via Light API
-curl -X POST https://lights.alpacaplayhouse.com/lights \
+curl -X POST https://lights.YOUR_DOMAIN/lights \
   -H "Authorization: Bearer <token>" \
   -H "Content-Type: application/json" \
   -d '{"rooms":"garage-dj-strip","color":"purple","brightness":"60%"}'
@@ -545,7 +545,7 @@ curl -X POST https://lights.alpacaplayhouse.com/lights \
 
 ## Device Inventory by Backend
 
-### HAOS (via `~/ha-cmd.sh` on Alpuca)
+### HAOS (via `~/ha-cmd.sh` on my-server)
 
 | Room | Entity | Bulbs | Brand |
 |------|--------|-------|-------|
@@ -583,7 +583,7 @@ curl -X POST https://lights.alpacaplayhouse.com/lights \
 | Outhouse Sink | `light.outhouse_sink_lights` | 2 (Govee H600B) | Govee Matter |
 | Outhouse All | `light.outhouse_lights` | 4 (2 porch + 2 sink) | OREIN/Govee |
 
-### Tuya Local (via `~/lights.sh` on Alpuca — tinytuya)
+### Tuya Local (via `~/lights.sh` on my-server — tinytuya)
 
 LocalTuya HAOS entities are unavailable (QEMU VM networking limitation). Controlled via `lights.sh` → `tuya-light.sh` → tinytuya directly from host.
 
@@ -619,7 +619,7 @@ Controlled via Govee cloud API. Groups accessible through `lights.sh`, HTTP API,
 ~/lights.sh cedar,fishbowl off
 ```
 
-**Govee API key:** stored at `~/.govee-api-key` on Alpuca and in `govee_config` table (id=1).
+**Govee API key:** stored at `~/.govee-api-key` on my-server and in `govee_config` table (id=1).
 
 **Alexa:** Enable the **Govee Home** Alexa skill. Groups from the Govee app (Garage Mahal, Outhouse, etc.) will appear as Alexa devices.
 
@@ -719,7 +719,7 @@ Govee devices use the **Govee Home** Alexa skill (separate from HAOS/Nabu Casa).
 Poll the HAOS API for new entities:
 
 ```bash
-# From Alpuca (192.168.1.200)
+# From my-server (192.168.1.200)
 TOKEN=$(grep 'TOKEN=' ~/ha-cmd.sh | head -1 | cut -d'"' -f2)
 curl -s -H "Authorization: Bearer $TOKEN" http://192.168.1.39:8123/api/states | \
   python3 -c "import sys,json; [print(e['entity_id'],e['attributes'].get('friendly_name','')) for e in json.load(sys.stdin) if e['entity_id'].startswith('light.') and 'smart_rgbtw' in e['entity_id']]"
@@ -823,12 +823,12 @@ INSERT INTO lighting_devices (
 Run via Management API:
 ```bash
 export BW_SESSION=$(~/bin/bw-unlock)
-MGMT_TOKEN=$(bw list items --search "Supabase — AlpacApps Project" 2>/dev/null | python3 -c "import sys,json; [print(f['value']) for i in json.load(sys.stdin) if 'AlpacApps' in i['name'] for f in i.get('fields',[]) if 'Management' in f['name']]")
+MGMT_TOKEN=$(bw list items --search "Supabase — My Brand Project" 2>/dev/null | python3 -c "import sys,json; [print(f['value']) for i in json.load(sys.stdin) if 'My Brand' in i['name'] for f in i.get('fields',[]) if 'Management' in f['name']]")
 curl -s -X POST \
   -H "Authorization: Bearer $MGMT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"query":"INSERT INTO lighting_devices ..."}' \
-  "https://api.supabase.com/v1/projects/aphrrfprbixmhissnjfn/database/query"
+  "https://api.supabase.com/v1/projects/YOUR_PROJECT_REF/database/query"
 ```
 
 ### Step 7: Add to `lighting_groups` / `lighting_group_targets` (if new group)
@@ -902,9 +902,9 @@ Add the new room/device to the relevant sections above:
 - After factory reset, bulbs enter pairing mode for only 2-3s before reconnecting to AiDot cloud
 - Fix: block MACs from internet via UDM, factory reset, commission via HA Matter add-on
 
-**SSH to Alpuca not working:**
+**SSH to my-server not working:**
 - Key auth: `ssh paca@192.168.1.200` (preferred, tested working)
-- If key auth fails, check `~/.ssh/authorized_keys` on Alpuca
+- If key auth fails, check `~/.ssh/authorized_keys` on my-server
 
 ---
 

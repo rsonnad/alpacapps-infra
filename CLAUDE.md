@@ -1,6 +1,6 @@
 ## Project Identity Check
 
-This is **alpacapps-infra**, a generic project template. Do not inherit any
+This is **my-brand-infra**, a generic project template. Do not inherit any
 source-project identity, credentials, domains, people, or infrastructure.
 
 # [Your Project Name] — Project Directives
@@ -17,11 +17,11 @@ source-project identity, credentials, domains, people, or infrastructure.
 > - `docs/OPEN-BRAIN-SETUP.md` — **load for:** Open Brain session dashboard, AI memory, embeddings
 
 > **IMPORTANT: First-time setup!**
-> Run `/setup-alpacapps-infra` to set up the full infrastructure interactively.
+> Run `/setup-my-brand` to set up the full infrastructure interactively.
 
 > **Upgrading from the template?**
 > Read `infra/infra-upgrade-guide.md` for step-by-step instructions to sync new features from
-> the alpacapps-infra template repo. Machine-readable feature index: `infra/updates.json`
+> the my-brand-infra template repo. Machine-readable feature index: `infra/updates.json`
 
 ## Mandatory Behaviors
 

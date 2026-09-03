@@ -625,7 +625,7 @@ async function sendTestWhisper() {
 function resolveForPreview(template) {
   const animals = ['Harley', 'Lol', 'Cacao'];
   const spaces = previewData.spaces.length ? previewData.spaces : ['Garage Mahal', 'Sparadise', 'Skyloft', 'Magic Bus', 'Swim Spa', 'Sauna', 'Skyloft Balcony', 'Cedar Chamber'];
-  // All people at the Playhouse: residents + staff + admins + associates + past residents
+  // All people at the property: residents + staff + admins + associates + past residents
   const residents = previewData.residents.length ? previewData.residents : [
     'Jon', 'Kymberly', 'Aseem', 'Safiyya', 'Ai', 'John', 'Rachel',
     'Worker A', 'Worker B', 'Worker C', 'Worker D', 'Worker E',

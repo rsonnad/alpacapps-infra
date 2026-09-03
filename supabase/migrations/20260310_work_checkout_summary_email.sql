@@ -1,5 +1,5 @@
 -- Add work_checkout_summary email template
--- Sent to associate + team@alpacaplayhouse.com on clock-out with session details + photos
+-- Sent to associate + team@YOUR_DOMAIN on clock-out with session details + photos
 
 INSERT INTO email_templates (template_key, category, description, sender_type, subject_template, html_template, text_template, placeholders)
 VALUES (
@@ -58,7 +58,7 @@ VALUES (
 <p style="margin:0 0 20px;color:#2a1f23;">{{description}}</p>
 {{/if}}
 
-<p style="margin:16px 0 0;color:#7d6f74;font-size:13px;">This is an automated summary from Alpaca Playhouse work tracking.</p>
+<p style="margin:16px 0 0;color:#7d6f74;font-size:13px;">This is an automated summary from My Brand work tracking.</p>
 $html$,
   $text$Work Session Complete
 
@@ -75,7 +75,7 @@ Duration: {{duration}}
 Work Description: {{description}}
 {{/if}}
 
-This is an automated summary from Alpaca Playhouse work tracking.$text$,
+This is an automated summary from My Brand work tracking.$text$,
   '[{"key":"first_name","required":true,"description":"Associate first name"},{"key":"date","required":true,"description":"Work date"},{"key":"clock_in_time","required":true,"description":"Clock in time"},{"key":"clock_out_time","required":true,"description":"Clock out time"},{"key":"duration","required":true,"description":"Session duration"},{"key":"space_name","required":false,"description":"Location/space name"},{"key":"task_name","required":false,"description":"Task name"},{"key":"description","required":false,"description":"Work description"},{"key":"hourly_rate","required":true,"description":"Hourly rate"},{"key":"earnings","required":true,"description":"Formatted earnings amount"},{"key":"photos","required":false,"description":"Array of work photos (rendered in hardcoded fallback only)"}]'::jsonb
 )
 ON CONFLICT (template_key, version) DO UPDATE SET

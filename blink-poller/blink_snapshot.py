@@ -5,7 +5,7 @@ Blink Camera Snapshot Poller (Python/blinkpy)
 Authenticates to Blink cloud API, fetches camera thumbnails,
 and uploads them to Supabase Storage for display on the cameras page.
 
-Deploy to: ~/blink-poller/ on Alpaca Mac (residential IP needed — Blink
+Deploy to: ~/blink-poller/ on Dev Mac (residential IP needed — Blink
 blocks datacenter IPs via Cloudflare)
 
 Usage:
@@ -39,7 +39,7 @@ if env_path.exists():
             key, _, val = line.partition('=')
             os.environ.setdefault(key.strip(), val.strip())
 
-SUPABASE_URL = os.environ.get('SUPABASE_URL', 'https://aphrrfprbixmhissnjfn.supabase.co')
+SUPABASE_URL = os.environ.get('SUPABASE_URL', 'https://YOUR_PROJECT_REF.supabase.co')
 SUPABASE_KEY = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
 BLINK_EMAIL = os.environ.get('BLINK_EMAIL', '')
 BLINK_PASSWORD = os.environ.get('BLINK_PASSWORD', '')

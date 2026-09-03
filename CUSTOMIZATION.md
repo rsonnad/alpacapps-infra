@@ -1,10 +1,10 @@
 # Customization Guide
 
-This document explains how to adapt the AlpacApps template for a new organization. Written for Claude Code sessions customizing this codebase.
+This document explains how to adapt the My Brand template for a new organization. Written for Claude Code sessions customizing this codebase.
 
 ## Overview
 
-This repo is a **generic template** with placeholder values (`YOUR_*`) throughout. When a new organization clones it and runs `/setup-alpacapps-infra`, Claude customizes everything below.
+This repo is a **generic template** with placeholder values (`YOUR_*`) throughout. When a new organization clones it and runs `/setup-my-brand`, Claude customizes everything below.
 
 ## What to Customize
 
@@ -106,7 +106,7 @@ Tab visibility is controlled by `shared/feature-registry.js` and role permission
 
 ## Checklist for New Organizations
 
-- [ ] Clone repo and run `/setup-alpacapps-infra`
+- [ ] Clone repo and run `/setup-my-brand`
 - [ ] Supabase credentials set in `shared/supabase.js`
 - [ ] Property name/address updated in `shared/config-loader.js`
 - [ ] Branding (colors, logos) updated in `styles/tokens.css` and `assets/branding/`

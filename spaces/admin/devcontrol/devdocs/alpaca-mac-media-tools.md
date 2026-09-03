@@ -1,6 +1,6 @@
-# Alpuca — Media & Video Tools Reference
+# my-server — Media & Video Tools Reference
 
-> **Machine:** Mac mini M4 ("Alpuca") — replaced the old Almaca
+> **Machine:** Mac mini M4 ("my-server") — replaced the old Almaca
 > **OS:** macOS 26 (Tahoe)
 > **LAN IP:** 192.168.1.200 | **Tailscale:** 100.74.59.97
 
@@ -9,7 +9,7 @@
 ## Connecting
 
 ### Prerequisites
-- You must be connected to the **Alpaca Playhouse WiFi/LAN** or **Tailscale**
+- You must be connected to the **My Brand WiFi/LAN** or **Tailscale**
 - SSH key auth is configured; password in Bitwarden if needed
 
 ### SSH Connection
@@ -63,7 +63,7 @@ ffmpeg -i input.mp4 -vf scale=1920:1080 -c:a copy output_1080p.mp4
 ffmpeg -framerate 30 -i frame_%04d.png -c:v libx264 -pix_fmt yuv420p output.mp4
 
 # Add text overlay / watermark
-ffmpeg -i input.mp4 -vf "drawtext=text='Alpaca Playhouse':fontsize=24:fontcolor=white:x=10:y=10" output.mp4
+ffmpeg -i input.mp4 -vf "drawtext=text='My Brand':fontsize=24:fontcolor=white:x=10:y=10" output.mp4
 
 # Concatenate videos (create list.txt with lines like: file 'clip1.mp4')
 ffmpeg -f concat -safe 0 -i list.txt -c copy merged.mp4
@@ -131,7 +131,7 @@ magick input.png output.jpg
 magick montage *.jpg -geometry 200x200+5+5 -tile 4x contact_sheet.jpg
 
 # Add text to image
-magick input.jpg -pointsize 36 -fill white -annotate +10+40 "Alpaca Playhouse" output.jpg
+magick input.jpg -pointsize 36 -fill white -annotate +10+40 "My Brand" output.jpg
 
 # Batch resize
 for f in *.jpg; do magick "$f" -resize 50% "resized_$f"; done
@@ -223,6 +223,6 @@ ffmpeg -i "downloaded.webm" -c:v libx264 -c:a aac output.mp4
 | `ffmpeg: command not found` | Run `export PATH="/usr/local/bin:$PATH"` or use full path `/usr/local/bin/ffmpeg` |
 | `magick: command not found` | Run `brew link imagemagick` or use `$(brew --prefix imagemagick)/bin/magick` |
 | `yt-dlp: command not found` | Use full path `/usr/local/bin/yt-dlp` |
-| Can't connect via SSH | Verify you're on Alpaca Playhouse WiFi/LAN or Tailscale. Alpuca is at 192.168.1.200 (LAN) or 100.74.59.97 (Tailscale) |
+| Can't connect via SSH | Verify you're on My Brand WiFi/LAN or Tailscale. my-server is at 192.168.1.200 (LAN) or 100.74.59.97 (Tailscale) |
 | Need to update tools | Run `brew upgrade ffmpeg imagemagick` (yt-dlp: `yt-dlp -U`) |
 | Need GUI access (Blender UI) | Use Chrome Remote Desktop — PIN is in the password vault |

@@ -1,5 +1,5 @@
 [Unit]
-Description=AlpacApps LG Appliance Data Poller
+Description=My Brand LG Appliance Data Poller
 After=network.target
 
 [Service]

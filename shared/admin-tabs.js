@@ -30,7 +30,7 @@ export const ALL_ADMIN_TABS = [
   { id: 'notifications', label: 'Notifications', href: 'notifications.html', permission: 'view_settings', section: 'admin' },
   { id: 'testdev', label: 'Test Dev', href: 'testdev.html', permission: 'view_settings', section: 'admin' },
   { id: 'lifeofpai', label: 'Life of PAI', href: '/residents/lifeofpaiadmin.html', permission: 'admin_pai_settings', section: 'admin', feature: 'pai' },
-  { id: 'openclaw', label: 'AlpaClaw', href: 'alpaclaw.html', permission: 'view_openclaw', section: 'admin', feature: 'pai' },
+  { id: 'openclaw', label: 'AI Assistant', href: 'ai-assistant.html', permission: 'view_openclaw', section: 'admin', feature: 'pai' },
   // DevControl is a top-level nav item (in context switcher), not an admin sub-tab — but listed here for permission sync
   { id: 'devcontrol', label: 'DevControl', href: '/spaces/admin/devcontrol/', permission: 'view_devcontrol', section: 'admin' },
 ];

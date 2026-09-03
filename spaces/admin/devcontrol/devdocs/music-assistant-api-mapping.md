@@ -5,7 +5,7 @@ This document maps existing `sonos-control` actions to Music Assistant (MA) API 
 ## Context
 
 - Edge function: `supabase/functions/sonos-control/index.ts`
-- MA URL secret: `MUSIC_ASSISTANT_URL` (example: `https://alpaclaw.cloud/ma-api`)
+- MA URL secret: `MUSIC_ASSISTANT_URL` (example: `https://ai-assistant.cloud/ma-api`)
 - MA token secret: `MUSIC_ASSISTANT_TOKEN` (optional if proxy injects auth)
 - Feature flag: `USE_MUSIC_ASSISTANT` (`true` by default)
 

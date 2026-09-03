@@ -1,11 +1,11 @@
-# AlpacApps Setup Instructions (Machine-Readable)
+# My Brand Setup Instructions (Machine-Readable)
 
-> **For Claude, ChatGPT, or any LLM helping a user set up AlpacApps.**
+> **For Claude, ChatGPT, or any LLM helping a user set up My Brand.**
 > This file is the canonical setup reference. The HTML page at `/infra/` is the human-friendly overview.
 
 ## Overview
 
-AlpacApps is a full-stack platform using:
+My Brand is a full-stack platform using:
 - **Cloudflare Pages** — static site hosting with global CDN (free tier: unlimited sites, 500 builds/month)
 - **Supabase** — PostgreSQL database, auth, storage, edge functions (free tier)
 - **Claude Code** — AI developer agent that writes and deploys code
@@ -30,7 +30,7 @@ The user pastes a setup prompt into Claude Code. Claude Code should:
    - GitHub CLI (`gh`)
    - Node.js (for Claude Code)
 
-3. **Create GitHub repository** — From the organization-approved AlpacApps template repository
+3. **Create GitHub repository** — From the organization-approved My Brand template repository
 
 4. **Set up Cloudflare Pages** — Create a Pages project connected to the GitHub repo:
       - Go to Cloudflare Dashboard → Pages → Create a project → Connect to Git
@@ -53,7 +53,7 @@ Once Conductor is installed, the user switches from Claude Code in the terminal 
 ## Detailed Step-by-Step Guide
 
 For the full detailed setup procedure with checkpoints and validation steps, read:
-**https://alpacaplayhouse.com/infra/setup-guide.html**
+**https://YOUR_DOMAIN/infra/setup-guide.html**
 
 ## Service Options
 
@@ -97,9 +97,9 @@ Both use the same template. The setup wizard tailors the project to the user's c
 ## Updates
 
 After initial setup, users can adopt new features by reading:
-**https://alpacaplayhouse.com/infra/updates.html**
+**https://YOUR_DOMAIN/infra/updates.html**
 
-Feature index (machine-readable): **https://alpacaplayhouse.com/infra/updates.json**
+Feature index (machine-readable): **https://YOUR_DOMAIN/infra/updates.json**
 
 ## First-Run Behavior & Gotchas
 
@@ -145,7 +145,7 @@ The first user to sign in should be granted admin role. After Supabase auth is c
 The mobile apps are **native** (not Capacitor):
 - **iOS**: Swift + SwiftUI (`mobile-ios/`)
 - **Android**: Kotlin + Jetpack Compose (`mobile-android/`)
-- **Kiosk**: Kotlin lockdown app (`alpaca-kiosk/`)
+- **Kiosk**: Kotlin lockdown app (`kiosk/`)
 
 ### Current scale
 - **67 Supabase edge functions** — serverless TypeScript for all integrations
@@ -158,13 +158,13 @@ The mobile apps are **native** (not Capacitor):
 
 If the user already has a running project and wants to adopt new features:
 
-1. **Read the update index**: Fetch `https://alpacaplayhouse.com/infra/updates.json` for the machine-readable feature list
+1. **Read the update index**: Fetch `https://YOUR_DOMAIN/infra/updates.json` for the machine-readable feature list
 2. **Check what's missing**: Each feature has `detectionPaths` — check if those files exist in the project
-3. **Read the upgrade guide**: `https://alpacaplayhouse.com/infra/infra-upgrade-guide.md` has step-by-step instructions
-4. **Run the upgrade prompt**: `https://alpacaplayhouse.com/infra/infra-upgrade-prompt.md` can be pasted into Claude Code to auto-upgrade
+3. **Read the upgrade guide**: `https://YOUR_DOMAIN/infra/infra-upgrade-guide.md` has step-by-step instructions
+4. **Run the upgrade prompt**: `https://YOUR_DOMAIN/infra/infra-upgrade-prompt.md` can be pasted into Claude Code to auto-upgrade
 
 ### Key files to sync from template
-When updating an existing project from its approved AlpacApps template repository:
+When updating an existing project from its approved My Brand template repository:
 - `shared/admin-shell.js` — tab navigation, auth flow, permission system
 - `shared/feature-registry.js` — feature flag definitions
 - `shared/config-loader.js` — property config loader with fallbacks

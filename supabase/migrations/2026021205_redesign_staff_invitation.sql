@@ -1,24 +1,24 @@
 -- Redesign staff_invitation email template:
--- Dark header, prominent email callout, orange CTA, alpaca banner, AlpacApps branding.
+-- Dark header, prominent email callout, orange CTA, alpaca banner, My Brand branding.
 -- Sender: pai (so replies go to PAI for smart responses).
 -- Uses {{mustache}} placeholders (rendered by template-engine.ts).
 
 UPDATE email_templates
 SET
-  subject_template = 'You''re Invited to Alpaca Playhouse',
+  subject_template = 'You''re Invited to My Brand',
   sender_type = 'pai',
   html_template = $html$
 <div style="max-width:600px;margin:0 auto;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
   <!-- Header -->
   <div style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:40px 32px 28px;text-align:center;">
-    <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:700;letter-spacing:-0.5px;">Welcome to AlpacApps</h1>
-    <p style="margin:8px 0 0;color:#94a3b8;font-size:14px;font-weight:400;">Alpaca Playhouse &bull; Cedar Creek, Texas</p>
+    <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:700;letter-spacing:-0.5px;">Welcome to My Brand</h1>
+    <p style="margin:8px 0 0;color:#94a3b8;font-size:14px;font-weight:400;">My Brand &bull; Cedar Creek, Texas</p>
   </div>
 
   <!-- Body -->
   <div style="padding:32px;">
     <p style="color:#334155;font-size:16px;line-height:1.6;margin:0 0 16px;">Hi there,</p>
-    <p style="color:#334155;font-size:16px;line-height:1.6;margin:0 0 16px;">You've been invited to join <strong style="color:#0f3460;">Alpaca Playhouse</strong> as {{role_label}}. You'll have {{role_description}}.</p>
+    <p style="color:#334155;font-size:16px;line-height:1.6;margin:0 0 16px;">You've been invited to join <strong style="color:#0f3460;">My Brand</strong> as {{role_label}}. You'll have {{role_description}}.</p>
     <p style="color:#334155;font-size:16px;line-height:1.6;margin:0 0 24px;">Your access is <strong>pre-approved</strong> — just create your account and you're in.</p>
 
     <!-- Prominent email callout -->
@@ -29,7 +29,7 @@ SET
 
     <!-- CTA Button -->
     <div style="text-align:center;margin:32px 0;">
-      <a href="{{login_url}}" style="background:linear-gradient(135deg,#c2410c 0%,#ea580c 100%);color:#ffffff;padding:16px 40px;text-decoration:none;border-radius:8px;display:inline-block;font-weight:700;font-size:16px;letter-spacing:0.3px;box-shadow:0 4px 12px rgba(194,65,12,0.3);">Sign in to AlpacApps</a>
+      <a href="{{login_url}}" style="background:linear-gradient(135deg,#c2410c 0%,#ea580c 100%);color:#ffffff;padding:16px 40px;text-decoration:none;border-radius:8px;display:inline-block;font-weight:700;font-size:16px;letter-spacing:0.3px;box-shadow:0 4px 12px rgba(194,65,12,0.3);">Sign in to My Brand</a>
     </div>
 
     <!-- Getting Started card -->
@@ -56,21 +56,21 @@ SET
 
   <!-- Alpaca art banner -->
   <div style="padding:0;">
-    <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/ai-gen/invite-banner-ghibli.png" alt="Alpaca Playhouse" style="width:100%;display:block;" />
+    <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/ai-gen/invite-banner-ghibli.png" alt="My Brand" style="width:100%;display:block;" />
   </div>
 
   <!-- Footer -->
   <div style="background:#f8fafc;padding:20px 32px;text-align:center;border-top:1px solid #e2e8f0;">
-    <p style="margin:0;color:#94a3b8;font-size:12px;">Alpaca Playhouse &bull; 160 Still Forest Dr, Cedar Creek, TX 78612</p>
-    <p style="margin:6px 0 0;color:#cbd5e1;font-size:11px;">AlpacApps &bull; Where the herd gathers</p>
+    <p style="margin:0;color:#94a3b8;font-size:12px;">My Brand &bull; 160 Still Forest Dr, Cedar Creek, TX 78612</p>
+    <p style="margin:6px 0 0;color:#cbd5e1;font-size:11px;">My Brand &bull; Your tagline here</p>
   </div>
 </div>
 $html$,
-  text_template = $text$Welcome to Alpaca Playhouse!
+  text_template = $text$Welcome to My Brand!
 
 Hi there,
 
-You've been invited to join Alpaca Playhouse as {{role_label}}. You'll have {{role_description}}.
+You've been invited to join My Brand as {{role_label}}. You'll have {{role_description}}.
 
 Your access is pre-approved — just create your account and you're in.
 
@@ -83,8 +83,8 @@ Getting Started:
 
 Questions? Just reply to this email — PAI, our AI assistant, is happy to help.
 
-— AlpacApps
-Alpaca Playhouse - 160 Still Forest Dr, Cedar Creek, TX 78612$text$,
+— My Brand
+My Brand - 160 Still Forest Dr, Cedar Creek, TX 78612$text$,
   version = version + 1,
   updated_at = now()
 WHERE template_key = 'staff_invitation'

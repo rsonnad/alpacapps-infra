@@ -43,7 +43,7 @@ wrangler --version 2>/dev/null
 2. Validate name: `gh repo view {USERNAME}/{name}` — exit code 0 means name taken
 3. Use template API:
    ```bash
-   gh api repos/YOUR_ORG/alpacapps-infra/generate \
+   gh api repos/YOUR_ORG/my-brand-infra/generate \
      -f name={name} \
      -f owner={USERNAME} \
      -f include_all_branches=false \

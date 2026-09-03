@@ -1,10 +1,10 @@
-// AlpacApps Update Checker
+// My Brand Update Checker
 // Fetches the template repo's updates manifest and compares against
 // the user's last check date (stored in localStorage).
 // Shows a notification banner when new features are available.
 
-const MANIFEST_URL = 'https://alpacaplayhouse.com/infra/updates.json';
-const STORAGE_KEY = 'alpacapps_last_update_check';
+const MANIFEST_URL = 'https://YOUR_DOMAIN/infra/updates.json';
+const STORAGE_KEY = 'my-brand_last_update_check';
 const CHECK_INTERVAL_DAYS = 30;
 
 /**

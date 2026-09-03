@@ -147,7 +147,7 @@ function buildTimeEntryEmail(
     </table>
 
     <p style="margin:16px 0 0;color:#7d6f74;font-size:13px;">
-      This is an automated notification from Alpaca Playhouse event subscriptions.
+      This is an automated notification from My Brand event subscriptions.
     </p>
   `;
 
@@ -192,7 +192,7 @@ function buildGenericEmail(
     </table>
 
     <p style="margin:16px 0 0;color:#7d6f74;font-size:13px;">
-      This is an automated notification from Alpaca Playhouse event subscriptions.
+      This is an automated notification from My Brand event subscriptions.
     </p>
   `;
 

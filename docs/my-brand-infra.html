@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlpacApps Infra — Full Setup & Service Guide</title>
-  <meta name="description" content="Complete infrastructure guide for AlpacApps. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more — all for $20–$200/month.">
-  <meta property="og:title" content="AlpacApps Infra — Full Setup & Service Guide">
-  <meta property="og:description" content="Complete infrastructure guide for AlpacApps. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more.">
-  <meta property="og:image" content="https://alpacaplayhouse.com/infra/og-infra.jpg">
+  <title>My Brand Infra — Full Setup & Service Guide</title>
+  <meta name="description" content="Complete infrastructure guide for My Brand. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more — all for $20–$200/month.">
+  <meta property="og:title" content="My Brand Infra — Full Setup & Service Guide">
+  <meta property="og:description" content="Complete infrastructure guide for My Brand. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more.">
+  <meta property="og:image" content="https://YOUR_DOMAIN/infra/og-infra.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:url" content="https://alpacaplayhouse.com/docs/alpacappsinfra.html">
+  <meta property="og:url" content="https://YOUR_DOMAIN/docs/my-brandinfra.html">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="AlpacApps">
+  <meta property="og:site_name" content="My Brand">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AlpacApps Infra — Full Setup & Service Guide">
-  <meta name="twitter:description" content="Complete infrastructure guide for AlpacApps. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more.">
-  <meta name="twitter:image" content="https://alpacaplayhouse.com/infra/og-infra.jpg">
-  <meta name="twitter:image:alt" content="AlpacApps Infra — AI-powered platform setup guide">
+  <meta name="twitter:title" content="My Brand Infra — Full Setup & Service Guide">
+  <meta name="twitter:description" content="Complete infrastructure guide for My Brand. Step-by-step setup for GitHub Pages, Supabase, auth, payments, SMS, email, AI, and more.">
+  <meta name="twitter:image" content="https://YOUR_DOMAIN/infra/og-infra.jpg">
+  <meta name="twitter:image:alt" content="My Brand Infra — AI-powered platform setup guide">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/styles/site.css">
   <link rel="stylesheet" href="/styles/tailwind.out.css">
@@ -983,10 +983,10 @@
      Do NOT replace with old dark/full-bleed hero. See docs/CHANGELOG.md. -->
 <div class="hero" style="padding-top: calc(80px + 1rem);">
   <div class="hero-card">
-    <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/ai-gen/alpaca-wide-ai-banner.png" alt="AlpacApps — AI-powered platform with alpacas" class="hero-image" width="1509" height="475">
+    <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/ai-gen/alpaca-wide-ai-banner.png" alt="My Brand — AI-powered platform with alpacas" class="hero-image" width="1509" height="475">
     <div class="hero-text">
-      <h1><span>AlpacApps</span> Infra</h1>
-      <p><strong>AlpacApps is an open-source AI-powered platform.</strong> Set up a super low cost do-it-all system from scratch &mdash; messaging, marketing, management, and finance. You just need to set up the required (mostly free) accounts, then tell Claude Code what you have, where it is, and what you ideally want. Then watch the AI magic transpire.</p>
+      <h1><span>My Brand</span> Infra</h1>
+      <p><strong>My Brand is an open-source AI-powered platform.</strong> Set up a super low cost do-it-all system from scratch &mdash; messaging, marketing, management, and finance. You just need to set up the required (mostly free) accounts, then tell Claude Code what you have, where it is, and what you ideally want. Then watch the AI magic transpire.</p>
       <span class="badge">$20 &ndash; $200 / month</span>
     </div>
   </div>
@@ -1412,7 +1412,7 @@ Optional: Background Workers (cloud VM) &mdash;&rsaquo;    Cloudflare R2 (media 
     <div id="repo-check-result" style="font-size: 0.85rem; margin: -0.5rem 0 1rem 0; min-height: 1.4em;"></div>
 
     <ol>
-      <li>Go to your organization's AlpacApps template repository.</li>
+      <li>Go to your organization's My Brand template repository.</li>
       <li>Click the green <strong>"Use this template"</strong> button &rarr; <strong>"Create a new repository"</strong></li>
       <li>Enter your project name as the <strong>Repository name</strong> (e.g., <code>my-salon-app</code>)</li>
       <li>Make sure <strong>Public</strong> is selected (required for free GitHub Pages hosting)</li>
@@ -1612,7 +1612,7 @@ Don't ask me for permission at each step — just do the work end to end and sho
     <ol>
       <li>Create a new workspace in Conductor (name it something like &ldquo;setup&rdquo;)</li>
       <li>In that workspace, type:
-        <pre data-lang="type in Conductor workspace"><code>/setup-alpacapps-infra</code></pre>
+        <pre data-lang="type in Conductor workspace"><code>/setup-my-brand</code></pre>
       </li>
       <li>The wizard will configure your project based on the profile you picked above &mdash; pruning unused modules, creating database tables, and pushing everything</li>
     </ol>
@@ -1628,8 +1628,8 @@ Don't ask me for permission at each step — just do the work end to end and sho
 
     <div class="callout warning" style="font-size: 0.85rem;">
       <strong>Slash command not working?</strong>
-      The <code>/setup-alpacapps-infra</code> skill requires the <strong>Max plan ($100/month)</strong> or higher. If you're on the Pro plan, type this instead:
-      <pre data-lang="type in Conductor workspace" style="margin: 0.75rem 0 0.25rem 0;"><code>Read .claude/skills/setup-alpacapps-infra/SKILL.md and follow those instructions to set up my project</code></pre>
+      The <code>/setup-my-brand</code> skill requires the <strong>Max plan ($100/month)</strong> or higher. If you're on the Pro plan, type this instead:
+      <pre data-lang="type in Conductor workspace" style="margin: 0.75rem 0 0.25rem 0;"><code>Read .claude/skills/setup-my-brand/SKILL.md and follow those instructions to set up my project</code></pre>
       This does the exact same thing &mdash; Claude reads the setup guide and walks you through it step by step.
     </div>
 
@@ -2340,7 +2340,7 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
       <button onclick="copyPrompt(this)" class="copy-prompt">Copy</button>
     </div>
 
-    <p>Or just type <code>/setup-alpacapps-infra</code> in Claude Code &mdash; the skill walks through the same setup interactively, asking what services you need as it goes.</p>
+    <p>Or just type <code>/setup-my-brand</code> in Claude Code &mdash; the skill walks through the same setup interactively, asking what services you need as it goes.</p>
 
     <p>Claude handles everything from there &mdash; creating tables, writing edge functions, deploying, setting secrets, committing, and pushing. You never need to touch the terminal yourself.</p>
   </div>
@@ -2400,9 +2400,9 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
     <div class="step-label step-claude">Claude does this</div>
     <p>Claude Code handles the build process. Each platform builds independently:</p>
     <ol>
-      <li><strong>iOS</strong> &mdash; Open <code>mobile-ios/AlpacaPlayhouse.xcodeproj</code> in Xcode, press Play to build and run on simulator or device</li>
+      <li><strong>iOS</strong> &mdash; Open <code>mobile-ios/Alpacaproperty.xcodeproj</code> in Xcode, press Play to build and run on simulator or device</li>
       <li><strong>Android</strong> &mdash; Open <code>mobile-android/</code> in Android Studio, press Run to build the APK and deploy</li>
-      <li><strong>Kiosk (Android)</strong> &mdash; A separate <code>alpaca-kiosk/</code> project provides a lockdown kiosk mode with device admin, boot receiver, photo booth, and HTTP API server</li>
+      <li><strong>Kiosk (Android)</strong> &mdash; A separate <code>kiosk/</code> project provides a lockdown kiosk mode with device admin, boot receiver, photo booth, and HTTP API server</li>
     </ol>
 
     <h3>Key Design Decisions</h3>
@@ -2410,7 +2410,7 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
       <li><strong>Fully native</strong> &mdash; SwiftUI (iOS) and Jetpack Compose (Android) for platform-idiomatic UI, smooth 60fps animations, and full native API access</li>
       <li><strong>Shared API layer</strong> &mdash; Both apps connect to the same Supabase backend and HAOS APIs, keeping data in sync with the web app</li>
       <li><strong>Brand theming</strong> &mdash; Both apps use the same brand color tokens (accent gold, warm backgrounds) defined in their respective theme files</li>
-      <li><strong>Kiosk variant</strong> &mdash; A dedicated Android kiosk app (<code>alpaca-kiosk/</code>) with device admin lockdown, guest book photo booth, and HTTP API for remote control</li>
+      <li><strong>Kiosk variant</strong> &mdash; A dedicated Android kiosk app (<code>kiosk/</code>) with device admin lockdown, guest book photo booth, and HTTP API for remote control</li>
       <li><strong>macOS kiosk</strong> &mdash; A Swift Package (<code>oldmackiosk/</code>) for legacy Mac kiosk displays with screen lockdown, audio management, and JS bridge</li>
     </ul>
 
@@ -2427,7 +2427,7 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
   <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto;">
     <!-- Section header -->
     <h2 style="text-align:center;font-size:1.6rem;font-weight:700;color:#E8EAED;margin-bottom:6px;font-family:'DM Sans',system-ui,sans-serif;">
-      <span style="background:linear-gradient(135deg,#3ECF8E,#8B5CF6,#D97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AlpacApps</span> Architecture
+      <span style="background:linear-gradient(135deg,#3ECF8E,#8B5CF6,#D97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">My Brand</span> Architecture
     </h2>
     <p style="text-align:center;color:#9BA1B0;font-size:1rem;margin-bottom:32px;font-family:'DM Sans',system-ui,sans-serif;">67 edge functions, 11 workers, 2 native mobile apps &mdash; zero backend code</p>
 
@@ -2436,7 +2436,7 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
       <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#D97706;display:inline-block;"></span> Claude Code</span>
       <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3ECF8E;display:inline-block;"></span> Supabase</span>
       <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#8B5CF6;display:inline-block;"></span> GitHub Pages</span>
-      <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3B82F6;display:inline-block;"></span> Alpaca Mac</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#3B82F6;display:inline-block;"></span> Dev Mac</span>
       <span style="display:flex;align-items:center;gap:6px;font-size:.82rem;color:#9BA1B0;font-family:'DM Sans',sans-serif;"><span style="width:10px;height:10px;border-radius:50%;background:#EF4444;display:inline-block;"></span> Hostinger</span>
     </div>
 
@@ -2479,7 +2479,7 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
         <text x="370" y="153" text-anchor="middle" fill="#8B5CF6" font-size="14">GH</text>
         <text x="392" y="153" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">GitHub Pages</text>
         <text x="362" y="175" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">Static HTML/JS/CSS hosting</text>
-        <text x="362" y="192" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">alpacaplayhouse.com</text>
+        <text x="362" y="192" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">YOUR_DOMAIN</text>
         <text x="362" y="207" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="10">/spaces/ /residents/ /admin/ /auth/</text>
 
         <line x1="500" y1="220" x2="500" y2="285" stroke="#3ECF8E" stroke-width="2" marker-end="url(#ad-arrowSupabase)" opacity="0.7"/>
@@ -2515,11 +2515,11 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
         <path d="M 150 220 L 150 345 L 278 345" fill="none" stroke="#D97706" stroke-width="1.5" marker-end="url(#ad-arrowClaude)" opacity="0.5" class="ad-flow-line"/>
         <text x="158" y="280" fill="#6B7280" font-family="JetBrains Mono, monospace" font-size="9">migrations</text>
 
-        <!-- Alpaca Mac -->
+        <!-- Dev Mac -->
         <rect x="20" y="470" width="280" height="130" rx="16" fill="#181B24" stroke="#3B82F6" stroke-width="2" filter="url(#ad-glowMac)"/>
         <circle cx="50" cy="498" r="14" fill="rgba(59,130,246,0.15)" stroke="#3B82F6" stroke-width="1"/>
         <text x="50" y="502" text-anchor="middle" fill="#3B82F6" font-size="11">Mac</text>
-        <text x="72" y="503" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Alpaca Mac</text>
+        <text x="72" y="503" fill="#E8EAED" font-family="DM Sans, sans-serif" font-weight="600" font-size="14">Dev Mac</text>
         <text x="42" y="525" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">On-prem home server. Bridges</text>
         <text x="42" y="542" fill="#9BA1B0" font-family="DM Sans, sans-serif" font-size="11">LAN-only smart home devices</text>
         <rect x="40" y="555" width="55" height="28" rx="6" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
@@ -2596,7 +2596,7 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
       </div>
       <div style="background:#181B24;border:1px solid #2A2E3B;border-radius:12px;padding:16px;text-align:center;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#6B7280;margin-bottom:6px;">05</div>
-        <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Alpaca Mac</div>
+        <div style="font-weight:600;font-size:.9rem;color:#E8EAED;margin-bottom:3px;">Dev Mac</div>
         <div style="font-size:.78rem;color:#9BA1B0;line-height:1.4;">Controls Sonos, cameras, lights</div>
       </div>
     </div>

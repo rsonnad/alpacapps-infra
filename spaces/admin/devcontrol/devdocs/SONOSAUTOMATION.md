@@ -1,4 +1,4 @@
-# Sonos Automation — Alpaca Playhouse
+# Sonos Automation — My Brand
 
 > 14 Sonos zones on UniFi Dream Machine Pro network. This doc covers network configuration,
 > troubleshooting history, and best practices for reliable multi-room audio.
@@ -25,8 +25,8 @@
 
 ## Sonos HTTP API (node-sonos-http-api)
 
-- **Server:** Alpuca (192.168.1.200), port 5005
-- **Installed at:** `/Users/alpuca/node-sonos-http-api/`
+- **Server:** my-server (192.168.1.200), port 5005
+- **Installed at:** `/Users/my-server/node-sonos-http-api/`
 - **Quick test:** `curl http://192.168.1.200:5005/zones`
 
 ### Common Commands
@@ -200,7 +200,7 @@ but zero Sonos reservations. Add these when speaker MACs/IPs are stable.
 
 ### 2026-03-31: "Unable to play" + songs not changing
 
-**Root cause:** Tailscale DNS on Almaca was intercepting all DNS but offline, so the Sonos HTTP API couldn't resolve music service URLs (YouTube Music, Spotify). (Note: Sonos API has since moved to Alpuca.)
+**Root cause:** Tailscale DNS on Almaca was intercepting all DNS but offline, so the Sonos HTTP API couldn't resolve music service URLs (YouTube Music, Spotify). (Note: Sonos API has since moved to my-server.)
 
 **Fix (on Almaca, historical):** `ssh alpaca@192.168.1.74` then:
 ```bash
@@ -268,16 +268,16 @@ The "music stops when adding rooms" issue is caused by:
 ### Music Service Authentication
 
 YouTube Music and Spotify tokens can expire if DNS is broken (e.g., Tailscale DNS interception). If you see "connection to YouTube Music was lost":
-1. Check DNS on Alpuca: `ssh paca@192.168.1.200 "nslookup google.com"`
+1. Check DNS on my-server: `ssh paca@192.168.1.200 "nslookup google.com"`
 2. If DNS fails, check Tailscale: `scutil --dns` — Tailscale resolver should NOT be primary
 3. In Sonos app: Settings → Services & Voice → remove and re-add the service
 
-### Alpuca (Sonos HTTP API Server) Gotchas
+### my-server (Sonos HTTP API Server) Gotchas
 
-- **Sonos API runs on Alpuca ONLY** (192.168.1.200). Never use Almaca — duplicate instances caused Living Sound cutouts.
+- **Sonos API runs on my-server ONLY** (192.168.1.200). Never use Almaca — duplicate instances caused Living Sound cutouts.
 - **DNS should resolve via UDM Pro (192.168.1.1)** not Tailscale (100.100.100.100)
 - **node-sonos-http-api** uses DNS for music service lookups (Spotify, YouTube Music)
-- If music commands fail with `getaddrinfo ENOTFOUND`, it's always a DNS issue on Alpuca
+- If music commands fail with `getaddrinfo ENOTFOUND`, it's always a DNS issue on my-server
 
 ### UDM Pro Maintenance
 

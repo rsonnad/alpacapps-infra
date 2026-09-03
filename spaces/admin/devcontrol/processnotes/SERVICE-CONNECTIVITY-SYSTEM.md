@@ -46,8 +46,8 @@ All service recipes are stored in the `service_connections` table with these key
 
 | Column | Purpose |
 |--------|---------|
-| `name` | Human-readable name (e.g. "Alpuca — Mac Mini M4") |
-| `slug` | URL-safe key (e.g. "alpuca") |
+| `name` | Human-readable name (e.g. "my-server — Mac Mini M4") |
+| `slug` | URL-safe key (e.g. "my-server") |
 | `category` | server, api, storage, database, iot, network |
 | `host`, `port`, `protocol` | Connection details |
 | `auth_method` | key, password, token, s3_keys, cookie, none |

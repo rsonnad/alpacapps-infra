@@ -1,6 +1,6 @@
 -- =============================================
 -- EXPOSE DWELLING SPACES BY DEFAULT
--- AlpacApps Infra - Migration 021
+-- My Brand Infra - Migration 021
 -- =============================================
 -- Makes dwelling spaces public/listed by default,
 -- with explicit secret exceptions.

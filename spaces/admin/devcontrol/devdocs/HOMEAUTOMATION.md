@@ -1,11 +1,11 @@
-# Home Automation — Alpaca Playhouse
+# Home Automation — My Brand
 
 > Comprehensive reference for all smart home devices, Home Assistant setup, and migration plans.
 > Last updated: 2026-03-30
 >
 > **Lighting?** All lighting control commands, entity names, room groups, Tuya/Govee/WiZ credentials, and troubleshooting live in **`LIGHTINGAUTOMATION.md`**. Per-bulb inventory (IPs, MACs, sockets) is in Supabase tables: `lighting_devices`, `lighting_groups`, `lighting_group_targets`, `home_assistant_entities`.
 >
-> **Machine specs & hardware inventory:** See [Admin Inventory](../../inventory.html) → Devices → "Computers & Kiosks" for full queried specs (chip, RAM, storage, serial, IPs) for Alpuca, AlpineMac, Entry Tablet, and dev MacBook.
+> **Machine specs & hardware inventory:** See [Admin Inventory](../../inventory.html) → Devices → "Computers & Kiosks" for full queried specs (chip, RAM, storage, serial, IPs) for my-server, AlpineMac, Entry Tablet, and dev MacBook.
 
 ---
 
@@ -15,7 +15,7 @@
                     ┌─────────────────────────────────────┐
                     │       Home Assistant OS 17.1         │
                     │     http://192.168.1.39:8123         │
-                    │  (QEMU VM on Alpuca Mac Mini M4)     │
+                    │  (QEMU VM on my-server Mac Mini M4)     │
                     └───┬────┬────┬────┬────┬────┬────┬───┘
                         │    │    │    │    │    │    │
               ┌─────────┘    │    │    │    │    │    └─────────┐
@@ -42,16 +42,16 @@
 
 ---
 
-## 0. Alpuca SSH Access
+## 0. my-server SSH Access
 
-**Machine:** Alpuca — Mac mini M4, `192.168.1.200`, user `alpuca`
+**Machine:** my-server — Mac mini M4, `192.168.1.200`, user `my-server`
 
 ### Key-based SSH (preferred)
 
-The `~/.ssh/id_ed25519` key (comment: `claude-dev-machine`) is already in Alpuca's `authorized_keys`.
+The `~/.ssh/id_ed25519` key (comment: `claude-dev-machine`) is already in my-server's `authorized_keys`.
 
 ```bash
-ssh alpuca@192.168.1.200
+ssh my-server@192.168.1.200
 ```
 
 No password, no sshpass needed.
@@ -59,30 +59,30 @@ No password, no sshpass needed.
 ### Adding a new machine's key
 
 ```bash
-ssh-copy-id -i ~/.ssh/id_ed25519.pub alpuca@192.168.1.200
+ssh-copy-id -i ~/.ssh/id_ed25519.pub my-server@192.168.1.200
 # or manually:
-ssh alpuca@192.168.1.200 "echo 'YOUR_PUBKEY' >> ~/.ssh/authorized_keys"
+ssh my-server@192.168.1.200 "echo 'YOUR_PUBKEY' >> ~/.ssh/authorized_keys"
 ```
 
 ### Password auth fallback (if no key available)
 
-Password is in Bitwarden → `"Alpuca — Primary Home Server (Mac mini M4)"`:
+Password is in Bitwarden → `"my-server — Primary Home Server (Mac mini M4)"`:
 
 ```bash
-sshpass -p "$(bw get password 'Alpuca — Primary Home Server (Mac mini M4)')" \
+sshpass -p "$(bw get password 'my-server — Primary Home Server (Mac mini M4)')" \
   ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no \
-  -o StrictHostKeyChecking=no alpuca@192.168.1.200
+  -o StrictHostKeyChecking=no my-server@192.168.1.200
 ```
 
-### Quick wrapper (`~/bin/alpuca` on your local Mac)
+### Quick wrapper (`~/bin/my-server` on your local Mac)
 
 ```bash
-alpuca ssh                    # Interactive shell on Alpuca
-alpuca monitor-off            # Sleep display
-alpuca monitor-on             # Wake display
-alpuca mb-off                 # Master bathroom lights off
-alpuca mb-on [brightness]     # Master bathroom lights on (0–255)
-alpuca ha <endpoint> '<json>' # Raw Home Assistant service call
+my-server ssh                    # Interactive shell on my-server
+my-server monitor-off            # Sleep display
+my-server monitor-on             # Wake display
+my-server mb-off                 # Master bathroom lights off
+my-server mb-on [brightness]     # Master bathroom lights on (0–255)
+my-server ha <endpoint> '<json>' # Raw Home Assistant service call
 ```
 
 ### Screen Sharing / VNC
@@ -96,7 +96,7 @@ alpuca ha <endpoint> '<json>' # Raw Home Assistant service call
 
 ## 1. Home Assistant OS — VM Setup
 
-### Current Host: Alpuca (Mac Mini M4)
+### Current Host: my-server (Mac Mini M4)
 
 | Setting | Value |
 |---------|-------|
@@ -104,7 +104,7 @@ alpuca ha <endpoint> '<json>' # Raw Home Assistant service call
 | **VM IP** | `192.168.1.39` (bridged on en1 via vmnet) |
 | **Web UI** | http://192.168.1.39:8123 |
 | **Login** | `alpacaadmin` / `playhouse` |
-| **Host Machine** | Alpuca — Mac mini M4 (Apple Silicon), 24 GB RAM |
+| **Host Machine** | my-server — Mac mini M4 (Apple Silicon), 24 GB RAM |
 | **Host IP** | Configure locally; never commit it |
 | **Host SSH** | Configure locally; use key authentication |
 | **Hypervisor** | Choose for the operator's environment |
@@ -158,23 +158,23 @@ Document only project-specific local migrations in gitignored operator notes.
 
 ### What was done
 
-1. Installed QEMU on Alpuca via Homebrew (`/opt/homebrew/bin/qemu-system-aarch64`)
-2. Copied VM folder `~/homeassistant-vm/` from Airtop to Alpuca via rsync
-3. Updated `start-ha.sh` — changed bridge interface from `en0` to `en1` (Alpuca's active Ethernet)
-4. Updated LaunchDaemon plist — fixed paths from `/Users/rahulio/` to `/Users/alpuca/`
-5. Installed LaunchDaemon on Alpuca at `/Library/LaunchDaemons/com.alpacapps.homeassistant-vm.plist`
+1. Installed QEMU on my-server via Homebrew (`/opt/homebrew/bin/qemu-system-aarch64`)
+2. Copied VM folder `~/homeassistant-vm/` from Airtop to my-server via rsync
+3. Updated `start-ha.sh` — changed bridge interface from `en0` to `en1` (my-server's active Ethernet)
+4. Updated LaunchDaemon plist — fixed paths from `/Users/rahulio/` to `/Users/my-server/`
+5. Installed LaunchDaemon on my-server at `/Library/LaunchDaemons/com.my-brand.homeassistant-vm.plist`
 6. Started VM — HAOS booted, kept IP 192.168.1.39, all 181 entities loaded
 
 ### Key difference from Airtop
 
-- **Network interface:** `en1` on Alpuca (not `en0` — en0 is the inactive WiFi adapter on Mac mini)
+- **Network interface:** `en1` on my-server (not `en0` — en0 is the inactive WiFi adapter on Mac mini)
 - **QEMU path:** `/opt/homebrew/bin/qemu-system-aarch64` (Homebrew on Apple Silicon)
-- **User home:** `/Users/alpuca/` (SSH user: `paca`)
+- **User home:** `/Users/my-server/` (SSH user: `paca`)
 
 ### Airtop cleanup (TODO)
 
-- [ ] Disable the LaunchDaemon on Airtop: `sudo launchctl unload /Library/LaunchDaemons/com.alpacapps.homeassistant-vm.plist`
-- [ ] Optionally archive or delete `~/homeassistant-vm/` on Airtop after confirming Alpuca is stable
+- [ ] Disable the LaunchDaemon on Airtop: `sudo launchctl unload /Library/LaunchDaemons/com.my-brand.homeassistant-vm.plist`
+- [ ] Optionally archive or delete `~/homeassistant-vm/` on Airtop after confirming my-server is stable
 
 ---
 
@@ -228,10 +228,10 @@ WiZ RGBW Tunable bulbs communicate via UDP port 38899, auto-discovered by HA. 16
 | DJ | `media_player.dj` | paused |
 | garage outdoors | `media_player.garage_outdoors` | paused |
 
-**Full Sonos room list** (from Sonos HTTP API on Alpuca :5005):
+**Full Sonos room list** (from Sonos HTTP API on my-server :5005):
 Living Sound, Dining Sound, Outhouse, Skyloft Sound, Front Outside Sound, Pequeno, MasterBlaster, DJ, garage outdoors, Kitchen, Office, Bedroom, TV Room, Bathroom
 
-**Sonos HTTP API** (Alpuca only — never Almaca):
+**Sonos HTTP API** (my-server only — never Almaca):
 ```bash
 curl http://192.168.1.200:5005/{Room}/musicsearch/spotify/song/{query}
 curl http://192.168.1.200:5005/{Room}/{play|pause|stop}
@@ -398,7 +398,7 @@ Rooms to create in HAOS (matching physical property):
 | Device | IP | Purpose |
 |--------|-----|---------|
 | UDM Pro | 192.168.1.1 | Router, UniFi Protect |
-| Alpuca | 192.168.1.200 | Sonos API, HAOS VM host, Cloudflare tunnel |
+| my-server | 192.168.1.200 | Sonos API, HAOS VM host, Cloudflare tunnel |
 | Almaca | 192.168.1.74 | Legacy — WiZ Proxy, UP-Sense monitor only (avoid for new workloads) |
 | HAOS VM | 192.168.1.39 | New Home Assistant OS |
 | Nest Kitchen | 192.168.1.139 | Thermostat |

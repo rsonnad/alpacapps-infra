@@ -1,18 +1,18 @@
-# AlpacApps Infra — Upgrade Guide
+# My Brand Infra — Upgrade Guide
 
 > **For Claude Code / LLM agents:** This document contains step-by-step instructions
-> for upgrading an existing AlpacApps-based project to the latest template features.
+> for upgrading an existing My Brand-based project to the latest template features.
 > Follow these instructions exactly when a user asks to "upgrade", "sync", or "pull new features."
 
 ## Quick Summary
 
-AlpacApps Infra is a template repo. Projects cloned from it diverge over time as they
+My Brand Infra is a template repo. Projects cloned from it diverge over time as they
 add custom content. This guide lets you pull **new infrastructure features** from the
 template without overwriting project-specific files.
 
 **Template repo:** `https://github.com/YOUR_ORG/alpacapps-infra.git`
-**Feature index (machine-readable):** `https://alpacaplayhouse.com/infra/updates.json`
-**Human-readable updates page:** `https://alpacaplayhouse.com/infra/updates.html`
+**Feature index (machine-readable):** `https://YOUR_DOMAIN/infra/updates.json`
+**Human-readable updates page:** `https://YOUR_DOMAIN/infra/updates.html`
 
 ---
 
@@ -20,7 +20,7 @@ template without overwriting project-specific files.
 
 ```bash
 # Check if the remote already exists
-git remote -v | grep alpacapps-infra
+git remote -v | grep my-brand-infra
 
 # If not present, add it:
 git remote add infra-upstream https://github.com/YOUR_ORG/alpacapps-infra.git
@@ -100,7 +100,7 @@ git reset HEAD README.md LICENSE CUSTOMIZATION.md 2>/dev/null
 git checkout -- README.md LICENSE CUSTOMIZATION.md 2>/dev/null
 
 # Commit the merge
-git commit -m "feat: sync infrastructure updates from alpacapps-infra template"
+git commit -m "feat: sync infrastructure updates from my-brand-infra template"
 
 # Merge back to main
 git checkout main
@@ -168,7 +168,7 @@ cat version.json
 
 ```bash
 git add -A
-git commit -m "feat: upgrade infrastructure from alpacapps-infra template ($(date +%Y-%m-%d))"
+git commit -m "feat: upgrade infrastructure from my-brand-infra template ($(date +%Y-%m-%d))"
 git push origin main
 ```
 
@@ -214,14 +214,14 @@ These files contain project-specific content — never replace them from the tem
 
 The template publishes a machine-readable feature index at:
 ```
-https://alpacaplayhouse.com/infra/updates.json
+https://YOUR_DOMAIN/infra/updates.json
 ```
 
 To check which features your project is missing:
 
 ```bash
 # Fetch the feature index
-curl -s https://alpacaplayhouse.com/infra/updates.json | python3 -c "
+curl -s https://YOUR_DOMAIN/infra/updates.json | python3 -c "
 import json, sys, os
 data = json.load(sys.stdin)
 for f in data['features']:

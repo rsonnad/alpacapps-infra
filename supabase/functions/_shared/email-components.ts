@@ -50,7 +50,7 @@ export const PAYMENT_BADGES: Record<string, { bg: string; label: string }> = {
 
 /** Default payment methods when _payment_methods_raw is not available */
 const DEFAULT_METHODS = [
-  { method_type: 'venmo', account_identifier: '@PropertyPlayhouse' },
+  { method_type: 'venmo', account_identifier: '@Propertyproperty' },
   { method_type: 'zelle', account_identifier: 'admin@YOUR_DOMAIN' },
 ];
 

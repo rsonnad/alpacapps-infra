@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Inventory - AlpacAPPs Admin</title>
+  <title>Inventory - My Brand Admin</title>
   <link rel="icon" type="image/png" href="../../favicon.png">
   <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
   <script>try{var c=localStorage.getItem("genalpaca-cached-auth");if(c&&JSON.parse(c).appUser)document.documentElement.dataset.cachedAuth="1"}catch(e){}</script>
@@ -383,8 +383,8 @@
 
   <div id="loadingOverlay" class="loading-overlay">
     <div class="loading-overlay__logo">
-      <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/logos/alpaca-head-black-transparent.png" alt="" class="loading-overlay__icon" width="28" height="40" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 21 30%22%3E%3Cpath d=%22M10.5 1.5C8.3 1.5 6.5 3.3 6.5 5.5v4.1L3.8 13c-1 1.3-1.5 2.8-1.5 4.4 0 4.6 3.7 8.3 8.2 8.3s8.2-3.7 8.2-8.3c0-1.6-.5-3.2-1.5-4.4l-2.7-3.4V5.5c0-2.2-1.8-4-4-4z%22 fill=%22%231f1720%22/%3E%3Cellipse cx=%2210.5%22 cy=%2218.6%22 rx=%223.1%22 ry=%224.7%22 fill=%22%23f6f5f0%22/%3E%3C/svg%3E'">
-      <img src="https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/logos/wordmark-black-transparent.png" alt="Alpaca Playhouse" class="loading-overlay__wordmark" width="28" height="28" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 28%22%3E%3Ctext x=%220%22 y=%2220%22 font-size=%2216%22 font-family=%22Arial,sans-serif%22 fill=%22%231f1720%22%3EAlpaca%3C/text%3E%3C/svg%3E'">
+      <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/logos/alpaca-head-black-transparent.png" alt="" class="loading-overlay__icon" width="28" height="40" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 21 30%22%3E%3Cpath d=%22M10.5 1.5C8.3 1.5 6.5 3.3 6.5 5.5v4.1L3.8 13c-1 1.3-1.5 2.8-1.5 4.4 0 4.6 3.7 8.3 8.2 8.3s8.2-3.7 8.2-8.3c0-1.6-.5-3.2-1.5-4.4l-2.7-3.4V5.5c0-2.2-1.8-4-4-4z%22 fill=%22%231f1720%22/%3E%3Cellipse cx=%2210.5%22 cy=%2218.6%22 rx=%223.1%22 ry=%224.7%22 fill=%22%23f6f5f0%22/%3E%3C/svg%3E'">
+      <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/logos/wordmark-black-transparent.png" alt="My Brand" class="loading-overlay__wordmark" width="28" height="28" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 28%22%3E%3Ctext x=%220%22 y=%2220%22 font-size=%2216%22 font-family=%22Arial,sans-serif%22 fill=%22%231f1720%22%3EAlpaca%3C/text%3E%3C/svg%3E'">
     </div>
     <div class="spinner spinner--sm"></div>
   </div>
@@ -431,12 +431,12 @@
               <span class="inv-summary-meta">Architecture overview for humans and AI sessions</span>
             </summary>
             <div class="inv-details-body" style="line-height: 1.8;">
-              <p style="margin-bottom: 1rem; color: #374151;">AlpacApps is a property management + smart home control platform. Static HTML/JS from GitHub Pages, business logic in Supabase edge functions or background services on a Mac Mini.</p>
+              <p style="margin-bottom: 1rem; color: #374151;">My Brand is a property management + smart home control platform. Static HTML/JS from GitHub Pages, business logic in Supabase edge functions or background services on a Mac Mini.</p>
               <dl>
               <dt>Request Path</dt><dd>Browser &rarr; GitHub Pages &rarr; Supabase (auth + data) &rarr; Edge functions &rarr; External APIs. No middleware.</dd>
               <dt>Access Levels</dt><dd><strong>Public (0)</strong> &bull; <strong>Resident (1)</strong> &bull; <strong>Staff (2)</strong> &bull; <strong>Admin (3)</strong> &bull; <strong>Oracle (4)</strong> service-to-service</dd>
-              <dt>Smart Home</dt><dd>Browser &rarr; Edge function &rarr; Device API or local proxy (WiZ, Sonos, HAOS on Alpuca Mac)</dd>
-              <dt>Background</dt><dd>15 LaunchAgents, 6 cron jobs, 3 pg_cron jobs on Alpuca Mac + Supabase</dd>
+              <dt>Smart Home</dt><dd>Browser &rarr; Edge function &rarr; Device API or local proxy (WiZ, Sonos, HAOS on my-server Mac)</dd>
+              <dt>Background</dt><dd>15 LaunchAgents, 6 cron jobs, 3 pg_cron jobs on my-server Mac + Supabase</dd>
               </dl>
             </div>
           </details>
@@ -454,7 +454,7 @@
 
           <div class="inv-section">
             <h3 class="inv-section-title">System Architecture</h3>
-            <p class="inv-section-sub">How data flows through the AlpacApps ecosystem</p>
+            <p class="inv-section-sub">How data flows through the My Brand ecosystem</p>
             <svg class="inv-arch-svg" viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
               <!-- Row 1: Browser & GitHub Pages & Supabase -->
               <rect x="20" y="20" width="160" height="60" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
@@ -474,9 +474,9 @@
               <text x="550" y="58" text-anchor="middle" font-size="9" fill="#15803d">DB / Auth / Edge Fn / Storage</text>
               <text x="550" y="72" text-anchor="middle" font-size="8" fill="#22c55e">us-east-1</text>
 
-              <!-- Row 2: Alpuca Mac -->
+              <!-- Row 2: my-server Mac -->
               <rect x="240" y="140" width="200" height="70" rx="8" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5"/>
-              <text x="340" y="166" text-anchor="middle" font-size="12" font-weight="600" fill="#92400e">Alpuca Mac Mini M4</text>
+              <text x="340" y="166" text-anchor="middle" font-size="12" font-weight="600" fill="#92400e">my-server Mac Mini M4</text>
               <text x="340" y="182" text-anchor="middle" font-size="9" fill="#b45309">192.168.1.200 / 24GB</text>
               <text x="340" y="198" text-anchor="middle" font-size="8" fill="#d97706">Services, VMs, Cron, rclone</text>
 
@@ -509,7 +509,7 @@
               <text x="780" y="282" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">UDM Pro</text>
               <text x="780" y="298" text-anchor="middle" font-size="9" fill="#3b82f6">Network + 8 UniFi Cameras</text>
 
-              <!-- Connectors from Alpuca to Row 3 -->
+              <!-- Connectors from my-server to Row 3 -->
               <line x1="280" y1="210" x2="100" y2="260" stroke="#9ca3af" stroke-width="1" marker-end="url(#arrow)"/>
               <line x1="340" y1="210" x2="320" y2="260" stroke="#9ca3af" stroke-width="1" marker-end="url(#arrow)"/>
               <line x1="380" y1="210" x2="540" y2="260" stroke="#9ca3af" stroke-width="1" marker-end="url(#arrow)"/>
@@ -524,7 +524,7 @@
 
         <!-- ════════ INFRASTRUCTURE ════════ -->
         <div id="inv-panel-infrastructure" class="inv-panel" style="display:none">
-          <p class="inv-section-sub">Physical hardware, network equipment, virtual machines, and storage devices that form the backbone of the AlpacApps platform.</p>
+          <p class="inv-section-sub">Physical hardware, network equipment, virtual machines, and storage devices that form the backbone of the My Brand platform.</p>
           <div id="infraContent"></div>
         </div>
 
@@ -536,13 +536,13 @@
 
         <!-- ════════ SOFTWARE ════════ -->
         <div id="inv-panel-software" class="inv-panel" style="display:none">
-          <p class="inv-section-sub">CLI tools, frameworks, runtimes, and development dependencies installed on the Alpuca Mac.</p>
+          <p class="inv-section-sub">CLI tools, frameworks, runtimes, and development dependencies installed on the my-server Mac.</p>
           <div id="softwareContent"></div>
         </div>
 
         <!-- ════════ SERVICES ════════ -->
         <div id="inv-panel-services" class="inv-panel" style="display:none">
-          <p class="inv-section-sub">Background daemons (LaunchAgents), cron jobs, and worker processes running on the Alpuca Mac.</p>
+          <p class="inv-section-sub">Background daemons (LaunchAgents), cron jobs, and worker processes running on the my-server Mac.</p>
           <div id="servicesContent"></div>
         </div>
 

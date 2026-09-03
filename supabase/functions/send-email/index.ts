@@ -841,7 +841,7 @@ the YOUR_PROPERTY_NAME property AI agent`
             <!-- Footer -->
             <div style="background:#f8fafc;padding:20px 32px;text-align:center;border-top:1px solid #e2e8f0;">
               <p style="margin:0;color:#94a3b8;font-size:12px;">YOUR_PROPERTY_NAME &bull; 123 Main St, Your City, ST 00000</p>
-              <p style="margin:6px 0 0;color:#cbd5e1;font-size:11px;">YOUR_APP_NAME &bull; Where the herd gathers</p>
+              <p style="margin:6px 0 0;color:#cbd5e1;font-size:11px;">YOUR_APP_NAME &bull; Your tagline here</p>
             </div>
           </div>
         `,

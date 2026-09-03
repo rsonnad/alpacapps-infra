@@ -4,7 +4,7 @@
 
 > **Tables:** `parcels`, `parcel_edges`, `structures`, `structure_setbacks`, `zoning_rules`, `property_utilities`, `impervious_cover`, `permit_applications`, `inspections`, `permit_documents`
 
-> **All tools are on Alpuca** (192.168.1.200, user `paca`).
+> **All tools are on my-server** (192.168.1.200, user `paca`).
 > Nothing is on Hostinger VPS — can be added later for automation if needed.
 
 ---
@@ -114,11 +114,11 @@ All add-on zips are in `~/Downloads/blender-addons/` on Almaca.
 
 When needed, these Docker containers can be added to the VPS (175 GB free, 13 Gi RAM):
 
-- **QGIS Server** — Serve WMS/WFS map tiles to AlpacApps
+- **QGIS Server** — Serve WMS/WFS map tiles to My Brand
 - **Blender CLI** — Headless rendering for on-demand PDF/PNG generation
 - **GDAL Docker** — Format conversion pipeline
 
-This would enable AlpacApps edge functions to trigger renders and generate permit packets automatically.
+This would enable My Brand edge functions to trigger renders and generate permit packets automatically.
 
 ---
 

@@ -6,21 +6,21 @@
 
 A two-machine CAD pipeline:
 
-- **Alpaca Mac** (Intel, macOS 12.7) — Interactive design workstation for hands-on site plan creation, 3D modeling, and permit sheet composition
-- **Hostinger VPS** — Headless automation backend for on-demand rendering, GIS tile serving, and PDF generation callable from AlpacApps
+- **Dev Mac** (Intel, macOS 12.7) — Interactive design workstation for hands-on site plan creation, 3D modeling, and permit sheet composition
+- **Hostinger VPS** — Headless automation backend for on-demand rendering, GIS tile serving, and PDF generation callable from My Brand
 
 ### Deliverables This System Produces
 
 1. **County permit site plans** — Scaled 24×36" or 11×17" sheets with title block, dimensions, setbacks, north arrow, legend (PDF/DXF)
 2. **Photorealistic 3D renders** — Bird's-eye and perspective views of proposed outdoor layouts for presentations
-3. **Interactive property maps** — Live map tiles on AlpacApps admin showing zones, boundaries, and event areas
+3. **Interactive property maps** — Live map tiles on My Brand admin showing zones, boundaries, and event areas
 4. **Automated permit packets** — Edge function triggers headless render + PDF assembly on Hostinger
 
 ---
 
 ## Tools & Add-ons (All Free & Open Source)
 
-### Alpaca Mac — Design Workstation
+### Dev Mac — Design Workstation
 
 | Tool | Version | Purpose |
 |------|---------|---------|
@@ -37,14 +37,14 @@ A two-machine CAD pipeline:
 
 | Tool | Deployment | Purpose |
 |------|-----------|---------|
-| **QGIS Server** | Docker | Serve WMS/WFS map tiles to AlpacApps (parcel boundaries, aerial overlays) |
+| **QGIS Server** | Docker | Serve WMS/WFS map tiles to My Brand (parcel boundaries, aerial overlays) |
 | **Blender CLI** | Docker | Headless rendering — generate PDFs and 3D renders on demand |
 | **GDAL/OGR** | Docker or native | GIS format conversion, shapefile processing, parcel data extraction |
 | **LibreOffice headless** | Docker | Convert SVG/DXF exports to PDF for permit packets |
 
 ---
 
-## Installation — Alpaca Mac
+## Installation — Dev Mac
 
 ### Step 1: Install Blender
 
@@ -181,7 +181,7 @@ docker run --rm -v /opt/gis-data:/data ghcr.io/osgeo/gdal:latest \
 
 ## Workflow: Creating a County Permit Site Plan
 
-### 1. Set Up Base Map (QGIS on Alpaca Mac)
+### 1. Set Up Base Map (QGIS on Dev Mac)
 
 ```
 1. Open QGIS
@@ -192,7 +192,7 @@ docker run --rm -v /opt/gis-data:/data ghcr.io/osgeo/gdal:latest \
 6. Export as GeoJSON or Shapefile for Blender
 ```
 
-### 2. Build 3D Scene (Blender on Alpaca Mac)
+### 2. Build 3D Scene (Blender on Dev Mac)
 
 ```
 1. Open Blender with BlenderGIS add-on
@@ -248,11 +248,11 @@ Typical Bastrop County site plan submission includes:
 
 ---
 
-## Automation: AlpacApps Integration
+## Automation: My Brand Integration
 
 ### Live Property Map on Admin Dashboard
 
-QGIS Server on Hostinger serves WMS tiles → AlpacApps admin shows interactive map:
+QGIS Server on Hostinger serves WMS tiles → My Brand admin shows interactive map:
 - Property boundaries with zone overlays
 - Click zones to see capacity, bookings, permit status
 - Toggle layers: aerial, parcels, setbacks, flood, event areas
@@ -260,7 +260,7 @@ QGIS Server on Hostinger serves WMS tiles → AlpacApps admin shows interactive 
 ### On-Demand Render Generation
 
 ```
-AlpacApps edge function → HTTP request to Hostinger
+My Brand edge function → HTTP request to Hostinger
   → Blender CLI renders .blend file with parameters (layout, camera angle)
   → Returns PNG/PDF → stored in Supabase Storage
   → Served to admin or emailed to client
@@ -269,7 +269,7 @@ AlpacApps edge function → HTTP request to Hostinger
 ### Automated Permit Packet Assembly
 
 ```
-AlpacApps edge function → triggers on "Generate Permit Packet" button
+My Brand edge function → triggers on "Generate Permit Packet" button
   → Blender CLI exports drawing sheets as PDF
   → LibreOffice headless assembles cover sheet
   → GDAL extracts GIS data for attachment
@@ -295,5 +295,5 @@ AlpacApps edge function → triggers on "Generate Permit Packet" button
 | GIS data (TNRIS, USGS, FEMA) | **$0** (taxpayer-funded public data) |
 | Bastrop County parcel data | **$0** (public records) |
 | Hostinger VPS (existing) | Already paying |
-| Alpaca Mac (existing) | Already have |
+| Dev Mac (existing) | Already have |
 | **Total additional cost** | **$0** |

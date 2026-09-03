@@ -15,7 +15,7 @@ const FALLBACK_CONFIG = {
     full_name: 'YOUR_PROPERTY_NAME Austin',
     platform_name: 'YOUR_APP_NAME',
     legal_name: 'YOUR_APP_NAME Residency',
-    tagline: 'Where the herd gathers',
+    tagline: 'Your tagline here',
     address: '123 Main St, Your City, ST 00000',
     website: 'https://YOUR_DOMAIN',
   },

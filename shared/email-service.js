@@ -540,7 +540,7 @@ export const emailService = {
     const dateStr = formatDate(reservation.start_at);
     const timeRange = `${startAt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' })} - ${endAt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Chicago' })}`;
 
-    return sendEmail(EMAIL_TYPES.RESERVATION_SUBMITTED, 'team@alpacaplayhouse.com', {
+    return sendEmail(EMAIL_TYPES.RESERVATION_SUBMITTED, 'team@YOUR_DOMAIN', {
       resident_name: `${person.first_name} ${person.last_name}`,
       resident_email: person.email,
       space_name: space?.name || 'Unknown space',

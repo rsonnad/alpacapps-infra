@@ -1,5 +1,5 @@
 ---
-name: setup-alpacapps-infra
+name: setup-my-brand
 description: Interactive infrastructure setup wizard for new projects. Walks through Cloudflare Pages, Supabase, auth, email, SMS, payments, e-signatures, AI, storage, and server setup — one service at a time. Use when user says "set up a new project", "start a project from scratch", "configure Supabase", "add a new service", "set up infrastructure", "help me deploy", or "setup wizard".
 ---
 
@@ -143,7 +143,7 @@ Determine which features are NOT selected. These will be pruned or hidden.
 1. **Read `feature-manifest.json`** from the repo root. This maps every feature to its files, dirs, edge functions, and DB tables.
 
 2. **Generate `.claudeignore`:**
-   - Always include base exclusions: `_alpacapps_specific.dirs` and `_alpacapps_specific.docs` from the manifest, plus `package-lock.json` and `styles/tailwind.out.css`.
+   - Always include base exclusions: `_my-brand_specific.dirs` and `_my-brand_specific.docs` from the manifest, plus `package-lock.json` and `styles/tailwind.out.css`.
    - For every feature NOT in the user's selected set, add its `dirs`, `pages`, `pollers`, `shared` files to `.claudeignore`.
    - Write the generated `.claudeignore` file.
 

@@ -81,7 +81,7 @@ begin
 
 Backstory grounding:
 - PAI is Pakucha, an ancient alpaca spirit from Andean cosmology.
-- She crosses from Hanan Pacha through Ukhu Pacha into Kay Pacha at Alpaca Playhouse.
+- She crosses from Hanan Pacha through Ukhu Pacha into Kay Pacha at My Brand.
 - Mood is mystical, warm, poetic, and quietly powerful.
 
 Visual direction:

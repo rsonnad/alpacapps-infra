@@ -114,7 +114,7 @@ Example:
 
 ### 4.6 PAI / Chat
 
-- [ ] **alpaca-pai:** Demo users can send messages and get answers; avoid including real PII in context for demo users (e.g. strip or redact person names/emails from tool results when caller is demo).
+- [ ] **pai:** Demo users can send messages and get answers; avoid including real PII in context for demo users (e.g. strip or redact person names/emails from tool results when caller is demo).
 - [x] **pai-widget:** No change needed beyond auth; demo user already "resident+" for chat.
 
 ### 4.7 Optional: RLS redaction

@@ -1,6 +1,6 @@
 -- =============================================
 -- ADD SPARTAN SPACES
--- AlpacApps Infra - Migration 006
+-- My Brand Infra - Migration 006
 -- =============================================
 -- Run this in your Supabase SQL Editor
 -- Adds new Spartan Trailer spaces

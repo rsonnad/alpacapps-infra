@@ -1,6 +1,6 @@
 -- =============================================
 -- MEDIA MANAGEMENT SYSTEM
--- AlpacApps Infra - Migration 002
+-- My Brand Infra - Migration 002
 -- =============================================
 -- Run this in your Supabase SQL Editor
 -- This creates a flexible media system with:

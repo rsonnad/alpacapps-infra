@@ -5,7 +5,7 @@
 #   /ptz/*, /camera/*, /sensors/*, /protect/* → ptz-proxy (port 8901)
 #   /api/* (go2rtc streams, WebRTC)           → go2rtc (port 1984)
 #
-# Deploy to: ~/.cloudflared/config.yml on Alpaca Mac
+# Deploy to: ~/.cloudflared/config.yml on Dev Mac
 # After `cloudflared tunnel create alpaca-cam`, update tunnel ID below
 ###############################################
 

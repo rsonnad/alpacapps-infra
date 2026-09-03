@@ -74,7 +74,7 @@ In `CREDENTIALS.md` and memory files, replace plaintext secrets with:
 In shell commands:
 ```bash
 # Inline substitution
-curl -H "Authorization: Bearer $(bw-read "Supabase — AlpacApps Project" "Management API Token")"
+curl -H "Authorization: Bearer $(bw-read "Supabase — My Brand Project" "Management API Token")"
 
 # sshpass integration
 sshpass -p "$(bw-read "Hostinger VPS — OpenClaw Server")" ssh root@host

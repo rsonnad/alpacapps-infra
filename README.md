@@ -1,4 +1,4 @@
-# AlpacApps Infra
+# My Brand Infra
 
 A complete property management platform template. Clone it, run the setup wizard, and get a full-featured system for managing rentals, events, smart home devices, payments, and more — all on free or near-free infrastructure.
 
@@ -61,7 +61,7 @@ cd my-project
 claude
 
 # 3. Run the setup wizard
-/setup-alpacapps-infra
+/setup-my-brand
 ```
 
 The wizard will:

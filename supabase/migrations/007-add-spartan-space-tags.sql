@@ -1,6 +1,6 @@
 -- =============================================
 -- ADD SPARTAN SPACE TAGS
--- AlpacApps Infra - Migration 007
+-- My Brand Infra - Migration 007
 -- =============================================
 -- Run this in your Supabase SQL Editor
 -- Adds Spartan-related space tags for media tagging

@@ -12,7 +12,7 @@
   <h1>Recent Changes Changelog</h1>
 <blockquote>Reference document extracted from CLAUDE.md. Loaded on-demand, not auto-loaded into context.</blockquote><details open><summary><span id="recent-changes-to-be-aware-of"></span>Recent Changes to Be Aware Of</summary><div class="dv-section-body">
 <ol start="0">
-<li><strong>Infra page hero banner redesign (v260310)</strong> — Both <code>/infra/index.html</code> and <code>/docs/alpacappsinfra.html</code> use a full-width banner card hero (alpaca AI banner image spanning the card width, text below). <strong>Do NOT revert to the old dark full-bleed hero</strong> — it was lost once already and had to be restored. Both files have a <code>⚠️ HERO BANNER</code> HTML comment marking the section.</li>
+<li><strong>Infra page hero banner redesign (v260310)</strong> — Both <code>/infra/index.html</code> and <code>/docs/my-brandinfra.html</code> use a full-width banner card hero (alpaca AI banner image spanning the card width, text below). <strong>Do NOT revert to the old dark full-bleed hero</strong> — it was lost once already and had to be restored. Both files have a <code>⚠️ HERO BANNER</code> HTML comment marking the section.</li>
 <li><strong>Consumer view now loads real availability</strong> - Fetches assignments to show actual dates</li>
 <li><strong>Media system migration</strong> - Using <code>media</code>/<code>media_spaces</code> tables instead of <code>photos</code>/<code>photo_spaces</code></li>
 <li><strong>Space archiving</strong> - <code>is_archived</code> flag for soft deletes</li>
@@ -70,7 +70,7 @@
 <li><strong>Resend Inbound Email</strong> - Inbound email receiving and routing via Resend</li>
 </ol>
 <ul>
-<li>Domain <code>alpacaplayhouse.com</code> configured for both sending and receiving</li>
+<li>Domain <code>YOUR_DOMAIN</code> configured for both sending and receiving</li>
 <li>MX record points to <code>inbound-smtp.us-east-1.amazonaws.com</code></li>
 <li>Edge function: <code>resend-inbound-webhook</code> (SVIX signature verification)</li>
 <li>Prefix-based routing: personal forwards, team@, auto@ (bug reply logic), herd@ (stub)</li>
@@ -81,13 +81,13 @@
 <li><strong>Home Automation System</strong> - Sonos + UniFi programmatic control</li>
 </ol>
 <ul>
-<li>Alpaca Mac (macOS 12.7.6) runs as home server on Black Rock City WiFi</li>
+<li>Dev Mac (macOS 12.7.6) runs as home server on Black Rock City WiFi</li>
 <li>node-sonos-http-api discovers and controls 12 Sonos zones</li>
 <li>Custom <code>balance.js</code> action added for L/R balance control (uses SOAP LF/RF channels)</li>
-<li>Proxy chain: Browser → Supabase edge function → nginx on DO droplet (port 8055) → Alpaca Mac via Tailscale</li>
+<li>Proxy chain: Browser → Supabase edge function → nginx on DO droplet (port 8055) → Dev Mac via Tailscale</li>
 <li><code>SONOS_PROXY_URL</code> and <code>SONOS_PROXY_SECRET</code> stored as Supabase secrets</li>
 <li>Edge function <code>sonos-control</code> MUST be deployed with <code>--no-verify-jwt</code></li>
-<li>Tailscale mesh VPN connects DO droplet to Alpaca Mac</li>
+<li>Tailscale mesh VPN connects DO droplet to Dev Mac</li>
 <li>UniFi Network API for firewall/DHCP/WiFi management</li>
 <li><code>HOMEAUTOMATION.md</code> for full documentation (proxy chain details, balance action, troubleshooting)</li>
 </ul>
@@ -164,10 +164,10 @@
 <li><strong>Camera Streaming via go2rtc</strong> - Live HLS camera feeds on Cameras resident page</li>
 </ol>
 <ul>
-<li>3 UniFi G5 PTZ cameras restreamed via go2rtc on Alpaca Mac</li>
+<li>3 UniFi G5 PTZ cameras restreamed via go2rtc on Dev Mac</li>
 <li>go2rtc handles UniFi Protect&#39;s quirky RTSP (MediaMTX crashed on SPS parsing)</li>
 <li><code>rtspx://</code> protocol (RTSP over TLS control, no SRTP on media)</li>
-<li>Caddy reverse proxy on DO droplet: <code>cam.alpacaplayhouse.com</code> → go2rtc:1984 via Tailscale</li>
+<li>Caddy reverse proxy on DO droplet: <code>cam.YOUR_DOMAIN</code> → go2rtc:1984 via Tailscale</li>
 <li>HLS fMP4 mode (<code>&amp;mp4</code> parameter) required — without it, segments contain only audio</li>
 <li><code>camera_streams</code> DB table stores stream config, frontend constructs HLS URL dynamically</li>
 <li>PTZ controls via UniFi Protect API (continuous move + preset goto)</li>
@@ -191,14 +191,14 @@
 <li><strong>Camera Two-Way Talkback Audio</strong> - Push-to-talk on camera feeds via FFmpeg relay</li>
 </ol>
 <ul>
-<li><code>scripts/talkback-relay/talkback-relay.js</code> — WebSocket relay server on Alpaca Mac</li>
+<li><code>scripts/talkback-relay/talkback-relay.js</code> — WebSocket relay server on Dev Mac</li>
 <li>Browser captures microphone (Web Audio API, 48kHz mono PCM)</li>
 <li>FFmpeg transcodes PCM → AAC-ADTS 22.05kHz mono, streams UDP to camera:7004</li>
 <li>WebSocket protocol on port 8902, health check on port 8903</li>
 <li>3 cameras supported: Alpacamera (.173), Front Of House (.182), Side Yard (.110)</li>
 <li>Push-to-talk UI in both grid and lightbox views</li>
-<li>LaunchAgent: <code>com.talkback-relay.plist</code> on Alpaca Mac</li>
-<li>Requires FFmpeg installed on Alpaca Mac</li>
+<li>LaunchAgent: <code>com.talkback-relay.plist</code> on Dev Mac</li>
+<li>Requires FFmpeg installed on Dev Mac</li>
 </ul>
 <ol start="24">
 <li><strong>Vapi Voice Calling System</strong> - AI phone assistant for property inquiries</li>
@@ -315,7 +315,7 @@
 <li><strong>Mobile App (iOS &amp; Android)</strong> - Native mobile apps via Capacitor 8</li>
 </ol>
 <ul>
-<li>App ID: <code>com.alpacaplayhouse.app</code>, Capacitor 8 wrapping mobile-first SPA</li>
+<li>App ID: <code>com.my-brand.app</code>, Capacitor 8 wrapping mobile-first SPA</li>
 <li>5 tabs: Cameras, Music, Lights, Climate, Cars (bottom tab bar)</li>
 <li>Dark theme, inline login (email/password + Google OAuth), no page redirects</li>
 <li><code>mobile/app/</code> — SPA source (index.html, mobile.css, mobile-app.js, tabs/)</li>
@@ -330,7 +330,7 @@
 <li><strong>Cloudflare R2 Object Storage</strong> - File storage backend replacing Google Drive</li>
 </ol>
 <ul>
-<li>Bucket <code>alpacapps</code> on Cloudflare (APAC region), public dev URL enabled</li>
+<li>Bucket <code>my-brand</code> on Cloudflare (APAC region), public dev URL enabled</li>
 <li>S3-compatible API with AWS Signature V4 authentication</li>
 <li>Shared helper: <code>supabase/functions/_shared/r2-upload.ts</code> (<code>uploadToR2</code>, <code>deleteFromR2</code>, <code>getR2PublicUrl</code>)</li>
 <li>DB: <code>r2_config</code> (credentials/config), <code>document_index</code> (file metadata for PAI lookup)</li>
@@ -340,16 +340,16 @@
 <li>10 GB free, zero egress fees, $0.015/GB-mo beyond free tier</li>
 </ul>
 <ol start="38">
-<li><strong>PAI Email Inbox</strong> - <code>pai@alpacaplayhouse.com</code> processes inbound emails</li>
+<li><strong>PAI Email Inbox</strong> - <code>pai@YOUR_DOMAIN</code> processes inbound emails</li>
 </ol>
 <ul>
 <li>Added <code>pai</code> to SPECIAL_PREFIXES and loop guard in <code>resend-inbound-webhook</code></li>
 <li>Gemini classifies emails: question, document, command, or other</li>
-<li>Questions/commands: forwarded to <code>alpaca-pai</code> edge function, PAI reply sent via email</li>
+<li>Questions/commands: forwarded to <code>pai</code> edge function, PAI reply sent via email</li>
 <li>Documents: attachments downloaded from Resend, uploaded to R2 (<code>documents/email-uploads/</code>), indexed in <code>document_index</code> (inactive pending admin review), admin notified</li>
 <li>Other: forwarded to admin</li>
 <li>New templates: <code>pai_email_reply</code>, <code>pai_document_received</code> in send-email</li>
-<li>New sender: <code>pai</code> in SENDER_MAP (<code>PAI &lt;pai@alpacaplayhouse.com&gt;</code>)</li>
+<li>New sender: <code>pai</code> in SENDER_MAP (<code>PAI &lt;pai@YOUR_DOMAIN&gt;</code>)</li>
 <li>Loop guard prevents feedback loops (self-sent emails to pai@)</li>
 </ul>
 <ol start="39">
@@ -390,13 +390,13 @@
 </ol>
 <ul>
 <li>Lightweight Node.js bot (<code>pai-discord/bot.js</code>) using discord.js v14</li>
-<li>Bridges Discord messages → <code>alpaca-pai</code> edge function (same as web chat, email, voice)</li>
+<li>Bridges Discord messages → <code>pai</code> edge function (same as web chat, email, voice)</li>
 <li>Runs on DO droplet as <code>pai-discord.service</code> (systemd, bugfixer user)</li>
 <li>Auth: service role key with <code>context.source: &quot;discord&quot;</code>, user lookup via <code>app_users.discord_id</code></li>
 <li>Features: per-user conversation history (12 msgs, 30 min TTL), typing indicators, message splitting (2000 char limit)</li>
 <li>Listens to: configured channel IDs + DMs + @mentions</li>
 <li>Replaces OpenClaw-based <code>paibot.service</code> which had no database/tool access</li>
-<li>Fixed <code>alpaca-pai</code> edge function auth bug: Discord branch was unreachable (caught by email/API condition first)</li>
+<li>Fixed <code>pai</code> edge function auth bug: Discord branch was unreachable (caught by email/API condition first)</li>
 </ul>
 <ol start="42">
 <li><strong>Anova Precision Oven Integration</strong> - Cloud API control for Anova Precision Oven</li>
@@ -441,12 +441,12 @@
 <li><strong>Key use case</strong>: ACH bank transfer payments go PENDING → COMPLETED/FAILED over 1-3 business days</li>
 <li><strong>DB</strong>: <code>square_config.webhook_signature_key</code> stores the HMAC key from Square Developer Console</li>
 <li><strong>DB</strong>: <code>square_payments</code> columns: <code>square_source_type</code>, <code>square_event_id</code> (dedup), <code>completed_at</code>, <code>failed_at</code>, <code>failure_reason</code></li>
-<li><strong>Notifications</strong>: Sends admin email to <code>payments@alpacaplayhouse.com</code> on ACH status changes</li>
+<li><strong>Notifications</strong>: Sends admin email to <code>payments@YOUR_DOMAIN</code> on ACH status changes</li>
 <li><strong>Ledger sync</strong>: Automatically updates linked <code>ledger</code> entries on payment completion/failure</li>
 <li><strong>Dedup</strong>: Tracks <code>square_event_id</code> to prevent duplicate processing on webhook retries (up to 11 retries over 24h)</li>
 <li><strong>Deployment</strong>: <code>supabase functions deploy square-webhook --no-verify-jwt</code></li>
 <li><strong>Setup</strong>: Register webhook at Square Developer Console → Webhooks → Add subscription → copy Signature Key → store in <code>square_config.webhook_signature_key</code></li>
-<li><strong>Webhook URL</strong>: <code>https://aphrrfprbixmhissnjfn.supabase.co/functions/v1/square-webhook</code></li>
+<li><strong>Webhook URL</strong>: <code>https://YOUR_PROJECT_REF.supabase.co/functions/v1/square-webhook</code></li>
 </ul>
 <ol start="45">
 <li><strong>Stripe Payment Integration</strong> - Full inbound/outbound payment system via Stripe</li>
@@ -462,7 +462,7 @@
 <li><strong>Client service</strong>: <code>shared/stripe-service.js</code> (config loader, PaymentIntent creation, Stripe.js loader)</li>
 <li><strong>Admin settings</strong>: Stripe section in Settings page (keys, test mode toggle, test connection button)</li>
 <li><strong>Deployment</strong>: <code>stripe-webhook</code> with <code>--no-verify-jwt</code>; others with default JWT</li>
-<li><strong>Webhook URL</strong>: <code>https://aphrrfprbixmhissnjfn.supabase.co/functions/v1/stripe-webhook</code></li>
+<li><strong>Webhook URL</strong>: <code>https://YOUR_PROJECT_REF.supabase.co/functions/v1/stripe-webhook</code></li>
 <li><strong>Events</strong>: <code>payment_intent.succeeded</code>, <code>payment_intent.payment_failed</code>, <code>transfer.paid/failed/reversed</code>, <code>account.updated</code></li>
 </ul>
 <ol start="46">
@@ -473,7 +473,7 @@
 <li><strong>Auth</strong>: <code>X-Subscription-Token</code> header, API key stored as Supabase secret <code>BRAVE_API_KEY</code></li>
 <li><strong>Purpose</strong>: Gives PAI the ability to search the web for current events, local businesses, prices, news, and anything not in the property knowledge base</li>
 <li><strong>Why Brave over Google</strong>: Gemini&#39;s built-in <code>google_search</code> is limited/opaque — Brave provides full control over queries, result parsing, and cost tracking</li>
-<li><strong>Integration point</strong>: <code>alpaca-pai</code> edge function will use as a dedicated <code>search_web</code> tool</li>
+<li><strong>Integration point</strong>: <code>pai</code> edge function will use as a dedicated <code>search_web</code> tool</li>
 <li><strong>Cost tracking</strong>: <code>api_usage_log</code> with vendor <code>brave</code>, category <code>pai_web_search</code></li>
 <li><strong>Pricing</strong>: Free tier 2,000 queries/month, Base $5/mo for 20,000 queries</li>
 <li><strong>Rate limit</strong>: 1 QPS</li>
@@ -500,7 +500,7 @@
 <li><code>supabase/functions/sonos-control/index.ts</code> now routes core playback/grouping/library actions to Music Assistant first (<code>MUSIC_ASSISTANT_URL</code>, <code>MUSIC_ASSISTANT_TOKEN</code>, <code>USE_MUSIC_ASSISTANT</code>)</li>
 <li>Maintains Sonos fallback for compatibility and for actions MA does not cover</li>
 <li><code>announce</code>, <code>bass</code>, <code>treble</code>, <code>loudness</code>, <code>balance</code>, and <code>tts_preview</code> remain Sonos-proxy-first</li>
-<li>Hostinger Caddy is the expected external proxy (<code>/sonos</code> and <code>/ma-api</code>) to Alpaca Mac over Tailscale</li>
+<li>Hostinger Caddy is the expected external proxy (<code>/sonos</code> and <code>/ma-api</code>) to Dev Mac over Tailscale</li>
 <li>Mapping + response-contract notes live in <code>docs/music-assistant-api-mapping.md</code></li>
 </ul>
 <ol start="49">
@@ -509,9 +509,9 @@
 <ul>
 <li><strong>API</strong>: FlashForge TCP G-code protocol (port 8899, no auth needed)</li>
 <li><strong>Printer</strong>: &quot;Alpaca Foundry&quot; — Adventurer 5M Pro, SN SNMSQE9C09604, FW v3.2.7</li>
-<li><strong>Architecture</strong>: Per-request via printer proxy on Alpaca Mac (HTTP→TCP bridge)</li>
-<li><strong>Proxy chain</strong>: Browser → Supabase edge function → Caddy on Hostinger → Alpaca Mac printer-proxy.js → TCP to printer LAN IP</li>
-<li><strong>Proxy</strong>: <code>scripts/printer-proxy/printer-proxy.js</code> on Alpaca Mac (port 8903, health check 8904)</li>
+<li><strong>Architecture</strong>: Per-request via printer proxy on Dev Mac (HTTP→TCP bridge)</li>
+<li><strong>Proxy chain</strong>: Browser → Supabase edge function → Caddy on Hostinger → Dev Mac printer-proxy.js → TCP to printer LAN IP</li>
+<li><strong>Proxy</strong>: <code>scripts/printer-proxy/printer-proxy.js</code> on Dev Mac (port 8903, health check 8904)</li>
 <li><strong>LaunchAgent</strong>: <code>scripts/printer-proxy/com.printer-proxy.plist</code></li>
 <li><strong>Edge function</strong>: <code>printer-control</code> (getStatus, startPrint, pausePrint, resumePrint, cancelPrint, setTemperature, toggleLight, homeAxes, listFiles)</li>
 <li><strong>Data service</strong>: <code>shared/services/printer-data.js</code> (display helpers, API wrapper)</li>

@@ -1,5 +1,5 @@
 [Unit]
-Description=AlpacApps Tesla Vehicle Data Poller
+Description=My Brand Tesla Vehicle Data Poller
 After=network.target
 
 [Service]

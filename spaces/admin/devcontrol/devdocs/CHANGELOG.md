@@ -4,7 +4,7 @@
 
 ## Recent Changes to Be Aware Of
 
-0. **Infra page hero banner redesign (v260310)** — Both `/infra/index.html` and `/docs/alpacappsinfra.html` use a full-width banner card hero (alpaca AI banner image spanning the card width, text below). **Do NOT revert to the old dark full-bleed hero** — it was lost once already and had to be restored. Both files have a `⚠️ HERO BANNER` HTML comment marking the section.
+0. **Infra page hero banner redesign (v260310)** — Both `/infra/index.html` and `/docs/my-brandinfra.html` use a full-width banner card hero (alpaca AI banner image spanning the card width, text below). **Do NOT revert to the old dark full-bleed hero** — it was lost once already and had to be restored. Both files have a `⚠️ HERO BANNER` HTML comment marking the section.
 1. **Consumer view now loads real availability** - Fetches assignments to show actual dates
 2. **Media system migration** - Using `media`/`media_spaces` tables instead of `photos`/`photo_spaces`
 3. **Space archiving** - `is_archived` flag for soft deletes
@@ -40,20 +40,20 @@
    - Worker writes back `diagnosis` (root cause) and `notes` (observations/caveats) after Claude Code analyzes the bug
    - Claude Code prompt instructs it to output structured JSON with `diagnosis`, `fix_summary`, and `notes`
 14. **Resend Inbound Email** - Inbound email receiving and routing via Resend
-   - Domain `alpacaplayhouse.com` configured for both sending and receiving
+   - Domain `YOUR_DOMAIN` configured for both sending and receiving
    - MX record points to `inbound-smtp.us-east-1.amazonaws.com`
    - Edge function: `resend-inbound-webhook` (SVIX signature verification)
    - Prefix-based routing: personal forwards, team@, auto@ (bug reply logic), herd@ (stub)
    - All emails logged to `inbound_emails` table
    - Forwarded emails preserve original sender name, set reply-to to original sender
 15. **Home Automation System** - Sonos + UniFi programmatic control
-   - Alpaca Mac (macOS 12.7.6) runs as home server on Black Rock City WiFi
+   - Dev Mac (macOS 12.7.6) runs as home server on Black Rock City WiFi
    - node-sonos-http-api discovers and controls 12 Sonos zones
    - Custom `balance.js` action added for L/R balance control (uses SOAP LF/RF channels)
-   - Proxy chain: Browser → Supabase edge function → nginx on DO droplet (port 8055) → Alpaca Mac via Tailscale
+   - Proxy chain: Browser → Supabase edge function → nginx on DO droplet (port 8055) → Dev Mac via Tailscale
    - `SONOS_PROXY_URL` and `SONOS_PROXY_SECRET` stored as Supabase secrets
    - Edge function `sonos-control` MUST be deployed with `--no-verify-jwt`
-   - Tailscale mesh VPN connects DO droplet to Alpaca Mac
+   - Tailscale mesh VPN connects DO droplet to Dev Mac
    - UniFi Network API for firewall/DHCP/WiFi management
    - `HOMEAUTOMATION.md` for full documentation (proxy chain details, balance action, troubleshooting)
 16. **Govee Lighting Integration** - 63 Govee/AiDot smart lights backed up in Supabase
@@ -106,10 +106,10 @@
    - Edge function handles wake-up (30s polling) before sending commands to sleeping cars
    - Staleness indicator shows time since last sync
 21. **Camera Streaming via go2rtc** - Live HLS camera feeds on Cameras resident page
-   - 3 UniFi G5 PTZ cameras restreamed via go2rtc on Alpaca Mac
+   - 3 UniFi G5 PTZ cameras restreamed via go2rtc on Dev Mac
    - go2rtc handles UniFi Protect's quirky RTSP (MediaMTX crashed on SPS parsing)
    - `rtspx://` protocol (RTSP over TLS control, no SRTP on media)
-   - Caddy reverse proxy on DO droplet: `cam.alpacaplayhouse.com` → go2rtc:1984 via Tailscale
+   - Caddy reverse proxy on DO droplet: `cam.YOUR_DOMAIN` → go2rtc:1984 via Tailscale
    - HLS fMP4 mode (`&mp4` parameter) required — without it, segments contain only audio
    - `camera_streams` DB table stores stream config, frontend constructs HLS URL dynamically
    - PTZ controls via UniFi Protect API (continuous move + preset goto)
@@ -125,14 +125,14 @@
    - Washer states: POWER_OFF, INITIAL, DETECTING, RUNNING, RINSING, SPINNING, DRYING, END, ERROR
    - Dryer states: POWER_OFF, INITIAL, RUNNING, PAUSE, END, ERROR
 23. **Camera Two-Way Talkback Audio** - Push-to-talk on camera feeds via FFmpeg relay
-   - `scripts/talkback-relay/talkback-relay.js` — WebSocket relay server on Alpaca Mac
+   - `scripts/talkback-relay/talkback-relay.js` — WebSocket relay server on Dev Mac
    - Browser captures microphone (Web Audio API, 48kHz mono PCM)
    - FFmpeg transcodes PCM → AAC-ADTS 22.05kHz mono, streams UDP to camera:7004
    - WebSocket protocol on port 8902, health check on port 8903
    - 3 cameras supported: Alpacamera (.173), Front Of House (.182), Side Yard (.110)
    - Push-to-talk UI in both grid and lightbox views
-   - LaunchAgent: `com.talkback-relay.plist` on Alpaca Mac
-   - Requires FFmpeg installed on Alpaca Mac
+   - LaunchAgent: `com.talkback-relay.plist` on Dev Mac
+   - Requires FFmpeg installed on Dev Mac
 24. **Vapi Voice Calling System** - AI phone assistant for property inquiries
    - Vapi handles phone calls → `vapi-server` edge function returns assistant config dynamically
    - Caller identification by phone number → personalized greeting
@@ -201,7 +201,7 @@
 35. **UP-SENSE Smart Sensors** - UniFi Protect sensor installation guide
    - `residents/sensorinstallation.html` — step-by-step installation instructions
 36. **Mobile App (iOS & Android)** - Native mobile apps via Capacitor 8
-   - App ID: `com.alpacaplayhouse.app`, Capacitor 8 wrapping mobile-first SPA
+   - App ID: `com.my-brand.app`, Capacitor 8 wrapping mobile-first SPA
    - 5 tabs: Cameras, Music, Lights, Climate, Cars (bottom tab bar)
    - Dark theme, inline login (email/password + Google OAuth), no page redirects
    - `mobile/app/` — SPA source (index.html, mobile.css, mobile-app.js, tabs/)
@@ -212,7 +212,7 @@
    - OTA updates via `@capgo/capacitor-updater` (no App Store resubmission for code changes)
    - Build: `cd mobile && npm run sync` → open in Xcode/Android Studio → Run
 37. **Cloudflare R2 Object Storage** - File storage backend replacing Google Drive
-   - Bucket `alpacapps` on Cloudflare (APAC region), public dev URL enabled
+   - Bucket `my-brand` on Cloudflare (APAC region), public dev URL enabled
    - S3-compatible API with AWS Signature V4 authentication
    - Shared helper: `supabase/functions/_shared/r2-upload.ts` (`uploadToR2`, `deleteFromR2`, `getR2PublicUrl`)
    - DB: `r2_config` (credentials/config), `document_index` (file metadata for PAI lookup)
@@ -220,14 +220,14 @@
    - Supabase secrets: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME, R2_PUBLIC_URL
    - Migrated 2 PDFs from Supabase Storage `instructions-and-manuals` bucket to R2
    - 10 GB free, zero egress fees, $0.015/GB-mo beyond free tier
-38. **PAI Email Inbox** - `pai@alpacaplayhouse.com` processes inbound emails
+38. **PAI Email Inbox** - `pai@YOUR_DOMAIN` processes inbound emails
    - Added `pai` to SPECIAL_PREFIXES and loop guard in `resend-inbound-webhook`
    - Gemini classifies emails: question, document, command, or other
-   - Questions/commands: forwarded to `alpaca-pai` edge function, PAI reply sent via email
+   - Questions/commands: forwarded to `pai` edge function, PAI reply sent via email
    - Documents: attachments downloaded from Resend, uploaded to R2 (`documents/email-uploads/`), indexed in `document_index` (inactive pending admin review), admin notified
    - Other: forwarded to admin
    - New templates: `pai_email_reply`, `pai_document_received` in send-email
-   - New sender: `pai` in SENDER_MAP (`PAI <pai@alpacaplayhouse.com>`)
+   - New sender: `pai` in SENDER_MAP (`PAI <pai@YOUR_DOMAIN>`)
    - Loop guard prevents feedback loops (self-sent emails to pai@)
 
 39. **Centralized Internal REST API** - Single permissioned edge function for all entity CRUD
@@ -257,13 +257,13 @@
    - Logos: alpaca head icon + wordmark in dark/light variants (Supabase Storage)
 41. **PAI Discord Bot** - Native Discord bot replacing OpenClaw paibot
    - Lightweight Node.js bot (`pai-discord/bot.js`) using discord.js v14
-   - Bridges Discord messages → `alpaca-pai` edge function (same as web chat, email, voice)
+   - Bridges Discord messages → `pai` edge function (same as web chat, email, voice)
    - Runs on DO droplet as `pai-discord.service` (systemd, bugfixer user)
    - Auth: service role key with `context.source: "discord"`, user lookup via `app_users.discord_id`
    - Features: per-user conversation history (12 msgs, 30 min TTL), typing indicators, message splitting (2000 char limit)
    - Listens to: configured channel IDs + DMs + @mentions
    - Replaces OpenClaw-based `paibot.service` which had no database/tool access
-   - Fixed `alpaca-pai` edge function auth bug: Discord branch was unreachable (caught by email/API condition first)
+   - Fixed `pai` edge function auth bug: Discord branch was unreachable (caught by email/API condition first)
 
 42. **Anova Precision Oven Integration** - Cloud API control for Anova Precision Oven
    - **API**: Anova Developer API via WebSocket (`wss://devices.anovaculinary.io`)
@@ -299,12 +299,12 @@
    - **Key use case**: ACH bank transfer payments go PENDING → COMPLETED/FAILED over 1-3 business days
    - **DB**: `square_config.webhook_signature_key` stores the HMAC key from Square Developer Console
    - **DB**: `square_payments` columns: `square_source_type`, `square_event_id` (dedup), `completed_at`, `failed_at`, `failure_reason`
-   - **Notifications**: Sends admin email to `payments@alpacaplayhouse.com` on ACH status changes
+   - **Notifications**: Sends admin email to `payments@YOUR_DOMAIN` on ACH status changes
    - **Ledger sync**: Automatically updates linked `ledger` entries on payment completion/failure
    - **Dedup**: Tracks `square_event_id` to prevent duplicate processing on webhook retries (up to 11 retries over 24h)
    - **Deployment**: `supabase functions deploy square-webhook --no-verify-jwt`
    - **Setup**: Register webhook at Square Developer Console → Webhooks → Add subscription → copy Signature Key → store in `square_config.webhook_signature_key`
-   - **Webhook URL**: `https://aphrrfprbixmhissnjfn.supabase.co/functions/v1/square-webhook`
+   - **Webhook URL**: `https://YOUR_PROJECT_REF.supabase.co/functions/v1/square-webhook`
 
 45. **Stripe Payment Integration** - Full inbound/outbound payment system via Stripe
    - **Inbound payments**: Tenant pay page at `/pay/` with Stripe PaymentElement (ACH bank transfer + card)
@@ -317,7 +317,7 @@
    - **Client service**: `shared/stripe-service.js` (config loader, PaymentIntent creation, Stripe.js loader)
    - **Admin settings**: Stripe section in Settings page (keys, test mode toggle, test connection button)
    - **Deployment**: `stripe-webhook` with `--no-verify-jwt`; others with default JWT
-   - **Webhook URL**: `https://aphrrfprbixmhissnjfn.supabase.co/functions/v1/stripe-webhook`
+   - **Webhook URL**: `https://YOUR_PROJECT_REF.supabase.co/functions/v1/stripe-webhook`
    - **Events**: `payment_intent.succeeded`, `payment_intent.payment_failed`, `transfer.paid/failed/reversed`, `account.updated`
 
 46. **Brave Search API for PAI** - Real-time web search capability for PAI assistant
@@ -325,7 +325,7 @@
    - **Auth**: `X-Subscription-Token` header, API key stored as Supabase secret `BRAVE_API_KEY`
    - **Purpose**: Gives PAI the ability to search the web for current events, local businesses, prices, news, and anything not in the property knowledge base
    - **Why Brave over Google**: Gemini's built-in `google_search` is limited/opaque — Brave provides full control over queries, result parsing, and cost tracking
-   - **Integration point**: `alpaca-pai` edge function will use as a dedicated `search_web` tool
+   - **Integration point**: `pai` edge function will use as a dedicated `search_web` tool
    - **Cost tracking**: `api_usage_log` with vendor `brave`, category `pai_web_search`
    - **Pricing**: Free tier 2,000 queries/month, Base $5/mo for 20,000 queries
    - **Rate limit**: 1 QPS
@@ -346,15 +346,15 @@
  - `supabase/functions/sonos-control/index.ts` now routes core playback/grouping/library actions to Music Assistant first (`MUSIC_ASSISTANT_URL`, `MUSIC_ASSISTANT_TOKEN`, `USE_MUSIC_ASSISTANT`)
  - Maintains Sonos fallback for compatibility and for actions MA does not cover
  - `announce`, `bass`, `treble`, `loudness`, `balance`, and `tts_preview` remain Sonos-proxy-first
- - Hostinger Caddy is the expected external proxy (`/sonos` and `/ma-api`) to Alpaca Mac over Tailscale
+ - Hostinger Caddy is the expected external proxy (`/sonos` and `/ma-api`) to Dev Mac over Tailscale
  - Mapping + response-contract notes live in `docs/music-assistant-api-mapping.md`
 
 49. **FlashForge 3D Printer Integration** - Live status + control for FlashForge Adventurer 5M Pro
    - **API**: FlashForge TCP G-code protocol (port 8899, no auth needed)
    - **Printer**: "Alpaca Foundry" — Adventurer 5M Pro, SN SNMSQE9C09604, FW v3.2.7
-   - **Architecture**: Per-request via printer proxy on Alpaca Mac (HTTP→TCP bridge)
-   - **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Alpaca Mac printer-proxy.js → TCP to printer LAN IP
-   - **Proxy**: `scripts/printer-proxy/printer-proxy.js` on Alpaca Mac (port 8903, health check 8904)
+   - **Architecture**: Per-request via printer proxy on Dev Mac (HTTP→TCP bridge)
+   - **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Dev Mac printer-proxy.js → TCP to printer LAN IP
+   - **Proxy**: `scripts/printer-proxy/printer-proxy.js` on Dev Mac (port 8903, health check 8904)
    - **LaunchAgent**: `scripts/printer-proxy/com.printer-proxy.plist`
    - **Edge function**: `printer-control` (getStatus, startPrint, pausePrint, resumePrint, cancelPrint, setTemperature, toggleLight, homeAxes, listFiles)
    - **Data service**: `shared/services/printer-data.js` (display helpers, API wrapper)

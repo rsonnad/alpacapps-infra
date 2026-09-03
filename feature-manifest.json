@@ -496,7 +496,7 @@
   },
 
   "_your-app_specific": {
-    "_note": "YOUR_APP_NAME Playhouse content — always excluded from template clones",
+    "_note": "YOUR_APP_NAME property content — always excluded from template clones",
     "dirs": [
       "mistiq/",
       "jackie/",

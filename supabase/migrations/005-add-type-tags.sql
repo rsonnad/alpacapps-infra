@@ -1,6 +1,6 @@
 -- =============================================
 -- ADD TYPE TAGS
--- AlpacApps Infra - Migration 005
+-- My Brand Infra - Migration 005
 -- =============================================
 -- Run this in your Supabase SQL Editor
 -- This adds "type" tag category for media content types

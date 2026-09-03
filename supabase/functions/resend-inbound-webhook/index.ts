@@ -962,7 +962,7 @@ This is an automated reply from PAI at YOUR_PROPERTY_NAME.`;
 }
 
 /**
- * Send a reply email from AlpaClaw.
+ * Send a reply email from AI Assistant.
  */
 async function sendAI AdminReply(
   resendApiKey: string,
@@ -972,11 +972,11 @@ async function sendAI AdminReply(
   originalBody: string
 ): Promise<{ ok: boolean; status: number }> {
   const bodySnippet = originalBody.substring(0, 500);
-  const subject = `Re: ${originalSubject || "Your message to AlpaClaw"}`;
+  const subject = `Re: ${originalSubject || "Your message to AI Assistant"}`;
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: #1c1618; padding: 20px; border-radius: 12px 12px 0 0;">
-        <h2 style="color: #d4883a; margin: 0;">AlpaClaw</h2>
+        <h2 style="color: #d4883a; margin: 0;">AI Assistant</h2>
         <p style="color: #aaa; margin: 4px 0 0 0; font-size: 13px;">YOUR_PROPERTY_NAME AI</p>
       </div>
       <div style="background: #fff; padding: 24px; border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 12px 12px;">
@@ -988,16 +988,16 @@ async function sendAI AdminReply(
         ` : ""}
       </div>
       <p style="color: #999; font-size: 11px; text-align: center; margin-top: 12px;">
-        This is an automated reply from AlpaClaw at YOUR_PROPERTY_NAME. Reply to this email to continue the conversation.
+        This is an automated reply from AI Assistant at YOUR_PROPERTY_NAME. Reply to this email to continue the conversation.
       </p>
     </div>`;
-  const text = `AlpaClaw - YOUR_PROPERTY_NAME AI
+  const text = `AI Assistant - YOUR_PROPERTY_NAME AI
 
 ${replyBody || ""}
 
 ${bodySnippet ? `---\nYour original message:\n${bodySnippet}` : ""}
 
-This is an automated reply from AlpaClaw at YOUR_PROPERTY_NAME.`;
+This is an automated reply from AI Assistant at YOUR_PROPERTY_NAME.`;
 
   const res = await fetch(`${RESEND_API_URL}/emails`, {
     method: "POST",
@@ -1006,7 +1006,7 @@ This is an automated reply from AlpaClaw at YOUR_PROPERTY_NAME.`;
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "AlpaClaw <ai-admin@YOUR_DOMAIN>",
+      from: "AI Assistant <ai-admin@YOUR_DOMAIN>",
       to: [to],
       reply_to: "ai-admin@YOUR_DOMAIN",
       subject,
@@ -1017,9 +1017,9 @@ This is an automated reply from AlpaClaw at YOUR_PROPERTY_NAME.`;
 
   if (!res.ok) {
     const errText = await res.text();
-    console.error(`Failed to send AlpaClaw reply: ${res.status} ${errText}`);
+    console.error(`Failed to send AI Assistant reply: ${res.status} ${errText}`);
   } else {
-    console.log(`AlpaClaw reply sent to ${to}`);
+    console.log(`AI Assistant reply sent to ${to}`);
   }
   return { ok: res.ok, status: res.status };
 }
@@ -1032,7 +1032,7 @@ This is an automated reply from AlpaClaw at YOUR_PROPERTY_NAME.`;
  * Handle inbound email to ai-admin@YOUR_DOMAIN.
  *
  * Routes to PAI edge function with context.source = "ai-admin-email"
- * so that the ai-admin_addendum (AlpaClaw personality) is injected.
+ * so that the ai-admin_addendum (AI Assistant personality) is injected.
  * Sends reply back via email from ai-admin@.
  */
 async function handleAI AdminEmail(
@@ -1049,7 +1049,7 @@ async function handleAI AdminEmail(
   const senderEmail = (from.match(/<(.+)>/)?.[1] || from).trim();
   const message = bodyText || bodyHtml || subject;
 
-  console.log(`AlpaClaw email from ${senderEmail}: subject="${subject}"`);
+  console.log(`AI Assistant email from ${senderEmail}: subject="${subject}"`);
 
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
@@ -1104,7 +1104,7 @@ async function handleAI AdminEmail(
       });
     }
   } catch (err) {
-    console.error(`AlpaClaw response error: ${err.message}`);
+    console.error(`AI Assistant response error: ${err.message}`);
     const sendResult = await sendAI AdminReply(
       resendApiKey,
       senderEmail,

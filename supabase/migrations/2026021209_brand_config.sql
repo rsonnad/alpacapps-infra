@@ -29,13 +29,13 @@ CREATE POLICY "brand_config_update" ON brand_config
 -- Seed the brand config with current values extracted from the codebase
 INSERT INTO brand_config (id, config) VALUES (1, '{
   "brand": {
-    "primary_name": "Alpaca Playhouse",
-    "full_name": "Alpaca Playhouse Austin",
-    "platform_name": "AlpacApps",
-    "legal_name": "AlpacApps Residency",
-    "tagline": "Where the herd gathers",
+    "primary_name": "My Brand",
+    "full_name": "My Brand Austin",
+    "platform_name": "My Brand",
+    "legal_name": "My Brand Residency",
+    "tagline": "Your tagline here",
     "address": "160 Still Forest Dr, Cedar Creek, TX 78612",
-    "website": "https://alpacaplayhouse.com"
+    "website": "https://YOUR_DOMAIN"
   },
   "colors": {
     "primary": {
@@ -92,7 +92,7 @@ INSERT INTO brand_config (id, config) VALUES (1, '{
     }
   },
   "logos": {
-    "base_url": "https://aphrrfprbixmhissnjfn.supabase.co/storage/v1/object/public/housephotos/logos",
+    "base_url": "https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/logos",
     "icon_dark": "alpaca-head-black-transparent.png",
     "icon_light": "alpaca-head-white-transparent.png",
     "wordmark_dark": "wordmark-black-transparent.png",

@@ -57,7 +57,7 @@
 </ul>
 </div></details><details><summary><span id="mobile-app-mobile"></span>Mobile App (<code>/mobile/</code>)</summary><div class="dv-section-body">
 <ul>
-<li><code>capacitor.config.ts</code> - App config (ID: <code>com.alpacaplayhouse.app</code>, plugins, platform settings)</li>
+<li><code>capacitor.config.ts</code> - App config (ID: <code>com.my-brand.app</code>, plugins, platform settings)</li>
 <li><code>scripts/copy-web.js</code> - Build script: copies web assets → www/, injects capacitor.js, patches redirects</li>
 <li><code>app/index.html</code> - App shell (loading overlay, login overlay, tab sections, bottom nav bar)</li>
 <li><code>app/mobile.css</code> - Dark theme stylesheet (all mobile CSS in one file)</li>
@@ -119,7 +119,7 @@
 </ul>
 </div></details><details><summary><span id="pai-discord-bot-pai-discord"></span>PAI Discord Bot (<code>/pai-discord/</code>)</summary><div class="dv-section-body">
 <ul>
-<li><code>bot.js</code> - Discord → alpaca-pai edge function bridge (discord.js v14)</li>
+<li><code>bot.js</code> - Discord → pai edge function bridge (discord.js v14)</li>
 <li><code>pai-discord.service</code> - Systemd service file for DO droplet</li>
 <li><code>install.sh</code> - Droplet installation script</li>
 </ul>
@@ -133,8 +133,8 @@
 <li><code>resend-inbound-webhook/</code> - Receives inbound email via Resend webhook, routes/forwards, auto-records Zelle payments</li>
 <li><code>approve-email/</code> - Email approval handler: validates token, sends held email to original recipient, supports &quot;approve all&quot; to disable approval for a type</li>
 <li><code>govee-control/</code> - Proxies requests to Govee Cloud API (resident+ auth)</li>
-<li><code>alpaca-pai/</code> - PAI chat + voice assistant: Gemini-powered natural language smart home control + property Q&amp;A + Vapi voice calling (resident+ auth)</li>
-<li><code>sonos-control/</code> - Proxies requests to Sonos HTTP API via Alpaca Mac (resident+ auth)</li>
+<li><code>pai/</code> - PAI chat + voice assistant: Gemini-powered natural language smart home control + property Q&amp;A + Vapi voice calling (resident+ auth)</li>
+<li><code>sonos-control/</code> - Proxies requests to Sonos HTTP API via Dev Mac (resident+ auth)</li>
 <li><code>nest-control/</code> - Proxies requests to Google SDM API with OAuth token management (resident+ auth)</li>
 <li><code>nest-token-refresh/</code> - Standalone Nest OAuth token refresher (cron)</li>
 <li><code>tesla-command/</code> - Sends commands to Tesla vehicles via Fleet API (lock, unlock, wake, flash, honk) (resident+ auth)</li>
@@ -181,7 +181,7 @@
 <tr><td>`anova-control`</td><td>`supabase functions deploy anova-control --no-verify-jwt`</td></tr>
 <tr><td>`glowforge-control`</td><td>`supabase functions deploy glowforge-control --no-verify-jwt`</td></tr>
 <tr><td>`printer-control`</td><td>`supabase functions deploy printer-control --no-verify-jwt`</td></tr>
-<tr><td>`alpaca-pai`</td><td>`supabase functions deploy alpaca-pai --no-verify-jwt`</td></tr>
+<tr><td>`pai`</td><td>`supabase functions deploy pai --no-verify-jwt`</td></tr>
 <tr><td>`verify-identity`</td><td>`supabase functions deploy verify-identity --no-verify-jwt`</td></tr>
 <tr><td>`vapi-server`</td><td>`supabase functions deploy vapi-server --no-verify-jwt`</td></tr>
 <tr><td>`vapi-webhook`</td><td>`supabase functions deploy vapi-webhook --no-verify-jwt`</td></tr>

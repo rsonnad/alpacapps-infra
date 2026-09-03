@@ -311,7 +311,7 @@ function renderAccessDenied(state, activeTab) {
         await supabase.functions.invoke('send-email', {
           body: {
             template: 'access_request',
-            to: 'team@alpacaplayhouse.com',
+            to: 'team@YOUR_DOMAIN',
             data: {
               user_name: displayName,
               user_email: email,

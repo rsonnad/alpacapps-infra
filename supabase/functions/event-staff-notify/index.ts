@@ -78,7 +78,7 @@ Deno.serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Alpaca Team <team@alpacaplayhouse.com>',
+        from: 'Alpaca Team <team@YOUR_DOMAIN>',
         to: [ADMIN_EMAIL],
         subject: `Staff Submitted for ${event_name} by ${host_name}`,
         html: `
@@ -103,8 +103,8 @@ Deno.serve(async (req) => {
             </thead>
             <tbody>${staffTableRows}</tbody>
           </table>
-          <p style="margin-top: 16px;"><a href="https://alpacaplayhouse.com/admin/events.html">View in Admin</a></p>
-          <div style="text-align: center; padding: 16px;"><img src="https://alpacaplayhouse.com/assets/branding/alpaca-head-white-transparent.png" alt="" style="height: 40px; margin: 0 8px;" /><img src="https://alpacaplayhouse.com/assets/Alpaca%20Playhouse%20Highlights/Alpaca.jpg" alt="" style="height: 80px; border-radius: 8px; margin: 0 8px;" /></div>
+          <p style="margin-top: 16px;"><a href="https://YOUR_DOMAIN/admin/events.html">View in Admin</a></p>
+          <div style="text-align: center; padding: 16px;"><img src="https://YOUR_DOMAIN/assets/branding/alpaca-head-white-transparent.png" alt="" style="height: 40px; margin: 0 8px;" /><img src="https://YOUR_DOMAIN/assets/Alpaca%20property%20Highlights/Alpaca.jpg" alt="" style="height: 80px; border-radius: 8px; margin: 0 8px;" /></div>
         `,
         text: `Event Staff Submitted\n\n${host_name} (${host_email}) has submitted staff for:\n\nEvent: ${event_name}\nDate: ${event_date}\nTime: ${event_time}\nLocation: ${event_location}\n\nStaff:\n${staffTextRows}`,
       }),
@@ -135,20 +135,20 @@ Deno.serve(async (req) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Alpaca Team <team@alpacaplayhouse.com>',
+          from: 'Alpaca Team <team@YOUR_DOMAIN>',
           to: [member.email],
-          reply_to: 'team@alpacaplayhouse.com',
+          reply_to: 'team@YOUR_DOMAIN',
           subject: `You're signed up to staff: ${event_name} - ${event_date}`,
           html: `
 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
   <div style="background: #1a1a2e; padding: 24px; text-align: center; border-radius: 8px 8px 0 0;">
-    <img src="https://alpacaplayhouse.com/assets/branding/alpaca-head-white-transparent.png" alt="Alpaca Playhouse" style="height: 50px;" />
+    <img src="https://YOUR_DOMAIN/assets/branding/alpaca-head-white-transparent.png" alt="My Brand" style="height: 50px;" />
     <h1 style="color: #fff; margin: 12px 0 0; font-size: 20px;">Event Staff Assignment</h1>
   </div>
 
   <div style="padding: 24px; background: #f9f9f9;">
     <p>Hi ${firstName},</p>
-    <p>You've been signed up by <strong>${host_name}</strong> to help staff an event at Alpaca Playhouse. Here are the details:</p>
+    <p>You've been signed up by <strong>${host_name}</strong> to help staff an event at My Brand. Here are the details:</p>
 
     <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 16px 0;">
       <table style="width: 100%; border-collapse: collapse;">
@@ -182,17 +182,17 @@ Deno.serve(async (req) => {
     <p style="color: #666; font-size: 0.9em;">If you have any questions about your role or the event, please reply to this email and we'll get back to you promptly.</p>
 
     <p>Thank you for helping make this event a success!</p>
-    <p>Best,<br/><strong>Alpaca Playhouse</strong></p>
+    <p>Best,<br/><strong>My Brand</strong></p>
   </div>
 
   <div style="text-align: center; padding: 16px;">
-    <img src="https://alpacaplayhouse.com/assets/branding/alpaca-head-white-transparent.png" alt="" style="height: 35px; margin: 0 8px;" />
-    <img src="https://alpacaplayhouse.com/assets/Alpaca%20Playhouse%20Highlights/Alpaca.jpg" alt="" style="height: 60px; border-radius: 8px; margin: 0 8px;" />
+    <img src="https://YOUR_DOMAIN/assets/branding/alpaca-head-white-transparent.png" alt="" style="height: 35px; margin: 0 8px;" />
+    <img src="https://YOUR_DOMAIN/assets/Alpaca%20property%20Highlights/Alpaca.jpg" alt="" style="height: 60px; border-radius: 8px; margin: 0 8px;" />
   </div>
 </div>`,
           text: `Hi ${firstName},
 
-You've been signed up by ${host_name} to help staff an event at Alpaca Playhouse.
+You've been signed up by ${host_name} to help staff an event at My Brand.
 
 EVENT DETAILS
 -------------
@@ -209,7 +209,7 @@ If you have any questions about your role or the event, please reply to this ema
 Thank you for helping make this event a success!
 
 Best,
-Alpaca Playhouse`,
+My Brand`,
         }),
       });
 

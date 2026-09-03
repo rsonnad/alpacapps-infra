@@ -2,7 +2,7 @@
 CREATE TABLE backup_logs (
   id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
-  source      TEXT NOT NULL,                        -- 'alpaca-mac'
+  source      TEXT NOT NULL,                        -- 'dev-mac'
   backup_type TEXT NOT NULL,                        -- 'full-to-rvault'
   status      TEXT NOT NULL DEFAULT 'success',      -- 'success' | 'error'
   duration_seconds INTEGER,

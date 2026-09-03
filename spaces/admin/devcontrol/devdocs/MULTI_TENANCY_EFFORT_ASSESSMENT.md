@@ -1,7 +1,7 @@
-# Multi-Tenancy Effort Assessment — AlpacApps
+# Multi-Tenancy Effort Assessment — My Brand
 
 **Version:** v260210.88 9:00a  
-**Purpose:** Estimate effort to make AlpacApps multi-tenant so other Houses/Centers can sign up and deploy with minimal effort, with Claude Code (Bug Scout / Feature Builder) on each tenant’s own account and the rest run in aggregate, including base subscriptions and usage-based charges.
+**Purpose:** Estimate effort to make My Brand multi-tenant so other Houses/Centers can sign up and deploy with minimal effort, with Claude Code (Bug Scout / Feature Builder) on each tenant’s own account and the rest run in aggregate, including base subscriptions and usage-based charges.
 
 ---
 
@@ -38,8 +38,8 @@
 
 ### 3.2 Tenant identity and routing
 
-- **Option A (simplest):** Tenant from **session only** — same app URL for everyone (e.g. `app.alpacapps.com`); after login, `app_user.org_id` drives all data.  
-- **Option B:** **Subdomains** — `{slug}.alpacapps.com`; tenant from subdomain + DB lookup.  
+- **Option A (simplest):** Tenant from **session only** — same app URL for everyone (e.g. `app.my-brand.com`); after login, `app_user.org_id` drives all data.  
+- **Option B:** **Subdomains** — `{slug}.my-brand.com`; tenant from subdomain + DB lookup.  
 - **Option C:** **Custom domains** per tenant (more ops: DNS, SSL, CORS).
 
 For “no effort to deploy,” A or B is enough; C is optional later.
@@ -76,7 +76,7 @@ Details and implementation are in **§ 10 (Hosted workers: multi-instance, tenan
 - Add **`org_id`** to all tenant-scoped tables (~50): spaces, people, assignments, app_users, media, rental_applications, sms_messages, govee_devices, nest_devices, vehicles, configs, etc.
 - **Config tables:** move from “single row id=1” to “one row per org” (e.g. `telnyx_config(org_id, ...)` with unique on org_id).
 - **RLS:** every policy includes `org_id = (SELECT org_id FROM app_users WHERE auth_user_id = auth.uid())` (and handle service role for cron/webhooks).
-- Backfill: existing data gets one default `org_id` (e.g. “AlpacApps Residency”).
+- Backfill: existing data gets one default `org_id` (e.g. “My Brand Residency”).
 - Identify **global** tables (e.g. `govee_models` SKU lookup) and leave them without `org_id` or make them org-optional.
 
 ### 4.2 Auth and onboarding (Medium — ~1–2 weeks)
@@ -126,7 +126,7 @@ See **§ 10** for full design. Summary: per-tenant credential storage, job queue
 ### 4.9 Domains and hosting (Small if path/session; Medium if subdomains)
 
 - **Path or session only:** No URL change; tenant from login. **Effort:** negligible.
-- **Subdomains:** Wildcard DNS `*.alpacapps.com`; resolve org from subdomain; set cookie/session. **Effort:** ~3–5 days.
+- **Subdomains:** Wildcard DNS `*.my-brand.com`; resolve org from subdomain; set cookie/session. **Effort:** ~3–5 days.
 - **Custom domains:** Per-tenant SSL and CORS. **Effort:** 1–2 weeks (and ongoing ops).
 
 ---
@@ -235,7 +235,7 @@ Goal: **Sign up and be productive in minutes; no DevOps, no required API keys fo
 - **Pro/optional features — opt-in only:**
   - **SMS / Voice / Payments / E-sign:** Offered as add-ons. “Turn on SMS” → you assign them a number (or they bring their own later); same for SignWell, Square, etc. Config is in your UI; keys stay on your side for aggregate mode.
   - **Bug Scout / Feature Builder:** “Turn on AI fixes” → single field: **Anthropic API key**. They paste it; you store it per-org and use it only for their jobs. No repo URL required initially (optional “use your own repo” later).
-  - **Custom domain / subdomain:** Optional. Default: they use `app.alpacapps.com` (or `{slug}.alpacapps.com`). Custom domain is a later, documented step.
+  - **Custom domain / subdomain:** Optional. Default: they use `app.my-brand.com` (or `{slug}.my-brand.com`). Custom domain is a later, documented step.
 
 - **Onboarding UX:**
   - Post-signup: short checklist. “Add your first space”, “Invite a teammate”, “Turn on payments (optional)”. No long forms; sensible defaults everywhere.
@@ -284,7 +284,7 @@ Implementing **§ 12** and **§ 13** is mostly product and docs (export API, exp
 | `climate`     | Climate tab                  | Settings → Nest           | nest-control, nest_devices        |
 | `laundry`     | Laundry tab                  | (config per-org)          | lg-control, lg_appliances         |
 | `cars`        | Cars tab                     | Settings → Tesla          | tesla-command, vehicles           |
-| `pai`         | PAI widget, Life of PAI      | FAQ/AI, PAI config        | alpaca-pai, pai_config            |
+| `pai`         | PAI widget, Life of PAI      | FAQ/AI, PAI config        | pai, pai_config            |
 | `voice`       | —                            | Voice tab                 | vapi-server, vapi-webhook         |
 | `sms`         | —                            | SMS tab                   | send-sms, telnyx_config           |
 | `weather`     | (e.g. on climate/dashboard)   | Settings → Weather        | weather_config                    |
@@ -312,7 +312,7 @@ Default for new orgs: either all off (they opt in) or a sensible default set (e.
 
 ### 14.5 Backend behavior
 
-- **Edge functions:** For integration-specific endpoints (govee-control, sonos-control, nest-control, tesla-command, lg-control, alpaca-pai, vapi-server, send-sms, etc.), after resolving `org_id`, check that the org has the corresponding feature enabled. If not, return `403 Forbidden` or a clear “Feature not enabled” so tenants can’t call APIs for disabled features.
+- **Edge functions:** For integration-specific endpoints (govee-control, sonos-control, nest-control, tesla-command, lg-control, pai, vapi-server, send-sms, etc.), after resolving `org_id`, check that the org has the corresponding feature enabled. If not, return `403 Forbidden` or a clear “Feature not enabled” so tenants can’t call APIs for disabled features.
 - **Data services / RLS:** Optionally, restrict read access to integration tables (govee_devices, camera_streams, nest_devices, vehicles, lg_appliances, etc.) by feature flag (e.g. a policy that joins to orgs.features or org_features). Simpler approach: rely on the GUI hiding everything and edge functions rejecting disabled-feature calls; add RLS by feature later if needed.
 
 ### 14.6 Effort

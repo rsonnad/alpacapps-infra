@@ -38,7 +38,7 @@ const FALLBACK_CONFIG = {
   },
   payment: {
     zelle_email: 'admin@YOUR_DOMAIN',
-    venmo_handle: '@PropertyPlayhouse',
+    venmo_handle: '@Propertyproperty',
   },
   ai_assistant: {
     name: 'PAI',

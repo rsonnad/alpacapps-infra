@@ -1,11 +1,11 @@
-# AlpacApps Infra — Upgrade Prompt
+# My Brand Infra — Upgrade Prompt
 
 > **Paste this entire file into Claude Code in your project directory.**
 > Claude will read the upgrade guide, compare your project against the template, and sync all new features while preserving your custom content.
 
 ---
 
-Read https://alpacaplayhouse.com/infra/infra-upgrade-guide.md and upgrade my project to the latest template.
+Read https://YOUR_DOMAIN/infra/infra-upgrade-guide.md and upgrade my project to the latest template.
 
 Here's what I need you to do:
 
@@ -42,7 +42,7 @@ Here's what I need you to do:
    Also add the upgrade reference block after the first-time setup note:
    > **Upgrading from the template?**
    > Read `infra/infra-upgrade-guide.md` for step-by-step instructions to sync new features from
-   > the alpacapps-infra template repo. Machine-readable feature index: `infra/updates.json`
+   > the my-brand-infra template repo. Machine-readable feature index: `infra/updates.json`
 
    And add to Quick Refs:
    - **Template repo:** https://github.com/YOUR_ORG/alpacapps-infra
@@ -59,7 +59,7 @@ Here's what I need you to do:
 7. Rebuild CSS if needed: npm run css:build
 
 8. Commit everything as one atomic commit:
-   git commit -m "feat: upgrade infrastructure from alpacapps-infra template ($(date +%Y-%m-%d))"
+   git commit -m "feat: upgrade infrastructure from my-brand-infra template ($(date +%Y-%m-%d))"
 
 9. Push to deploy:
    git push origin main

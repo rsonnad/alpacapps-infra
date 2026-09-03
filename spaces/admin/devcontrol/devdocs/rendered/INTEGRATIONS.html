@@ -158,31 +158,31 @@ await supabaseAdmin.from('api_usage_log').insert({
 </ol>
 <h3><span id="resend-email"></span>Resend (Email)</h3>
 <ul>
-<li><strong>Domain</strong>: <code>alpacaplayhouse.com</code> (verified, sending + receiving)</li>
+<li><strong>Domain</strong>: <code>YOUR_DOMAIN</code> (verified, sending + receiving)</li>
 <li><strong>Account</strong>: configure in the adopting project's credential manager</li>
 <li><strong>API Key</strong>: Stored as Supabase secret <code>RESEND_API_KEY</code></li>
 <li><strong>Webhook Secret</strong>: Stored as Supabase secret <code>RESEND_WEBHOOK_SECRET</code> (SVIX-based)</li>
 <li><strong>Outbound</strong>: <code>send-email</code> Edge Function sends via Resend API (43 templates)<ul>
-<li>From: <code>notifications@alpacaplayhouse.com</code> (forwarded emails) or <code>noreply@alpacaplayhouse.com</code> (system emails)</li>
+<li>From: <code>notifications@YOUR_DOMAIN</code> (forwarded emails) or <code>noreply@YOUR_DOMAIN</code> (system emails)</li>
 <li>Client service: <code>shared/email-service.js</code></li>
 </ul>
 </li>
 <li><strong>Inbound</strong>: <code>resend-inbound-webhook</code> Edge Function (deployed with <code>--no-verify-jwt</code>)<ul>
-<li>Webhook URL: <code>https://aphrrfprbixmhissnjfn.supabase.co/functions/v1/resend-inbound-webhook</code></li>
+<li>Webhook URL: <code>https://YOUR_PROJECT_REF.supabase.co/functions/v1/resend-inbound-webhook</code></li>
 <li>Event: <code>email.received</code></li>
 <li>All inbound emails logged to <code>inbound_emails</code> table</li>
 <li>Webhook payload doesn&#39;t include body — fetched separately via Resend API</li>
 </ul>
 </li>
 </ul>
-<p><strong>DNS Records</strong> (GoDaddy, domain: <code>alpacaplayhouse.com</code>):</p>
+<p><strong>DNS Records</strong> (GoDaddy, domain: <code>YOUR_DOMAIN</code>):</p>
 <ul>
 <li>MX <code>@</code> → <code>inbound-smtp.us-east-1.amazonaws.com</code> (priority 10) — inbound receiving</li>
 <li>MX <code>send</code> → <code>feedback-smtp.us-east-1.amazonses.com</code> (priority 10) — SPF for outbound</li>
 <li>TXT <code>send</code> → SPF record for outbound</li>
 <li>TXT <code>resend._domainkey</code> → DKIM record</li>
 </ul>
-<p><strong>Inbound Email Routing</strong> (<code>*@alpacaplayhouse.com</code>):</p>
+<p><strong>Inbound Email Routing</strong> (<code>*@YOUR_DOMAIN</code>):</p>
 <div class="dv-table-wrap"><table><thead><tr><th>Prefix</th><th>Action</th><th>Destination</th></tr></thead><tbody><tr><td>`support@`</td><td>Forward</td><td>`support@YOUR_DOMAIN`</td></tr>
 <tr><td>`rahulio@`</td><td>Forward</td><td>`{OWNER_EMAIL}`</td></tr>
 <tr><td>`billing@`</td><td>Forward</td><td>`billing@YOUR_DOMAIN`</td></tr>
@@ -200,8 +200,8 @@ await supabaseAdmin.from('api_usage_log').insert({
 </ul>
 <h3><span id="hostinger-vps-openclaw-server"></span>Hostinger VPS (OpenClaw Server)</h3>
 <ul>
-<li><strong>URL:</strong> <a href="https://alpaclaw.cloud">https://alpaclaw.cloud</a> (domain: <code>alpaclaw.cloud</code>, auto-HTTPS via Caddy + Let&#39;s Encrypt)</li>
-<li><strong>IP:</strong> <code>93.188.164.224</code> | <strong>SSH:</strong> use password file: <code>sshpass -f ~/.ssh/alpacapps-hostinger.pass ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no root@93.188.164.224</code> (key auth broken on Hostinger; see CLAUDE.local.md for setup)</li>
+<li><strong>URL:</strong> <a href="https://ai-assistant.cloud">https://ai-assistant.cloud</a> (domain: <code>ai-assistant.cloud</code>, auto-HTTPS via Caddy + Let&#39;s Encrypt)</li>
+<li><strong>IP:</strong> <code>93.188.164.224</code> | <strong>SSH:</strong> use password file: <code>sshpass -f ~/.ssh/my-brand-hostinger.pass ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no root@93.188.164.224</code> (key auth broken on Hostinger; see CLAUDE.local.md for setup)</li>
 <li><strong>OS:</strong> Ubuntu 24.04, KVM 4, 15 GB RAM, 200 GB disk</li>
 <li><strong>Docker:</strong> OpenClaw v2026.2.23 chatbot gateway (multi-channel: Discord, WhatsApp, Telegram, Slack)</li>
 <li><strong>Docker Compose:</strong> <code>/docker/openclaw-vnfd/docker-compose.yml</code> with <code>.env</code> file</li>
@@ -214,9 +214,9 @@ await supabaseAdmin.from('api_usage_log').insert({
 <li><strong>IMPORTANT:</strong> OpenClaw&#39;s <code>server.mjs</code> overwrites config on restart. <code>.env</code> sets tokens but does NOT auto-enable Discord — must use <code>openclaw config set</code> CLI inside container after recreation.</li>
 <li><strong>Channels enabled:</strong> Discord (Alpaclaw bot), Telegram</li>
 <li><strong>Discord Bot:</strong> Alpaclaw (ID: <code>1476649970823335998</code>) — DM policy: open, allowFrom: <code>[&quot;*&quot;]</code></li>
-<li><strong>Multi-agent routing:</strong> 2 agents (Alpaclaw 🦙 + PAI 🧠), channel-based bindings route <code>#alpaclaw</code> → Alpaclaw, <code>#pai-in-the-sky</code> → PAI, DMs → Alpaclaw</li>
+<li><strong>Multi-agent routing:</strong> 2 agents (Alpaclaw 🦙 + PAI 🧠), channel-based bindings route <code>#ai-assistant</code> → Alpaclaw, <code>#pai-in-the-sky</code> → PAI, DMs → Alpaclaw</li>
 <li><strong>Discord Server:</strong> Alpacord (ID: <code>1471023710755487867</code>)</li>
-<li><strong>Discord Channels:</strong> <code>#alpaclaw</code> (ID: <code>1477048544501174474</code>), <code>#pai-in-the-sky</code> (ID: <code>1471024050343247894</code>)</li>
+<li><strong>Discord Channels:</strong> <code>#ai-assistant</code> (ID: <code>1477048544501174474</code>), <code>#pai-in-the-sky</code> (ID: <code>1471024050343247894</code>)</li>
 <li><strong>Credentials:</strong> See <code>CLAUDE.local.md</code> for SSH password, API tokens, bot tokens, full <code>.env</code> contents</li>
 </ul>
 <h3><span id="digitalocean-droplet-deprecated-migrating-to-hostinger-oracle"></span>DigitalOcean Droplet (DEPRECATED — migrating to Hostinger + Oracle)</h3>
@@ -232,10 +232,10 @@ await supabaseAdmin.from('api_usage_log').insert({
 <h3><span id="spotify-music-integration"></span>Spotify (Music Integration)</h3>
 <ul>
 <li><strong>API</strong>: Spotify Web API + Authorization Code Flow with PKCE</li>
-<li><strong>App</strong>: AlpacApps (Development mode)</li>
+<li><strong>App</strong>: My Brand (Development mode)</li>
 <li><strong>Dashboard</strong>: <a href="https://developer.spotify.com/dashboard">https://developer.spotify.com/dashboard</a></li>
 <li><strong>Config</strong>: <code>spotify_config</code> table (client_id, client_secret, tokens)</li>
-<li><strong>Redirect URIs</strong>: <code>http://127.0.0.1:8080</code> (local dev), <code>https://alpacaplayhouse.com/auth/spotify/callback</code> (production)</li>
+<li><strong>Redirect URIs</strong>: <code>http://127.0.0.1:8080</code> (local dev), <code>https://YOUR_DOMAIN/auth/spotify/callback</code> (production)</li>
 <li><strong>Scopes</strong>: TBD (will need <code>user-read-playback-state</code>, <code>user-modify-playback-state</code>, etc.)</li>
 <li><strong>DB</strong>: <code>spotify_config</code> (single row, id=1)</li>
 </ul>
@@ -243,9 +243,9 @@ await supabaseAdmin.from('api_usage_log').insert({
 <ul>
 <li>Full documentation in <code>HOMEAUTOMATION.md</code></li>
 <li>Credentials and IPs in <code>HOMEAUTOMATION.local.md</code></li>
-<li>Alpaca Mac (home server) bridges Hostinger/Oracle nodes to local LAN via Tailscale</li>
+<li>Dev Mac (home server) bridges Hostinger/Oracle nodes to local LAN via Tailscale</li>
 <li>Sonos HTTP API on port 5005 remains for announce + EQ fallback path</li>
-<li>Music Assistant on Alpaca Mac port 8095 is the primary Sonos control plane</li>
+<li>Music Assistant on Dev Mac port 8095 is the primary Sonos control plane</li>
 <li>Edge adapter mapping: <code>docs/music-assistant-api-mapping.md</code></li>
 <li>UniFi Network API on UDM Pro port 443: firewall, DHCP, WiFi management</li>
 <li>12 Sonos zones controllable via <code>http://&lt;alpaca-tailscale-ip&gt;:5005/{room}/{action}</code></li>
@@ -261,7 +261,7 @@ await supabaseAdmin.from('api_usage_log').insert({
 <li><strong>Traits used</strong>: Temperature, Humidity, ThermostatMode, ThermostatHvac, ThermostatEco, ThermostatTemperatureSetpoint, Connectivity</li>
 <li><strong>Temperature</strong>: SDM API uses Celsius, UI shows Fahrenheit, edge function converts</li>
 <li><strong>Rate limit</strong>: 5 QPS per SDM project (polling at 0.1 QPS is well within limit)</li>
-<li><strong>OAuth setup</strong>: One-time admin flow via Climate tab Settings → &quot;Authorize Google Account&quot;. If you get Error 400 redirect_uri_mismatch, add <code>https://alpacaplayhouse.com/residents/climate.html</code> to the OAuth client&#39;s Authorized redirect URIs in Google Cloud Console (APIs &amp; Services → Credentials).</li>
+<li><strong>OAuth setup</strong>: One-time admin flow via Climate tab Settings → &quot;Authorize Google Account&quot;. If you get Error 400 redirect_uri_mismatch, add <code>https://YOUR_DOMAIN/residents/climate.html</code> to the OAuth client&#39;s Authorized redirect URIs in Google Cloud Console (APIs &amp; Services → Credentials).</li>
 </ul>
 <h3><span id="openweathermap-weather"></span>OpenWeatherMap (Weather)</h3>
 <ul>
@@ -277,7 +277,7 @@ await supabaseAdmin.from('api_usage_log').insert({
 <li><strong>Auth</strong>: <code>X-Subscription-Token</code> header with API key</li>
 <li><strong>Supabase Secret</strong>: <code>BRAVE_API_KEY</code></li>
 <li><strong>Purpose</strong>: Real-time web search for PAI — answers questions about current events, local info, businesses, prices, and anything not in the property knowledge base</li>
-<li><strong>Used by</strong>: <code>alpaca-pai</code> edge function (PAI chat + voice) as a dedicated <code>search_web</code> tool</li>
+<li><strong>Used by</strong>: <code>pai</code> edge function (PAI chat + voice) as a dedicated <code>search_web</code> tool</li>
 <li><strong>Why not Google</strong>: Gemini&#39;s built-in <code>google_search</code> tool is limited and opaque — Brave gives full control over search queries, result count, and response parsing</li>
 <li><strong>Rate limit</strong>: 1 query/second, 2,000 queries/month (free tier) or 20,000/month (paid)</li>
 <li><strong>Pricing</strong>: Free tier: 2,000 queries/month; Base: $5/mo for 20,000 queries; $0.003/query overage</li>
@@ -339,12 +339,12 @@ await supabaseAdmin.from('api_usage_log').insert({
 </ul>
 <h3><span id="camera-streaming-go2rtc-caddy"></span>Camera Streaming (go2rtc + Caddy)</h3>
 <ul>
-<li><strong>Server:</strong> go2rtc v1.9.14 on Alpaca Mac (<code>~/go2rtc/go2rtc</code>)</li>
+<li><strong>Server:</strong> go2rtc v1.9.14 on Dev Mac (<code>~/go2rtc/go2rtc</code>)</li>
 <li><strong>Config:</strong> <code>~/go2rtc/go2rtc.yaml</code> (also in repo at <code>scripts/go2rtc/go2rtc.yaml</code>)</li>
 <li><strong>Protocol:</strong> <code>rtspx://</code> (RTSP over TLS, no SRTP) to UniFi Protect on UDM Pro</li>
 <li><strong>Cameras:</strong> 3 UniFi G5 PTZ cameras × 3 quality levels = 9 streams</li>
-<li><strong>Proxy:</strong> Caddy on DO droplet at <code>cam.alpacaplayhouse.com/api/*</code> → go2rtc:1984 via Tailscale</li>
-<li><strong>HLS URL format:</strong> <code>https://cam.alpacaplayhouse.com/api/stream.m3u8?src={stream_name}&amp;mp4</code></li>
+<li><strong>Proxy:</strong> Caddy on DO droplet at <code>cam.YOUR_DOMAIN/api/*</code> → go2rtc:1984 via Tailscale</li>
+<li><strong>HLS URL format:</strong> <code>https://cam.YOUR_DOMAIN/api/stream.m3u8?src={stream_name}&amp;mp4</code></li>
 <li><strong>DB:</strong> <code>camera_streams</code> table stores stream config (stream_name, proxy_base_url, quality, location)</li>
 <li><strong>Client:</strong> <code>residents/cameras.js</code> loads streams from DB, plays via HLS.js with fMP4 mode (<code>&amp;mp4</code> parameter)</li>
 <li><strong>PTZ:</strong> UniFi Protect API — continuous move at <code>POST /proxy/protect/api/cameras/{id}/move</code>, presets at <code>POST .../ptz/goto/{slot}</code></li>
@@ -402,9 +402,9 @@ await supabaseAdmin.from('api_usage_log').insert({
 <ul>
 <li><strong>API</strong>: FlashForge TCP G-code protocol (port 8899, no auth needed on LAN)</li>
 <li><strong>Printer</strong>: &quot;Alpaca Foundry&quot; — Adventurer 5M Pro, SN SNMSQE9C09604, FW v3.2.7</li>
-<li><strong>Architecture</strong>: Per-request via printer proxy on Alpaca Mac (HTTP→TCP bridge, same pattern as Sonos/cameras)</li>
-<li><strong>Proxy chain</strong>: Browser → Supabase edge function → Caddy on Hostinger → Alpaca Mac printer-proxy.js (port 8903) → TCP to printer at 192.168.1.106:8899</li>
-<li><strong>Proxy</strong>: <code>scripts/printer-proxy/printer-proxy.js</code> on Alpaca Mac, health check on port 8904</li>
+<li><strong>Architecture</strong>: Per-request via printer proxy on Dev Mac (HTTP→TCP bridge, same pattern as Sonos/cameras)</li>
+<li><strong>Proxy chain</strong>: Browser → Supabase edge function → Caddy on Hostinger → Dev Mac printer-proxy.js (port 8903) → TCP to printer at 192.168.1.106:8899</li>
+<li><strong>Proxy</strong>: <code>scripts/printer-proxy/printer-proxy.js</code> on Dev Mac, health check on port 8904</li>
 <li><strong>LaunchAgent</strong>: <code>scripts/printer-proxy/com.printer-proxy.plist</code></li>
 <li><strong>Control flow</strong>: M601 S1 (request control) → command → M602 (release control) — proxy handles this automatically</li>
 <li><strong>Commands</strong>: M115 (info), M105 (temps), M27 (progress), M119 (endstops), M23/M24/M25/M26 (print control), M104/M140 (set temps), M146 (LED), G28 (home), M661 (list files)</li>
@@ -431,11 +431,11 @@ await supabaseAdmin.from('api_usage_log').insert({
 </ul>
 <h3><span id="pai-discord-bot"></span>PAI Discord Bot</h3>
 <ul>
-<li><strong>Architecture</strong>: Lightweight Node.js bot that bridges Discord → <code>alpaca-pai</code> edge function</li>
+<li><strong>Architecture</strong>: Lightweight Node.js bot that bridges Discord → <code>pai</code> edge function</li>
 <li><strong>Source</strong>: <code>pai-discord/bot.js</code> (in repo), deployed to <code>/opt/pai-discord/</code> on DO droplet</li>
 <li><strong>Library</strong>: discord.js v14</li>
 <li><strong>Service</strong>: <code>pai-discord.service</code> (systemd, runs as <code>bugfixer</code> user)</li>
-<li><strong>Auth</strong>: Service role key → <code>alpaca-pai</code> with <code>context.source: &quot;discord&quot;</code></li>
+<li><strong>Auth</strong>: Service role key → <code>pai</code> with <code>context.source: &quot;discord&quot;</code></li>
 <li><strong>User lookup</strong>: Matches <code>discord_user_id</code> → <code>app_users.discord_id</code> for role-based access</li>
 <li><strong>Channels</strong>: Listens to configured <code>CHANNEL_IDS</code> + DMs + @mentions</li>
 <li><strong>History</strong>: In-memory per-user conversation history (12 messages, 30 min TTL)</li>
@@ -469,13 +469,13 @@ await supabaseAdmin.from('api_usage_log').insert({
 </ul>
 <h3><span id="camera-talkback-two-way-audio-via-ffmpeg"></span>Camera Talkback (Two-Way Audio via FFmpeg)</h3>
 <ul>
-<li><strong>Relay server</strong>: <code>scripts/talkback-relay/talkback-relay.js</code> on Alpaca Mac</li>
+<li><strong>Relay server</strong>: <code>scripts/talkback-relay/talkback-relay.js</code> on Dev Mac</li>
 <li><strong>Protocol</strong>: WebSocket (port 8902) → FFmpeg → UDP to camera:7004</li>
 <li><strong>Audio pipeline</strong>: Browser PCM S16LE 48kHz mono → FFmpeg → AAC-ADTS 22.05kHz mono 32kbps</li>
 <li><strong>Cameras</strong>: Alpacamera (192.168.1.173), Front Of House (.182), Side Yard (.110)</li>
 <li><strong>Health check</strong>: Port 8903</li>
 <li><strong>LaunchAgent</strong>: <code>com.talkback-relay.plist</code></li>
-<li><strong>Requires</strong>: FFmpeg installed on Alpaca Mac (<code>FFMPEG_PATH</code> env var, defaults to <code>ffmpeg</code>)</li>
+<li><strong>Requires</strong>: FFmpeg installed on Dev Mac (<code>FFMPEG_PATH</code> env var, defaults to <code>ffmpeg</code>)</li>
 <li><strong>Client</strong>: <code>residents/cameras.js</code> CameraTalkback class — Web Audio API microphone capture, push-to-talk UI</li>
 </ul>
 <h3><span id="airbnb-ical-sync"></span>Airbnb (iCal Sync)</h3>
@@ -489,7 +489,7 @@ await supabaseAdmin.from('api_usage_log').insert({
 <h3><span id="cloudflare-r2-object-storage"></span>Cloudflare R2 (Object Storage)</h3>
 <ul>
 <li><strong>Account</strong>: configure the Cloudflare project account locally</li>
-<li><strong>Bucket</strong>: <code>alpacapps</code> (APAC region)</li>
+<li><strong>Bucket</strong>: <code>my-brand</code> (APAC region)</li>
 <li><strong>S3 API</strong>: <code>https://&lt;account_id&gt;.r2.cloudflarestorage.com</code></li>
 <li><strong>Public URL</strong>: <code>https://pub-5a7344c4dab2467eb917ff4b897e066d.r2.dev</code></li>
 <li><strong>Auth</strong>: S3-compatible API with AWS Signature V4</li>
