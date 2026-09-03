@@ -538,7 +538,7 @@ function showInvitationModal(email, role) {
   const roleLabels = { admin: 'an admin', staff: 'a staff member', demo: 'a demo user', resident: 'a resident', associate: 'an associate', public: 'a public user' };
   const inviteText = `Hi,
 
-You've been invited to access AlpacApp as ${roleLabels[role] || 'a user'}.
+You've been invited to access YOUR_PROJECT_NAME as ${roleLabels[role] || 'a user'}.
 
 You will have ${roleDescription}.
 
@@ -1159,8 +1159,8 @@ const PERM_GROUPS = [
     keys: ['view_cars', 'control_cars'], adminKey: 'admin_cars_settings' },
   { id: 'profile',  icon: '👤', label: 'Profile',  bg: '#f5f5f5', headerBg: '#e8e8e8', headerColor: '#555',
     keys: ['view_profile', 'edit_profile'], adminKey: null },
-  { id: 'pai',      icon: '🦙', label: 'PAI',      bg: '#fdf1e0', headerBg: '#f9dfb8', headerColor: '#92400e',
-    keys: ['use_pai'], adminKey: 'admin_pai_settings' },
+  { id: 'assistant', icon: '🤖', label: 'Assistant',      bg: '#fdf1e0', headerBg: '#f9dfb8', headerColor: '#92400e',
+    keys: ['use_assistant'], adminKey: 'admin_assistant_settings' },
   // -- Staff admin tabs --
   { id: 'spaces',   icon: '🏠', label: 'Spaces',   bg: '#fdf1e0', headerBg: '#f9dfb8', headerColor: '#92400e',
     keys: ['view_spaces', 'manage_spaces'], adminKey: null },

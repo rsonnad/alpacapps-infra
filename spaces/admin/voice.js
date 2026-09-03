@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     section: 'staff',
     onReady: async (state) => {
       setupWebhookUrls();
-      await Promise.all([loadConfig(), loadPaiConfig(), loadAssistants(), loadCalls(), loadStats()]);
+      await Promise.all([loadConfig(), loadAssistantConfig(), loadAssistants(), loadCalls(), loadStats()]);
       setupEventListeners();
     }
   });
@@ -372,42 +372,42 @@ async function viewCall(id) {
 // PAI CORE PROMPT CONFIG
 // =============================================
 
-async function loadPaiConfig() {
+async function loadAssistantConfig() {
   const { data, error } = await supabase
-    .from('pai_config')
+    .from('ai_assistant_config')
     .select('identity, property_info, amenities, chat_addendum, email_addendum, discord_addendum, api_addendum, ai-admin_addendum')
     .eq('id', 1)
     .single();
 
   if (error || !data) {
-    console.warn('No pai_config found, textareas will be empty');
+    console.warn('No ai_assistant_config found, textareas will be empty');
     return;
   }
 
-  document.getElementById('paiIdentity').value = data.identity || '';
-  document.getElementById('paiPropertyInfo').value = data.property_info || '';
-  document.getElementById('paiAmenities').value = data.amenities || '';
-  document.getElementById('paiChatAddendum').value = data.chat_addendum || '';
-  document.getElementById('paiEmailAddendum').value = data.email_addendum || '';
-  document.getElementById('paiDiscordAddendum').value = data.discord_addendum || '';
-  document.getElementById('paiApiAddendum').value = data.api_addendum || '';
-  document.getElementById('paiAI AdminAddendum').value = data.ai-admin_addendum || '';
+  document.getElementById('assistantIdentity').value = data.identity || '';
+  document.getElementById('assistantPropertyInfo').value = data.property_info || '';
+  document.getElementById('assistantAmenities').value = data.amenities || '';
+  document.getElementById('assistantChatAddendum').value = data.chat_addendum || '';
+  document.getElementById('assistantEmailAddendum').value = data.email_addendum || '';
+  document.getElementById('assistantDiscordAddendum').value = data.discord_addendum || '';
+  document.getElementById('assistantApiAddendum').value = data.api_addendum || '';
+  document.getElementById('assistantAiAdminAddendum').value = data.ai_admin_addendum || '';
 }
 
-async function savePaiConfig() {
+async function saveAssistantConfig() {
   const updates = {
-    identity: document.getElementById('paiIdentity').value.trim(),
-    property_info: document.getElementById('paiPropertyInfo').value.trim(),
-    amenities: document.getElementById('paiAmenities').value.trim(),
-    chat_addendum: document.getElementById('paiChatAddendum').value.trim(),
-    email_addendum: document.getElementById('paiEmailAddendum').value.trim(),
-    discord_addendum: document.getElementById('paiDiscordAddendum').value.trim(),
-    api_addendum: document.getElementById('paiApiAddendum').value.trim(),
-    ai-admin_addendum: document.getElementById('paiAI AdminAddendum').value.trim(),
+    identity: document.getElementById('assistantIdentity').value.trim(),
+    property_info: document.getElementById('assistantPropertyInfo').value.trim(),
+    amenities: document.getElementById('assistantAmenities').value.trim(),
+    chat_addendum: document.getElementById('assistantChatAddendum').value.trim(),
+    email_addendum: document.getElementById('assistantEmailAddendum').value.trim(),
+    discord_addendum: document.getElementById('assistantDiscordAddendum').value.trim(),
+    api_addendum: document.getElementById('assistantApiAddendum').value.trim(),
+    ai_admin_addendum: document.getElementById('assistantAiAdminAddendum').value.trim(),
   };
 
   const { error } = await supabase
-    .from('pai_config')
+    .from('ai_assistant_config')
     .update(updates)
     .eq('id', 1);
 
@@ -424,7 +424,7 @@ async function savePaiConfig() {
 
 function setupEventListeners() {
   // PAI Core Prompt
-  document.getElementById('savePaiConfigBtn')?.addEventListener('click', savePaiConfig);
+  document.getElementById('saveAssistantConfigBtn')?.addEventListener('click', saveAssistantConfig);
 
   // Assistant CRUD
   document.getElementById('addAssistantBtn')?.addEventListener('click', () => openAssistantModal());

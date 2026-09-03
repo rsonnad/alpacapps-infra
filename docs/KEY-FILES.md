@@ -6,7 +6,7 @@
 - `supabase.js` - Supabase client singleton (anon key embedded)
 - `auth.js` - Authentication module for admin access
 - `admin-shell.js` - Admin page shell (auth, nav, role checks)
-- `resident-shell.js` - Resident page shell (auth, tab nav, PAI widget injection)
+- `resident-shell.js` - Resident page shell (auth, tab nav)
 - `media-service.js` - Media upload, compression, tagging service
 - `rental-service.js` - Rental application workflow management
 - `event-service.js` - Event hosting request workflow
@@ -26,7 +26,6 @@
 - `payout-service.js` - PayPal payouts for associate payments
 - `accounting-service.js` - Accounting/ledger service (Zelle auto-recording, payment tracking)
 - `voice-service.js` - Vapi voice assistant configuration
-- `pai-widget.js` - PAI floating chat widget (injected on all resident pages via resident-shell.js)
 - `chat-widget.js` - Chat widget component
 - `error-logger.js` - Client-side error capture and reporting
 - `site-components.js` - Shared site UI components
@@ -101,10 +100,6 @@
 ## Associate View (`/associates/`)
 - `worktracking.html` / `worktracking.js` - Clock in/out, timesheets, work photos, payment preferences
 
-## PAI Discord Bot (`/pai-discord/`)
-- `bot.js` - Discord → property-ai edge function bridge (discord.js v14)
-- `pai-discord.service` - Systemd service file for DO droplet
-- `install.sh` - Droplet installation script
 
 ## Supabase Edge Functions (`/supabase/functions/`)
 - `signwell-webhook/` - Receives SignWell webhook when documents are signed
@@ -115,7 +110,7 @@
 - `resend-inbound-webhook/` - Receives inbound email via Resend webhook, routes/forwards, auto-records Zelle payments
 - `approve-email/` - Email approval handler: validates token, sends held email to original recipient, supports "approve all" to disable approval for a type
 - `govee-control/` - Proxies requests to Govee Cloud API (resident+ auth)
-- `property-ai/` - PAI chat + voice assistant: Gemini-powered natural language smart home control + property Q&A + Vapi voice calling (resident+ auth)
+e control + property Q&A + Vapi voice calling (resident+ auth)
 - `sonos-control/` - Proxies requests to Sonos HTTP API via Home Server (resident+ auth)
 - `nest-control/` - Proxies requests to Google SDM API with OAuth token management (resident+ auth)
 - `nest-token-refresh/` - Standalone Nest OAuth token refresher (cron)
@@ -146,9 +141,9 @@
 - `error-report/` - Error logging and daily digest emails
 - `contact-form/` - Public contact form submission handler
 - `event-payment-reminder/` - Daily cron: 10-day payment reminders for events
-- `ask-question/` - PAI Q&A backend
+- `ask-question/` - Site Q&A backend (Gemini)
 - `share-space/` - Serves OG meta tags for space share links (dynamic title, image, description) + redirects to real page
-- `api/` - **Centralized Internal REST API** — single permissioned endpoint for all entity CRUD (spaces, people, tasks, assignments, vehicles, media, payments, bug_reports, time_entries, events, documents, sms, faq, invitations, password_vault, feature_requests, pai_config, tesla_accounts). Role-based access control (0=public → 4=oracle). Smart behaviors: fuzzy name/space resolution, auto-timestamps, row-level scoping. See `API.md` for full reference.
+- `api/` - **Centralized Internal REST API** — single permissioned endpoint for all entity CRUD (spaces, people, tasks, assignments, vehicles, media, payments, bug_reports, time_entries, events, documents, sms, faq, invitations, password_vault, feature_requests, ai_assistant_config, tesla_accounts). Role-based access control (0=public → 4=oracle). Smart behaviors: fuzzy name/space resolution, auto-timestamps, row-level scoping. See `API.md` for full reference.
 
 ## Edge Function Deployment Flags
 
@@ -172,7 +167,6 @@ Functions that handle auth internally MUST be deployed with `--no-verify-jwt` to
 | `vapi-server` | `supabase functions deploy vapi-server --no-verify-jwt` |
 | `vapi-webhook` | `supabase functions deploy vapi-webhook --no-verify-jwt` |
 | `paypal-webhook` | `supabase functions deploy paypal-webhook --no-verify-jwt` |
-| `reprocess-pai-email` | `supabase functions deploy reprocess-pai-email --no-verify-jwt` |
 | `api` | `supabase functions deploy api --no-verify-jwt` |
 | `square-webhook` | `supabase functions deploy square-webhook --no-verify-jwt` |
 | `stripe-webhook` | `supabase functions deploy stripe-webhook --no-verify-jwt` |

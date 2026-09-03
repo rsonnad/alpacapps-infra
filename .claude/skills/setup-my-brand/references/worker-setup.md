@@ -122,7 +122,6 @@ ssh root@{SERVER_IP} "journalctl -u {name} -f"
 | vehicles | tesla-poller | 5 min | Cache Tesla battery, location, lock state |
 | laundry | lg-poller | 30 sec | Cache LG washer/dryer cycle status |
 | cameras | camera-event-poller | 60 sec | Check for motion events |
-| pai | image-gen | 10 sec | Process async image generation queue |
 
 ## Server Options
 

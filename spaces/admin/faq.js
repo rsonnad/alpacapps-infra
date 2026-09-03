@@ -381,7 +381,7 @@ function renderQuestionLog() {
   const container = document.getElementById('questionLogSection');
   if (!container) return; // Not on page yet
 
-  const autoEntries = faqEntries.filter(e => e.source === 'auto' || e.source === 'pai_email');
+  const autoEntries = faqEntries.filter(e => e.source === 'auto' || e.source === 'ai_assistant_email');
   const countBadge = document.getElementById('questionLogCount');
   if (countBadge) countBadge.textContent = autoEntries.length;
 
@@ -393,7 +393,7 @@ function renderQuestionLog() {
   container.innerHTML = `
     <div class="faq-list">
       ${autoEntries.map(entry => {
-        const sourceBadge = entry.source === 'pai_email'
+        const sourceBadge = entry.source === 'ai_assistant_email'
           ? '<span class="confidence-badge" style="background: #3d8b7a; color: #fff;">Email</span>'
           : '<span class="confidence-badge" style="background: #555; color: #fff;">Web</span>';
         return `

@@ -8,7 +8,6 @@ import { supabase } from './supabase.js';
 import { initAuth, getAuthState, signOut, onAuthStateChange, hasAnyPermission } from './auth.js';
 import { errorLogger } from './error-logger.js';
 import { supabaseHealth } from './supabase-health.js';
-import { initPaiWidget } from './pai-widget.js';
 import { setupVersionInfo } from './version-info.js';
 import { renderHeader, initSiteComponents } from './site-components.js';
 import { initNavTabList, scrollActiveIntoView } from './tab-utils.js';
@@ -65,15 +64,11 @@ const DEVICE_SUBTABS = [
 const RESIDENT_CORE_TABS = [
   { id: 'profile', label: 'Profile', href: 'profile.html', permission: 'view_profile' },
   { id: 'bookkeeping', label: 'Bookkeeping', href: 'bookkeeping.html', permission: 'view_profile' },
-  { id: 'media', label: 'Imagery', href: 'media.html', permission: 'view_profile' },
-  { id: 'askpai', label: 'Ask PAI', href: 'ask-pai.html', permission: 'view_profile', feature: 'pai' },
 ];
 
 const RESIDENT_STAFF_TABS = [
   { id: 'profile', label: 'Profile', href: 'profile.html', permission: 'view_profile' },
   { id: 'bookkeeping', label: 'Bookkeeping', href: 'bookkeeping.html', permission: 'view_profile' },
-  { id: 'media', label: 'Imagery', href: 'media.html', permission: 'view_profile' },
-  { id: 'askpai', label: 'Ask PAI', href: 'ask-pai.html', permission: 'view_profile', feature: 'pai' },
 ];
 
 // =============================================
@@ -578,7 +573,7 @@ export async function initResidentPage({ activeTab, requiredRole = 'resident', r
       // Render tab navigation (pass full auth state for permission checks)
       await renderResidentTabNav(activeTab, state);
 
-      // Sign out handlers + PAI widget + version info (only bind once). Use delegation on userInfo so header dropdown Sign Out is reliable.
+      // Sign out handlers + version info (only bind once). Use delegation on userInfo so header dropdown Sign Out is reliable.
       if (!pageContentShown) {
         const handleSignOut = async () => {
           await signOut();
@@ -593,7 +588,7 @@ export async function initResidentPage({ activeTab, requiredRole = 'resident', r
             handleSignOut();
           }
         });
-        initPaiWidget();
+        
         setupVersionInfo();
       }
 

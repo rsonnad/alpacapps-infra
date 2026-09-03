@@ -32,16 +32,16 @@ const FALLBACK_CONFIG: Record<string, any> = {
   },
   payment: {
     zelle_email: "admin@YOUR_DOMAIN",
-    venmo_handle: "@Propertyproperty",
+    venmo_handle: "@YOUR_VENMO_HANDLE",
   },
   ai_assistant: {
-    name: "PAI",
-    full_name: "Prompt Property Intelligence",
-    personality: "the AI assistant for the property",
-    email_from: "pai@YOUR_DOMAIN",
+    name: "YOUR_PROJECT_NAME",
+    full_name: "YOUR_PROJECT_NAME",
+    personality: "the AI assistant for YOUR_PROPERTY_NAME",
+    email_from: "hello@YOUR_DOMAIN",
   },
   wifi: {
-    network_name: "Black Rock City",
+    network_name: "YOUR_WIFI_NAME",
   },
   mobile_app: {
     name: "YOUR_PROPERTY_NAME",

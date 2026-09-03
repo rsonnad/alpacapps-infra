@@ -220,7 +220,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **IMPORTANT:** OpenClaw's `server.mjs` overwrites config on restart. `.env` sets tokens but does NOT auto-enable Discord — must use `openclaw config set` CLI inside container after recreation.
 - **Channels enabled:** Discord (AI Admin bot), Telegram
 - **Discord Bot:** AI Admin (ID: `1476649970823335998`) — DM policy: open, allowFrom: `["*"]`
-- **Multi-agent routing:** 2 agents (AI Admin 🦙 + PAI 🧠), channel-based bindings route `#ai-admin` → AI Admin, `#pai-in-the-sky` → PAI, DMs → AI Admin
+- **Multi-agent routing:** 2 agents (AI Admin + Assistant), channel-based bindings route `#ai-admin` → AI Admin, `#assistant` → Assistant, DMs → AI Admin
 - **Discord Server:** Alpacord (ID: `1471023710755487867`)
 - **Credentials:** See `CLAUDE.local.md` for SSH password, API tokens, bot tokens, full `.env` contents
 
@@ -281,7 +281,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Rate limit**: 1 query/second, 2,000 queries/month (free tier) or 20,000/month (paid)
 - **Pricing**: Free tier: 2,000 queries/month; Base: $5/mo for 20,000 queries; $0.003/query overage
 - **Response**: JSON with `web.results[]` containing `title`, `url`, `description`, `age` (freshness)
-- **Cost tracking**: Logged to `api_usage_log` with vendor `brave`, category `pai_web_search`
+- **Cost tracking**: Logged to `api_usage_log` with vendor `brave`, category `ai_assistant_web_search`
 
 ### OpenRouter (Multi-Model LLM Gateway)
 - **API**: OpenAI-compatible REST API (`https://openrouter.ai/api/v1`)

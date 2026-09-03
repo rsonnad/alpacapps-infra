@@ -76,11 +76,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       renderSceneBar();
       renderNowAmbient();
       startPolling();
-      // Refresh when PAI takes music actions
-      window.addEventListener('pai-actions', (e) => {
-        const musicActions = (e.detail?.actions || []).filter(a => a.type === 'control_sonos');
-        if (musicActions.length) setTimeout(() => refreshAllZones(), 1500);
-      });
     },
   });
 });

@@ -78,10 +78,10 @@ INSERT INTO property_config (id, config) VALUES (1, '{
     "venmo_handle": "@YourVenmo"
   },
   "ai_assistant": {
-    "name": "PAI",
+    "name": "AI Assistant",
     "full_name": "Property AI Assistant",
-    "personality": "the AI assistant for the property",
-    "email_from": "pai@YOUR_DOMAIN"
+    "personality": "the AI assistant for YOUR_PROPERTY_NAME",
+    "email_from": "ai@YOUR_DOMAIN"
   },
   "wifi": {
     "network_name": "Black Rock City"

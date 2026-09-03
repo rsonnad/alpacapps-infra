@@ -3,7 +3,7 @@
  *
  * Single edge function that acts as a centralized, permissioned gateway
  * for all entity CRUD operations. Replaces ad-hoc Supabase queries scattered
- * across PAI tools, frontend code, and worker scripts.
+ * across AI assistant tools, frontend code, and worker scripts.
  *
  * Deploy: supabase functions deploy api --no-verify-jwt
  *
@@ -152,7 +152,7 @@ const RESOURCE_HANDLERS: Record<string, ResourceHandler> = {
   invitations: handleInvitations,
   password_vault: handlePasswordVault,
   feature_requests: handleFeatureRequests,
-  pai_config: handlePaiConfig,
+  ai_assistant_config: handleAssistantConfig,
   tesla_accounts: handleTeslaAccounts,
 };
 
@@ -1726,23 +1726,23 @@ async function handleFeatureRequests(supabase: any, req: ApiRequest, auth: any, 
   return error("Unknown action", 400);
 }
 
-// ─── pai_config ─────────────────────────────────────────────────────
+// ─── ai_assistant_config ─────────────────────────────────────────────────────
 
-async function handlePaiConfig(supabase: any, req: ApiRequest, auth: any, _perm: any): Promise<Response> {
+async function handleAssistantConfig(supabase: any, req: ApiRequest, auth: any, _perm: any): Promise<Response> {
   switch (req.action) {
     case "get": {
       const { data, error: err } = await supabase
-        .from("pai_config")
+        .from("ai_assistant_config")
         .select("*")
         .eq("id", 1)
         .single();
-      if (err) return error("PAI config not found", 404);
+      if (err) return error("AI assistant config not found", 404);
       return success(data);
     }
 
     case "update": {
       const { data, error: err } = await supabase
-        .from("pai_config")
+        .from("ai_assistant_config")
         .update(req.data)
         .eq("id", 1)
         .select()

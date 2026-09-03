@@ -27,7 +27,7 @@ const SPECIAL_PREFIXES: Record<string, string> = {
   "herd": "herd",
   "auto": "auto",
   "payments": "payments",
-  "pai": "pai",
+  "ai": "ai",
   "claudero": "claudero",
   "ai-admin": "ai-admin",
   "guestbook": "guestbook",
@@ -226,12 +226,12 @@ async function handleSpecialLogic(
     await handleAutoReply(emailRecord, supabase, resendApiKey);
   } else if (type === "payments") {
     await handlePaymentEmail(emailRecord, supabase, resendApiKey);
-  } else if (type === "pai") {
-    await handlePaiEmail(emailRecord, supabase, resendApiKey);
+  } else if (type === "ai") {
+    await handleAssistantEmail(emailRecord, supabase, resendApiKey);
   } else if (type === "claudero") {
     await handleClauderoEmail(emailRecord, supabase, resendApiKey);
   } else if (type === "ai-admin") {
-    await handleAI AdminEmail(emailRecord, supabase, resendApiKey);
+    await handleAiAdminEmail(emailRecord, supabase, resendApiKey);
   } else if (type === "guestbook") {
     await handleGuestbookEmail(emailRecord, supabase);
   } else if (type === "herd") {
@@ -338,9 +338,9 @@ async function routeByClassification(
       break;
 
     case "process_receipt":
-      // Re-route to PAI for receipt processing
-      console.log("Re-routing to PAI for receipt processing");
-      await handlePaiEmail(emailRecord, supabase, resendApiKey);
+      // Re-route to AI assistant for receipt processing
+      console.log("Re-routing to AI assistant for receipt processing");
+      await handleAssistantEmail(emailRecord, supabase, resendApiKey);
       break;
 
     case "process_guestbook":
@@ -349,21 +349,21 @@ async function routeByClassification(
       break;
 
     case "process_document":
-      // Re-route to PAI for document processing
-      console.log("Re-routing to PAI for document processing");
-      await handlePaiEmail(emailRecord, supabase, resendApiKey);
+      // Re-route to AI assistant for document processing
+      console.log("Re-routing to AI assistant for document processing");
+      await handleAssistantEmail(emailRecord, supabase, resendApiKey);
       break;
 
     case "process_command":
-      // Forward to PAI for smart home command
-      console.log("Re-routing to PAI for command processing");
-      await handlePaiEmail(emailRecord, supabase, resendApiKey);
+      // Forward to AI assistant for smart home command
+      console.log("Re-routing to AI assistant for command processing");
+      await handleAssistantEmail(emailRecord, supabase, resendApiKey);
       break;
 
     case "auto_reply":
-      // Forward to PAI for question answering
-      console.log("Re-routing to PAI for auto-reply");
-      await handlePaiEmail(emailRecord, supabase, resendApiKey);
+      // Forward to AI assistant for question answering
+      console.log("Re-routing to AI assistant for auto-reply");
+      await handleAssistantEmail(emailRecord, supabase, resendApiKey);
       break;
 
     case "forward_person": {
@@ -694,17 +694,17 @@ This is an automated reply from Claudero at YOUR_PROPERTY_NAME.`;
 }
 
 // =============================================
-// PAI EMAIL HANDLER
+// AI ASSISTANT EMAIL HANDLER
 // =============================================
 
-type PaiEmailClassification = "question" | "document" | "receipt" | "command" | "spam" | "other";
+type AssistantEmailClassification = "question" | "document" | "receipt" | "command" | "spam" | "other";
 
 /** Spam emails per rolling window that triggers an admin alert. */
-const PAI_SPAM_ALERT_THRESHOLD = 10;
-const PAI_SPAM_WINDOW_HOURS = 24;
+const ASSISTANT_SPAM_ALERT_THRESHOLD = 10;
+const AI_SPAM_WINDOW_HOURS = 24;
 
-interface PaiClassificationResult {
-  type: PaiEmailClassification;
+interface AssistantClassificationResult {
+  type: AssistantEmailClassification;
   confidence: number;
   summary: string;
 }
@@ -713,18 +713,18 @@ interface PaiClassificationResult {
  * Classify an inbound email using Gemini.
  * Returns the email type (question, document, command, other) with confidence.
  */
-async function classifyPaiEmail(
+async function classifyAssistantEmail(
   subject: string,
   bodyText: string,
   hasAttachments: boolean
-): Promise<PaiClassificationResult> {
+): Promise<AssistantClassificationResult> {
   const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
   if (!geminiApiKey) {
     console.warn("GEMINI_API_KEY not set, defaulting to 'other'");
     return { type: hasAttachments ? "document" : "question", confidence: 0.5, summary: "No Gemini key" };
   }
 
-  const prompt = `You are an email classifier for PAI (Property AI Assistant) at YOUR_PROPERTY_NAME, a residential property.
+  const prompt = `You are an email classifier for AI assistant (Property AI Assistant) at YOUR_PROPERTY_NAME, a residential property.
 
 Classify this email into ONE of these categories:
 - "spam" — Unsolicited marketing, phishing, scams, newsletters the recipient didn't sign up for, SEO pitches, link spam, crypto spam, adult content, automated bot messages, or any clearly unwanted bulk email. When in doubt between spam and other, lean toward spam.
@@ -795,13 +795,13 @@ async function checkSpamThresholdAndAlert(
   summary: string
 ): Promise<void> {
   try {
-    const windowStart = new Date(Date.now() - PAI_SPAM_WINDOW_HOURS * 60 * 60 * 1000).toISOString();
+    const windowStart = new Date(Date.now() - AI_SPAM_WINDOW_HOURS * 60 * 60 * 1000).toISOString();
 
     // Count spam in the rolling window
     const { count, error } = await supabase
       .from("inbound_emails")
       .select("id", { count: "exact", head: true })
-      .eq("special_logic_type", "pai")
+      .eq("special_logic_type", "ai")
       .eq("route_action", "spam_blocked")
       .gte("created_at", windowStart);
 
@@ -811,11 +811,11 @@ async function checkSpamThresholdAndAlert(
     }
 
     const spamCount = count || 0;
-    console.log(`PAI spam count in last ${PAI_SPAM_WINDOW_HOURS}h: ${spamCount}`);
+    console.log(`AI assistant spam count in last ${AI_SPAM_WINDOW_HOURS}h: ${spamCount}`);
 
     // Only alert at the threshold crossing (not on every spam after)
-    if (spamCount === PAI_SPAM_ALERT_THRESHOLD) {
-      console.log(`PAI spam threshold (${PAI_SPAM_ALERT_THRESHOLD}) reached, alerting admin`);
+    if (spamCount === ASSISTANT_SPAM_ALERT_THRESHOLD) {
+      console.log(`AI assistant spam threshold (${ASSISTANT_SPAM_ALERT_THRESHOLD}) reached, alerting admin`);
 
       const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
       const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
@@ -834,15 +834,15 @@ async function checkSpamThresholdAndAlert(
           Authorization: `Bearer ${supabaseAnonKey}`,
         },
         body: JSON.stringify({
-          type: "pai_email_reply",
+          type: "ai_assistant_email_reply",
           to: adminEmails,
           data: {
-            reply_body: `<strong>Spam Alert:</strong> pai@YOUR_DOMAIN has received <strong>${spamCount} spam emails</strong> in the last ${PAI_SPAM_WINDOW_HOURS} hours.\n\nMost recent: from ${senderEmail} — "${summary}"\n\nAll spam is being silently dropped (no replies sent). If this continues, consider removing the address from public-facing pages or adding domain-level filtering.`,
-            original_subject: "PAI Spam Alert",
+            reply_body: `<strong>Spam Alert:</strong> hello@YOUR_DOMAIN has received <strong>${spamCount} spam emails</strong> in the last ${AI_SPAM_WINDOW_HOURS} hours.\n\nMost recent: from ${senderEmail} — "${summary}"\n\nAll spam is being silently dropped (no replies sent). If this continues, consider removing the address from public-facing pages or adding domain-level filtering.`,
+            original_subject: "YOUR_PROJECT_NAME Spam Alert",
             original_body: "",
           },
           sender_type: "auto",
-          subject: `PAI Spam Alert: ${spamCount} spam emails in ${PAI_SPAM_WINDOW_HOURS}h`,
+          subject: `YOUR_PROJECT_NAME Spam Alert: ${spamCount} spam emails in ${AI_SPAM_WINDOW_HOURS}h`,
         }),
       });
     }
@@ -852,18 +852,18 @@ async function checkSpamThresholdAndAlert(
 }
 
 /**
- * Send PAI reply email via Resend API directly (avoids edge→edge 401 when calling send-email).
- * Uses same layout as send-email's pai_email_reply template.
+ * Send AI assistant reply email via Resend API directly (avoids edge→edge 401 when calling send-email).
+ * Uses same layout as send-email's ai_assistant_email_reply template.
  * Returns { ok, status } for diagnostics.
  */
-async function sendPaiReply(
+async function sendAssistantReply(
   resendApiKey: string,
   to: string,
   replyBody: string,
   originalSubject: string,
   originalBody: string
 ): Promise<{ ok: boolean; status: number }> {
-  // Check if PAI replies require approval — route through send-email if so
+  // Check if AI assistant replies require approval — route through send-email if so
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
@@ -872,7 +872,7 @@ async function sendPaiReply(
       const { data: config } = await sb
         .from("email_type_approval_config")
         .select("requires_approval")
-        .eq("email_type", "pai_email_reply")
+        .eq("email_type", "ai_assistant_email_reply")
         .maybeSingle();
 
       if (config?.requires_approval) {
@@ -884,10 +884,10 @@ async function sendPaiReply(
             Authorization: `Bearer ${supabaseKey}`,
           },
           body: JSON.stringify({
-            type: "pai_email_reply",
+            type: "ai_assistant_email_reply",
             to: to,
-            from: "PAI <pai@YOUR_DOMAIN>",
-            reply_to: "pai@YOUR_DOMAIN",
+            from: "My Brand AI <ai@YOUR_DOMAIN>",
+            reply_to: "hello@YOUR_DOMAIN",
             data: {
               reply_body: replyBody,
               original_subject: originalSubject,
@@ -897,23 +897,23 @@ async function sendPaiReply(
         });
         const result = await sendEmailRes.json();
         if (result.status === "pending_approval") {
-          console.log(`PAI reply to ${to} held for approval: ${result.approval_id}`);
+          console.log(`AI assistant reply to ${to} held for approval: ${result.approval_id}`);
           return { ok: true, status: 202 };
         }
         return { ok: sendEmailRes.ok, status: sendEmailRes.status };
       }
     }
   } catch (e) {
-    console.warn("Approval check for PAI reply failed, sending directly:", e);
+    console.warn("Approval check for AI assistant reply failed, sending directly:", e);
   }
 
   // Direct send (no approval required or check failed)
   const bodySnippet = originalBody.substring(0, 500);
-  const subject = `Re: ${originalSubject || "Your message to PAI"}`;
+  const subject = `Re: ${originalSubject || "Your message to the AI assistant"}`;
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: #1a1a2e; padding: 20px; border-radius: 12px 12px 0 0;">
-        <h2 style="color: #e0d68a; margin: 0;">PAI</h2>
+        <h2 style="color: #e0d68a; margin: 0;">YOUR_PROJECT_NAME</h2>
         <p style="color: #aaa; margin: 4px 0 0 0; font-size: 13px;">Property AI Assistant</p>
       </div>
       <div style="background: #fff; padding: 24px; border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 12px 12px;">
@@ -925,16 +925,16 @@ async function sendPaiReply(
         ` : ""}
       </div>
       <p style="color: #999; font-size: 11px; text-align: center; margin-top: 12px;">
-        This is an automated reply from PAI at YOUR_PROPERTY_NAME. Reply to this email to continue the conversation.
+        This is an automated reply from AI assistant at YOUR_PROPERTY_NAME. Reply to this email to continue the conversation.
       </p>
     </div>`;
-  const text = `PAI - Property AI Assistant
+  const text = `YOUR_PROJECT_NAME
 
 ${replyBody || ""}
 
 ${bodySnippet ? `---\nYour original message:\n${bodySnippet}` : ""}
 
-This is an automated reply from PAI at YOUR_PROPERTY_NAME.`;
+This is an automated reply from AI assistant at YOUR_PROPERTY_NAME.`;
 
   const res = await fetch(`${RESEND_API_URL}/emails`, {
     method: "POST",
@@ -943,9 +943,9 @@ This is an automated reply from PAI at YOUR_PROPERTY_NAME.`;
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "PAI <pai@YOUR_DOMAIN>",
+      from: "My Brand AI <ai@YOUR_DOMAIN>",
       to: [to],
-      reply_to: "pai@YOUR_DOMAIN",
+      reply_to: "hello@YOUR_DOMAIN",
       subject,
       html,
       text,
@@ -954,9 +954,9 @@ This is an automated reply from PAI at YOUR_PROPERTY_NAME.`;
 
   if (!res.ok) {
     const errText = await res.text();
-    console.error(`Failed to send PAI reply: ${res.status} ${errText}`);
+    console.error(`Failed to send AI assistant reply: ${res.status} ${errText}`);
   } else {
-    console.log(`PAI reply sent to ${to}`);
+    console.log(`AI assistant reply sent to ${to}`);
   }
   return { ok: res.ok, status: res.status };
 }
@@ -964,7 +964,7 @@ This is an automated reply from PAI at YOUR_PROPERTY_NAME.`;
 /**
  * Send a reply email from AI Assistant.
  */
-async function sendAI AdminReply(
+async function sendAiAdminReply(
   resendApiKey: string,
   to: string,
   replyBody: string,
@@ -1031,11 +1031,11 @@ This is an automated reply from AI Assistant at YOUR_PROPERTY_NAME.`;
 /**
  * Handle inbound email to ai-admin@YOUR_DOMAIN.
  *
- * Routes to PAI edge function with context.source = "ai-admin-email"
+ * Routes to AI assistant edge function with context.source = "ai-admin-email"
  * so that the ai-admin_addendum (AI Assistant personality) is injected.
  * Sends reply back via email from ai-admin@.
  */
-async function handleAI AdminEmail(
+async function handleAiAdminEmail(
   emailRecord: any,
   supabase: any,
   resendApiKey: string
@@ -1055,7 +1055,7 @@ async function handleAI AdminEmail(
     const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
 
-    const paiRes = await fetch(`${supabaseUrl}/functions/v1/property-ai`, {
+    const assistantRes = await fetch(`${supabaseUrl}/functions/v1/property-ai`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -1070,8 +1070,8 @@ async function handleAI AdminEmail(
 
     let replyText = "";
 
-    if (paiRes.ok) {
-      const paiData = await paiRes.json();
+    if (assistantRes.ok) {
+      const paiData = await assistantRes.json();
       replyText = paiData.reply || paiData.response || paiData.text || "";
     }
 
@@ -1079,7 +1079,7 @@ async function handleAI AdminEmail(
       replyText = `Thank you for your email! I've received your message and I'll do my best to help.\n\nFor faster responses, you can also chat with me on Discord at the Alpacord server, or visit https://YOUR_DOMAIN/residents/ (requires resident login).`;
     }
 
-    const sendResult = await sendAI AdminReply(resendApiKey, senderEmail, replyText, subject, bodyText || bodyHtml || "");
+    const sendResult = await sendAiAdminReply(resendApiKey, senderEmail, replyText, subject, bodyText || bodyHtml || "");
     await supabase.from("api_usage_log").insert({
       vendor: "supabase",
       category: "ai-admin_email_reply_attempt",
@@ -1088,8 +1088,8 @@ async function handleAI AdminEmail(
         status: sendResult.status,
         to: senderEmail,
         inbound_email_id: emailRecord.id,
-        pai_status: paiRes?.status,
-        pai_ok: paiRes?.ok,
+        assistant_status: assistantRes?.status,
+        assistant_ok: assistantRes?.ok,
       },
     });
     if (sendResult.ok) {
@@ -1105,7 +1105,7 @@ async function handleAI AdminEmail(
     }
   } catch (err) {
     console.error(`AI Assistant response error: ${err.message}`);
-    const sendResult = await sendAI AdminReply(
+    const sendResult = await sendAiAdminReply(
       resendApiKey,
       senderEmail,
       "Thank you for your email! I've received your message and the team will review it shortly.\n\nFor immediate assistance, you can reach us on Discord or at https://YOUR_DOMAIN/residents/.",
@@ -1123,7 +1123,7 @@ async function handleAI AdminEmail(
 /**
  * Send admin notification about uploaded documents.
  */
-async function sendPaiDocumentNotification(
+async function sendAssistantDocumentNotification(
   supabase: any,
   senderName: string,
   senderEmail: string,
@@ -1149,7 +1149,7 @@ async function sendPaiDocumentNotification(
       Authorization: `Bearer ${supabaseAnonKey}`,
     },
     body: JSON.stringify({
-      type: "pai_document_received",
+      type: "ai_assistant_document_received",
       to: adminEmails,
       data: {
         sender_name: senderName,
@@ -1237,13 +1237,13 @@ function looksLikeQuestion(subject: string, body: string): boolean {
 }
 
 /**
- * Handle inbound email to pai@YOUR_DOMAIN.
+ * Handle inbound email to ai@YOUR_DOMAIN.
  *
  * 1. Classify via Gemini (question/document/command/other)
- * 2. Questions & commands → forward to PAI chat, send reply email
+ * 2. Questions & commands → forward to AI assistant chat, send reply email
  * 3. Documents → download attachments, upload to R2, index, notify admin
  */
-async function handlePaiEmail(
+async function handleAssistantEmail(
   emailRecord: any,
   supabase: any,
   resendApiKey: string
@@ -1262,27 +1262,27 @@ async function handlePaiEmail(
 
   const hasAttachments = attachmentsMetadata.length > 0;
 
-  console.log(`PAI email from ${senderEmail}: subject="${subject}", attachments=${attachmentsMetadata.length}`);
+  console.log(`AI assistant email from ${senderEmail}: subject="${subject}", attachments=${attachmentsMetadata.length}`);
 
   // Check if this is a reply to one of our outbound emails (has hidden metadata)
-  const { isReply: isPaiReply, meta: paiReplyMeta } = isReplyToOurEmail(subject, bodyHtml);
-  if (isPaiReply && paiReplyMeta) {
-    console.log(`PAI reply detected: original type=${paiReplyMeta.type}, eid=${paiReplyMeta.eid}, to=[${paiReplyMeta.to}]`);
+  const { isReply: isAssistantReply, meta: assistantReplyMeta } = isReplyToOurEmail(subject, bodyHtml);
+  if (isAssistantReply && assistantReplyMeta) {
+    console.log(`AI assistant reply detected: original type=${assistantReplyMeta.type}, eid=${assistantReplyMeta.eid}, to=[${assistantReplyMeta.to}]`);
     // Store reply context for downstream handlers
     await supabase
       .from("inbound_emails")
       .update({
-        reply_to_email_id: paiReplyMeta.eid,
-        reply_context: paiReplyMeta,
+        reply_to_email_id: assistantReplyMeta.eid,
+        reply_context: assistantReplyMeta,
       })
       .eq("id", emailRecord.id);
     // Enrich the email record so handlers can use it
-    emailRecord.reply_context = paiReplyMeta;
+    emailRecord.reply_context = assistantReplyMeta;
   }
 
   // Classify the email
-  const classification = await classifyPaiEmail(subject, bodyText || bodyHtml, hasAttachments);
-  console.log(`PAI classification: type=${classification.type}, confidence=${classification.confidence}, summary="${classification.summary}"`);
+  const classification = await classifyAssistantEmail(subject, bodyText || bodyHtml, hasAttachments);
+  console.log(`AI assistant classification: type=${classification.type}, confidence=${classification.confidence}, summary="${classification.summary}"`);
 
   // Heuristic override: if classified as "document" but subject/filenames look like a receipt, upgrade to "receipt"
   if (classification.type === "document" && hasAttachments) {
@@ -1299,7 +1299,7 @@ async function handlePaiEmail(
   if (geminiApiKey) {
     await supabase.from("api_usage_log").insert({
       vendor: "gemini",
-      category: "pai_email_classification",
+      category: "ai_assistant_email_classification",
       endpoint: "generateContent",
       estimated_cost_usd: 0.0001, // ~100 input tokens + ~50 output tokens on flash
       metadata: {
@@ -1314,7 +1314,7 @@ async function handlePaiEmail(
   // Handle based on classification
   if (classification.type === "spam") {
     // === SPAM: Silently drop, log, check threshold ===
-    console.log(`PAI email classified as spam, dropping silently: "${classification.summary}"`);
+    console.log(`AI assistant email classified as spam, dropping silently: "${classification.summary}"`);
 
     // Update the inbound_emails record to mark as spam
     await supabase
@@ -1405,7 +1405,7 @@ async function handlePaiEmail(
               vendor: receiptData.vendor.name,
               amount: receiptData.totalAmount,
               filename,
-              source: "pai_email",
+              source: "ai_assistant_email",
             },
           });
         }
@@ -1431,7 +1431,7 @@ async function handlePaiEmail(
         .map((r) => `• ${r.vendor}: $${r.amount.toFixed(2)} (${r.filename})`)
         .join("\n");
 
-      await sendPaiReply(
+      await sendAssistantReply(
         resendApiKey,
         senderEmail,
         `Thank you for sending ${processedReceipts.length === 1 ? "the receipt" : `${processedReceipts.length} receipts`}! I've processed and logged:\n\n${receiptsList}\n\nYou can view all purchases at https://YOUR_DOMAIN/spaces/admin/purchases.html`,
@@ -1510,7 +1510,7 @@ async function handlePaiEmail(
           units: 1,
           unit_type: "api_calls",
           estimated_cost_usd: 0, // Free tier
-          metadata: { key: r2Key, size_bytes: downloaded.data.length, source: "pai_email" },
+          metadata: { key: r2Key, size_bytes: downloaded.data.length, source: "ai_assistant_email" },
         });
       } catch (err) {
         console.error(`Error processing attachment ${filename}:`, err.message);
@@ -1519,7 +1519,7 @@ async function handlePaiEmail(
 
     if (uploadedFiles.length > 0) {
       // Notify admin
-      await sendPaiDocumentNotification(
+      await sendAssistantDocumentNotification(
         supabase,
         senderName,
         senderEmail,
@@ -1530,7 +1530,7 @@ async function handlePaiEmail(
 
       // Auto-reply to sender
       const fileNames = uploadedFiles.map(f => f.name).join(", ");
-      await sendPaiReply(
+      await sendAssistantReply(
         resendApiKey,
         senderEmail,
         `Thank you for sending ${uploadedFiles.length === 1 ? "the document" : `${uploadedFiles.length} documents`} (${fileNames}). I've received ${uploadedFiles.length === 1 ? "it" : "them"} and ${uploadedFiles.length === 1 ? "it's" : "they're"} now pending admin review before being added to my knowledge base.\n\nYou'll be able to ask me about ${uploadedFiles.length === 1 ? "this document" : "these documents"} once ${uploadedFiles.length === 1 ? "it's" : "they're"} approved.`,
@@ -1543,7 +1543,7 @@ async function handlePaiEmail(
     classification.type === "command" ||
     (classification.type === "other" && looksLikeQuestion(subject, bodyText || bodyHtml))
   ) {
-    // === QUESTION or COMMAND (or other that looks like a question): Forward to PAI, send reply ===
+    // === QUESTION or COMMAND (or other that looks like a question): Forward to the AI assistant, send reply ===
     const message = bodyText || bodyHtml || subject;
 
     try {
@@ -1551,7 +1551,7 @@ async function handlePaiEmail(
       const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
       const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
 
-      const paiRes = await fetch(`${supabaseUrl}/functions/v1/property-ai`, {
+      const assistantRes = await fetch(`${supabaseUrl}/functions/v1/property-ai`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1566,8 +1566,8 @@ async function handlePaiEmail(
 
       let replyText = "";
 
-      if (paiRes.ok) {
-        const paiData = await paiRes.json();
+      if (assistantRes.ok) {
+        const paiData = await assistantRes.json();
         replyText = paiData.reply || paiData.response || paiData.text || "";
       }
 
@@ -1575,23 +1575,23 @@ async function handlePaiEmail(
         replyText = `Thank you for your email. I've received your ${classification.type === "command" ? "request" : "question"} and I'll have someone from the team follow up with you.\n\nFor faster responses, you can chat with me directly at https://YOUR_DOMAIN/residents/ (requires resident login).`;
       }
 
-      const sendResult = await sendPaiReply(resendApiKey, senderEmail, replyText, subject, bodyText || bodyHtml || "");
+      const sendResult = await sendAssistantReply(resendApiKey, senderEmail, replyText, subject, bodyText || bodyHtml || "");
       await supabase.from("api_usage_log").insert({
         vendor: "supabase",
-        category: "pai_email_reply_attempt",
+        category: "ai_assistant_email_reply_attempt",
         metadata: {
           success: sendResult.ok,
           status: sendResult.status,
           to: senderEmail,
           inbound_email_id: emailRecord.id,
-          pai_status: paiRes?.status,
-          pai_ok: paiRes?.ok,
+          assistant_status: assistantRes?.status,
+          assistant_ok: assistantRes?.ok,
         },
       });
       if (sendResult.ok) {
         await supabase.from("api_usage_log").insert({
           vendor: "resend",
-          category: "email_pai_email_reply",
+          category: "email_ai_assistant_email_reply",
           endpoint: "POST /emails",
           units: 1,
           unit_type: "emails",
@@ -1600,9 +1600,9 @@ async function handlePaiEmail(
         });
       }
     } catch (err) {
-      console.error(`PAI response error: ${err.message}`);
+      console.error(`AI assistant response error: ${err.message}`);
       // Send generic reply on error
-      const sendResult = await sendPaiReply(
+      const sendResult = await sendAssistantReply(
         resendApiKey,
         senderEmail,
         "Thank you for your email. I've received your message and the team will review it shortly.\n\nFor immediate assistance, you can call us or chat with me at https://YOUR_DOMAIN/residents/.",
@@ -1611,13 +1611,13 @@ async function handlePaiEmail(
       );
       await supabase.from("api_usage_log").insert({
         vendor: "supabase",
-        category: "pai_email_reply_attempt",
+        category: "ai_assistant_email_reply_attempt",
         metadata: { success: sendResult.ok, status: sendResult.status, to: senderEmail, inbound_email_id: emailRecord.id, error: String(err?.message || err) },
       });
     }
   } else {
     // === OTHER: Forward to admin ===
-    console.log(`PAI email classified as 'other', forwarding to admin`);
+    console.log(`AI assistant email classified as 'other', forwarding to admin`);
     // Just forward — the normal forwarding logic handles this since we don't set forwardTargets for special logic
     // But since special logic handlers don't forward by default, let's manually forward
     const adminEmail = "admin@YOUR_DOMAIN";
@@ -1628,19 +1628,19 @@ async function handlePaiEmail(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `PAI Forward <notifications@YOUR_DOMAIN>`,
+        from: `YOUR_PROJECT_NAME Forward <notifications@YOUR_DOMAIN>`,
         to: [adminEmail],
         reply_to: senderEmail,
-        subject: `[PAI Forward] ${subject}`,
+        subject: `[YOUR_PROJECT_NAME Forward] ${subject}`,
         html: bodyHtml || `<pre>${bodyText}</pre>`,
         text: bodyText || "(HTML-only email)",
       }),
     });
 
     if (!forwardRes.ok) {
-      console.error(`PAI forward failed: ${forwardRes.status}`);
+      console.error(`AI assistant forward failed: ${forwardRes.status}`);
     } else {
-      console.log(`PAI email forwarded to admin (classified as 'other')`);
+      console.log(`AI assistant email forwarded to admin (classified as 'other')`);
     }
   }
 }
@@ -1944,8 +1944,8 @@ async function handleOutboundZellePayment(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "My Brand Payments <pai@YOUR_DOMAIN>",
-        reply_to: "pai@YOUR_DOMAIN",
+        from: "My Brand Payments <hello@YOUR_DOMAIN>",
+        reply_to: "hello@YOUR_DOMAIN",
         to: [adminEmail],
         subject,
         html,
@@ -2623,8 +2623,8 @@ async function sendTenantReceipt(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "My Brand Payments <pai@YOUR_DOMAIN>",
-        reply_to: "pai@YOUR_DOMAIN",
+        from: "My Brand Payments <hello@YOUR_DOMAIN>",
+        reply_to: "hello@YOUR_DOMAIN",
         to: [details.tenantEmail],
         bcc: ["automation@YOUR_DOMAIN"],
         subject,
@@ -2826,8 +2826,8 @@ async function sendPaymentNotification(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "My Brand Payments <pai@YOUR_DOMAIN>",
-        reply_to: "pai@YOUR_DOMAIN",
+        from: "My Brand Payments <hello@YOUR_DOMAIN>",
+        reply_to: "hello@YOUR_DOMAIN",
         to: [adminEmail],
         subject,
         html,
@@ -2882,8 +2882,8 @@ async function handlePaymentEmail(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "My Brand Payments <pai@YOUR_DOMAIN>",
-          reply_to: "pai@YOUR_DOMAIN",
+          from: "My Brand Payments <hello@YOUR_DOMAIN>",
+          reply_to: "hello@YOUR_DOMAIN",
           to: ["admin@YOUR_DOMAIN"],
           subject: `Unrecognized payment email: ${subject}`,
           html: `
@@ -3424,7 +3424,7 @@ serve(async (req) => {
     if (fromAddr.endsWith("@YOUR_DOMAIN")) {
       const toAutoOrNoreply = toList.some(t => {
         const p = extractPrefix(t);
-        return p === "auto" || p === "noreply" || p === "pai" || p === "ai-admin";
+        return p === "auto" || p === "noreply" || p === "ai" || p === "ai-admin";
       });
       if (toAutoOrNoreply) {
         console.log(`LOOP GUARD: Blocking self-sent email from ${fromAddr} to ${toList.join(",")}, subject: ${subject}`);

@@ -56,9 +56,7 @@ export const FEATURES = {
   residents:  { label: 'Residents',  core: false, description: 'Resident portal & orientation' },
   airbnb:     { label: 'Airbnb',     core: false, description: 'Airbnb iCal calendar sync' },
 
-  // AI
-  pai:        { label: 'PAI',        core: false, description: 'AI assistant (chat, voice, email)' },
-  alexa:      { label: 'Alexa',      core: false, description: 'Alexa skill integration' },
+  // AI  alexa:      { label: 'Alexa',      core: false, description: 'Alexa skill integration' },
 };
 
 let _enabledCache = null;

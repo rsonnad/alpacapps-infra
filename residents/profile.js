@@ -1493,7 +1493,7 @@ const RESERVED_SLUGS = [
   'events', 'mistiq', 'docs', 'assets', 'styles', 'your-app',
   'bug-reporter-extension', 'bug-reporter-firefox', 'bug-fixer',
   'feature-builder', 'camera-event-poller', 'image-gen',
-  'lg-poller', 'tesla-poller', 'spirit-whisper-worker', 'migrations',
+  'lg-poller', 'tesla-poller', 'migrations',
 ];
 
 function renderPersonalUrl() {

@@ -48,8 +48,6 @@ mobile/fastlane/test_output/
 # Dev/testing
 dev/testing/node_modules/
 
-# PAI Discord bot
-pai-discord/node_modules/
 
 # Gmail OAuth credentials (secret)
 scripts/gmail-credentials.json

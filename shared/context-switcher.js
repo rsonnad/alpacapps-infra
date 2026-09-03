@@ -22,7 +22,7 @@ export const STAFF_PERMISSION_KEYS = [
 export const ADMIN_PERMISSION_KEYS = [
   'view_users', 'view_passwords', 'view_settings', 'view_templates',
   'view_accounting', 'view_testdev', 'view_openclaw', 'view_devcontrol',
-  'admin_pai_settings',
+  'admin_assistant_settings',
 ];
 
 export const DEVICE_PERMISSION_KEYS = [

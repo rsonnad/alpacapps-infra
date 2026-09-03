@@ -189,7 +189,7 @@ export const PERMISSIONS: Record<string, Record<string, PermissionEntry>> = {
   },
 
   // ══════════════════════════════════════════════════════════════════
-  // FEATURE: pai — AI assistant (PAI)
+  // FEATURE: site_qa — AI assistant
   // ══════════════════════════════════════════════════════════════════
 
   // ── faq (faq_context_entries) ───────────────────────────────────
@@ -228,8 +228,8 @@ export const PERMISSIONS: Record<string, Record<string, PermissionEntry>> = {
     delete: { minLevel: 3 },
   },
 
-  // ── pai_config ──────────────────────────────────────────────────
-  pai_config: {
+  // ── ai_assistant_config ──────────────────────────────────────────────────
+  ai_assistant_config: {
     get:    { minLevel: 3 },
     update: { minLevel: 3 },
   },

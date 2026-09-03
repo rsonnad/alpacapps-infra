@@ -61,7 +61,7 @@ Then suggest the **best-fit persona** from the list below. Read `feature-manifes
 | 2 | **Long-term Landlord** | Apartment/house leasing | Leases, rent collection, tenant portal |
 | 3 | **Event Venue** | Event spaces, conference centers | Event pipeline, contracts, payments |
 | 4 | **Hostel / Co-living** | Shared living, work-trade | Mixed rooms, associates, orientation, amenities |
-| 5 | **Personal AI Hub** | Smart home, AI assistant | PAI, lighting, music, cameras, climate, voice |
+| 5 | **Personal AI Hub** | Smart home, AI assistant | Site Q&A, lighting, music, cameras, climate, voice |
 | 6 | **Small Business** | CRM, invoicing, campaigns | Email, SMS, payments, documents |
 | 7 | **Developer Portfolio / SaaS** | Minimal web app | Auth, email, payments |
 | 8 | **Custom** | Pick features individually | Full feature grid |
@@ -113,7 +113,6 @@ After the user picks a persona (or Custom), show the **feature grid** grouped by
 - [ ] Airbnb calendar sync (iCal) — Free
 
 **AI & Voice:**
-- [ ] AI assistant (PAI + Gemini) — Free tier: 1,000 req/day
 - [ ] Voice calling (Vapi) — ~$0.10-0.30/min
 - [ ] Alexa skill — Free
 
@@ -255,7 +254,7 @@ SET config = jsonb_set(
     "laundry": false, "oven": false, "printer_3d": false, "glowforge": false,
     "vehicles": false,
     "rentals": false, "events": false, "associates": false, "residents": false, "airbnb": false,
-    "pai": false, "alexa": false}'::jsonb
+    "alexa": false}'::jsonb
 )
 WHERE id = 1;
 ```
@@ -404,7 +403,7 @@ User says: "I manage 3 vacation rental properties on Airbnb and want to automate
 Actions:
 1. Persona suggestion → **Vacation Rental Manager**
 2. Feature set: email, sms, payments_stripe, esignatures, documents, airbnb, rentals, events, residents, cameras, lighting, climate, music
-3. Prune: full prune of vehicles, maker_tools, laundry, oven, associates, pai, voice, alexa
+3. Prune: full prune of vehicles, maker_tools, laundry, oven, associates, voice, alexa
 4. GitHub repo + Cloudflare Pages
 5. Supabase with full property management schema
 6. Service setup for each selected integration
@@ -439,10 +438,10 @@ User says: "I want a smart home dashboard with AI assistant for my house. I have
 
 Actions:
 1. Persona suggestion → **Personal AI Hub**
-2. Feature set: pai, lighting, music, climate, cameras, residents, voice
+2. Feature set: site_qa, lighting, music, climate, cameras, residents, voice
 3. Prune: full prune of property_ops (rentals, events, associates, airbnb), payments, documents, esignatures, vehicles, maker_tools
 4. GitHub repo + Cloudflare Pages
-5. Supabase with device tables + PAI config
+5. Supabase with device tables
 6. Gemini API setup, device config setup
 7. Final validation + summary
 

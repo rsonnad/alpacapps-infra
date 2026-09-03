@@ -2,9 +2,9 @@
  * Email Compliance Audit
  *
  * Weekly cron that checks all email templates against the 7 compliance rules:
- * 1. Sender identity: "PAI at the YOUR_PROPERTY_NAME"
+ * 1. Sender identity: "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME"
  * 2. Profile picture: BIMI DNS record (manual check — logged as reminder)
- * 3. Signature: "Yours generatively, PAI"
+ * 3. Signature: "Yours generatively, YOUR_PROJECT_NAME"
  * 4. Two property footer images
  * 5. Approval gate default (requires_approval unless explicitly approved)
  * 6. Payment method ordering (Zelle/Venmo first, card last with fee)
@@ -34,7 +34,7 @@ serve(async (_req) => {
   const violations: Violation[] = [];
 
   // ─── Rule 1: Sender Identity ───
-  const expectedSenderName = "PAI at the YOUR_PROPERTY_NAME";
+  const expectedSenderName = "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME";
   for (const [key, val] of Object.entries(SENDER_MAP)) {
     if (key === "claudero") continue; // different identity
     if (!val.from.startsWith(expectedSenderName)) {
@@ -44,11 +44,11 @@ serve(async (_req) => {
         details: `SENDER_MAP["${key}"].from = "${val.from}" — expected to start with "${expectedSenderName}"`,
       });
     }
-    if (val.reply_to !== "pai@YOUR_DOMAIN") {
+    if (val.reply_to !== "ai@YOUR_DOMAIN") {
       violations.push({
         rule: 1,
         ruleName: "Reply-To",
-        details: `SENDER_MAP["${key}"].reply_to = "${val.reply_to}" — expected "pai@YOUR_DOMAIN"`,
+        details: `SENDER_MAP["${key}"].reply_to = "${val.reply_to}" — expected "ai@YOUR_DOMAIN"`,
       });
     }
   }
@@ -78,11 +78,11 @@ serve(async (_req) => {
     }
   }
 
-  // ─── Rule 4: Verify enough "pai-email-art" tagged images exist ───
+  // ─── Rule 4: Verify enough "brand-email-art" tagged images exist ───
   const { data: tagRow } = await sb
     .from("media_tags")
     .select("id")
-    .ilike("name", "pai-email-art")
+    .ilike("name", "brand-email-art")
     .limit(1)
     .maybeSingle();
 
@@ -90,7 +90,7 @@ serve(async (_req) => {
     violations.push({
       rule: 4,
       ruleName: "Footer Images",
-      details: 'No "pai-email-art" tag exists in media_tags — footer images cannot be loaded.',
+      details: 'No "brand-email-art" tag exists in media_tags — footer images cannot be loaded.',
     });
   } else {
     const { data: taggedMedia } = await sb
@@ -106,7 +106,7 @@ serve(async (_req) => {
       violations.push({
         rule: 4,
         ruleName: "Footer Images",
-        details: `Only ${active.length} active image(s) tagged "pai-email-art" — need at least 2 for two-image footer.`,
+        details: `Only ${active.length} active image(s) tagged "brand-email-art" — need at least 2 for two-image footer.`,
       });
     }
   }
@@ -190,7 +190,7 @@ serve(async (_req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "PAI at the YOUR_PROPERTY_NAME <pai@YOUR_DOMAIN>",
+        from: "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME <ai@YOUR_DOMAIN>",
         to: ["admin@YOUR_DOMAIN"],
         subject: `[Audit] Email Compliance — ${violations.length} issue(s)`,
         html: alertHtml,

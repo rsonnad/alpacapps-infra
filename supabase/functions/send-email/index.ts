@@ -69,9 +69,9 @@ type EmailType =
   | "feature_review"
   // Claudero AI developer
   | "claudero_feature_complete"
-  // PAI email
-  | "pai_email_reply"
-  | "pai_document_received"
+  // AI assistant email
+  | "ai_assistant_email_reply"
+  | "ai_assistant_document_received"
   // Payment statement
   | "payment_statement"
   // Waiver
@@ -160,7 +160,7 @@ What's next?
 If you have any questions, feel free to reply to this email.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -260,7 +260,7 @@ Reminder: Please don't give the address out to potential guests. Instead, send t
 We're thrilled to have you joining the YOUR_PROPERTY_NAME community!
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
     }
@@ -280,7 +280,7 @@ We're sorry but we are not able to approve you to apply for housing at the YOUR_
 If you have questions, please contact a community manager.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -302,7 +302,7 @@ Your lease agreement has been prepared and is ready for your review.
 Please take a moment to review the terms. We'll send you a signature request shortly.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -327,7 +327,7 @@ Please check your email from SignWell and complete the signing process at your e
 Important: The lease must be signed before we can proceed with your move-in.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -363,7 +363,7 @@ ${paymentMethodsText(data._payment_methods_raw, { memoText: 'deposit' })}
 Once deposits are received, we'll confirm your move-in date.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -401,7 +401,7 @@ ${data.pay_url ? `\nOr pay online (0.8% processing fee, max $5): ${data.pay_url}
 ${data.needs_id_verification ? `\nID VERIFICATION REQUIRED\nWe also need a copy of your government-issued photo ID.\n${data.id_upload_url ? `Upload here: ${data.id_upload_url}` : 'Please reply to this email with a photo of your ID.'}` : ''}
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
     }
@@ -426,7 +426,7 @@ ${data.remaining_balance > 0 ? `Remaining Balance: $${data.remaining_balance}` :
 Thank you!
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -454,7 +454,7 @@ We'll be in touch with move-in details and key handoff arrangements.
 Welcome to YOUR_PROPERTY_NAME!
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -526,7 +526,7 @@ Please re-familiarize yourself with our operational guidelines: https://YOUR_DOM
 Reminder: Please don't give the address out to potential guests. Instead, send them the visiting link so they can read the guidelines first.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
     }
@@ -561,7 +561,7 @@ ${data.needs_id_verification ? `\nID VERIFICATION REQUIRED\n${data.id_upload_url
 Thank you!
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -602,7 +602,7 @@ ${data.needs_id_verification ? `\nID VERIFICATION REQUIRED\n${data.id_upload_url
 If you're experiencing difficulties, please reach out to discuss options.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -624,7 +624,7 @@ We've received your payment of $${data.amount}${data.period ? ` for ${data.perio
 Thank you for your prompt payment!
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -682,7 +682,7 @@ the YOUR_PROPERTY_NAME property AI agent`
 
               <p style="font-size:13px;color:#999;margin-top:16px;">Please include your name and &quot;rent&quot; in the payment memo so we can match your payment.</p>
               <p style="color:#555;font-size:15px;">If you have any questions about your statement, just reply to this email.</p>
-              <p style="color:#7d6f74;font-size:15px;margin:16px 0 0;"><em>Yours generatively,</em><br><strong style="color:#2a1f23;">PAI</strong><br><span style="font-size:13px;">the YOUR_PROPERTY_NAME property AI agent</span></p>
+              <p style="color:#7d6f74;font-size:15px;margin:16px 0 0;"><em>Yours generatively,</em><br><strong style="color:#2a1f23;">YOUR_PROJECT_NAME</strong><br><span style="font-size:13px;">the YOUR_PROPERTY_NAME property AI agent</span></p>
             </div>
             <div style="background:#f5f5f5;padding:20px 32px;text-align:center;border-top:1px solid #e0e0e0;">
               <p style="margin:0;color:#bbb;font-size:11px;">YOUR_APP_NAME &bull; YOUR_PROPERTY_NAME</p>
@@ -707,7 +707,7 @@ Please include your name and "rent" in the payment memo.
 If you have any questions about your statement, just reply to this email.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
     }
@@ -746,7 +746,7 @@ ${data.rsvp_link ? `RSVP: ${data.rsvp_link}` : ''}
 We hope to see you there!
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -765,7 +765,7 @@ ${data.message_text || 'You have been invited!'}
 ${data.action_url ? `${data.action_text || 'Learn More'}: ${data.action_url}` : ''}
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -903,7 +903,7 @@ When you're ready, you can also:
 If you have any questions or would like to schedule a tour, just reply to this email.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -931,7 +931,7 @@ Or complete your application here: ${data.continue_url}
 We are excited by the potential to have you join us at the YOUR_PROPERTY_NAME. Where our mission is to let your Property Dreams run free. Our goal is to redefine your idea of what an YOUR_PROPERTY_NAME can be. When it comes to selecting an YOUR_PROPERTY_NAME, we feel no one need settle.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -1437,10 +1437,10 @@ If the fix doesn't look right, submit another bug report and we'll take another 
       const filesModStr = (data.files_modified || []).join(', ');
       const compareUrl = data.branch_name ? `https://github.com/USERNAME/REPO/compare/${data.branch_name}` : '';
       return {
-        subject: `PAI Feature Review: ${(data.description || 'New Feature').substring(0, 60)}`,
+        subject: `YOUR_PROJECT_NAME Feature Review: ${(data.description || 'New Feature').substring(0, 60)}`,
         html: `
           <h2 style="color: #e67e22;">Feature Ready for Review</h2>
-          <p><strong>${data.requester_name}</strong> (${data.requester_role}) asked PAI to build:</p>
+          <p><strong>${data.requester_name}</strong> (${data.requester_role}) asked the AI assistant to build:</p>
           <p style="background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #e67e22;">${data.description}</p>
 
           <h3>Build Summary</h3>
@@ -1469,9 +1469,9 @@ If the fix doesn't look right, submit another bug report and we'll take another 
             <strong>To reject:</strong> delete the branch on GitHub.
           </p>
         `,
-        text: `PAI Feature Ready for Review
+        text: `YOUR_PROJECT_NAME Feature Ready for Review
 
-${data.requester_name} (${data.requester_role}) asked PAI to build:
+${data.requester_name} (${data.requester_role}) asked the AI assistant to build:
 ${data.description}
 
 BUILD SUMMARY:
@@ -1630,7 +1630,7 @@ Tips for a good photo:
 If you have any questions, feel free to reply to this email.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -1655,7 +1655,7 @@ We'll continue processing your rental application and will be in touch with next
 If you have any questions, feel free to reply to this email.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
@@ -1740,19 +1740,19 @@ This link will expire in 7 days. If you need a new link, please let us know.
 If you have any questions, feel free to reply to this email.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
 
-    // ===== PAI EMAIL =====
-    case "pai_email_reply":
+    // ===== AI ASSISTANT EMAIL =====
+    case "ai_assistant_email_reply":
       return {
-        subject: `Re: ${data.original_subject || 'Your message to PAI'}`,
+        subject: `Re: ${data.original_subject || 'Your message to the AI assistant'}`,
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #1a1a2e; padding: 20px; border-radius: 12px 12px 0 0;">
-              <h2 style="color: #e0d68a; margin: 0;">PAI</h2>
-              <p style="color: #aaa; margin: 4px 0 0 0; font-size: 13px;">Prompt Property Intelligence</p>
+              <h2 style="color: #e0d68a; margin: 0;">YOUR_PROJECT_NAME</h2>
+              <p style="color: #aaa; margin: 4px 0 0 0; font-size: 13px;">YOUR_PROJECT_NAME</p>
             </div>
             <div style="background: #fff; padding: 24px; border: 1px solid #e0e0e0; border-top: none;">
               <div style="white-space: pre-wrap; line-height: 1.6;">${data.reply_body || ''}</div>
@@ -1762,33 +1762,33 @@ the YOUR_PROPERTY_NAME property AI agent`
               <div style="color: #999; font-size: 13px; border-left: 3px solid #ddd; padding-left: 12px;">${data.original_body}</div>
               ` : ''}
             </div>
-            ${data.pai_art_url ? `
+            ${data.assistant_art_url ? `
             <div style="border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 12px 12px; overflow: hidden;">
-              <img src="${data.pai_art_url}" alt="PAI - Prompt Property Intelligence" style="width: 100%; height: auto; display: block;" />
+              <img src="${data.assistant_art_url}" alt="YOUR_PROJECT_NAME" style="width: 100%; height: auto; display: block;" />
             </div>
             ` : '<div style="border-radius: 0 0 12px 12px; height: 4px; background: #1a1a2e;"></div>'}
             <p style="color: #999; font-size: 11px; text-align: center; margin-top: 12px;">
-              This is an automated reply from PAI at YOUR_PROPERTY_NAME. Reply to this email to continue the conversation.
+              This is an automated reply from the AI assistant at YOUR_PROPERTY_NAME. Reply to this email to continue the conversation.
             </p>
           </div>
         `,
-        text: `PAI - Prompt Property Intelligence
+        text: `YOUR_PROJECT_NAME
 
 ${data.reply_body || ''}
 
 ${data.original_body ? `---\nYour original message:\n${data.original_body}` : ''}
 
-This is an automated reply from PAI at YOUR_PROPERTY_NAME.`
+This is an automated reply from the AI assistant at YOUR_PROPERTY_NAME.`
       };
 
-    case "pai_document_received": {
+    case "ai_assistant_document_received": {
       const fileList = (data.files || []).map((f: any) => `• ${f.name} (${f.type}, ${f.size})`).join('\n');
       const fileListHtml = (data.files || []).map((f: any) => `<li><strong>${f.name}</strong> (${f.type}, ${f.size})</li>`).join('');
       return {
-        subject: `PAI Document Upload: ${data.file_count || 1} file(s) from ${data.sender_name || data.sender_email}`,
+        subject: `YOUR_PROJECT_NAME Document Upload: ${data.file_count || 1} file(s) from ${data.sender_name || data.sender_email}`,
         html: `
-          <h2 style="color: #3d8b7a;">Document Received via PAI Email</h2>
-          <p><strong>${data.sender_name || 'Unknown'}</strong> (${data.sender_email}) sent ${data.file_count || 1} document(s) to <code>pai@YOUR_DOMAIN</code>.</p>
+          <h2 style="color: #3d8b7a;">Document Received via YOUR_PROJECT_NAME Email</h2>
+          <p><strong>${data.sender_name || 'Unknown'}</strong> (${data.sender_email}) sent ${data.file_count || 1} document(s) to <code>hello@YOUR_DOMAIN</code>.</p>
 
           <div style="background: #f0faf7; padding: 15px; border-radius: 8px; border-left: 4px solid #3d8b7a; margin: 15px 0;">
             <strong>Subject:</strong> ${data.original_subject || '(none)'}<br>
@@ -1801,9 +1801,9 @@ This is an automated reply from PAI at YOUR_PROPERTY_NAME.`
           <p>Files have been uploaded to R2 and added to the <strong>document index</strong> as <strong>inactive</strong> (pending admin review).</p>
           <p><a href="${data.admin_url || 'https://YOUR_DOMAIN/spaces/admin/manage.html'}" style="background: #3d8b7a; color: white; padding: 10px 24px; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block;">Review in Admin</a></p>
         `,
-        text: `PAI Document Upload
+        text: `YOUR_PROJECT_NAME Document Upload
 
-${data.sender_name || 'Unknown'} (${data.sender_email}) sent ${data.file_count || 1} document(s) to pai@YOUR_DOMAIN.
+${data.sender_name || 'Unknown'} (${data.sender_email}) sent ${data.file_count || 1} document(s) to hello@YOUR_DOMAIN.
 
 Subject: ${data.original_subject || '(none)'}
 ${data.message_body ? `Message: ${data.message_body.substring(0, 500)}` : ''}
@@ -1879,7 +1879,7 @@ Upload photos: ${workPageUrl}
 This is just a friendly nudge — no photos are required if they aren't relevant to the task.
 
 Yours generatively,
-PAI
+YOUR_PROJECT_NAME
 the YOUR_PROPERTY_NAME property AI agent`
       };
     }
@@ -2526,9 +2526,9 @@ async function holdForApproval(
     method: "POST",
     headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "My Brand Payments <pai@YOUR_DOMAIN>",
+      from: "My Brand Payments <hello@YOUR_DOMAIN>",
       to: ["admin@YOUR_DOMAIN"],
-      reply_to: "pai@YOUR_DOMAIN",
+      reply_to: "hello@YOUR_DOMAIN",
       subject: `[Approval Required] ${typeLabel}: ${subject}`,
       html: reviewHtml,
       text: `Email Approval Required\nType: ${typeLabel}\nTo: ${recipientList}\nSubject: ${subject}\n\nApprove: ${approveOneUrl}\nApprove All: ${approveAllUrl}`,
@@ -2571,7 +2571,7 @@ serve(async (req) => {
     const SKIP_BRAND_WRAP: EmailType[] = [
       "custom",            // raw HTML passthrough
       "staff_invitation",  // has its own full branded layout
-      "pai_email_reply",   // PAI-branded layout
+      "ai_assistant_email_reply",   // AI-assistant-branded layout
       "payment_statement", // has its own full layout
     ];
 
@@ -2602,7 +2602,7 @@ serve(async (req) => {
     const bccArray = [...bccSet];
 
     // === INJECT HIDDEN METADATA for reply context ===
-    // This invisible block lets PAI understand replies: what email type triggered
+    // This invisible block lets the AI assistant understand replies: what email type triggered
     // the conversation, who the original recipient was, and routing context.
     const emailId = crypto.randomUUID();
     const metadataBlock = `<!--[MYBRAND_META:${JSON.stringify({

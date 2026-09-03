@@ -1,12 +1,12 @@
 -- Redesign staff_invitation email template:
--- Dark header, prominent email callout, orange CTA, alpaca banner, My Brand branding.
--- Sender: pai (so replies go to PAI for smart responses).
+-- Dark header, prominent email callout, orange CTA, art banner, My Brand branding.
+-- Sender: ai_assistant (so replies route to the AI assistant).
 -- Uses {{mustache}} placeholders (rendered by template-engine.ts).
 
 UPDATE email_templates
 SET
   subject_template = 'You''re Invited to My Brand',
-  sender_type = 'pai',
+  sender_type = 'ai_assistant',
   html_template = $html$
 <div style="max-width:600px;margin:0 auto;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
   <!-- Header -->
@@ -51,10 +51,10 @@ SET
       </table>
     </div>
 
-    <p style="color:#94a3b8;font-size:13px;text-align:center;margin:24px 0 0;">Questions? Just reply to this email — PAI, our AI assistant, is happy to help.</p>
+    <p style="color:#94a3b8;font-size:13px;text-align:center;margin:24px 0 0;">Questions? Just reply to this email — our AI assistant, is happy to help.</p>
   </div>
 
-  <!-- Alpaca art banner -->
+  <!-- Art banner -->
   <div style="padding:0;">
     <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/ai-gen/invite-banner-ghibli.png" alt="My Brand" style="width:100%;display:block;" />
   </div>
@@ -81,7 +81,7 @@ Getting Started:
 2. Use "Continue with Google" (one tap) or create a password
 3. That's it — you'll have immediate access
 
-Questions? Just reply to this email — PAI, our AI assistant, is happy to help.
+Questions? Just reply to this email — our AI assistant, is happy to help.
 
 — My Brand
 My Brand - 160 Still Forest Dr, Cedar Creek, TX 78612$text$,

@@ -258,8 +258,8 @@ Deno.serve(async (req) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "My Brand Payments <pai@YOUR_DOMAIN>",
-          reply_to: "pai@YOUR_DOMAIN",
+          from: "My Brand Payments <hello@YOUR_DOMAIN>",
+          reply_to: "hello@YOUR_DOMAIN",
           to: ["team@YOUR_DOMAIN"],
           subject: `Payment Confirmed: $${conf.amount} from ${conf.sender_name} → ${personName}`,
           html: `

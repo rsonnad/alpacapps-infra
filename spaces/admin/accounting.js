@@ -977,7 +977,7 @@ const API_VENDORS = {
     color: '#4285f4',
     metrics: [
       { key: 'image_gen', label: 'Image Gen' },
-      { key: 'pai_chat', label: 'PAI Chat' },
+      { key: 'ai_assistant_chat', label: 'PAI Chat' },
       { key: 'other', label: 'Other' },
     ],
     costUnit: 'request',
@@ -1115,7 +1115,7 @@ async function loadApiUsage() {
 
     // Gemini from api_usage_log (PAI chat, payment matching, etc.)
     const geminiFromLog = apiLog.filter(r => r.vendor === 'gemini');
-    const geminiPaiCount = geminiFromLog.filter(r => r.category?.includes('pai')).length;
+    const geminiAssistantCount = geminiFromLog.filter(r => r.category?.includes('pai')).length;
     const geminiOtherCount = geminiFromLog.filter(r => !r.category?.includes('pai') && !r.category?.includes('image')).length;
     const geminiCost = geminiFromLog.reduce((s, r) => s + (parseFloat(r.estimated_cost_usd) || 0), 0);
 
@@ -1170,7 +1170,7 @@ async function loadApiUsage() {
         totalCost: imageGenCost + geminiCost,
         rows: [
           { label: 'Image Gen', count: imageGenCount },
-          { label: 'PAI Chat', count: geminiPaiCount },
+          { label: 'PAI Chat', count: geminiAssistantCount },
           ...(geminiOtherCount > 0 ? [{ label: 'Other', count: geminiOtherCount }] : []),
         ],
       },

@@ -1147,7 +1147,7 @@ function renderGuideHelpers() {
       [
         ['<code>custom</code>', 'Raw HTML passthrough — admin provides complete HTML'],
         ['<code>staff_invitation</code>', 'Has its own full branded layout with different header design'],
-        ['<code>pai_email_reply</code>', 'PAI-branded layout with PAI-specific styling'],
+        ['<code>ai_assistant_email_reply</code>', 'PAI-branded layout with PAI-specific styling'],
         ['<code>payment_statement</code>', 'Complex table-heavy layout with gradient header for financial data'],
       ]
     )}

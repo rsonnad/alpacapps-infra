@@ -196,7 +196,7 @@ printer_devices     - 3D printer devices with cached state
 ```
 r2_config       - Cloudflare R2 configuration (single row, id=1)
                   (account_id, bucket_name, public_url, is_active)
-document_index  - Documents stored in R2 for PAI lookup
+document_index  - Documents stored in R2 for document lookup
                   (title, description, keywords [text[]], source_url,
                    file_type, file_size_bytes, storage_backend [supabase/r2],
                    is_active, uploaded_by, created_at, updated_at)
@@ -228,8 +228,8 @@ prompts         - Versioned prompt library (multiple versions per name)
                    created_at, updated_at)
                   Unique: (name, version); unique partial index on (name) WHERE is_active
                   Helper functions: get_prompt(name), create_prompt_version(name, content, ...)
-                  Categories: image_gen, email, pai, marketing, general
-                  Seeded prompts: pai_daily_art (v1+v2), home-server_trio_tech (v1)
+                  Categories: image_gen, email, marketing, general
+                  Seeded prompts: ai_assistant_daily_art (v1+v2), home-server_trio_tech (v1)
 ```
 
 ### User & Auth System

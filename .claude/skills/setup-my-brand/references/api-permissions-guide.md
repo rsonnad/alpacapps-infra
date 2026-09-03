@@ -11,7 +11,6 @@ When generating the `api-permissions.ts` file for a cloned project, include only
 | **associates** | `time_entries` |
 | **events** | `events` |
 | **sms** | `sms` |
-| **pai** | `faq`, `pai_config` |
 | **documents** | `documents` |
 | **payments_stripe** | `payments` |
 | **payments_square** | `payments` |
@@ -27,12 +26,12 @@ When generating the `api-permissions.ts` file for a cloned project, include only
 ## Example: Small Business (email + payments_stripe)
 
 Include: core resources + `payments`
-Skip: `vehicles`, `tesla_accounts`, `time_entries`, `events`, `sms`, `faq`, `pai_config`, `documents`
+Skip: `vehicles`, `tesla_accounts`, `time_entries`, `events`, `sms`, `faq`, `ai_assistant_config`, `documents`
 
 ## Example: Vacation Rental (rentals + events + cameras + lighting)
 
 Include: core resources + `events` + `documents`
-Skip: `vehicles`, `tesla_accounts`, `time_entries`, `sms`, `faq`, `pai_config`
+Skip: `vehicles`, `tesla_accounts`, `time_entries`, `sms`, `faq`, `ai_assistant_config`
 
 ## Note on the API Gateway
 

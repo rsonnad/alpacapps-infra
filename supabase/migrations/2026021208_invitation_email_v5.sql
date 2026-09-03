@@ -3,7 +3,7 @@
 UPDATE email_templates
 SET
   subject_template = 'You''re Invited to My Brand',
-  sender_type = 'pai',
+  sender_type = 'ai_assistant',
   html_template = $html$
 <div style="max-width:600px;margin:0 auto;font-family:'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif;background:#faf9f6;border-radius:8px;overflow:hidden;">
   <!-- Header -->
@@ -44,13 +44,13 @@ SET
       </table>
     </div>
   </div>
-  <!-- Alpaca art banner -->
+  <!-- Art banner -->
   <div style="padding:0 32px;">
     <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/ai-gen/invite-banner-ghibli.png" alt="My Brand" style="width:100%;display:block;border-radius:8px;" />
   </div>
   <!-- Footer -->
   <div style="padding:24px 32px;text-align:center;">
-    <p style="color:#7d6f74;font-size:12px;margin:0;">Questions? Just reply — PAI, our AI assistant, is happy to help.</p>
+    <p style="color:#7d6f74;font-size:12px;margin:0;">Questions? Just reply — our AI assistant, is happy to help.</p>
     <p style="margin:10px 0 0;color:#e6e2d9;font-size:11px;">My Brand Austin &bull; My Brand</p>
   </div>
 </div>
@@ -70,7 +70,7 @@ Getting Started:
 2. Use Continue with Google (one tap) or create a password
 3. That's it — you'll have immediate access
 
-Questions? Just reply to this email and PAI will help.
+Questions? Just reply to this email and the AI assistant will help.
 
 — My Brand Austin • My Brand$text$,
   version = version + 1,

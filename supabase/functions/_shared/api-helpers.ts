@@ -75,7 +75,7 @@ export async function resolveAuth(
   const apiKeyHeader = req.headers.get("X-API-Key");
   const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
-  // 1. Service role key → oracle level (internal callers like PAI, workers)
+  // 1. Service role key → oracle level (internal callers like the AI assistant, workers)
   const token = authHeader?.replace("Bearer ", "") ?? "";
   if (token === serviceKey) {
     return {

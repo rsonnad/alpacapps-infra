@@ -35,7 +35,7 @@ SET
         </tr>
       </table>
     </div>
-    <p style="color:#94a3b8;font-size:13px;text-align:center;margin:24px 0 0;">Questions? Just reply to this email — PAI, our AI assistant, is happy to help.</p>
+    <p style="color:#94a3b8;font-size:13px;text-align:center;margin:24px 0 0;">Questions? Just reply to this email — our AI assistant, is happy to help.</p>
   </div>
   <div style="padding:0;">
     <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/ai-gen/invite-banner-ghibli.png" alt="My Brand" style="width:100%;display:block;" />

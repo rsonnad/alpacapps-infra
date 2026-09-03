@@ -149,7 +149,7 @@ serve(async (req) => {
 
     const token = authHeader.replace("Bearer ", "");
 
-    // Allow trusted internal calls from PAI (service role key = already permission-checked)
+    // Allow trusted internal calls from the AI assistant (service role key = already permission-checked)
     const isInternalCall = token === supabaseServiceKey;
 
     let appUser: any = null;

@@ -64,7 +64,7 @@ export interface ClassificationResult {
 export type EmailAction =
   | "forward_admin"      // Forward to admin for manual review
   | "forward_person"     // Forward to a specific person
-  | "auto_reply"         // PAI can auto-reply
+  | "auto_reply"         // the AI assistant can auto-reply
   | "process_receipt"    // Process as receipt/purchase
   | "process_payment"    // Process as payment confirmation
   | "process_guestbook"  // Add to guestbook

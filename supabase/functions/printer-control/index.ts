@@ -79,7 +79,7 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Allow service role key for internal calls (PAI, etc.)
+    // Allow service role key for internal calls (AI assistant, etc.)
     const token = authHeader.replace("Bearer ", "");
     let appUser: any = null;
     let checkPermission: (key: string) => Promise<boolean>;

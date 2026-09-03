@@ -38,16 +38,10 @@ const FALLBACK_CONFIG = {
   },
   payment: {
     zelle_email: 'admin@YOUR_DOMAIN',
-    venmo_handle: '@Propertyproperty',
-  },
-  ai_assistant: {
-    name: 'PAI',
-    full_name: 'Prompt Property Intelligence',
-    personality: 'the AI assistant for the property',
-    email_from: 'pai@YOUR_DOMAIN',
+    venmo_handle: '@your_venmo_handle',
   },
   wifi: {
-    network_name: 'Black Rock City',
+    network_name: 'Your WiFi Network',
   },
   mobile_app: {
     name: 'YOUR_PROPERTY_NAME',

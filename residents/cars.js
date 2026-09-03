@@ -867,11 +867,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Start polling
       startPolling();
-      // Refresh when PAI sends vehicle commands
-      window.addEventListener('pai-actions', (e) => {
-        const carActions = (e.detail?.actions || []).filter(a => a.type === 'control_vehicle');
-        if (carActions.length) setTimeout(() => refreshFromDB(), 3000);
-      });
 
       // Load Tesla account settings (self-service for all users)
       await loadAccounts();

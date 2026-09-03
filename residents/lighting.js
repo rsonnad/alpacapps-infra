@@ -107,52 +107,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       await refreshUnifiedStates();
       await refreshAllStates();
       startPolling();
-      // Sync UI when PAI takes light actions
-      window.addEventListener('pai-actions', (e) => {
-        const actions = (e.detail?.actions || []);
-        const lightActions = actions.filter(a => a.type === 'control_lights');
-        const unifiedActions = actions.filter(a => a.type === 'control_room_lights');
-        for (const action of lightActions) {
-          if (!action.result?.startsWith('OK:')) continue;
-          // Find group by name match
-          const group = goveeGroups.find(g =>
-            g.name.toLowerCase() === (action.target || '').toLowerCase()
-          );
-          if (!group) continue;
-          const gid = group.groupId;
-          const args = action.args || {};
-          const patch = { disconnected: false };
-          switch (args.action) {
-            case 'on':
-              patch.on = true;
-              break;
-            case 'off':
-              patch.on = false;
-              break;
-            case 'color':
-              patch.on = true;
-              // Convert color name to hex for the picker
-              if (args.value) {
-                const named = paiColorToHex(args.value);
-                if (named) patch.color = named;
-              }
-              break;
-            case 'brightness':
-              patch.on = true;
-              if (args.value) patch.brightness = parseInt(args.value);
-              break;
-          }
-          groupStates[gid] = { ...groupStates[gid], ...patch };
-          updateGroupUI(gid);
-        }
-        // Also do a background Govee state refresh for accuracy
-        if (lightActions.length) {
-          setTimeout(() => refreshAllStates(), 2000);
-        }
-        if (unifiedActions.length) {
-          setTimeout(() => refreshUnifiedStates(), 1500);
-        }
-      });
       // Load child device states in background (staggered to respect rate limits)
       loadAllChildrenStates();
       // Auto-load scenes for devices whose panels start expanded
@@ -1912,7 +1866,7 @@ function handlePopoverOutsideClick(e) {
 // UTILITIES
 // =============================================
 
-// Map PAI color names to hex (mirrors COLOR_MAP in property-ai)
+// Map AI color names to hex
 function paiColorToHex(value) {
   if (!value) return null;
   const lower = value.toLowerCase().trim();

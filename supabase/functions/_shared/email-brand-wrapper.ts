@@ -99,11 +99,11 @@ async function loadGalleryImages(): Promise<string[]> {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const sb = createClient(supabaseUrl, supabaseKey);
 
-    // First: try images tagged "pai-email-art" (property artwork for emails)
+    // First: try images tagged "brand-email-art" (property artwork for emails)
     const { data: tagRow } = await sb
       .from("media_tags")
       .select("id")
-      .ilike("name", "pai-email-art")
+      .ilike("name", "brand-email-art")
       .limit(1)
       .single();
 
@@ -157,7 +157,7 @@ export interface WrapOptions {
   showFooter?: boolean;
   /** Show the property image gallery above footer (default: true) */
   showGallery?: boolean;
-  /** Show the PAI signature block (default: true) */
+  /** Show the AI assistant signature block (default: true) */
   showSignature?: boolean;
   /** Show the feedback/question CTA (default: true) */
   showFeedback?: boolean;
@@ -236,7 +236,7 @@ export async function wrapEmailHtml(
     <tr>
       <td style="padding:16px ${e.body.padding} 0;font-family:${fontFamily};">
         <p style="margin:0;color:${c.text_muted};font-size:15px;line-height:1.6;font-style:italic;">Yours generatively,</p>
-        <p style="margin:4px 0 0;color:${c.text};font-size:15px;line-height:1.6;font-weight:600;">PAI</p>
+        <p style="margin:4px 0 0;color:${c.text};font-size:15px;line-height:1.6;font-weight:600;">YOUR_PROJECT_NAME</p>
         <p style="margin:2px 0 0;color:${c.text_muted};font-size:13px;line-height:1.4;">the YOUR_PROPERTY_NAME property AI agent</p>
       </td>
     </tr>` : '';
@@ -249,7 +249,7 @@ export async function wrapEmailHtml(
       <td style="padding:20px ${e.body.padding} 8px;font-family:${fontFamily};">
         <div style="background:${c.background_muted};border:1px solid ${c.border};border-radius:8px;padding:16px 20px;text-align:center;">
           <p style="margin:0 0 10px;color:${c.text};font-size:14px;font-weight:600;">Any questions or feedback?</p>
-          <a href="mailto:pai@YOUR_DOMAIN?subject=${feedbackSubject}" style="display:inline-block;background:${accent};color:#ffffff;padding:10px 24px;text-decoration:none;border-radius:6px;font-size:14px;font-weight:600;font-family:${fontFamily};">Send PAI a Message</a>
+          <a href="mailto:ai@YOUR_DOMAIN?subject=${feedbackSubject}" style="display:inline-block;background:${accent};color:#ffffff;padding:10px 24px;text-decoration:none;border-radius:6px;font-size:14px;font-weight:600;font-family:${fontFamily};">Send the AI assistant a Message</a>
           <p style="margin:10px 0 0;color:${c.text_muted};font-size:12px;">Or just reply to this email</p>
         </div>
       </td>

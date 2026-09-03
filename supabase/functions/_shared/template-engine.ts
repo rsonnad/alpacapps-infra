@@ -50,27 +50,27 @@ export const SENDER_MAP: Record<
   { from: string; reply_to: string }
 > = {
   team: {
-    from: "PAI at the YOUR_PROPERTY_NAME <pai@YOUR_DOMAIN>",
-    reply_to: "pai@YOUR_DOMAIN",
+    from: "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME <ai@YOUR_DOMAIN>",
+    reply_to: "ai@YOUR_DOMAIN",
   },
   auto: {
-    from: "PAI at the YOUR_PROPERTY_NAME <pai@YOUR_DOMAIN>",
-    reply_to: "pai@YOUR_DOMAIN",
+    from: "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME <ai@YOUR_DOMAIN>",
+    reply_to: "ai@YOUR_DOMAIN",
   },
   noreply: {
-    from: "PAI at the YOUR_PROPERTY_NAME <pai@YOUR_DOMAIN>",
-    reply_to: "pai@YOUR_DOMAIN",
+    from: "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME <ai@YOUR_DOMAIN>",
+    reply_to: "ai@YOUR_DOMAIN",
   },
   payments: {
-    from: "PAI at the YOUR_PROPERTY_NAME <pai@YOUR_DOMAIN>",
-    reply_to: "pai@YOUR_DOMAIN",
+    from: "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME <ai@YOUR_DOMAIN>",
+    reply_to: "ai@YOUR_DOMAIN",
   },
-  pai: {
-    from: "PAI at the YOUR_PROPERTY_NAME <pai@YOUR_DOMAIN>",
-    reply_to: "pai@YOUR_DOMAIN",
+  ai_assistant: {
+    from: "YOUR_PROJECT_NAME at YOUR_PROPERTY_NAME <ai@YOUR_DOMAIN>",
+    reply_to: "ai@YOUR_DOMAIN",
   },
   claudero: {
     from: "Claudero <claudero@YOUR_DOMAIN>",
-    reply_to: "pai@YOUR_DOMAIN",
+    reply_to: "ai@YOUR_DOMAIN",
   },
 };
