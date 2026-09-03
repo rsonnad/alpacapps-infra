@@ -13,6 +13,13 @@
     }
   },
   "personas": {
+    "slim": {
+      "label": "Slim (core only)",
+      "description": "Default. Website, admin dashboard, auth, database and storage — nothing else. No property management, smart home, payments or comms. Add any feature later with scripts/apply-profile.mjs add <feature>.",
+      "default": true,
+      "features": [],
+      "suggested_services": []
+    },
     "vacation_rental": {
       "label": "Vacation Rental Manager",
       "description": "Short-term rental with Airbnb sync, guest check-in, cleaning coordination, event hosting, and smart home controls for guests.",

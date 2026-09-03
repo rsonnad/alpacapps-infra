@@ -17,7 +17,12 @@ source-project identity, credentials, domains, people, or infrastructure.
 > - `docs/OPEN-BRAIN-SETUP.md` — **load for:** Open Brain session dashboard, AI memory, embeddings
 
 > **IMPORTANT: First-time setup!**
-> Run `/setup-my-brand` to set up the full infrastructure interactively.
+> Run `/setup-my-brand` to set up the infrastructure interactively.
+>
+> The template ships every feature but enables none of them. Setup defaults to the
+> **slim** profile (core only — no property management, smart home, payments or comms).
+> Feature selection is driven by `feature-manifest.json` via `scripts/apply-profile.mjs`;
+> add anything later with `node scripts/apply-profile.mjs add <feature>`.
 
 > **Upgrading from the template?**
 > Read `infra/infra-upgrade-guide.md` for step-by-step instructions to sync new features from

@@ -65,11 +65,37 @@ claude
 ```
 
 The wizard will:
-1. Ask what you're building (7 persona templates available)
-2. Create a new GitHub repo under your account
-3. Set up Supabase (database, auth, storage, edge functions)
-4. Customize branding, domain, and credentials
-5. Deploy your site live on Cloudflare Pages
+1. Ask what you're building (8 persona templates available)
+2. Pick a feature profile — **the default is Slim: core only**
+3. Create a new GitHub repo under your account
+4. Set up Supabase (database, auth, storage, edge functions)
+5. Customize branding, domain, and credentials
+6. Deploy your site live on Cloudflare Pages
+
+### Slim by default
+
+The repo carries a full property-management stack (rentals, residents,
+events, smart home, vehicles), but **none of it is enabled by default**. A new
+project starts from the `slim` persona — website, admin dashboard, auth,
+database and storage — and opts in to anything else.
+
+Feature selection is handled by `scripts/apply-profile.mjs`, driven by
+`feature-manifest.json`:
+
+```bash
+# See what a profile would include or exclude — writes nothing
+node scripts/apply-profile.mjs plan --persona=slim
+
+# Apply it: .claudeignore only (reversible), or also delete from disk
+node scripts/apply-profile.mjs apply --persona=slim --mode=soft
+node scripts/apply-profile.mjs apply --persona=slim --mode=prune
+
+# Add property management (or any feature) later
+node scripts/apply-profile.mjs add rentals residents
+```
+
+Core files are never excluded, and `add` prints the exact command to restore
+anything a full prune removed.
 
 ## Architecture
 

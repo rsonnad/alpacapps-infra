@@ -52,3 +52,6 @@ dev/testing/node_modules/
 # Gmail OAuth credentials (secret)
 scripts/gmail-credentials.json
 .gstack/
+
+# Setup wizard state (local to each project)
+.setup-state.json

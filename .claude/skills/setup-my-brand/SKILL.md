@@ -57,14 +57,21 @@ Then suggest the **best-fit persona** from the list below. Read `feature-manifes
 
 | # | Persona | Best for | Key features |
 |---|---------|----------|--------------|
-| 1 | **Vacation Rental Manager** | Short-term rentals, Airbnb hosts | Airbnb sync, rentals, events, cameras, smart home |
-| 2 | **Long-term Landlord** | Apartment/house leasing | Leases, rent collection, tenant portal |
-| 3 | **Event Venue** | Event spaces, conference centers | Event pipeline, contracts, payments |
-| 4 | **Hostel / Co-living** | Shared living, work-trade | Mixed rooms, associates, orientation, amenities |
-| 5 | **Personal AI Hub** | Smart home, AI assistant | Site Q&A, lighting, music, cameras, climate, voice |
-| 6 | **Small Business** | CRM, invoicing, campaigns | Email, SMS, payments, documents |
-| 7 | **Developer Portfolio / SaaS** | Minimal web app | Auth, email, payments |
-| 8 | **Custom** | Pick features individually | Full feature grid |
+| 1 | **Slim (core only)** — *default* | Anything not listed below | Website, admin dashboard, auth, database, storage |
+| 2 | **Vacation Rental Manager** | Short-term rentals, Airbnb hosts | Airbnb sync, rentals, events, cameras, smart home |
+| 3 | **Long-term Landlord** | Apartment/house leasing | Leases, rent collection, tenant portal |
+| 4 | **Event Venue** | Event spaces, conference centers | Event pipeline, contracts, payments |
+| 5 | **Hostel / Co-living** | Shared living, work-trade | Mixed rooms, associates, orientation, amenities |
+| 6 | **Personal AI Hub** | Smart home, AI assistant | Site Q&A, lighting, music, cameras, climate, voice |
+| 7 | **Small Business** | CRM, invoicing, campaigns | Email, SMS, payments, documents |
+| 8 | **Developer Portfolio / SaaS** | Minimal web app | Auth, email, payments |
+| 9 | **Custom** | Pick features individually | Full feature grid |
+
+**Default to Slim.** The template carries a full property-management stack;
+most projects want none of it. Only suggest a heavier persona when the user's
+own description clearly calls for it (they said "rental", "guests", "tenants",
+"venue", "smart home"). Property management is opt-in, never inherited — a
+project can add it later in one step (see Step 1b).
 
 After the user picks a persona (or Custom), show the **feature grid** grouped by category with the persona's features pre-checked. The user can add or remove features.
 
@@ -129,44 +136,56 @@ After the user confirms their feature set:
 
 ### Step 1b: Project Pruning
 
-Determine which features are NOT selected. These will be pruned or hidden.
+Pruning is done by `scripts/apply-profile.mjs`, which reads
+`feature-manifest.json` and resolves the paths itself. Do not work out the
+file list by hand.
 
-**Ask the user (AskUserQuestion):**
+**First, show the user what would change:**
+
+```bash
+node scripts/apply-profile.mjs plan --persona=<persona>
+```
+
+(or `--features=email,rentals,...` for a Custom selection). This prints the
+enabled features, anything pulled in by dependencies, and every path that
+would be excluded, with the feature that owns it. Nothing is written.
+
+**Then ask the user (AskUserQuestion):**
 
 > Features you didn't select can be handled two ways:
-> - **Full prune (Recommended)** — Delete unused directories and files. Cleaner project, no dead code.
-> - **Soft hide** — Keep files on disk but add to `.claudeignore` so Claude Code ignores them. Reversible.
+> - **Soft hide (Recommended)** — Keep files on disk but list them in `.claudeignore` so Claude Code ignores them. Fully reversible.
+> - **Full prune** — Also delete them from disk. Cleaner project, but restoring a feature later means fetching it from the template repo.
 
-**Then execute the following:**
+**Then apply it:**
 
-1. **Read `feature-manifest.json`** from the repo root. This maps every feature to its files, dirs, edge functions, and DB tables.
+```bash
+node scripts/apply-profile.mjs apply --persona=<persona> --mode=soft   # or --mode=prune
+```
 
-2. **Generate `.claudeignore`:**
-   - Always include base exclusions: `_my-brand_specific.dirs` and `_my-brand_specific.docs` from the manifest, plus `package-lock.json` and `styles/tailwind.out.css`.
-   - For every feature NOT in the user's selected set, add its `dirs`, `pages`, `pollers`, `shared` files to `.claudeignore`.
-   - Write the generated `.claudeignore` file.
+This writes `.claudeignore`, writes `.setup-state.json`, and (in `prune`
+mode) deletes the excluded paths. It refuses to run on a dirty working tree
+so the change is reviewable — commit or stash first.
 
-3. **If "Full prune" was selected**, physically delete the excluded directories and files:
-   ```bash
-   rm -rf <dirs and pages from unselected features>
-   ```
-   Also remove unselected shared modules listed in the manifest.
+Core is never excluded: paths listed under `core`, and any path an enabled
+feature also owns, are always kept.
 
-4. **Write `.setup-state.json`** (gitignored) to track the setup:
-   ```json
-   {
-     "persona": "<selected persona or 'custom'>",
-     "enabled_features": ["email", "sms", ...],
-     "prune_mode": "full|soft",
-     "services_configured": [],
-     "setup_started_at": "<ISO timestamp>"
-   }
-   ```
-   Add `.setup-state.json` to `.gitignore`.
+**Adding a feature later** (this is how property management gets added — it is
+never on by default):
 
-5. **Commit and push** the `.claudeignore` (and deletions if pruned).
+```bash
+node scripts/apply-profile.mjs add rentals residents
+```
 
-**Important:** The `.claudeignore` is generated BEFORE any other setup steps, so Claude Code immediately benefits from the reduced search scope for the rest of the wizard.
+This updates `.claudeignore` and `.setup-state.json`. If the project was
+fully pruned, the script prints the exact `git checkout infra-upstream/main --
+<paths>` command to restore the files, and points at the feature's `dbTables`
+for the migrations to apply.
+
+Add `.setup-state.json` to `.gitignore`. Commit `.claudeignore` (and the
+deletions, if pruned).
+
+**Important:** Run this BEFORE the rest of the wizard, so Claude Code benefits
+from the reduced search scope for every later step.
 
 ### Step 2: GitHub + Cloudflare Pages
 
@@ -370,17 +389,22 @@ When Step 0 detects an existing setup, enter Add Mode instead of starting fresh.
    - Deploy its edge functions (from `edgeFunctions` in manifest)
    - Create its client-side service modules (from `shared` in manifest)
    - If the feature requires a third-party service (e.g., Telnyx for SMS), run that service's setup from `references/optional-services.md`
-5. **If prune_mode was "full"**, restore files for newly added features from the template repo:
+5. **Run the profile script** — it updates `.claudeignore` and
+   `.setup-state.json`, and works out what (if anything) needs restoring:
    ```bash
-   # Fetch just the needed dirs from the template
-   git archive --remote=https://github.com/YOUR_ORG/alpacapps-infra.git main -- <dirs> | tar -x
+   node scripts/apply-profile.mjs add <feature> [<feature>...]
    ```
-6. **If prune_mode was "soft"**, remove newly added feature paths from `.claudeignore`.
-7. **Update `.setup-state.json`:**
-   - Add new features to `enabled_features`
-   - Add new services to `services_configured`
-8. **Update docs:** Append new tables to `docs/SCHEMA.md`, new files to `docs/KEY-FILES.md`, new services to `docs/INTEGRATIONS.md`.
-9. **Commit and push.**
+   If the project was fully pruned, the script prints the exact
+   `git checkout infra-upstream/main -- <paths>` command for the files it
+   needs back. Run that, having added the remote once:
+   ```bash
+   git remote add infra-upstream https://github.com/YOUR_ORG/alpacapps-infra.git
+   git fetch infra-upstream main
+   ```
+6. **Add any services** to `services_configured` in `.setup-state.json`
+   (the script maintains `enabled_features`; services are tracked separately).
+7. **Update docs:** Append new tables to `docs/SCHEMA.md`, new files to `docs/KEY-FILES.md`, new services to `docs/INTEGRATIONS.md`.
+8. **Commit and push.**
 
 ## Examples
 
@@ -390,7 +414,7 @@ User says: "I'm building a salon booking system with services, stylists, and app
 Actions:
 1. Persona suggestion → **Small Business** (closest fit). User customizes: adds Google Sign-In.
 2. Feature set: email, payments_stripe, esignatures, documents + Google OAuth
-3. Prune: full prune of all property_ops, smart_home, vehicles, maker_tools, ai features
+3. Prune: `apply-profile.mjs apply --features=email,payments_stripe,esignatures,documents --mode=prune`
 4. GitHub repo + Cloudflare Pages
 5. Supabase with tables: `services`, `stylists`, `appointments`, `clients`
 6. Google OAuth, Resend, Stripe setup
@@ -403,7 +427,7 @@ User says: "I manage 3 vacation rental properties on Airbnb and want to automate
 Actions:
 1. Persona suggestion → **Vacation Rental Manager**
 2. Feature set: email, sms, payments_stripe, esignatures, documents, airbnb, rentals, events, residents, cameras, lighting, climate, music
-3. Prune: full prune of vehicles, maker_tools, laundry, oven, associates, voice, alexa
+3. Prune: `apply-profile.mjs apply --persona=vacation_rental --mode=prune`
 4. GitHub repo + Cloudflare Pages
 5. Supabase with full property management schema
 6. Service setup for each selected integration
@@ -413,9 +437,9 @@ Actions:
 User says: "I just need a database and a website for a personal project tracker."
 
 Actions:
-1. Persona suggestion → **Developer Portfolio / SaaS Starter**. User removes email + stripe.
+1. Persona suggestion → **Slim (core only)** — the default; nothing here needs a heavier persona.
 2. Feature set: core only
-3. Prune: full prune of everything except core
+3. Prune: `apply-profile.mjs apply --persona=slim --mode=prune`
 4. GitHub repo + Cloudflare Pages
 5. Supabase with tables: `projects`, `tasks`
 6. Claude Code permissions
@@ -439,7 +463,7 @@ User says: "I want a smart home dashboard with AI assistant for my house. I have
 Actions:
 1. Persona suggestion → **Personal AI Hub**
 2. Feature set: site_qa, lighting, music, climate, cameras, residents, voice
-3. Prune: full prune of property_ops (rentals, events, associates, airbnb), payments, documents, esignatures, vehicles, maker_tools
+3. Prune: `apply-profile.mjs apply --persona=personal_ai_hub --mode=prune`
 4. GitHub repo + Cloudflare Pages
 5. Supabase with device tables
 6. Gemini API setup, device config setup
