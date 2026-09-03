@@ -1,12 +1,12 @@
 {
-  "version": "v260824.01 2:58p",
+  "version": "v260903.01 8:31p",
   "release": 1,
-  "sha": "e25a0b2",
-  "fullSha": "e25a0b216f143af90858efcb9ba55236e6ce9f8d",
+  "sha": "414abe4",
+  "fullSha": "414abe45f4df90df84676a1404d4690d79845209",
   "actor": "automated-deploy",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "ci",
-  "pushedAt": "2026-08-24T16:58:21+02:00",
-  "commits": [{"sha":"e25a0b2","message":"docs(secrets): drop DevOps-* vault naming from the template"}]
+  "pushedAt": "2026-09-03T15:13:50-05:00",
+  "commits": [{"sha":"5bb26ae","message":"Phase 1: de-brand template to my-brand placeholders"},{"sha":"f68abd1","message":"Phase 1b: de-brand second-order identifiers"},{"sha":"cc1969c","message":"Phase 2a: one-credential-per-provider provisioning flows"},{"sha":"e774235","message":"Phase 2b: remove source-project devdocs and scrub infrastructure identifiers"},{"sha":"ab1572b","message":"Phase 2c: finish the assistant de-brand and fix broken renames"},{"sha":"d8eb160","message":"Phase 3: slim by default, with an executable feature profiler"},{"sha":"414abe4","message":"Phase 4: scrub remaining private information from the template"}]
 }
