@@ -220,16 +220,34 @@ curl -s https://api.supabase.com/v1/projects/{REF}/api-keys \
 ```
 Otherwise, tell user: "Get your anon key from https://supabase.com/dashboard/project/{REF}/settings/api"
 
-**Construct session pooler string:**
-1. Get region from Management API or user
-2. Build: `postgres://postgres.{REF}:{URL_ENCODED_PASSWORD}@aws-0-{REGION}.pooler.supabase.com:5432/postgres`
-3. URL-encode password special chars: `!` → `%21`, `@` → `%40`, `#` → `%23`, `$` → `%24`, `%` → `%25`, `&` → `%26`
-
-**Validate connection:**
+**Configure session pooling (automatic — replaces hand-built pooler strings):**
 ```bash
-psql "{POOLER_STRING}" -c "SELECT 1"
+curl -X PATCH "https://api.supabase.com/v1/projects/{REF}/database/pooling" \
+  -H "Authorization: Bearer {MGMT_TOKEN}" -H "Content-Type: application/json" \
+  -d '{"pool_mode": "session", "default_pool_size": 10, "max_client_conn": 100}'
 ```
-If fails, try alternate regions: `aws-1-us-east-2`, `aws-0-us-west-1`
+Read back with GET to confirm. The user never configures pooling manually. If the endpoint
+is unavailable, fall back to the Supabase CLI with the same access token.
+
+**Validate connection via the query endpoint (no psql region-guessing):**
+```bash
+curl -s -X POST "https://api.supabase.com/v1/projects/{REF}/database/query" \
+  -H "Authorization: Bearer {MGMT_TOKEN}" -H "Content-Type: application/json" \
+  -d '{"query":"select 1"}'
+```
+
+**Configure auth providers programmatically (no dashboard):**
+```bash
+curl -X PATCH "https://api.supabase.com/v1/projects/{REF}/auth/config" \
+  -H "Authorization: Bearer {MGMT_TOKEN}" -H "Content-Type: application/json" \
+  -d '{"site_url":"https://YOUR_DOMAIN",
+       "redirect_urls":["https://YOUR_DOMAIN/**","https://in.YOUR_DOMAIN/**"],
+       "external_google_enabled":true,
+       "external_google_client_id":"{GOOGLE_CLIENT_ID}",
+       "external_google_secret":"{GOOGLE_CLIENT_SECRET}",
+       "external_google_redirect_uri":"https://{REF}.supabase.co/auth/v1/callback"}'
+```
+See `references/provisioning.md` for the full one-credential-per-provider flows.
 
 **Pre-construct ALL webhook URLs:**
 - Telnyx: `https://{REF}.supabase.co/functions/v1/telnyx-webhook`
@@ -265,26 +283,20 @@ Store these for later steps.
 
 ## Google Sign-In (Google OAuth via Supabase)
 
-**Note:** If user also selected Gemini, mention they can use the same Google Cloud project.
+**Fully programmatic — see `references/provisioning.md` -> "Google Cloud" for the detailed flow.**
 
-### Ask User (Single Message)
+The user's only manual step is `gcloud auth login`. The wizard then:
 
-> Set up Google Sign-In:
-> 1. Create a Google Cloud project at https://console.cloud.google.com/projectcreate
-> 2. Set up OAuth consent screen at https://console.cloud.google.com/apis/credentials/consent — choose External, fill in app name and email, click through defaults
-> 3. Create OAuth credentials at https://console.cloud.google.com/apis/credentials — Create Credentials → OAuth client ID → Web application
-> 4. Under Authorized redirect URIs, add: `https://{REF}.supabase.co/auth/v1/callback`
-> 5. Copy the Client ID and Client Secret
-> 6. Enable Google provider in Supabase at https://supabase.com/dashboard/project/{REF}/auth/providers — toggle Google on, paste Client ID and Secret, Save
-> 7. Paste the Client ID here (I don't need the secret — it's saved in Supabase)
+1. Creates/selects the Google Cloud project and enables `clientauthconfig.googleapis.com`, `iam.googleapis.com`, `serviceusage.googleapis.com`
+2. Creates service account `my-brand-oauth-setup` with `roles/oauthconfig.editor` and mints its key
+3. Creates the OAuth brand (consent screen) via `clientauthconfig.brands.create`
+4. Creates the web OAuth client via `clientauthconfig.clients.create` with redirect URI `https://{REF}.supabase.co/auth/v1/callback`, and fetches the secret via `clients.getWithSecret`
+5. Sets test users via `oauthconfig.testusers.update` (app stays in Testing mode until publish)
+6. Enables the Google provider in Supabase via `PATCH /v1/projects/{ref}/auth/config` — no dashboard step
+7. Falls back to ONE pre-filled console URL + paste client JSON only if a beta endpoint rejects a step
 
-**Important reminder:** OAuth consent screen starts in "Testing" mode (only test users can sign in). To go live, user must click "Publish App" on the consent screen page. Basic sign-in doesn't require Google verification.
-
-### Then
-
+**Then:**
 1. Create `shared/auth.js` with `supabase.auth.signInWithOAuth({ provider: 'google' })`
-2. Add login/logout UI
-3. Add auth guards to admin pages
-4. Append to `docs/PATTERNS.md`: auth system details, sign-in method
-5. Append to `docs/CREDENTIALS.md`: Client ID
-6. Append to `docs/KEY-FILES.md`: `shared/auth.js`
+2. Add login/logout UI and auth guards to admin pages
+3. Test a real sign-in on the deployed site; fix callback/session flow until it passes
+4. Record the client ID in `docs/CREDENTIALS.md` (secret lives in Supabase + credential manager)

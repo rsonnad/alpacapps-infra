@@ -178,7 +178,7 @@ See `references/core-services.md` → "GitHub + Cloudflare Pages" for detailed s
 2. Determine case: template repo, clone, or no remote
 3. Create or configure repo (prefer `gh api repos/.../generate` for template API)
 4. Connect repo to Cloudflare Pages (via `wrangler` CLI + dashboard, or manual dashboard setup)
-5. Add GitHub secrets for CI deployment (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_PAGES_PROJECT)
+5. Add GitHub secrets for CI deployment (CLOUDFLARE_API_TOKEN = the minted `my-brand-pages-deploy` token from `references/provisioning.md`, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_PAGES_PROJECT)
 6. Validate deployment (poll `{PROJECT}.pages.dev` for HTTP 200, up to 90s)
 7. Fill in `CLAUDE.md` placeholders (USERNAME, REPO, PROJECT, project name), create `CLAUDE.local.md`, update `docs/DEPLOY.md` with live URLs, commit, push
 
@@ -223,17 +223,18 @@ Set up Tailwind CSS for utility-class styling alongside existing CSS.
 
 ### Step 3: Supabase
 
-See `references/core-services.md` → "Supabase" for detailed steps.
+See `references/core-services.md` -> "Supabase" and `references/provisioning.md` -> "Supabase" for detailed steps.
 
 **Summary:**
-1. Check for existing Supabase link (`supabase status`)
-2. Create project via Management API (preferred) or ask user for manual creation
-3. Fetch anon key via API or ask user
-4. Construct session pooler string (URL-encode password special chars)
-5. Validate psql connection
-6. Pre-construct ALL webhook URLs for later steps
-7. Link CLI, create domain-specific tables with RLS, create storage buckets
-8. Validate everything: tables, RLS, secrets, edge functions
+1. Ask for ONE credential: a Supabase Management API token (`sbp_...`). Everything else is automated.
+2. Create org (if needed) + project via Management API; poll until `ACTIVE_HEALTHY`
+3. Fetch API keys via `GET /v1/projects/{ref}/api-keys`
+4. Run all migrations in order via `POST /v1/projects/{ref}/database/query`
+5. Configure session pooling automatically via `PATCH /v1/projects/{ref}/database/pooling` (pool_mode, pool size) — the user does nothing
+6. Configure auth (site URL, redirect URLs, Google provider in Step 4) via `PATCH /v1/projects/{ref}/auth/config` — no dashboard visits
+7. Set edge-function secrets via `POST /v1/projects/{ref}/secrets`
+8. Fall back to the Supabase CLI (same access token) for anything the REST API does not cover
+9. Validate: `SELECT 1` via query endpoint, auth-config round-trip, one function deploy + invoke
 
 ### Step 3b: Feature Flags in Database
 
@@ -273,15 +274,18 @@ defaults all optional features to `false` when not present in `property_config.f
 
 ### Step 4: Google Sign-In (OAuth) — if selected
 
-See `references/core-services.md` → "Google Sign-In" for detailed steps.
+See `references/provisioning.md` -> "Google Cloud" for detailed steps.
 
 **Summary:**
-1. User creates Google Cloud project + OAuth credentials
-2. Add redirect URI: `https://{REF}.supabase.co/auth/v1/callback`
-3. Enable Google provider in Supabase dashboard
-4. You create `shared/auth.js` with Google OAuth, add login/logout UI
+1. User runs `gcloud auth login` once — the only manual Google step
+2. Create/select project, enable APIs, create service account with `roles/oauthconfig.editor`, mint its key
+3. Programmatically create the OAuth brand (consent screen) + web client with redirect URI `https://{REF}.supabase.co/auth/v1/callback`; fetch the client secret
+4. Enable the Google provider in Supabase via `PATCH /v1/projects/{ref}/auth/config` — no dashboard
+5. Set test users; submit verification when going live
+6. You create `shared/auth.js` with Google OAuth, add login/logout UI, then test a real sign-in
+7. Fallback: one pre-filled console URL + paste client JSON if a beta endpoint blocks a step
 
-**Note:** If user also selected Gemini, mention they can use the same Google Cloud project.
+**Note:** If user also selected Gemini, use the same Google Cloud project.
 
 ### Steps 5–10: Optional Services
 
