@@ -6,11 +6,11 @@
 #   /api/* (go2rtc streams, WebRTC)           → go2rtc (port 1984)
 #
 # Deploy to: ~/.cloudflared/config.yml on Dev Mac
-# After `cloudflared tunnel create alpaca-cam`, update tunnel ID below
+# After `cloudflared tunnel create camera-1`, update tunnel ID below
 ###############################################
 
 # tunnel: <TUNNEL_ID>
-# credentials-file: /Users/alpaca/.cloudflared/<TUNNEL_ID>.json
+# credentials-file: /Users/YOUR_USER/.cloudflared/<TUNNEL_ID>.json
 
 ingress:
   # ptz-proxy handles camera controls, events, exports, thumbnails

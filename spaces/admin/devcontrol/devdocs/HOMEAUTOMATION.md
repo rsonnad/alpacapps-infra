@@ -33,7 +33,7 @@
 - Govee lights (non-garage, ~41 devices) — needs HACS + Govee LAN/Cloud
 - Nest thermostats (3) — needs Google Device Access API
 
-> **Important:** All lighting group configurations MUST be recorded in `configuration.yaml` on HAOS (`/config/configuration.yaml`). Groups created via `group.set` service calls are non-persistent and will be lost on HAOS restart. Use `light` platform groups with `unique_id` for persistence. See `LIGHTINGAUTOMATION.md` for current groups. SSH access: `sshpass -p "playhouse" ssh root@192.168.1.39`
+> **Important:** All lighting group configurations MUST be recorded in `configuration.yaml` on HAOS (`/config/configuration.yaml`). Groups created via `group.set` service calls are non-persistent and will be lost on HAOS restart. Use `light` platform groups with `unique_id` for persistence. See `LIGHTINGAUTOMATION.md` for current groups. SSH access: `sshpass -p "property" ssh root@192.168.1.39`
 - LG washer — needs HACS SmartThinQ
 - Tesla vehicles (5) — needs HACS Tesla Custom
 - UniFi Protect cameras (8) — needs API key from UDM
@@ -103,7 +103,7 @@ my-server ha <endpoint> '<json>' # Raw Home Assistant service call
 | **HAOS Version** | 17.1 |
 | **VM IP** | `192.168.1.39` (bridged on en1 via vmnet) |
 | **Web UI** | http://192.168.1.39:8123 |
-| **Login** | `alpacaadmin` / `playhouse` |
+| **Login** | `alpacaadmin` / `property` |
 | **Host Machine** | my-server — Mac mini M4 (Apple Silicon), 24 GB RAM |
 | **Host IP** | Configure locally; never commit it |
 | **Host SSH** | Configure locally; use key authentication |

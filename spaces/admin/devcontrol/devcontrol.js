@@ -11,7 +11,7 @@ import { getAuthState } from '../../../shared/auth.js';
 // ═══════════════════════════════════════════════════════════
 const SESSIONS_API = 'https://claude-sessions.my-brand.workers.dev';
 const SESSIONS_TOKEN = 'alpaca-sessions-2026';
-const PROJECT_FILTER = 'genalpaca'; // Only show this project's sessions
+const PROJECT_FILTER = 'mybrand'; // Only show this project's sessions
 const GH_OWNER = '';
 const GH_REPO = '';
 const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`;

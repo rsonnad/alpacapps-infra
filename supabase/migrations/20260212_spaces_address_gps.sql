@@ -12,7 +12,7 @@ UPDATE spaces
 SET address = '160 Still Forest Drive, Cedar Creek, TX 78612',
     gps     = '{"lat": 30.0829, "lng": -97.4726}'::jsonb
 WHERE parent_id IS NULL
-  AND name ILIKE '%playhouse%';
+  AND name ILIKE '%property%';
 
 -- If no row matched by name, fall back to the first top-level space
 UPDATE spaces

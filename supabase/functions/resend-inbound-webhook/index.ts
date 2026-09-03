@@ -1780,7 +1780,7 @@ function parseOutboundZellePayment(bodyText: string): OutboundZellePayment | nul
     // Support single-word names (ZIA), multi-word names (Fabiola Batres), and names followed by phone/dash
     const toMatch = normalized.match(/\bTo\s+([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)(?:\s*[-–(]\s*[\d-]+)?/);
     const confMatch = normalized.match(/Confirmation\s+Number\s+(\d+)/i);
-    // Schwab includes a "Message" field with the sender's memo (e.g., "property playhouse cleaning")
+    // Schwab includes a "Message" field with the sender's memo (e.g., "property property cleaning")
     // The memo is short text between "Message" and "As of" (or next sentence boundary).
     // Be strict: only grab up to ~100 chars, stop at "As of", "Thank", "Sincerely", period+space, or newline-like patterns.
     const msgMatch = normalized.match(/\bMessage\s+([A-Za-z0-9][^.]{2,100}?)(?:\s+As of\b|\s+Thank|\s+Sincerely|\.\s|$)/i);
@@ -1944,7 +1944,7 @@ async function handleOutboundZellePayment(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+        from: "My Brand Payments <pai@YOUR_DOMAIN>",
         reply_to: "pai@YOUR_DOMAIN",
         to: [adminEmail],
         subject,
@@ -2623,7 +2623,7 @@ async function sendTenantReceipt(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+        from: "My Brand Payments <pai@YOUR_DOMAIN>",
         reply_to: "pai@YOUR_DOMAIN",
         to: [details.tenantEmail],
         bcc: ["automation@YOUR_DOMAIN"],
@@ -2826,7 +2826,7 @@ async function sendPaymentNotification(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+        from: "My Brand Payments <pai@YOUR_DOMAIN>",
         reply_to: "pai@YOUR_DOMAIN",
         to: [adminEmail],
         subject,
@@ -2882,7 +2882,7 @@ async function handlePaymentEmail(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+          from: "My Brand Payments <pai@YOUR_DOMAIN>",
           reply_to: "pai@YOUR_DOMAIN",
           to: ["admin@YOUR_DOMAIN"],
           subject: `Unrecognized payment email: ${subject}`,

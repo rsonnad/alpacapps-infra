@@ -31,7 +31,7 @@ const SLUG_TO_NAME: Record<string, string> = {
   'master-pasture-suite': 'Master Pasture Suite',
   'odyssey-of-static-van-life': 'Odyssey of Static Van Life',
   'pequneo-largo-suite': 'Pequneo Largo Suite',
-  'playhouse': 'property',
+  'property': 'property',
   'skyloft': 'Skyloft',
   'skyloft-bed-1': 'Skyloft Bed 1',
   'skyloft-bed-2': 'Skyloft Bed 2',

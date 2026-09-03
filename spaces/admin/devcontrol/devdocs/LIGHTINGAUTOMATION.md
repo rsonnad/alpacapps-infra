@@ -733,7 +733,7 @@ Or check the HA iOS app → Settings → Devices for the new entry.
 
 ```bash
 # SSH to HAOS
-sshpass -p "playhouse" ssh root@192.168.1.39
+sshpass -p "property" ssh root@192.168.1.39
 
 # Stop HA core (prevents overwrite)
 ha core stop

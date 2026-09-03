@@ -2526,7 +2526,7 @@ async function holdForApproval(
     method: "POST",
     headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      from: "Alpaca Payments <pai@YOUR_DOMAIN>",
+      from: "My Brand Payments <pai@YOUR_DOMAIN>",
       to: ["admin@YOUR_DOMAIN"],
       reply_to: "pai@YOUR_DOMAIN",
       subject: `[Approval Required] ${typeLabel}: ${subject}`,
@@ -2605,7 +2605,7 @@ serve(async (req) => {
     // This invisible block lets PAI understand replies: what email type triggered
     // the conversation, who the original recipient was, and routing context.
     const emailId = crypto.randomUUID();
-    const metadataBlock = `<!--[ALPACAPPS_META:${JSON.stringify({
+    const metadataBlock = `<!--[MYBRAND_META:${JSON.stringify({
       eid: emailId,
       type: type,
       to: toArray,
@@ -2615,7 +2615,7 @@ serve(async (req) => {
       ...(data.space_name ? { space: data.space_name } : {}),
       ...(data.person_id ? { pid: data.person_id } : {}),
       ...(data.assignment_id ? { aid: data.assignment_id } : {}),
-    })}:ALPACAPPS_META]-->`;
+    })}:MYBRAND_META]-->`;
     finalHtml = finalHtml + metadataBlock;
 
     // === APPROVAL GATE ===

@@ -435,7 +435,7 @@ function heuristicClassify(
 
 /**
  * Metadata embedded in outbound emails by send-email function.
- * Extracted from `<!--[ALPACAPPS_META:{...}:ALPACAPPS_META]-->` comments.
+ * Extracted from `<!--[MYBRAND_META:{...}:MYBRAND_META]-->` comments.
  */
 export interface OutboundEmailMeta {
   /** Unique email ID */
@@ -463,7 +463,7 @@ export interface OutboundEmailMeta {
  * Returns null if no metadata found (not a reply to our email).
  */
 export function extractReplyMetadata(htmlBody: string): OutboundEmailMeta | null {
-  const match = htmlBody.match(/<!--\[ALPACAPPS_META:(.*?):ALPACAPPS_META\]-->/);
+  const match = htmlBody.match(/<!--\[MYBRAND_META:(.*?):MYBRAND_META\]-->/);
   if (!match) return null;
   try {
     return JSON.parse(match[1]) as OutboundEmailMeta;

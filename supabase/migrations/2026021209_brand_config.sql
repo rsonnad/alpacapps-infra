@@ -93,7 +93,7 @@ INSERT INTO brand_config (id, config) VALUES (1, '{
   },
   "logos": {
     "base_url": "https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/logos",
-    "icon_dark": "alpaca-head-black-transparent.png",
+    "icon_dark": "brand-logo.png",
     "icon_light": "alpaca-head-white-transparent.png",
     "wordmark_dark": "wordmark-black-transparent.png",
     "wordmark_light": "wordmark-white-transparent.png",

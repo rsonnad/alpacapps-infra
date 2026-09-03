@@ -33,7 +33,7 @@ platform :ios do
       scheme: "App",
       export_method: "app-store",
       output_directory: "./build",
-      output_name: "Alpacaproperty.ipa"
+      output_name: "MyBrand.ipa"
     )
     upload_to_testflight(
       skip_waiting_for_build_processing: true
@@ -48,7 +48,7 @@ platform :ios do
       scheme: "App",
       export_method: "app-store",
       output_directory: "./build",
-      output_name: "Alpacaproperty.ipa"
+      output_name: "MyBrand.ipa"
     )
     upload_to_app_store(
       force: true,

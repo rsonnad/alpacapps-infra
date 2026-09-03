@@ -241,7 +241,7 @@ export async function initAssociatePage({ activeTab, onReady }) {
     const topLevelLogoSelectors = [
       '#loadingOverlay .loading-overlay__logo',
       '#appContent > .loading-overlay__logo',
-      '#appContent > img[src*="/housephotos/logos/alpaca-head-black-transparent.png"]',
+      '#appContent > img[src*="/housephotos/logos/brand-logo.png"]',
     ];
     document.querySelectorAll(topLevelLogoSelectors.join(',')).forEach((el) => el.remove());
   }
@@ -255,7 +255,7 @@ export async function initAssociatePage({ activeTab, onReady }) {
   let hasCachedAuthHint = rootEl.hasAttribute('data-cached-auth');
   if (!hasCachedAuthHint) {
     try {
-      const raw = localStorage.getItem('genalpaca-cached-auth');
+      const raw = localStorage.getItem('mybrand-cached-auth');
       if (raw) {
         const cached = JSON.parse(raw);
         const ageMs = Date.now() - (cached?.timestamp || 0);
@@ -396,7 +396,7 @@ export async function initAssociatePage({ activeTab, onReady }) {
         if (!sessionData?.session) {
           // Refresh also failed — force re-login
           console.warn('[associate-shell] Token refresh failed — redirecting to login');
-          try { localStorage.removeItem('genalpaca-cached-auth'); } catch (e) { /* ignore */ }
+          try { localStorage.removeItem('mybrand-cached-auth'); } catch (e) { /* ignore */ }
           transitionBootState('redirecting');
           window.location.href = '/login/?redirect=' + encodeURIComponent(window.location.pathname);
           return;

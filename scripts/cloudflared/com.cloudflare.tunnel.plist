@@ -10,7 +10,7 @@
     <string>/usr/local/bin/cloudflared</string>
     <string>tunnel</string>
     <string>run</string>
-    <string>alpaca-cam</string>
+    <string>camera-1</string>
   </array>
 
   <key>KeepAlive</key>
@@ -20,10 +20,10 @@
   <true/>
 
   <key>StandardOutPath</key>
-  <string>/Users/alpaca/cloudflared/tunnel.log</string>
+  <string>/Users/YOUR_USER/cloudflared/tunnel.log</string>
 
   <key>StandardErrorPath</key>
-  <string>/Users/alpaca/cloudflared/tunnel.err</string>
+  <string>/Users/YOUR_USER/cloudflared/tunnel.err</string>
 
   <key>ThrottleInterval</key>
   <integer>10</integer>

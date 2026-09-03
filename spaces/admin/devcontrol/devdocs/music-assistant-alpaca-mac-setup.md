@@ -72,7 +72,7 @@ Music Assistant can serve music from local folders or mounted drives so resident
 
 ### 3.2 Paths on Almaca
 
-- Internal disk: e.g. `/Users/alpaca/Music` or a dedicated volume.
+- Internal disk: e.g. `/Users/YOUR_USER/Music` or a dedicated volume.
 - External USB drive: typically `/Volumes/DriveName`; ensure the drive is mounted before Docker (and MA) starts, or use a LaunchAgent to start MA after mounts are available.
 - **Reboot behavior:** External drives may mount after login. If MA starts at login, either use a path that exists at boot (internal) or delay MA start until after the drive is mounted.
 
