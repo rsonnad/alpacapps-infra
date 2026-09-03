@@ -31,7 +31,7 @@ Use these exact vendor strings:
 
 | Vendor | Services |
 |--------|----------|
-| `gemini` | Gemini API (image gen, PAI chat, payment matching) |
+| `gemini` | Gemini API (site Q&A, payment matching) |
 | `anthropic` | **Deprecated — do not use.** Workers use Claude CLI; edge functions use Gemini. |
 | `vapi` | Vapi voice calls |
 | `telnyx` | SMS sending/receiving |
@@ -50,7 +50,7 @@ Use these exact vendor strings:
 | `govee` | Govee Cloud API |
 | `supabase` | Supabase platform (storage, edge function invocations) |
 | `cloudflare_r2` | Cloudflare R2 object storage |
-| `brave` | Brave Search API (web search for PAI) |
+| `brave` | Brave Search API (web search) |
 | `openrouter` | OpenRouter multi-model gateway (future Gemini alternative) |
 
 ### Categories (Granular)
@@ -60,11 +60,6 @@ Use descriptive, granular categories that identify the specific feature. Example
 | Category | Description |
 |----------|-------------|
 | `spaces_image_gen` | AI-generated space/marketing images |
-| `pai_chat` | PAI conversational AI (text chat) |
-| `pai_voice` | PAI voice assistant (Vapi calls) |
-| `pai_smart_home` | PAI smart home commands (lights, music, climate) |
-| `life_of_pai_backstory` | Life of PAI backstory generation |
-| `life_of_pai_voice` | Life of PAI voice/personality generation |
 | `identity_verification` | DL photo verification via Gemini Vision |
 | `lease_esignature` | Lease document e-signatures |
 | `payment_matching` | AI-assisted payment matching |
@@ -94,8 +89,6 @@ Use descriptive, granular categories that identify the specific feature. Example
 | `paypal_associate_payout` | PayPal associate payouts |
 | `airbnb_ical_sync` | Airbnb calendar sync |
 | `r2_document_upload` | Document upload to Cloudflare R2 |
-| `pai_email_classification` | PAI email classification via Gemini |
-| `pai_web_search` | PAI web search queries via Brave Search API |
 
 **When adding a new feature that uses an API, add a new category to this list.** Categories should be specific enough to answer "how much does X feature cost us per month?"
 
@@ -107,7 +100,6 @@ In Supabase edge functions, log after each API call:
 // After making an API call, log the usage
 await supabaseAdmin.from('api_usage_log').insert({
   vendor: 'gemini',
-  category: 'pai_chat',
   endpoint: 'generateContent',
   input_tokens: response.usageMetadata?.promptTokenCount,
   output_tokens: response.usageMetadata?.candidatesTokenCount,
@@ -144,7 +136,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 
 | Vendor | Pricing |
 |--------|---------|
-| Gemini 2.5 Pro | Input: $1.25/1M tokens, Output: $10.00/1M tokens (PAI chat) |
+| Gemini 2.5 Pro | Input: $1.25/1M tokens, Output: $10.00/1M tokens (site Q&A) |
 | Gemini 2.5 Flash | Input: $0.15/1M tokens, Output: $3.50/1M tokens (under 200k context) |
 | Gemini 2.0 Flash | Input: $0.10/1M tokens, Output: $0.40/1M tokens |
 | Claude (Anthropic) | Varies by model — check current pricing |
@@ -203,7 +195,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 | `team@` | Forward | `admin@YOUR_DOMAIN` |
 | `herd@` | Special logic | (stub — future AI processing) |
 | `auto@` | Special logic | Bug report replies → new bug report; others → admin |
-| `pai@` | Special logic | Gemini classifies → questions/commands get PAI reply; documents uploaded to R2; other forwarded to admin |
+| `ai@` | Special logic | Gemini classifies inbound email; questions/commands get an AI assistant reply; documents uploaded to R2 |
 | Everything else | Forward | `admin@YOUR_DOMAIN` |
 
 ### Telnyx (SMS)
@@ -230,17 +222,16 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Discord Bot:** AI Admin (ID: `1476649970823335998`) — DM policy: open, allowFrom: `["*"]`
 - **Multi-agent routing:** 2 agents (AI Admin 🦙 + PAI 🧠), channel-based bindings route `#ai-admin` → AI Admin, `#pai-in-the-sky` → PAI, DMs → AI Admin
 - **Discord Server:** Alpacord (ID: `1471023710755487867`)
-- **Discord Channels:** `#ai-admin` (ID: `1477048544501174474`), `#pai-in-the-sky` (ID: `1471024050343247894`)
 - **Credentials:** See `CLAUDE.local.md` for SSH password, API tokens, bot tokens, full `.env` contents
 
 ### DigitalOcean Droplet (DEPRECATED — migrating to Hostinger + Oracle)
 - Runs Bug Scout (`bug_scout.js`) and background workers
 - Bug Scout: polls `bug_reports` for pending bugs → runs Claude Code to fix → commits to `bugfix/` branch → merges to main
-- Feature Builder: `feature-builder/feature_builder.js` — polls PAI feature requests → runs Claude Code to implement
+- Feature Builder: `feature-builder/feature_builder.js` — polls AI assistant feature requests → runs Claude Code to implement
 - Bug fixer repo is a clone of this repo, used for verification screenshots
 - Uses `SKILL.md` for API knowledge
 - Queries Supabase directly for tenant/space info
-- **Workers on droplet:** Bug Scout (`bug-fixer.service`), Tesla Poller (`tesla-poller.service`), Image Gen (`image-gen.service`), LG Poller (`lg-poller.service`), Feature Builder (`feature-builder.service`), PAI Discord Bot (`pai-discord.service`)
+- **Workers on droplet:** Bug Scout (`bug-fixer.service`), Tesla Poller (`tesla-poller.service`), Image Gen (`image-gen.service`), LG Poller (`lg-poller.service`), Feature Builder (`feature-builder.service`)
 
 ### Spotify (Music Integration)
 - **API**: Spotify Web API + Authorization Code Flow with PKCE
@@ -265,7 +256,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **API**: Google Smart Device Management (SDM) API
 - **Auth**: OAuth 2.0 with refresh token stored in `nest_config` table
 - **Devices**: 3 Nest thermostats — Master, Kitchen, Skyloft
-- **LAN IPs**: 192.168.1.111 (Master), .139 (Kitchen), .249 (Skyloft)
+- **LAN IPs**: YOUR_SPEAKER_IPs (one per zone)
 - **Edge function**: `nest-control` proxies to SDM API, handles token refresh
 - **SDM API base**: `https://smartdevicemanagement.googleapis.com/v1`
 - **Traits used**: Temperature, Humidity, ThermostatMode, ThermostatHvac, ThermostatEco, ThermostatTemperatureSetpoint, Connectivity
@@ -284,8 +275,8 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **API**: Brave Search API v1 (`https://api.search.brave.com/res/v1/web/search`)
 - **Auth**: `X-Subscription-Token` header with API key
 - **Supabase Secret**: `BRAVE_API_KEY`
-- **Purpose**: Real-time web search for PAI — answers questions about current events, local info, businesses, prices, and anything not in the property knowledge base
-- **Used by**: `property-ai` edge function (PAI chat + voice) as a dedicated `search_web` tool
+- **Purpose**: Real-time web search — answers questions about current events, local info, businesses, prices, and anything not in the property knowledge base
+- **Used by**: site Q&A edge function as a dedicated `search_web` tool
 - **Why not Google**: Gemini's built-in `google_search` tool is limited and opaque — Brave gives full control over search queries, result count, and response parsing
 - **Rate limit**: 1 query/second, 2,000 queries/month (free tier) or 20,000/month (paid)
 - **Pricing**: Free tier: 2,000 queries/month; Base: $5/mo for 20,000 queries; $0.003/query overage
@@ -362,7 +353,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Edge Function**: `lg-control` (status, control, watch/unwatch, push token registration)
 - **Push**: FCM push notifications when cycle ends to subscribed watchers
 - **QR**: Deep link QR codes on machines → auto-subscribe to notifications
-- **Devices**: Washer (192.168.1.246), Dryer (192.168.1.22)
+- **Devices**: Washer (YOUR_WASHER_IP), Dryer (YOUR_DRYER_IP)
 - **Washer states**: POWER_OFF, INITIAL, DETECTING, RUNNING, RINSING, SPINNING, DRYING, STEAM_SOFTENING, COOL_DOWN, RINSE_HOLD, REFRESHING, PAUSE, RESERVED, END, SLEEP, ERROR
 - **Dryer states**: POWER_OFF, INITIAL, RUNNING, PAUSE, END, ERROR, DIAGNOSIS, RESERVED
 - **Client**: `residents/laundry.js` polls Supabase every 15s with visibility-based pause
@@ -377,8 +368,8 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **DB**: `anova_config` (PAT, ws_url), `anova_ovens` (cached state in `last_state` JSONB)
 - **Edge function**: `anova-control` — deployed with `--no-verify-jwt`
 - **Client**: `residents/appliances.js` renders oven cards with live data + controls
-- **PAI tools**: `get_oven_status`, `control_oven` (chat + voice)
-- **Device**: IP 192.168.1.181, MAC 10:52:1c:be:49:b8, Espressif ESP32, WiFi YourWiFi
+- **AI assistant tools**: `get_oven_status`, `control_oven` (chat + voice)
+- **Device**: IP 192.168.1.181, MAC YOUR_DEVICE_MAC, Espressif ESP32, WiFi YourWiFi
 - **Cost**: $0 (free API, no rate limits documented)
 
 ### Glowforge (Laser Cutter)
@@ -397,9 +388,9 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 
 ### FlashForge (3D Printer)
 - **API**: FlashForge TCP G-code protocol (port 8899, no auth needed on LAN)
-- **Printer**: "3D Printer" — Adventurer 5M Pro, SN SNMSQE9C09604, FW v3.2.7
+- **Printer**: "3D Printer" — Adventurer 5M Pro, SN YOUR_PRINTER_SERIAL, FW v3.2.7
 - **Architecture**: Per-request via printer proxy on Home Server (HTTP→TCP bridge, same pattern as Sonos/cameras)
-- **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Home Server printer-proxy.js (port 8903) → TCP to printer at 192.168.1.106:8899
+- **Proxy chain**: Browser → Supabase edge function → Caddy on Hostinger → Home Server printer-proxy.js (port 8903) → TCP to printer at YOUR_PRINTER_IP:8899
 - **Proxy**: `scripts/printer-proxy/printer-proxy.js` on Home Server, health check on port 8904
 - **LaunchAgent**: `scripts/printer-proxy/com.printer-proxy.plist`
 - **Control flow**: M601 S1 (request control) → command → M602 (release control) — proxy handles this automatically
@@ -409,8 +400,8 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Data service**: `shared/services/printer-data.js`
 - **Client**: `residents/appliances.js` renders printer cards in "3D Printing" section
 - **Permissions**: `view_printer` (all residents), `control_printer` (all residents), `admin_printer_settings` (admin/oracle)
-- **Camera**: MJPEG stream at `http://192.168.1.106:8080/?action=stream` (proxied via Caddy/Tailscale)
-- **Network**: LAN IP 192.168.1.106, build volume 220×220×220mm
+- **Camera**: MJPEG stream at `http://YOUR_PRINTER_IP:8080/?action=stream` (proxied via Caddy/Tailscale)
+- **Network**: LAN IP YOUR_PRINTER_IP, build volume 220×220×220mm
 - **Cost**: $0 (direct TCP, no cloud API, no rate limits)
 
 ### Vapi (AI Voice Calling)
@@ -419,23 +410,11 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Webhook**: `vapi-webhook` edge function receives call lifecycle events
 - **Caller ID**: Matches caller phone → `people` table for personalized greeting
 - **Dynamic prompt**: Injects current occupants, availability, caller name into system prompt
-- **Tools**: Routes tool calls to PAI (smart home control, property Q&A, send links)
+- **Tools**: Routes tool calls to the AI assistant (smart home control, property Q&A, send links)
 - **DB**: `vapi_config`, `voice_assistants`, `voice_calls`
 - **Admin UI**: `spaces/admin/voice.html` — manage assistants, view call logs, configure settings
 - **Cost**: ~$0.10-$0.30 per call
 
-### PAI Discord Bot
-- **Architecture**: Lightweight Node.js bot that bridges Discord → `property-ai` edge function
-- **Source**: `pai-discord/bot.js` (in repo), deployed to `/opt/pai-discord/` on DO droplet
-- **Library**: discord.js v14
-- **Service**: `pai-discord.service` (systemd, runs as `bugfixer` user)
-- **Auth**: Service role key → `property-ai` with `context.source: "discord"`
-- **User lookup**: Matches `discord_user_id` → `app_users.discord_id` for role-based access
-- **Channels**: Listens to configured `CHANNEL_IDS` + DMs + @mentions
-- **History**: In-memory per-user conversation history (12 messages, 30 min TTL)
-- **Env vars**: `DISCORD_TOKEN`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `CHANNEL_IDS`
-- **Discord guild**: Alpacord (ID: `1471023710755487867`), channel `#pai-in-the-sky` (ID: `1471024050343247894`)
-- **Install**: `cd pai-discord && bash install.sh` on droplet, then edit `.env`
 
 ### Stripe (Inbound Payments + Associate Payouts)
 - **API**: Stripe PaymentIntents (inbound ACH/card) + Stripe Connect Transfers (outbound payouts)
@@ -463,7 +442,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Relay server**: `scripts/talkback-relay/talkback-relay.js` on Home Server
 - **Protocol**: WebSocket (port 8902) → FFmpeg → UDP to camera:7004
 - **Audio pipeline**: Browser PCM S16LE 48kHz mono → FFmpeg → AAC-ADTS 22.05kHz mono 32kbps
-- **Cameras**: Camera1 (192.168.1.173), Front Of House (.182), Side Yard (.110)
+- **Cameras**: Camera1 (YOUR_CAMERA_IP), Camera2, Camera3
 - **Health check**: Port 8903
 - **LaunchAgent**: `com.talkback-relay.plist`
 - **Requires**: FFmpeg installed on Home Server (`FFMPEG_PATH` env var, defaults to `ffmpeg`)
@@ -485,8 +464,8 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Supabase Secrets**: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_URL`
 - **DB config**: `r2_config` table (single row, id=1)
 - **Shared helper**: `supabase/functions/_shared/r2-upload.ts` — `uploadToR2()`, `deleteFromR2()`, `getR2PublicUrl()`
-- **Key paths in bucket**: `documents/` (manuals, guides for PAI lookup)
-- **Document tracking**: `document_index` table maps files to R2 URLs with metadata for PAI's `lookup_document` tool
+- **Key paths in bucket**: `documents/` (manuals, guides for AI assistant lookup)
+- **Document tracking**: `document_index` table maps files to R2 URLs with metadata for the AI assistant's `lookup_document` tool
 - **Pricing**: 10 GB free, $0.015/GB-mo beyond that, zero egress fees
 - **Legacy**: Google Drive folder still has old rental agreements (not programmatically accessed)
 

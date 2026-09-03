@@ -10,7 +10,7 @@ import { getAuthState } from '../../../shared/auth.js';
 // CONFIG — project-specific values
 // ═══════════════════════════════════════════════════════════
 const SESSIONS_API = 'https://claude-sessions.my-brand.workers.dev';
-const SESSIONS_TOKEN = 'alpaca-sessions-2026';
+const SESSIONS_TOKEN = 'YOUR_SESSIONS_TOKEN';
 const PROJECT_FILTER = 'mybrand'; // Only show this project's sessions
 const GH_OWNER = '';
 const GH_REPO = '';
@@ -557,49 +557,33 @@ async function loadContext() {
 
   const CONTEXT_FILES = [
     { name: 'Global CLAUDE.md', path: '~/.claude/CLAUDE.md', category: 'instructions',
-      desc: 'User\'s private global instructions for all projects. Contains project identity checks (keyword-to-directory mapping), Bitwarden CLI unlock helpers, and gstack skill routing. Loaded in every session regardless of project.' },
+      desc: 'Your private global instructions, loaded in every session regardless of project.' },
     { name: 'Project CLAUDE.md', path: './CLAUDE.md', category: 'instructions', gh: 'CLAUDE.md',
-      desc: 'Project-specific directives and code guards for My Brand. Defines mandatory behaviors (version stamping, push-on-change, CI versioning), code guards (media_spaces naming, showToast, Tailwind aap-* tokens, hero banner protection), on-demand doc loading triggers, and quick refs for the tech stack (Vanilla HTML/JS, Tailwind v4, Supabase, GitHub Pages, Capacitor 8).' },
+      desc: 'Project-specific directives and code guards. Defines mandatory behaviors (version stamping, push-on-change, CI versioning), code guards, on-demand doc loading triggers, and quick refs for the tech stack.' },
     { name: 'CLAUDE.local.md', path: './CLAUDE.local.md', category: 'instructions',
-      desc: 'Local overrides not committed to the repo. Contains machine-specific settings, experimental flags, or temporary behavioral overrides that only apply to one developer\'s environment. Loaded at startup but invisible to other contributors.' },
+      desc: 'Local overrides not committed to the repo — machine-specific settings, experimental flags, or temporary behavioral overrides for one developer.' },
     { name: 'MEMORY.md', path: 'memory/MEMORY.md', category: 'memory',
-      desc: 'Persistent memory index that carries context across conversations. Contains home automation endpoints (Sonos, WiZ lights, Music Assistant), data lookup routing (which Supabase table answers which question), quick DB query templates, SSH access gotchas, and pointers to detailed memory files for sessions, service access, and cloud infrastructure.' },
+      desc: 'Persistent memory index carrying context across conversations. One line per memory, pointing at the detailed memory files.' },
     { name: 'System prompt', path: '(built-in)', category: 'system',
-      desc: 'Claude\'s built-in system prompt including tool definitions, environment detection, safety guidelines, and behavioral instructions. This is fixed by Anthropic and not editable. It defines how Claude reasons, uses tools, handles permissions, and interacts with the filesystem. Always present in every conversation.' },
-    { name: 'SCHEMA.md', path: 'devdocs/SCHEMA.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/SCHEMA.md',
-      desc: 'Complete Supabase database schema reference. Documents every table (spaces, people, assignments, password_vault, nest_devices, vehicles, camera_streams, stripe_payments, sms_messages, inbound_emails, amazon_orders, etc.), their columns, types, foreign keys, RLS policies, and indexes. Essential for writing correct SQL queries, debugging data issues, and understanding entity relationships.' },
-    { name: 'PATTERNS.md', path: 'devdocs/PATTERNS.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/PATTERNS.md',
-      desc: 'UI development patterns and Tailwind styling conventions. Defines the aap-* design token system (colors, spacing, typography, border radius), component patterns (cards, modals, toasts, tables, lightbox), shared JS utilities (showToast, openLightbox, initAdminPage), responsive breakpoints, and testing checklists. The authoritative guide for writing frontend code that matches the existing design system.' },
-    { name: 'KEY-FILES.md', path: 'devdocs/KEY-FILES.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/KEY-FILES.md',
-      desc: 'Project structure and file location index. Maps the full directory tree — shared/ (auth, navigation, Supabase client), spaces/admin/ (management dashboards), jackie/ (property management pages), residents/ (tenant-facing views), vendor/ (third-party libs), edge functions, and static assets. Use this to find where code lives before making changes.' },
-    { name: 'DEPLOY.md', path: 'devdocs/DEPLOY.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/DEPLOY.md',
-      desc: 'Deployment pipeline documentation. Covers the GitHub Pages deploy flow (push to main triggers build), CI version bumping (automated vYYMMDD.NN format), edge function deployment via Supabase CLI, DNS/domain configuration, cache invalidation, and rollback procedures. Read this before pushing changes or troubleshooting deploy failures.' },
-    { name: 'INTEGRATIONS.md', path: 'devdocs/INTEGRATIONS.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/INTEGRATIONS.md',
-      desc: 'External API and vendor integration reference. Documents Supabase (auth, storage, realtime, edge functions), Stripe (payments, webhooks), Telnyx (SMS), Resend (email), Google (OAuth, Maps), Nest (thermostats), Tesla (vehicles), UniFi (cameras, sensors), Govee/WiZ (smart lights), LG (appliances), and Capacitor (mobile). Includes API keys location, webhook URLs, rate limits, and pricing notes.' },
-    { name: 'CHANGELOG.md', path: 'devdocs/CHANGELOG.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/CHANGELOG.md',
-      desc: 'Chronological record of significant changes, features, and fixes. Organized by date with version numbers, affected files, and migration notes. Use this to understand what changed recently, why a migration was done, or what context led to a particular architectural decision. Critical for onboarding and debugging regressions.' },
-    { name: 'CAD.md', path: 'devdocs/CAD.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/CAD.md',
-      desc: 'CAD and 3D modeling tool reference for the property site plan system. Documents installed software on my-server (192.168.1.200): Blender 4.5.7 (3D modeling, rendering, Grease Pencil drafting), QGIS 4.0.0 (GIS parcel data, map composition), LibreCAD 2.x (2D DXF drafting), GDAL 3.12.0 (format conversion). Lists Blender add-ons (Bonsai/BlenderBIM, BlenderGIS, CAD Sketcher, Archipack, MeasureIt-ARCH), GIS data sources for Bastrop County, and quick-start workflows for site plans, 2D drafting, and headless rendering.' },
-    { name: 'CAD-SITE-PLANS.md', path: 'devdocs/CAD-SITE-PLANS.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/CAD-SITE-PLANS.md',
-      desc: 'End-to-end site plan generation guide for 160 Still Forest Drive, Cedar Creek TX (Bastrop County). Covers the two-machine pipeline (Almaca design workstation + Hostinger VPS automation backend), all deliverables (county permit sheets, 3D renders, interactive maps, automated permit packets), step-by-step workflows (QGIS base map → Blender 3D scene → BlenderBIM permit sheets → presentation renders → packet assembly), GIS data sources (TNRIS, USGS 3DEP LiDAR, FEMA flood, TCEQ environmental), and My Brand integration plans (live property map, on-demand render API, automated permit packet generation).' },
-    { name: 'CAD-RENDER-PIPELINE.md', path: 'devdocs/CAD-RENDER-PIPELINE.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/CAD-RENDER-PIPELINE.md',
-      desc: '3D property rendering pipeline for 160 Still Forest Drive. Covers photorealistic render workflow using Blender 4.5 + add-ons, QGIS 4.0, and GDAL on my-server (192.168.1.200). Documents on-site data collection tasks (drone photography, LiDAR scanning, reference photos), scene assembly, material libraries, lighting rigs, and render output formats. Loaded when working on 3D property renders or on-site data collection tasks.' },
-    { name: 'HOMEAUTOMATION.md', path: 'devdocs/HOMEAUTOMATION.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/HOMEAUTOMATION.md',
-      desc: 'Comprehensive smart home reference for My Brand. Documents all Home Assistant (HAOS) setup on 192.168.1.39, device integrations (Nest thermostats, Tesla vehicles, UniFi cameras/sensors, LG appliances, Sonos speakers), MQTT/Zigbee/WiFi device management, automation rules, Paca Mac Mini migration plans, and SSH access patterns via the my-server wrapper script. Loaded when controlling devices, debugging automations, or managing smart home infrastructure.' },
-    { name: 'LIGHTINGAUTOMATION.md', path: 'devdocs/LIGHTINGAUTOMATION.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/LIGHTINGAUTOMATION.md',
-      desc: 'Smart lighting control reference for all rooms at My Brand. Documents WiZ, Govee, and Tuya light entities in HAOS, room-by-room entity IDs, brightness/color commands via the my-server ha wrapper, scene definitions, and light group configurations. Loaded when controlling lights, changing colors/brightness, or debugging light entities. For non-lighting HAOS devices see HOMEAUTOMATION.md.' },
-    { name: 'TESTING-GUIDE.md', path: 'devdocs/TESTING-GUIDE.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/TESTING-GUIDE.md',
-      desc: 'Testing guide with test account credentials (testuser@YOUR_DOMAIN), auth architecture overview, and testing workflows for admin pages. Documents how to authenticate as a test user, role-based access patterns, and QA checklists for verifying UI changes. Loaded when testing admin pages, debugging auth issues, or running manual QA.' },
-    { name: 'SECRETS-GUIDE.md', path: 'devdocs/SECRETS-GUIDE.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/SECRETS-GUIDE.md',
-      desc: 'Generic secrets-management guidance for a project-specific credential manager. Loaded when managing secrets, setting up new API keys, or debugging credential access.' },
-    { name: 'ARCHITECTURE.md', path: 'ARCHITECTURE.md', category: 'docs', gh: 'ARCHITECTURE.md',
-      desc: 'Comprehensive system architecture documentation. Covers the full My Brand stack — browser-only frontend, GitHub Pages hosting, Supabase backend (auth, storage, realtime, edge functions), module boundaries (spaces, residents, jackie, rahulio, community), shared utilities, and data flow patterns. Essential for understanding how components connect and where to make changes.' },
-    { name: 'API.md', path: 'API.md', category: 'docs', gh: 'API.md',
-      desc: 'Centralized REST API reference. Documents the single permissioned endpoint that handles all entity CRUD operations, request/response formats, authentication flow, RLS policy enforcement, and edge function signatures. Loaded when building or debugging API calls, edge functions, or REST endpoints.' },
-    { name: 'PRODUCTDESIGN.md', path: 'PRODUCTDESIGN.md', category: 'docs', gh: 'PRODUCTDESIGN.md',
-      desc: 'Product design decisions and the "why" behind how My Brand is built. Covers financial reasoning, user experience philosophy, business model choices, and design tradeoffs. Documents pricing strategy, feature prioritization rationale, and UX principles. Read alongside ARCHITECTURE.md for the full picture.' },
-    { name: 'home-assistant-lighting-design.md', path: 'devdocs/home-assistant-lighting-design.md', category: 'docs', gh: 'spaces/admin/devcontrol/devdocs/home-assistant-lighting-design.md',
-      desc: 'HAOS unified lighting architecture (canonical design doc). Documents the target state for all smart lighting control through Home Assistant, WiZ Proxy deprecation plan, entity naming conventions, automation templates, and room-by-room migration status. Loaded alongside LIGHTINGAUTOMATION.md for lighting architecture work.' },
+      desc: "Claude's built-in system prompt including tool definitions, environment detection, and behavioral instructions. Fixed by Anthropic and not editable." },
+    { name: 'SCHEMA.md', path: 'docs/SCHEMA.md', category: 'docs', gh: 'docs/SCHEMA.md',
+      desc: 'Supabase database schema reference — every table, column, type, foreign key, and RLS policy for core plus your enabled features. Essential for writing correct SQL and understanding entity relationships.' },
+    { name: 'PATTERNS.md', path: 'docs/PATTERNS.md', category: 'docs', gh: 'docs/PATTERNS.md',
+      desc: 'UI development patterns and Tailwind styling conventions — design tokens, component patterns, shared JS utilities, responsive breakpoints, and testing checklists.' },
+    { name: 'KEY-FILES.md', path: 'docs/KEY-FILES.md', category: 'docs', gh: 'docs/KEY-FILES.md',
+      desc: 'Project structure and file location index. Use this to find where code lives before making changes.' },
+    { name: 'DEPLOY.md', path: 'docs/DEPLOY.md', category: 'docs', gh: 'docs/DEPLOY.md',
+      desc: 'Deployment pipeline — Cloudflare Pages deploy flow, CI version bumping, edge function deployment, DNS config, and rollback procedures.' },
+    { name: 'INTEGRATIONS.md', path: 'docs/INTEGRATIONS.md', category: 'docs', gh: 'docs/INTEGRATIONS.md',
+      desc: 'External API and vendor integration reference — where API keys live, webhook URLs, rate limits, and pricing notes for each configured service.' },
+    { name: 'CHANGELOG.md', path: 'docs/CHANGELOG.md', category: 'docs', gh: 'docs/CHANGELOG.md',
+      desc: 'Chronological record of significant changes, features, and fixes, with affected files and migration notes.' },
+    { name: 'TESTING-GUIDE.md', path: 'docs/TESTING-GUIDE.md', category: 'docs', gh: 'docs/TESTING-GUIDE.md',
+      desc: 'Auth architecture overview and testing workflows for admin pages — role-based access patterns and QA checklists.' },
+    { name: 'SECRETS-GUIDE.md', path: 'docs/SECRETS-GUIDE.md', category: 'docs', gh: 'docs/SECRETS-GUIDE.md',
+      desc: 'Secrets-management guidance — setting up new API keys and debugging credential access.' },
+    { name: 'SECRETS-BITWARDEN.md', path: 'docs/SECRETS-BITWARDEN.md', category: 'docs', gh: 'docs/SECRETS-BITWARDEN.md',
+      desc: 'Bitwarden CLI usage, vault organization, and sharing credentials across a team.' },
   ];
 
   const SYSTEM_PROMPT_TOKENS = 8000;
@@ -667,15 +651,6 @@ async function loadContext() {
   for (const f of items) fileByName[f.name] = f;
 
   // Shared expand/collapse for any file node
-  // Load docs-viewer.css once for rendered HTML companions
-  if (!document.getElementById('docs-viewer-css')) {
-    const link = document.createElement('link');
-    link.id = 'docs-viewer-css';
-    link.rel = 'stylesheet';
-    link.href = '/devdocs/rendered/docs-viewer.css';
-    document.head.appendChild(link);
-  }
-
   window._toggleCtxNode = async function(el) {
     const ghPath = el.getAttribute('data-gh');
     const contentDiv = el.nextElementSibling;
@@ -694,25 +669,7 @@ async function loadContext() {
     const previewDiv = contentDiv.querySelector('.dc-file-preview');
     previewDiv.innerHTML = '<div class="dc-empty" style="padding:0.75rem;">Loading...</div>';
 
-    // Try rendered HTML companion first, then fall back to raw markdown
-    const mdName = ghPath.split('/').pop();
-    const htmlName = mdName.replace('.md', '.html');
-    const renderedUrl = `/devdocs/rendered/${htmlName}`;
-    try {
-      const renderedRes = await fetch(renderedUrl);
-      if (renderedRes.ok) {
-        const html = await renderedRes.text();
-        contentCache[ghPath] = html;
-        previewDiv.innerHTML = html;
-        // Also fetch raw for search cache
-        fetch(`${RAW_BASE}/main/${ghPath}`).then(r => r.ok ? r.text() : '').then(t => {
-          if (t) { window._ctxRawCache = window._ctxRawCache || {}; window._ctxRawCache[ghPath] = t; }
-        }).catch(() => {});
-        return;
-      }
-    } catch {}
-
-    // Fallback: render markdown inline
+    // Render markdown inline
     try {
       const res = await fetch(`${RAW_BASE}/main/${ghPath}`);
       if (!res.ok) throw new Error(`${res.status}`);
@@ -819,14 +776,11 @@ async function loadContext() {
 
         <div class="dc-ctx-group">On-Demand Docs</div>
         <div style="padding:0;">
-          ${leaf('ARCHITECTURE.md', 'system architecture, component relationships')}
-          ${leaf('API.md', 'REST endpoints, edge functions')}
-          ${leaf('PRODUCTDESIGN.md', 'product decisions, UX philosophy')}
-          ${folder('devdocs/', [
+          ${folder('docs/', [
             folder('schema & data', [
               leaf('SCHEMA.md', 'queries, tables, debugging data'),
-              leaf('CREDENTIALS.md', 'SQL, SSH, API keys'),
-              leaf('SECRETS-GUIDE.md', 'Bitwarden, secret management'),
+              leaf('SECRETS-GUIDE.md', 'secret management'),
+              leaf('SECRETS-BITWARDEN.md', 'Bitwarden CLI, vault organization'),
             ].join(''), true),
             folder('architecture & patterns', [
               leaf('PATTERNS.md', 'UI code, Tailwind tokens, components'),
@@ -838,16 +792,6 @@ async function loadContext() {
               leaf('CHANGELOG.md', 'recent changes, migration context'),
               leaf('TESTING-GUIDE.md', 'test accounts, QA workflows'),
             ].join(''), true),
-            folder('smart home', [
-              leaf('HOMEAUTOMATION.md', 'HAOS, devices, automations'),
-              leaf('LIGHTINGAUTOMATION.md', 'lighting entities, commands'),
-              leaf('home-assistant-lighting-design.md', 'canonical lighting architecture'),
-            ].join(''), true),
-            folder('CAD & property', [
-              leaf('CAD.md', 'Blender, QGIS, 3D modeling'),
-              leaf('CAD-SITE-PLANS.md', 'site plan workflows, GIS data'),
-              leaf('CAD-RENDER-PIPELINE.md', '3D renders, on-site data collection'),
-            ].join(''), false),
           ].join(''), true)}
         </div>
 
@@ -966,24 +910,7 @@ async function loadContext() {
       if (allMdCache[ghPath]) { previewDiv.innerHTML = allMdCache[ghPath]; return; }
       previewDiv.innerHTML = '<div class="dc-empty" style="padding:0.75rem;">Loading...</div>';
 
-      // Try rendered HTML companion first
-      const mdName = ghPath.split('/').pop();
-      const htmlName = mdName.replace('.md', '.html');
-      const renderedUrl = `/spaces/admin/devcontrol/devdocs/rendered/${htmlName}`;
-      try {
-        const renderedRes = await fetch(renderedUrl);
-        if (renderedRes.ok) {
-          const rhtml = await renderedRes.text();
-          allMdCache[ghPath] = rhtml;
-          previewDiv.innerHTML = rhtml;
-          fetch(`${RAW_BASE}/main/${ghPath}`).then(r => r.ok ? r.text() : '').then(t => {
-            if (t) { window._ctxRawCache = window._ctxRawCache || {}; window._ctxRawCache[ghPath] = t; }
-          }).catch(() => {});
-          return;
-        }
-      } catch {}
-
-      // Fallback: fetch raw markdown and render it
+      // Fetch raw markdown and render it
       try {
         const res = await fetch(`${RAW_BASE}/main/${ghPath}`);
         if (!res.ok) throw new Error(`${res.status}`);
@@ -1473,8 +1400,8 @@ async function loadBackups() {
       ${serviceBlock(
         haosBackups.length ? 'active' : 'pending', 'Home Assistant',
         'Application-level snapshots — automations, integrations, add-on configs, entity registry, and history',
-        `HAOS VM (192.168.1.39) → synced to Supabase &nbsp;·&nbsp; Cron on my-server (192.168.1.200)
-         &nbsp;·&nbsp; ${link('http://192.168.1.39:8123','HA UI ↗ (LAN only)')}`,
+        `HAOS VM (YOUR_HAOS_IP) → synced to Supabase &nbsp;·&nbsp; Cron on my-server (YOUR_SERVER_IP)
+         &nbsp;·&nbsp; ${link('http://YOUR_HAOS_IP:8123','HA UI ↗ (LAN only)')}`,
         'Daily at 2:00 AM CT', nextHaosApp,
         instanceTable(['When','Name','Type','Size','Contents','Location','Exists'], haosRows, 'haos'),
         'home-assistant'
