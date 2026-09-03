@@ -14,12 +14,12 @@ CREATE TYPE roof_shape AS ENUM ('gable', 'hip', 'flat', 'shed', 'mansard', 'gamb
 -- 1. PARCELS
 CREATE TABLE IF NOT EXISTS parcels (
   id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL DEFAULT '160 Still Forest Dr',
+  name TEXT NOT NULL DEFAULT 'YOUR_PROPERTY_ADDRESS',
   address TEXT,
-  city TEXT DEFAULT 'Cedar Creek',
-  county TEXT DEFAULT 'Bastrop',
+  city TEXT DEFAULT 'YOUR_CITY',
+  county TEXT DEFAULT 'YOUR_COUNTY',
   state TEXT DEFAULT 'TX',
-  zip TEXT DEFAULT '78612',
+  zip TEXT DEFAULT 'YOUR_ZIP',
   legal_description TEXT,
   parcel_number TEXT,
   acreage NUMERIC(8,4),
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS parcel_edges (
 -- 3. ZONING RULES
 CREATE TABLE IF NOT EXISTS zoning_rules (
   id SERIAL PRIMARY KEY,
-  jurisdiction TEXT NOT NULL DEFAULT 'Bastrop County',
+  jurisdiction TEXT NOT NULL DEFAULT 'YOUR_COUNTY',
   district_code TEXT,
   district_name TEXT,
   rule_source TEXT,
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS permit_applications (
   applicant_name TEXT,
   contractor_name TEXT,
   contractor_license TEXT,
-  jurisdiction TEXT DEFAULT 'Bastrop County',
+  jurisdiction TEXT DEFAULT 'YOUR_COUNTY',
   document_urls TEXT[],
   notes TEXT,
   metadata JSONB DEFAULT '{}'::jsonb,

@@ -445,14 +445,14 @@ const SURVEY_PLATS = [
   {
     title: 'Land Title Survey — 2025 Update',
     description: '4Ward Land Surveying (Jason Ward, R.P.L.S. #5811). Shows all current structures including trailers, shipping containers, pool, main house, back house. Lot 14-B, Block 6, Blue Bonnet Acres.',
-    url: '../../jackie/pages/permittingplan/survey-ward-2025.png',
+    url: '../../your-app/pages/permittingplan/survey-ward-2025.png',
     date: '2025',
     tags: ['survey', 'current', '4Ward'],
   },
   {
     title: 'Land Title Survey — Original (2021)',
     description: 'Original land title survey by 4Ward Land Surveying (Feb 4, 2021). Lot 14-B, Block 6, Blue Bonnet Acres, Corrected Plat, Section One, Your County.',
-    url: '../../jackie/pages/permittingplan/survey-base.png',
+    url: '../../your-app/pages/permittingplan/survey-base.png',
     date: '2021-02-04',
     tags: ['survey', 'original', '4Ward'],
   },

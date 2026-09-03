@@ -28,8 +28,6 @@ const DIRS_TO_COPY = [
   'worktrade',
   'overnight',
   'welcome',
-  'sundays',
-  'mistiq',
   'styles',
   'assets/branding',
   'mobile/app',  // New mobile-first SPA

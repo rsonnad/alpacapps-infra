@@ -444,24 +444,24 @@
 
             <div class="pay-methods__row" data-method="venmo">
               <span class="pay-methods__badge" style="background:#3d95ce;">Venmo</span>
-              <a class="pay-methods__handle" href="https://venmo.com/rahuliox" target="_blank" rel="noopener">@rahuliox</a>
+              <a class="pay-methods__handle" href="https://venmo.com/YOUR_VENMO_HANDLE" target="_blank" rel="noopener">@YOUR_VENMO_HANDLE</a>
               <span class="pay-methods__note">Last 4: 7096</span>
               <button class="pay-methods__qr-toggle" onclick="toggleQR('venmo-qr')" title="Show QR code"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="5" y="5" width="2" height="2"/><rect x="17" y="5" width="2" height="2"/><rect x="5" y="17" width="2" height="2"/><path d="M14 14h2v2h-2zm4 0h2v2h-2zm-4 4h2v2h-2zm4 4h2v-2h-2zm0-4h2v2h-2z"/></svg></button>
               <span class="pay-methods__free">No fee</span>
             </div>
             <div class="pay-methods__qr-wrap" id="venmo-qr">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fvenmo.com%2Frahuliox" alt="Venmo QR Code">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fvenmo.com%2FYOUR_VENMO_HANDLE" alt="Venmo QR Code">
               <div class="pay-methods__qr-label">Scan to pay via Venmo</div>
             </div>
 
             <div class="pay-methods__row" data-method="cashapp">
               <span class="pay-methods__badge" style="background:#00D632;">Cash App</span>
-              <a class="pay-methods__handle" href="https://cash.app/$rahuliox" target="_blank" rel="noopener">$rahuliox</a>
+              <a class="pay-methods__handle" href="https://cash.app/$YOUR_CASHAPP_HANDLE" target="_blank" rel="noopener">$YOUR_CASHAPP_HANDLE</a>
               <button class="pay-methods__qr-toggle" onclick="toggleQR('cashapp-qr')" title="Show QR code"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="5" y="5" width="2" height="2"/><rect x="17" y="5" width="2" height="2"/><rect x="5" y="17" width="2" height="2"/><path d="M14 14h2v2h-2zm4 0h2v2h-2zm-4 4h2v2h-2zm4 4h2v-2h-2zm0-4h2v2h-2z"/></svg></button>
               <span class="pay-methods__free">No fee</span>
             </div>
             <div class="pay-methods__qr-wrap" id="cashapp-qr">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fcash.app%2F%24rahuliox" alt="Cash App QR Code">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fcash.app%2F%24YOUR_CASHAPP_HANDLE" alt="Cash App QR Code">
               <div class="pay-methods__qr-label">Scan to pay via Cash App</div>
             </div>
 
@@ -655,8 +655,8 @@
     // Progressive enhancement: update hardcoded methods with fresh DB data
     // Links for payment methods
     var METHOD_LINKS = {
-      venmo: 'https://venmo.com/rahuliox',
-      cashapp: 'https://cash.app/$rahuliox'
+      venmo: 'https://venmo.com/YOUR_VENMO_HANDLE',
+      cashapp: 'https://cash.app/$YOUR_CASHAPP_HANDLE'
     };
 
     var METHOD_QR_LABELS = {

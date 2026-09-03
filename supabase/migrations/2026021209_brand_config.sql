@@ -34,7 +34,7 @@ INSERT INTO brand_config (id, config) VALUES (1, '{
     "platform_name": "My Brand",
     "legal_name": "My Brand Residency",
     "tagline": "Your tagline here",
-    "address": "160 Still Forest Dr, Cedar Creek, TX 78612",
+    "address": "YOUR_PROPERTY_ADDRESS",
     "website": "https://YOUR_DOMAIN"
   },
   "colors": {

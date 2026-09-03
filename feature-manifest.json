@@ -733,18 +733,12 @@
   "_your-app_specific": {
     "_note": "YOUR_APP_NAME property content — always excluded from template clones",
     "dirs": [
-      "mistiq/",
-      "jackie/",
-      "rahulio/",
-      "sundays/",
-      "house/",
-      "ai-admin/",
+      "your-app/",
       "image-gen/"
     ],
     "edgeFunctions": [
-      "mistiq-apply",
-      "mistiq-form",
-      "release-info"
+      "your-app-apply",
+      "your-app-form"
     ],
     "docs": [
       "PRODUCTDESIGN.md",

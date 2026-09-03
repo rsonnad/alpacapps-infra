@@ -3,7 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS email_forwarding_config (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  address_prefix TEXT NOT NULL, -- e.g., 'team', 'haydn', 'rahulio'
+  address_prefix TEXT NOT NULL, -- e.g., 'team', 'owner', 'staff'
   forward_to TEXT NOT NULL, -- destination email address
   label TEXT, -- optional friendly label
   is_active BOOLEAN NOT NULL DEFAULT true,

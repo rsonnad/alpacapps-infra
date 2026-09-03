@@ -15,7 +15,7 @@ export function initPublicPage(options = {}) {
     transparent: false,
     light: true,
     activePage: '',
-    showMistiq: false,
+    showPromoSite: false,
     version,
     ...options,
   });

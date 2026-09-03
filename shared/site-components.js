@@ -43,8 +43,8 @@ const NAV_LINKS = [
   { text: 'Contact', href: `${BASE_PATH}/contact/` },
 ];
 
-// Mistiq link - only shown on Mistiq pages
-const MISTIQ_LINK = { text: 'Mistiq', href: `${BASE_PATH}/mistiq/` };
+// Optional extra site link - only shown on that site's pages
+const PROMO_SITE_LINK = { text: 'YOUR_EXTRA_SITE', href: `${BASE_PATH}/your-extra-site/` };
 const AUTH_LINK = { text: 'Sign In', href: `${BASE_PATH}/login/` };
 
 // =============================================
@@ -57,17 +57,17 @@ const AUTH_LINK = { text: 'Sign In', href: `${BASE_PATH}/login/` };
  * @param {boolean} options.transparent - Start with transparent background (for hero pages)
  * @param {boolean} options.light - Use light (white) text/logo
  * @param {string} options.activePage - Current page identifier for nav highlighting
- * @param {boolean} options.showMistiq - Whether to show the Mistiq nav link (only true on Mistiq pages)
+ * @param {boolean} options.showPromoSite - Whether to show the extra nav link
  * @param {string} options.version - Version string for display in header
  */
 function renderHeader(options = {}) {
-  const { transparent = false, light = true, activePage = '', showMistiq = false, version = '' } = options;
+  const { transparent = false, light = true, activePage = '', showPromoSite = false, version = '' } = options;
 
   const headerClass = transparent ? 'aap-header--transparent' : 'aap-header--solid';
   const colorClass = light ? 'aap-header--light' : 'aap-header--dark';
 
-  // Build navigation links - include Mistiq only if showMistiq is true
-  const links = showMistiq ? [...NAV_LINKS, MISTIQ_LINK] : NAV_LINKS;
+  // Build navigation links - include the extra link only if showPromoSite is true
+  const links = showPromoSite ? [...NAV_LINKS, PROMO_SITE_LINK] : NAV_LINKS;
   const linksWithAuth = [...links, AUTH_LINK];
 
   const navItems = linksWithAuth.map(link => {
@@ -102,18 +102,18 @@ function renderHeader(options = {}) {
       </div>
     </header>
 
-    ${renderMobileNav(activePage, showMistiq)}
+    ${renderMobileNav(activePage, showPromoSite)}
   `;
 }
 
 /**
  * Generate mobile navigation overlay
  * @param {string} activePage - Current page identifier for nav highlighting
- * @param {boolean} showMistiq - Whether to show the Mistiq nav link
+ * @param {boolean} showPromoSite - Whether to show the extra nav link
  */
-function renderMobileNav(activePage = '', showMistiq = false) {
-  // Build navigation links - include Mistiq only if showMistiq is true
-  const links = showMistiq ? [...NAV_LINKS, MISTIQ_LINK] : NAV_LINKS;
+function renderMobileNav(activePage = '', showPromoSite = false) {
+  // Build navigation links - include the extra link only if showPromoSite is true
+  const links = showPromoSite ? [...NAV_LINKS, PROMO_SITE_LINK] : NAV_LINKS;
   const linksWithAuth = [...links, AUTH_LINK];
 
   const navItems = linksWithAuth.map(link => {
@@ -482,7 +482,7 @@ export {
   IMAGES,
   BASE_PATH,
   NAV_LINKS,
-  MISTIQ_LINK,
+  PROMO_SITE_LINK,
   renderHeader,
   renderMobileNav,
   renderFooter,
@@ -498,7 +498,7 @@ if (typeof window !== 'undefined') {
     IMAGES,
     BASE_PATH,
     NAV_LINKS,
-    MISTIQ_LINK,
+    PROMO_SITE_LINK,
     renderHeader,
     renderMobileNav,
     renderFooter,

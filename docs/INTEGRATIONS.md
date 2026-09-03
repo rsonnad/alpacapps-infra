@@ -190,7 +190,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 | Prefix | Action | Destination |
 |--------|--------|-------------|
 | `support@` | Forward | `support@YOUR_DOMAIN` |
-| `rahulio@` | Forward | `{OWNER_EMAIL}` |
+| `owner@` | Forward | `{OWNER_EMAIL}` |
 | `billing@` | Forward | `billing@YOUR_DOMAIN` |
 | `team@` | Forward | `admin@YOUR_DOMAIN` |
 | `herd@` | Special logic | (stub — future AI processing) |
@@ -219,9 +219,9 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Config file:** `/data/.openclaw/openclaw.json` inside container (NOT `/data/openclaw.json`)
 - **IMPORTANT:** OpenClaw's `server.mjs` overwrites config on restart. `.env` sets tokens but does NOT auto-enable Discord — must use `openclaw config set` CLI inside container after recreation.
 - **Channels enabled:** Discord (AI Admin bot), Telegram
-- **Discord Bot:** AI Admin (ID: `1476649970823335998`) — DM policy: open, allowFrom: `["*"]`
+- **Discord Bot:** AI Admin (ID: `YOUR_DISCORD_BOT_ID`) — DM policy: open, allowFrom: `["*"]`
 - **Multi-agent routing:** 2 agents (AI Admin + Assistant), channel-based bindings route `#ai-admin` → AI Admin, `#assistant` → Assistant, DMs → AI Admin
-- **Discord Server:** Alpacord (ID: `1471023710755487867`)
+- **Discord Server:** YOUR_DISCORD_SERVER (ID: `YOUR_DISCORD_GUILD_ID`)
 - **Credentials:** See `CLAUDE.local.md` for SSH password, API tokens, bot tokens, full `.env` contents
 
 ### DigitalOcean Droplet (DEPRECATED — migrating to Hostinger + Oracle)
@@ -369,7 +369,7 @@ The accounting admin page (`spaces/admin/accounting.html`) should show:
 - **Edge function**: `anova-control` — deployed with `--no-verify-jwt`
 - **Client**: `residents/appliances.js` renders oven cards with live data + controls
 - **AI assistant tools**: `get_oven_status`, `control_oven` (chat + voice)
-- **Device**: IP 192.168.1.181, MAC YOUR_DEVICE_MAC, Espressif ESP32, WiFi YourWiFi
+- **Device**: IP YOUR_DEVICE_IP, MAC YOUR_DEVICE_MAC, Espressif ESP32, WiFi YourWiFi
 - **Cost**: $0 (free API, no rate limits documented)
 
 ### Glowforge (Laser Cutter)

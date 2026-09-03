@@ -857,7 +857,7 @@ async function loadContext() {
         if (!res.ok) throw new Error(`${res.status}`);
         const data = await res.json();
         allMdFiles = (data.tree || [])
-          .filter(f => f.type === 'blob' && f.path.endsWith('.md') && !f.path.startsWith('mistiq/') && !f.path.startsWith('node_modules/') && !f.path.startsWith('.claude/'))
+          .filter(f => f.type === 'blob' && f.path.endsWith('.md') && !f.path.startsWith('node_modules/') && !f.path.startsWith('.claude/'))
           .map(f => f.path)
           .sort();
       } catch (err) {

@@ -5,4 +5,4 @@
 # Configure the adopting project's private certificate repository locally.
 type("appstore")
 app_identifier("com.my-brand.app")
-# username("rahulio@YOUR_DOMAIN")  # Uncomment once Apple Developer is set up
+# username("owner@YOUR_DOMAIN")  # Uncomment once Apple Developer is set up

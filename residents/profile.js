@@ -585,7 +585,7 @@ const LOCATION_FLAGS = {
   'mi':'🇺🇸','michigan':'🇺🇸','detroit':'🇺🇸',
   'mn':'🇺🇸','minnesota':'🇺🇸','minneapolis':'🇺🇸',
   'hi':'🇺🇸','hawaii':'🇺🇸','honolulu':'🇺🇸',
-  'cedar creek':'🇺🇸',
+  'your city':'🇺🇸',
   // International cities
   'london':'🇬🇧','manchester':'🇬🇧','birmingham':'🇬🇧','edinburgh':'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
   'paris':'🇫🇷','lyon':'🇫🇷','marseille':'🇫🇷',
@@ -1488,9 +1488,9 @@ async function removeDriver(vehicleId, userId) {
 const RESERVED_SLUGS = [
   'spaces', 'residents', 'associates', 'login', 'shared', 'mobile',
   'supabase', 'auth', 'scripts', 'visiting', 'visiting-1', 'lost',
-  'index', 'directory', 'kioskhall', 'welcome', 'photos', 'sundays',
+  'index', 'directory', 'kioskhall', 'welcome', 'photos',
   'orientation', 'overnight', 'worktrade', 'contact', 'community',
-  'events', 'mistiq', 'docs', 'assets', 'styles', 'your-app',
+  'events', 'docs', 'assets', 'styles', 'your-app',
   'bug-reporter-extension', 'bug-reporter-firefox', 'bug-fixer',
   'feature-builder', 'camera-event-poller', 'image-gen',
   'lg-poller', 'tesla-poller', 'migrations',

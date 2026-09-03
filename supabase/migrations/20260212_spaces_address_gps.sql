@@ -9,15 +9,15 @@ COMMENT ON COLUMN spaces.gps     IS 'GPS coordinates as {"lat": number, "lng": n
 
 -- Set the property (top-level parent) address and GPS
 UPDATE spaces
-SET address = '160 Still Forest Drive, Cedar Creek, TX 78612',
-    gps     = '{"lat": 30.0829, "lng": -97.4726}'::jsonb
+SET address = 'YOUR_PROPERTY_ADDRESS',
+    gps     = '{"lat": 0.0, "lng": 0.0}'::jsonb
 WHERE parent_id IS NULL
   AND name ILIKE '%property%';
 
 -- If no row matched by name, fall back to the first top-level space
 UPDATE spaces
-SET address = '160 Still Forest Drive, Cedar Creek, TX 78612',
-    gps     = '{"lat": 30.0829, "lng": -97.4726}'::jsonb
+SET address = 'YOUR_PROPERTY_ADDRESS',
+    gps     = '{"lat": 0.0, "lng": 0.0}'::jsonb
 WHERE parent_id IS NULL
   AND address IS NULL
   AND id = (SELECT id FROM spaces WHERE parent_id IS NULL ORDER BY name LIMIT 1);

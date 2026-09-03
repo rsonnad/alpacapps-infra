@@ -532,7 +532,7 @@ function injectHeader(options = {}) {
     transparent: false,
     light: false,
     activePage: '',
-    showMistiq: false,
+    showPromoSite: false,
     version,
     ...options,
   });

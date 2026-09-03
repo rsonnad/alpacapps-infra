@@ -1830,7 +1830,7 @@ Files have been uploaded to R2 and added to the document index as inactive (pend
             ${data.confirmation_ref ? `<strong>Reference:</strong> ${data.confirmation_ref}` : ''}
           </div>
 
-          <p>Thank you for signing. If you have any questions about the property or your visit, feel free to reply to this email or contact us at <a href="tel:+17377474737">(737) 747-4737</a>.</p>
+          <p>Thank you for signing. If you have any questions about the property or your visit, feel free to reply to this email or contact us at <a href="tel:+1YOUR_SMS_PHONE">YOUR_SMS_PHONE</a>.</p>
         `,
         text: `Waiver Signed Successfully
 
@@ -1842,7 +1842,7 @@ Name: ${data.signer_name}
 Date: ${sigDate}
 ${data.confirmation_ref ? `Reference: ${data.confirmation_ref}` : ''}
 
-Thank you for signing. If you have any questions, contact us at (737) 747-4737.`
+Thank you for signing. If you have any questions, contact us at YOUR_SMS_PHONE.`
       };
     }
 

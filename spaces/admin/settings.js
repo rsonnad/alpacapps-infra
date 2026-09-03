@@ -15,7 +15,7 @@ let authState = null;
 let allPaymentMethods = [];
 let bulkSmsRecipients = [];
 let editingFeeCodeId = null;
-let editingMistiqCodeId = null;
+let editingPromoCodeId = null;
 let editingPaymentMethodId = null;
 let editingForwardingRuleId = null;
 let allForwardingRules = [];
@@ -60,7 +60,7 @@ async function loadSettingsPanel() {
     loadPaymentMethods(),
     loadFeeSettings(),
     loadFeeCodes(),
-    loadMistiqCodes(),
+    loadPromoCodes(),
     loadSquareConfig(),
     loadPayPalConfig(),
     loadStripeConfig(),
@@ -454,23 +454,23 @@ async function deleteFeeCode(codeId, codeName) {
 }
 
 // =============================================
-// MISTIQ CODES
+// PROMO CODES
 // =============================================
 
-async function loadMistiqCodes() {
-  const grid = document.getElementById('mistiqCodesGrid');
+async function loadPromoCodes() {
+  const grid = document.getElementById('promoCodesGrid');
   if (!grid) return;
 
   try {
     const { data: codes, error } = await supabase
-      .from('mistiq_codes')
+      .from('promo_codes')
       .select('*')
       .order('code');
 
     if (error) throw error;
 
     if (!codes || codes.length === 0) {
-      grid.innerHTML = '<div class="fee-codes-empty">No Mistiq codes configured. Click "Add Code" to create one.</div>';
+      grid.innerHTML = '<div class="fee-codes-empty">No promo codes configured. Click "Add Code" to create one.</div>';
       return;
     }
 
@@ -491,95 +491,95 @@ async function loadMistiqCodes() {
           ${code.description ? `<span class="code-desc">${code.description}</span>` : '<span class="code-desc"></span>'}
           <span class="code-usage">${usageText} used</span>
           <span class="code-actions">
-            <button class="btn-small btn-secondary" data-action="edit-mistiq-code" data-id="${code.id}">Edit</button>
-            <button class="btn-small btn-danger" data-action="delete-mistiq-code" data-id="${code.id}" data-code="${code.code}">Delete</button>
+            <button class="btn-small btn-secondary" data-action="edit-promo-code" data-id="${code.id}">Edit</button>
+            <button class="btn-small btn-danger" data-action="delete-promo-code" data-id="${code.id}" data-code="${code.code}">Delete</button>
           </span>
         </div>
       `;
     }).join('');
 
-    grid.querySelectorAll('[data-action="edit-mistiq-code"]').forEach(btn => {
-      btn.addEventListener('click', () => openMistiqCodeModal(btn.dataset.id));
+    grid.querySelectorAll('[data-action="edit-promo-code"]').forEach(btn => {
+      btn.addEventListener('click', () => openPromoCodeModal(btn.dataset.id));
     });
-    grid.querySelectorAll('[data-action="delete-mistiq-code"]').forEach(btn => {
-      btn.addEventListener('click', () => deleteMistiqCode(btn.dataset.id, btn.dataset.code));
+    grid.querySelectorAll('[data-action="delete-promo-code"]').forEach(btn => {
+      btn.addEventListener('click', () => deletePromoCode(btn.dataset.id, btn.dataset.code));
     });
 
   } catch (error) {
-    console.error('Error loading mistiq codes:', error);
-    grid.innerHTML = '<div class="fee-codes-empty">Error loading Mistiq codes.</div>';
+    console.error('Error loading promo codes:', error);
+    grid.innerHTML = '<div class="fee-codes-empty">Error loading promo codes.</div>';
   }
 }
 
-function openMistiqCodeModal(codeId = null) {
-  editingMistiqCodeId = codeId;
-  const modal = document.getElementById('mistiqCodeModal');
-  const form = document.getElementById('mistiqCodeForm');
-  const title = document.getElementById('mistiqCodeModalTitle');
+function openPromoCodeModal(codeId = null) {
+  editingPromoCodeId = codeId;
+  const modal = document.getElementById('promoCodeModal');
+  const form = document.getElementById('promoCodeForm');
+  const title = document.getElementById('promoCodeModalTitle');
 
   if (codeId) {
-    title.textContent = 'Edit Mistiq Code';
-    loadMistiqCodeForEdit(codeId);
+    title.textContent = 'Edit Promo Code';
+    loadPromoCodeForEdit(codeId);
   } else {
-    title.textContent = 'Add Mistiq Code';
+    title.textContent = 'Add Promo Code';
     form.reset();
-    document.getElementById('mistiqCodeId').value = '';
-    document.getElementById('mistiqCodeActive').checked = true;
-    updateMistiqDiscountHint();
+    document.getElementById('promoCodeId').value = '';
+    document.getElementById('promoCodeActive').checked = true;
+    updatePromoDiscountHint();
   }
 
   modal.classList.remove('hidden');
 }
 
-async function loadMistiqCodeForEdit(codeId) {
+async function loadPromoCodeForEdit(codeId) {
   try {
     const { data: code, error } = await supabase
-      .from('mistiq_codes')
+      .from('promo_codes')
       .select('*')
       .eq('id', codeId)
       .single();
 
     if (error) throw error;
 
-    document.getElementById('mistiqCodeId').value = code.id;
-    document.getElementById('mistiqCodeCode').value = code.code;
-    document.getElementById('mistiqDiscountType').value = code.discount_type;
-    document.getElementById('mistiqDiscountValue').value = code.discount_value;
-    document.getElementById('mistiqCodeDescription').value = code.description || '';
-    document.getElementById('mistiqCodeUsageLimit').value = code.usage_limit || '';
-    document.getElementById('mistiqCodeExpires').value = code.expires_at ? code.expires_at.split('T')[0] : '';
-    document.getElementById('mistiqCodeActive').checked = code.is_active;
-    updateMistiqDiscountHint();
+    document.getElementById('promoCodeId').value = code.id;
+    document.getElementById('promoCodeCode').value = code.code;
+    document.getElementById('promoDiscountType').value = code.discount_type;
+    document.getElementById('promoDiscountValue').value = code.discount_value;
+    document.getElementById('promoCodeDescription').value = code.description || '';
+    document.getElementById('promoCodeUsageLimit').value = code.usage_limit || '';
+    document.getElementById('promoCodeExpires').value = code.expires_at ? code.expires_at.split('T')[0] : '';
+    document.getElementById('promoCodeActive').checked = code.is_active;
+    updatePromoDiscountHint();
 
   } catch (error) {
-    console.error('Error loading mistiq code:', error);
-    showToast('Failed to load Mistiq code', 'error');
+    console.error('Error loading promo code:', error);
+    showToast('Failed to load promo code', 'error');
   }
 }
 
-function closeMistiqCodeModal() {
-  document.getElementById('mistiqCodeModal').classList.add('hidden');
-  editingMistiqCodeId = null;
+function closePromoCodeModal() {
+  document.getElementById('promoCodeModal').classList.add('hidden');
+  editingPromoCodeId = null;
 }
 
-function updateMistiqDiscountHint() {
-  const type = document.getElementById('mistiqDiscountType')?.value;
-  const hint = document.getElementById('mistiqDiscountHint');
+function updatePromoDiscountHint() {
+  const type = document.getElementById('promoDiscountType')?.value;
+  const hint = document.getElementById('promoDiscountHint');
   if (hint) {
     hint.textContent = type === 'percent' ? 'e.g., 20 for 20% off' : 'e.g., 50 for $50 off';
   }
 }
 
-async function saveMistiqCode() {
-  const codeId = document.getElementById('mistiqCodeId').value;
+async function savePromoCode() {
+  const codeId = document.getElementById('promoCodeId').value;
   const codeData = {
-    code: document.getElementById('mistiqCodeCode').value.toUpperCase().trim(),
-    discount_type: document.getElementById('mistiqDiscountType').value,
-    discount_value: parseFloat(document.getElementById('mistiqDiscountValue').value),
-    description: document.getElementById('mistiqCodeDescription').value.trim() || null,
-    usage_limit: parseInt(document.getElementById('mistiqCodeUsageLimit').value) || null,
-    expires_at: document.getElementById('mistiqCodeExpires').value || null,
-    is_active: document.getElementById('mistiqCodeActive').checked,
+    code: document.getElementById('promoCodeCode').value.toUpperCase().trim(),
+    discount_type: document.getElementById('promoDiscountType').value,
+    discount_value: parseFloat(document.getElementById('promoDiscountValue').value),
+    description: document.getElementById('promoCodeDescription').value.trim() || null,
+    usage_limit: parseInt(document.getElementById('promoCodeUsageLimit').value) || null,
+    expires_at: document.getElementById('promoCodeExpires').value || null,
+    is_active: document.getElementById('promoCodeActive').checked,
     updated_at: new Date().toISOString()
   };
 
@@ -591,47 +591,47 @@ async function saveMistiqCode() {
   try {
     if (codeId) {
       const { error } = await supabase
-        .from('mistiq_codes')
+        .from('promo_codes')
         .update(codeData)
         .eq('id', codeId);
       if (error) throw error;
-      showToast('Mistiq code updated', 'success');
+      showToast('promo code updated', 'success');
     } else {
       const { error } = await supabase
-        .from('mistiq_codes')
+        .from('promo_codes')
         .insert(codeData);
       if (error) throw error;
-      showToast('Mistiq code created', 'success');
+      showToast('promo code created', 'success');
     }
 
-    closeMistiqCodeModal();
-    await loadMistiqCodes();
+    closePromoCodeModal();
+    await loadPromoCodes();
 
   } catch (error) {
-    console.error('Error saving mistiq code:', error);
+    console.error('Error saving promo code:', error);
     if (error.message?.includes('duplicate') || error.message?.includes('unique')) {
       showToast('This code already exists', 'error');
     } else {
-      showToast('Failed to save Mistiq code', 'error');
+      showToast('Failed to save promo code', 'error');
     }
   }
 }
 
-async function deleteMistiqCode(codeId, codeName) {
-  if (!confirm(`Delete Mistiq code "${codeName}"? This cannot be undone.`)) return;
+async function deletePromoCode(codeId, codeName) {
+  if (!confirm(`Delete promo code "${codeName}"? This cannot be undone.`)) return;
 
   try {
     const { error } = await supabase
-      .from('mistiq_codes')
+      .from('promo_codes')
       .delete()
       .eq('id', codeId);
 
     if (error) throw error;
-    showToast('Mistiq code deleted', 'success');
-    await loadMistiqCodes();
+    showToast('promo code deleted', 'success');
+    await loadPromoCodes();
   } catch (error) {
-    console.error('Error deleting mistiq code:', error);
-    showToast('Failed to delete Mistiq code', 'error');
+    console.error('Error deleting promo code:', error);
+    showToast('Failed to delete promo code', 'error');
   }
 }
 
@@ -1414,12 +1414,12 @@ function setupEventListeners() {
   document.getElementById('cancelFeeCodeBtn')?.addEventListener('click', closeFeeCodeModal);
   document.getElementById('saveFeeCodeBtn')?.addEventListener('click', saveFeeCode);
 
-  // Mistiq codes
-  document.getElementById('addMistiqCodeBtn')?.addEventListener('click', () => openMistiqCodeModal());
-  document.getElementById('closeMistiqCodeModal')?.addEventListener('click', closeMistiqCodeModal);
-  document.getElementById('cancelMistiqCodeBtn')?.addEventListener('click', closeMistiqCodeModal);
-  document.getElementById('saveMistiqCodeBtn')?.addEventListener('click', saveMistiqCode);
-  document.getElementById('mistiqDiscountType')?.addEventListener('change', updateMistiqDiscountHint);
+  // promo codes
+  document.getElementById('addPromoCodeBtn')?.addEventListener('click', () => openPromoCodeModal());
+  document.getElementById('closePromoCodeModal')?.addEventListener('click', closePromoCodeModal);
+  document.getElementById('cancelPromoCodeBtn')?.addEventListener('click', closePromoCodeModal);
+  document.getElementById('savePromoCodeBtn')?.addEventListener('click', savePromoCode);
+  document.getElementById('promoDiscountType')?.addEventListener('change', updatePromoDiscountHint);
 
   // Square test mode toggle
   document.getElementById('squareTestMode')?.addEventListener('change', (e) => {

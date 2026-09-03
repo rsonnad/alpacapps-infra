@@ -15,7 +15,7 @@ interface ContactFormData {
   phone?: string;
   subject: string;
   message: string;
-  source?: string; // 'aap' or 'mistiq'
+  source?: string; // 'main' or 'secondary'
 }
 
 serve(async (req: Request) => {

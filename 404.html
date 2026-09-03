@@ -31,15 +31,8 @@
       '/welcome/': '/welcome/index.html',
       '/photos': '/photos/',
       '/photos/': '/photos/index.html',
-      '/sundays': '/sundays/',
-      '/sundays/': '/sundays/index.html',
       '/visiting-1': '/visiting-1/',
       '/visiting-1/': '/visiting-1/index.html',
-      // Mistiq subsite
-      '/mistiq': '/mistiq/',
-      '/mistiq/': '/mistiq/index.html',
-      '/mistiq/apply': '/mistiq/apply/',
-      '/mistiq/apply/': '/mistiq/apply/index.html',
       // Spaces app
       '/spaces': '/spaces/',
       '/spaces/': '/spaces/index.html',
@@ -56,18 +49,15 @@
       // Kiosk/display
       '/kioskhall': '/kioskhall/',
       '/kioskhall/': '/kioskhall/index.html',
-      // Claude sessions
-      '/sessions': '/rahulio/pages/claudesessions/',
-      '/sessions/': '/rahulio/pages/claudesessions/',
     };
 
     // Reserved top-level paths (existing directories/files — never treat as user slugs)
     const RESERVED_PATHS = [
       'spaces', 'residents', 'associates', 'login', 'shared', 'mobile',
       'supabase', 'auth', 'scripts', 'visiting', 'visiting-1', 'lost',
-      'index', 'directory', 'kioskhall', 'welcome', 'photos', 'sundays',
+      'index', 'directory', 'kioskhall', 'welcome', 'photos',
       'orientation', 'overnight', 'worktrade', 'contact', 'community',
-      'events', 'mistiq', 'docs', 'assets', 'styles',
+      'events', 'docs', 'assets', 'styles',
       'bug-reporter-extension', 'bug-reporter-firefox', 'bug-fixer',
       'feature-builder', 'camera-event-poller', 'image-gen',
       'lg-poller', 'tesla-poller', 'spirit-whisper-worker',
@@ -78,7 +68,7 @@
     if (validPaths[path]) {
       window.location.replace(validPaths[path] + window.location.search + window.location.hash);
     } else {
-      // Check if this is a user slug (single root-level segment like /haydn)
+      // Check if this is a user slug (single root-level segment like /username)
       const segments = path.replace(/^\/|\/$/g, '').split('/');
       if (segments.length === 1 && segments[0] && !RESERVED_PATHS.includes(segments[0].toLowerCase())) {
         // Looks like a personal directory URL — redirect to directory template

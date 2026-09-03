@@ -2,7 +2,7 @@
 # Update apple_id once Apple Developer enrollment is complete
 
 app_identifier("com.my-brand.app")
-# apple_id("rahulio@YOUR_DOMAIN")  # Uncomment once Apple Developer is set up
+# apple_id("owner@YOUR_DOMAIN")  # Uncomment once Apple Developer is set up
 
 # Google Play JSON key for Android deployment
 # json_key_file("./fastlane/google-play-key.json")  # Uncomment once Google Play is set up

@@ -7,7 +7,7 @@ SET
 <div style="max-width:600px;margin:0 auto;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
   <div style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:40px 32px 28px;text-align:center;">
     <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:700;letter-spacing:-0.5px;">Welcome to My Brand</h1>
-    <p style="margin:8px 0 0;color:#94a3b8;font-size:14px;font-weight:400;">My Brand &bull; Cedar Creek, Texas</p>
+    <p style="margin:8px 0 0;color:#94a3b8;font-size:14px;font-weight:400;">My Brand &bull; YOUR_CITY, YOUR_STATE</p>
   </div>
   <div style="padding:32px;">
     <p style="color:#334155;font-size:16px;line-height:1.6;margin:0 0 16px;">Hi there,</p>
@@ -43,7 +43,7 @@ SET
     <img src="https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/housephotos/ai-gen/invite-banner-ghibli.png" alt="My Brand" style="width:100%;display:block;" />
   </div>
   <div style="background:#f8fafc;padding:20px 32px;text-align:center;border-top:1px solid #e2e8f0;">
-    <p style="margin:0;color:#94a3b8;font-size:12px;">My Brand &bull; 160 Still Forest Dr, Cedar Creek, TX 78612</p>
+    <p style="margin:0;color:#94a3b8;font-size:12px;">My Brand &bull; YOUR_PROPERTY_ADDRESS</p>
     <p style="margin:6px 0 0;color:#cbd5e1;font-size:11px;">My Brand &bull; Your tagline here</p>
   </div>
 </div>
@@ -66,7 +66,7 @@ Getting Started:
 Questions? Just reply — our AI assistant, is happy to help.
 
 — My Brand
-My Brand - 160 Still Forest Dr, Cedar Creek, TX 78612$text$,
+My Brand - YOUR_PROPERTY_ADDRESS$text$,
   version = version + 1,
   updated_at = now()
 WHERE template_key = 'staff_invitation'

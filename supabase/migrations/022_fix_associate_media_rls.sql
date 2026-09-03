@@ -32,7 +32,7 @@ CREATE POLICY "Authenticated users can insert media" ON media
   WITH CHECK (is_authenticated_user());
 
 -- ============================================
--- 3. Create associate profile for existing staff user Jackie
+-- 3. Create associate profile for an existing staff user
 --    who needs to track hours but has no profile yet
 -- ============================================
 INSERT INTO associate_profiles (app_user_id, hourly_rate)

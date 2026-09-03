@@ -66,7 +66,7 @@ const DEFAULT_FORWARD_TO = "admin@YOUR_DOMAIN";
 
 /**
  * Extract the local part (prefix) from an email address.
- * e.g. "haydn@mail.YOUR_DOMAIN" → "haydn"
+ * e.g. "user@mail.YOUR_DOMAIN" → "user"
  */
 function extractPrefix(email: string): string {
   return email.split("@")[0].toLowerCase().trim();
@@ -1076,7 +1076,7 @@ async function handleAiAdminEmail(
     }
 
     if (!replyText) {
-      replyText = `Thank you for your email! I've received your message and I'll do my best to help.\n\nFor faster responses, you can also chat with me on Discord at the Alpacord server, or visit https://YOUR_DOMAIN/residents/ (requires resident login).`;
+      replyText = `Thank you for your email! I've received your message and I'll do my best to help.\n\nFor faster responses, you can also chat with me on Discord at the YOUR_DISCORD_SERVER server, or visit https://YOUR_DOMAIN/residents/ (requires resident login).`;
     }
 
     const sendResult = await sendAiAdminReply(resendApiKey, senderEmail, replyText, subject, bodyText || bodyHtml || "");
