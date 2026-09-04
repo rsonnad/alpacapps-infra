@@ -716,14 +716,19 @@
       <span class="step-time">2 min</span>
     </h2>
     <p>This is your AI setup guide. It runs on your machine, reads our setup instructions, and walks you through everything &mdash; detecting your OS, checking what you already have, and telling you exactly what to do.</p>
-    <p><strong>New to this? Use opencode.</strong> It&rsquo;s one command, works on macOS, Linux and Windows, and needs no subscription &mdash; just a model provider key.</p>
+    <p>There are two ways to pay for this. Pick the track that suits you &mdash; all of these do the same job.</p>
+
+    <p style="font-weight:600; margin-bottom:0.35rem;">Ultra Low Cost &mdash; free tools, bring your own API key (usually under $20 for a setup)</p>
     <p>
       <a href="https://opencode.ai" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #fff; padding: 0.65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem;">
-        Install opencode &mdash; recommended
+        Install opencode &mdash; best for beginners
       </a>
     </p>
     <p style="font-size: 0.85rem; color: var(--text-muted);">Run <code>curl -fsSL https://opencode.ai/install | bash</code>, then <code>opencode</code> in your project folder and <code>/connect</code> to add a model provider.</p>
-    <p style="font-size: 0.85rem; color: var(--text-muted);"><strong>Prefer an editor?</strong> <a href="https://zed.dev/download" target="_blank">Zed</a> (<code>brew install --cask zed</code>) has a built-in AI agent panel. <strong>Already pay for Claude?</strong> <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank">Claude Code</a> (<code>npm install -g @anthropic-ai/claude-code</code>) works too. All three read this project&rsquo;s instructions and skills.</p>
+    <p style="font-size: 0.85rem; color: var(--text-muted);">Already technical and want a real editor? <a href="https://zed.dev/download" target="_blank">Zed</a> (<code>brew install --cask zed</code>) has a built-in AI agent panel.</p>
+
+    <p style="font-weight:600; margin:1rem 0 0.35rem;">Premium &mdash; flat subscription, polished desktop apps ($20&ndash;200/month)</p>
+    <p style="font-size: 0.85rem; color: var(--text-muted);"><a href="https://claude.ai/download" target="_blank">Claude Code</a> (Claude desktop app, Code tab) or <a href="https://chatgpt.com/codex" target="_blank">ChatGPT Codex</a> (Codex desktop app). Pick whichever you already subscribe to.</p>
   </div>
 
   <!-- STEP 2 -->
@@ -733,7 +738,7 @@
       Copy &amp; paste this prompt into your AI tool
       <span class="step-time">30 sec</span>
     </h2>
-    <p>Open your terminal, start your tool (<code>opencode</code>, or <code>zed .</code> / <code>claude</code>), and paste this prompt. It will take things from here &mdash; including helping you install tools and create accounts.</p>
+    <p>Open your terminal, start your tool (<code>opencode</code>, <code>zed .</code>, <code>claude</code> or <code>codex</code>), and paste this prompt. It will take things from here &mdash; including helping you install tools and create accounts.</p>
 
     <div class="prompt-block" id="setup-prompt">
       <button class="copy-btn" onclick="copyPrompt()">Copy</button>Set up an My Brand project for me. Read the instructions at https://YOUR_DOMAIN/infra/llm-setup-instructions.md and walk me through it step by step.</div>

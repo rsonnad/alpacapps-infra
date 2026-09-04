@@ -212,7 +212,7 @@
         <ul>
           <li><strong>Cloudflare Pages</strong> (hosting) &mdash; Free, always included</li>
           <li><strong>Supabase</strong> (database, auth, storage, edge functions) &mdash; Free, always included</li>
-          <li><strong>An AI coding tool</strong> (opencode, Zed or Claude Code) &mdash; Free to install, always needed</li>
+          <li><strong>An AI coding tool</strong> &mdash; opencode or Zed (low cost), or Claude Code / ChatGPT Codex (subscription)</li>
           <li><strong>Google Sign-In</strong> (OAuth user login) &mdash; Free</li>
           <li><strong>Resend</strong> (transactional email) &mdash; Free, 3,000 emails/month</li>
           <li><strong>Telnyx</strong> (SMS notifications) &mdash; ~$0.004/SMS + $1/mo phone number</li>
@@ -262,15 +262,21 @@
     <p>Then authenticate: <code>gh auth login</code> (follow prompts, choose HTTPS, authenticate via browser).</p>
 
     <h3>An AI coding tool</h3>
-    <p>They need one AI coding agent. <strong>opencode is the recommended choice for anyone new</strong> &mdash; one command, no account setup beyond a model provider, and it works on macOS, Linux and Windows:</p>
-    <pre><code>curl -fsSL https://opencode.ai/install | bash</code></pre>
-    <p>Then <code>cd</code> into the project, run <code>opencode</code>, and use <code>/connect</code> to add a model provider.</p>
-    <p>Alternatives, if they'd rather have a GUI editor or already pay for Claude:</p>
+    <p>They need one AI coding agent. Help them pick a <strong>track</strong> first &mdash; the two cost very different amounts.</p>
+
+    <p><strong>Track A &mdash; Ultra Low Cost</strong> (free tools, bring your own API key, usually under $20 for a setup). Recommended for most people.</p>
     <ul>
-      <li><strong>Zed</strong> &mdash; <code>brew install --cask zed</code> (macOS) or <code>curl -f https://zed.dev/install.sh | sh</code> (Linux), or download from <a href="https://zed.dev/download" target="_blank">zed.dev/download</a></li>
-      <li><strong>Claude Code</strong> &mdash; <code>npm install -g @anthropic-ai/claude-code</code>, or the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> with a <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Pro subscription</a></li>
+      <li><strong>opencode</strong> &mdash; <em>best for beginners.</em> <code>curl -fsSL https://opencode.ai/install | bash</code>, then <code>opencode</code> in the project folder and <code>/connect</code> to add a model provider.</li>
+      <li><strong>Zed</strong> &mdash; <em>best for the already-technical.</em> <code>brew install --cask zed</code> (macOS) or <code>curl -f https://zed.dev/install.sh | sh</code> (Linux), or <a href="https://zed.dev/download" target="_blank">zed.dev/download</a>.</li>
     </ul>
-    <p>All three read this project&rsquo;s <code>CLAUDE.md</code> and load the skills in <code>.claude/skills/</code>, so the setup wizard works in any of them.</p>
+
+    <p><strong>Track B &mdash; Premium</strong> ($20&ndash;200/month flat, polished desktop apps). Best if they already subscribe, or code every day.</p>
+    <ul>
+      <li><strong>Claude Code</strong> &mdash; the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> (Code tab) with a <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Pro subscription</a>, or <code>npm install -g @anthropic-ai/claude-code</code>. Slash commands work natively here.</li>
+      <li><strong>ChatGPT / Codex</strong> &mdash; the <a href="https://chatgpt.com/codex" target="_blank">Codex app</a> (macOS/Windows) or <code>npm install -g @openai/codex</code>, with a ChatGPT Plus or Pro plan.</li>
+    </ul>
+
+    <p>All four read this project&rsquo;s instructions: Codex, opencode and Zed read <code>AGENTS.md</code>; Claude Code reads <code>CLAUDE.md</code>, which imports it. opencode, Zed and Claude Code also load <code>.claude/skills/</code>, so <code>/setup-my-brand</code> works in those. In Codex, use the plain-English prompt in Step 5 instead if the slash command isn&rsquo;t recognised.</p>
   </div>
 
   <!-- Step 3 -->
@@ -361,7 +367,7 @@ cd REPO-NAME</code></pre>
 
     <p>Open the AI tool they installed in Step 2, in the project folder they cloned in Step 3.</p>
     <pre><code>cd my-project
-opencode          # or: zed .    or: claude</code></pre>
+opencode          # or: zed .   claude   codex</code></pre>
 
     <h3>Run the setup wizard</h3>
     <p>Type the slash command:</p>
@@ -405,8 +411,9 @@ Ask me when you need credentials for optional services (API keys, etc.).</code><
     <details style="margin: 1rem 0; border: 1px solid #e2e0db; border-radius: 8px; padding: 0.75rem 1rem;">
       <summary style="cursor: pointer; font-weight: 600;">Advanced: parallel agents with Conductor</summary>
       <div style="padding-top: 0.75rem;">
-        <p><a href="https://conductor.build">Conductor</a> is a macOS app that runs several Claude Code agents at once, each in its own workspace on its own git branch &mdash; so &ldquo;add payments page&rdquo;, &ldquo;fix login bug&rdquo; and &ldquo;write tests&rdquo; can run in parallel without conflicting.</p>
-        <p style="margin-bottom: 0;"><strong>Skip this for a first project.</strong> It is macOS-only and requires Claude Code installed and subscribed. Everything in this guide works without it.</p>
+        <p><a href="https://conductor.build">Conductor</a> is a macOS app that runs several coding agents at once, each in its own workspace on its own git branch &mdash; so &ldquo;add payments page&rdquo;, &ldquo;fix login bug&rdquo; and &ldquo;write tests&rdquo; can run in parallel without conflicting.</p>
+        <p>It drives <strong>Claude Code, Codex and Cursor</strong>, so it pairs with the <strong>Premium</strong> track. It does not run opencode &mdash; on Track A, use git worktrees with a separate opencode session in each for the same effect.</p>
+        <p style="margin-bottom: 0;"><strong>Skip this for a first project.</strong> It is macOS-only. Everything in this guide works without it.</p>
       </div>
     </details>
 

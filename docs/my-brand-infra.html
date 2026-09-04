@@ -1507,14 +1507,19 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
     <div class="section-body">
     <p>This is the tool you&rsquo;ll actually work in. You describe what you want in plain English; it writes the code, runs the commands, and pushes changes. Pick <strong>one</strong> &mdash; you can switch later, and this template works with all of them.</p>
 
+    <p>There are two ways to pay for this, and they cost very different amounts.</p>
+
+    <h3 style="margin-top:1.5rem;">Track A &mdash; Ultra Low Cost <span class="cost-badge cost-free" style="margin-left:0.5rem;">~$5&ndash;20 of usage</span></h3>
+    <p>Free, open tools. You bring your own model API key and pay only for what you actually use &mdash; typically a few dollars to get a project set up. <strong>Recommended for most people.</strong></p>
+
     <div class="callout" style="border-color: var(--success); background: var(--success-light);">
-      <strong>New to this? Use opencode.</strong> It&rsquo;s one command to install, runs in your terminal, and works with this template out of the box &mdash; no editor to learn and no extra accounts. Everything below assumes opencode unless you picked otherwise.
+      <strong>Never done this before? Use opencode.</strong> One command to install, runs in your terminal, works with this template out of the box &mdash; no editor to learn, no subscription.
     </div>
 
-    <h3><span class="step-label step-you">Option A &mdash; opencode (recommended, easiest)</span></h3>
-    <p>An open-source AI coding agent that runs in your terminal. Install it with one command:</p>
+    <h4><span class="step-label step-you">opencode &mdash; best for beginners</span></h4>
+    <p>An open-source AI coding agent that runs in your terminal.</p>
     <pre data-lang="terminal"><code>curl -fsSL https://opencode.ai/install | bash</code></pre>
-    <p style="font-size: 0.88rem; color: var(--text-muted);">Prefer a package manager? Any of these work instead:</p>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Or via a package manager:</p>
     <pre data-lang="terminal"><code>brew install anomalyco/tap/opencode    # macOS / Linux (Homebrew)
 npm install -g opencode-ai             # any platform with Node
 choco install opencode                 # Windows (Chocolatey)
@@ -1522,39 +1527,48 @@ scoop install opencode                 # Windows (Scoop)</code></pre>
     <p>Then point it at your project and connect a model:</p>
     <pre data-lang="terminal"><code>cd my-project
 opencode</code></pre>
-    <ol>
-      <li>Type <code>/connect</code> inside opencode</li>
-      <li>Pick a provider and follow the prompts to paste an API key. opencode&rsquo;s own <strong>Zen</strong> provider is the quickest start; you can also use an Anthropic, OpenAI or Google key you already have.</li>
-    </ol>
-    <div class="callout" style="font-size: 0.88rem;">
-      <strong>Why this works with no extra setup:</strong> opencode reads this project&rsquo;s <code>CLAUDE.md</code> and loads the skills in <code>.claude/skills/</code> automatically, so <code>/setup-my-brand</code> is available the moment it starts.
-    </div>
+    <p>Type <code>/connect</code>, pick a provider, and paste an API key. opencode&rsquo;s own <strong>Zen</strong> provider is the quickest start; an Anthropic, OpenAI or Google key you already have works too.</p>
 
-    <h3><span class="step-label step-you">Option B &mdash; Zed</span></h3>
-    <p>A fast code editor with a built-in AI agent panel. Choose this if you want to see and edit your files in a normal editor window rather than working purely in the terminal.</p>
+    <h4><span class="step-label step-you">Zed &mdash; best if you&rsquo;re already technical</span></h4>
+    <p>A fast native code editor with a built-in AI agent panel. Choose this if you want to read and edit files in a real editor rather than working purely in the terminal, and you&rsquo;re comfortable managing your own API keys.</p>
     <pre data-lang="terminal"><code>brew install --cask zed                 # macOS (Homebrew)
 curl -f https://zed.dev/install.sh | sh # Linux</code></pre>
-    <p style="font-size: 0.88rem; color: var(--text-muted);">Or download the installer from <a href="https://zed.dev/download" target="_blank">zed.dev/download</a>. Open your project folder, then use the agent panel to run the setup wizard. Zed can also drive external agents (including opencode and Claude Code) through its ACP integration.</p>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Or download from <a href="https://zed.dev/download" target="_blank">zed.dev/download</a>. Zed can also drive external agents through its ACP integration.</p>
 
-    <h3><span class="step-label step-you">Option C &mdash; Claude Code</span></h3>
-    <p>Anthropic&rsquo;s own agent, the tool this template&rsquo;s skills were originally written for. Requires a Claude subscription.</p>
+    <h3 style="margin-top:2rem;">Track B &mdash; Premium <span class="cost-badge" style="margin-left:0.5rem;">$20&ndash;200/month</span></h3>
+    <p>Flat-rate subscriptions with polished desktop apps. You pay monthly instead of per-use, which is simpler to predict and better value if you&rsquo;re coding every day.</p>
+
+    <h4><span class="step-label step-you">Claude Code (desktop app)</span></h4>
+    <p>Anthropic&rsquo;s agent, and the tool this template&rsquo;s skills were originally written for &mdash; so slash commands like <code>/setup-my-brand</code> work natively.</p>
     <ol>
-      <li>Sign up for <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Claude Pro</a> (<a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">free week here</a>) &mdash; the free tier hits usage limits quickly during setup</li>
-      <li>Download the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> and open the <strong>Code</strong> tab, or install the CLI:</li>
+      <li>Sign up for <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Claude Pro</a> ($20/mo; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">free week here</a>) &mdash; Max ($100/mo) for heavy use</li>
+      <li>Download the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> and open the <strong>Code</strong> tab</li>
     </ol>
-    <pre data-lang="terminal"><code>npm install -g @anthropic-ai/claude-code</code></pre>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Or install the CLI: <code>npm install -g @anthropic-ai/claude-code</code></p>
+
+    <h4><span class="step-label step-you">ChatGPT / Codex (desktop app)</span></h4>
+    <p>OpenAI&rsquo;s coding agent. Included with a ChatGPT paid plan, and available as a desktop app for macOS and Windows, a CLI, and IDE extensions.</p>
+    <ol>
+      <li>Subscribe to <a href="https://chatgpt.com/pricing" target="_blank">ChatGPT Plus or Pro</a></li>
+      <li>Install the <a href="https://chatgpt.com/codex" target="_blank">Codex app</a>, or the CLI: <code>npm install -g @openai/codex</code></li>
+      <li>Open your project folder and sign in with your ChatGPT account</li>
+    </ol>
+    <div class="callout" style="font-size: 0.85rem;">
+      <strong>One difference to know:</strong> Codex reads this project&rsquo;s <code>AGENTS.md</code>, and its support for the <code>/setup-my-brand</code> slash command is less certain than the others. If the command isn&rsquo;t recognised, just ask in plain English instead &mdash; Step 4 gives you the exact wording, and it does the same thing.
+    </div>
+
+    <div class="callout" style="font-size: 0.85rem; border-color: var(--text-muted); background: var(--bg-warm);">
+      <strong>Which track should you pick?</strong> If you&rsquo;re setting up one project and want the smallest bill, use <strong>opencode</strong> &mdash; you&rsquo;ll likely spend under $20 total. If you already pay for Claude or ChatGPT, use what you&rsquo;re paying for. All four do the same job here; none of them locks you in.
+    </div>
 
     <details style="margin: 1.25rem 0; border: 1px solid var(--border, #e2e0db); border-radius: 8px; padding: 0.75rem 1rem;">
       <summary style="cursor: pointer; font-weight: 600; font-size: 0.92rem;">Advanced: running several agents at once with Conductor</summary>
       <div style="padding-top: 0.75rem;">
-        <p style="font-size: 0.88rem;">Once you&rsquo;re comfortable with the basics, <a href="https://conductor.build" target="_blank">Conductor</a> is a Mac app that runs multiple Claude Code agents in parallel, each in its own workspace on its own git branch &mdash; useful when you want to build a feature and fix a bug at the same time without them colliding.</p>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0;"><strong>Not for a first project:</strong> it&rsquo;s macOS-only, it requires Claude Code (Option C) installed and subscribed, and juggling parallel branches is a lot to take on while you&rsquo;re still learning the stack. Everything in this guide works fine without it.</p>
+        <p style="font-size: 0.88rem;"><a href="https://conductor.build" target="_blank">Conductor</a> is a Mac app that runs multiple coding agents in parallel, each in its own workspace on its own git branch &mdash; so you can build a feature and fix a bug at the same time without them colliding.</p>
+        <p style="font-size: 0.88rem;">It drives <strong>Claude Code, Codex and Cursor</strong>, so it pairs with the <strong>Premium</strong> track above. It does not currently run opencode &mdash; if you&rsquo;re on Track A and want the same effect, use git worktrees and run a second opencode session in each.</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0;"><strong>Not for a first project:</strong> it&rsquo;s macOS-only and juggling parallel branches is a lot to take on while you&rsquo;re still learning the stack. Everything in this guide works fine without it.</p>
       </div>
     </details>
-
-    <div class="callout" style="font-size: 0.85rem; border-color: var(--text-muted); background: var(--bg-warm);">
-      <strong>Cost, honestly:</strong> opencode and Zed are free to install and you pay whichever model provider you connect &mdash; usually a few dollars of API usage for a setup like this. Claude Code needs a subscription ($20/month and up). All three do the same job here.
-    </div>
   </div>
   </details>
 

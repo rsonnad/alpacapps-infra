@@ -8,7 +8,7 @@
 My Brand is a full-stack platform using:
 - **Cloudflare Pages** — static site hosting with global CDN (free tier: unlimited sites, 500 builds/month)
 - **Supabase** — PostgreSQL database, auth, storage, edge functions (free tier)
-- **An AI coding agent** — opencode (recommended), Zed, or Claude Code — writes and deploys the code
+- **An AI coding agent** — two tracks: *Ultra Low Cost* (opencode for beginners, Zed for the technical) or *Premium* (Claude Code desktop, ChatGPT/Codex desktop)
 - **Tailwind CSS v4** — styling framework
 
 Architecture: Browser → Cloudflare Pages → Supabase (no server-side code). Edge functions handle sensitive operations.
@@ -41,9 +41,13 @@ The user pastes a setup prompt into Claude Code. Claude Code should:
 
 5. **Set up Supabase** — Create project, configure auth, run initial migrations
 
-6. **Install an AI coding tool** — opencode is the simplest and works on every platform:
-   `curl -fsSL https://opencode.ai/install | bash`
-   Alternatives: Zed (`brew install --cask zed`) or Claude Code (`npm install -g @anthropic-ai/claude-code`)
+6. **Install an AI coding tool** — pick a cost track first:
+   - **Ultra Low Cost** (free tool + your own API key, usually under $20 for a setup):
+     - opencode — *simplest, best for beginners*: `curl -fsSL https://opencode.ai/install | bash`
+     - Zed — *best for the already-technical*: `brew install --cask zed`
+   - **Premium** ($20–200/month flat):
+     - Claude Code desktop — Claude app (Code tab) or `npm install -g @anthropic-ai/claude-code`
+     - ChatGPT/Codex desktop — Codex app or `npm install -g @openai/codex`
 
 ### Phase 2: Run the setup wizard
 With the tool installed, the user runs it in the project folder and uses it for:
@@ -51,7 +55,7 @@ With the tool installed, the user runs it in the project folder and uses it for:
 - All future development
 - Code pushes to GitHub; the site updates automatically
 
-opencode reads `CLAUDE.md` and loads `.claude/skills/` natively, so the wizard is available with no extra configuration.
+Codex, opencode and Zed read `AGENTS.md`; Claude Code reads `CLAUDE.md`, which imports it. opencode, Zed and Claude Code also load `.claude/skills/`, so `/setup-my-brand` works there. Codex may not support the slash command — use the plain-English prompt instead.
 
 ## Detailed Step-by-Step Guide
 
@@ -65,7 +69,7 @@ For the full detailed setup procedure with checkpoints and validation steps, rea
 |---------|---------|
 | Cloudflare Pages | Static site hosting, global CDN, preview deploys |
 | Supabase | PostgreSQL, auth, file storage, edge functions |
-| AI coding tool | opencode (recommended), Zed, or Claude Code — writes, tests, deploys code |
+| AI coding tool | Ultra Low Cost: opencode / Zed. Premium: Claude Code / ChatGPT Codex |
 
 ### Optional services
 | Service | Purpose | Cost |
@@ -176,7 +180,7 @@ When updating an existing project from its approved My Brand template repository
 
 ## Platform Notes
 
-- **opencode / Zed / Claude Code**: all cross-platform. **Conductor** (optional, advanced) is macOS-only and additionally requires Claude Code.
+- **opencode / Zed / Claude Code / Codex**: all cross-platform. **Conductor** (optional, advanced) is macOS-only and drives Claude Code, Codex or Cursor — not opencode.
 - **iPhone App**: Native Swift/SwiftUI, requires macOS for Xcode builds
 - **Android App**: Native Kotlin/Jetpack Compose, builds on any OS via Android Studio
 - **Home Server**: Requires a dedicated Mac on the local network running HAOS

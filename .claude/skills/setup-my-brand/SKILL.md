@@ -38,11 +38,14 @@ You are an expert infrastructure setup assistant. You help users build full-stac
 
 ### Step 0: Detect Setup Mode
 
-**This wizard runs in any AI coding tool** — opencode, Zed or Claude Code. A few
-steps are Claude Code-specific and are marked as such; skip those when the user
-is running something else rather than asking them to run commands their tool
-does not have. opencode and Zed both read `CLAUDE.md` and load `.claude/skills/`
-natively, so no extra configuration is needed for either.
+**This wizard runs in any AI coding tool** — opencode or Zed (the low-cost
+track), or Claude Code / ChatGPT Codex (the subscription track). A few steps are
+Claude Code-specific and are marked as such; skip those when the user is running
+something else rather than asking them to run commands their tool does not have.
+
+Instructions live in `AGENTS.md` (read natively by Codex, opencode and Zed);
+`CLAUDE.md` imports it for Claude Code. Keep editing `AGENTS.md` only — if this
+wizard generates or updates project directives, write them there.
 
 Before anything else, check if this is a **new setup** or an **add-service-later** invocation:
 
