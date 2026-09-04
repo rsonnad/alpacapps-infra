@@ -8,8 +8,7 @@
 My Brand is a full-stack platform using:
 - **Cloudflare Pages** — static site hosting with global CDN (free tier: unlimited sites, 500 builds/month)
 - **Supabase** — PostgreSQL database, auth, storage, edge functions (free tier)
-- **Claude Code** — AI developer agent that writes and deploys code
-- **Conductor** — Mac app for running parallel Claude Code agents (macOS only)
+- **An AI coding agent** — opencode (recommended), Zed, or Claude Code — writes and deploys the code
 - **Tailwind CSS v4** — styling framework
 
 Architecture: Browser → Cloudflare Pages → Supabase (no server-side code). Edge functions handle sensitive operations.
@@ -42,13 +41,17 @@ The user pastes a setup prompt into Claude Code. Claude Code should:
 
 5. **Set up Supabase** — Create project, configure auth, run initial migrations
 
-6. **Install Conductor** — Download and install the Mac app (macOS only)
+6. **Install an AI coding tool** — opencode is the simplest and works on every platform:
+   `curl -fsSL https://opencode.ai/install | bash`
+   Alternatives: Zed (`brew install --cask zed`) or Claude Code (`npm install -g @anthropic-ai/claude-code`)
 
-### Phase 2: Switch to Conductor
-Once Conductor is installed, the user switches from Claude Code in the terminal to Conductor for:
-- Running the setup wizard (configures services based on user's needs)
-- All future development (each task gets its own workspace with a dedicated AI agent)
-- Code pushes to GitHub and the site updates automatically
+### Phase 2: Run the setup wizard
+With the tool installed, the user runs it in the project folder and uses it for:
+- Running the setup wizard — `/setup-my-brand`, or "Read .claude/skills/setup-my-brand/SKILL.md and follow it"
+- All future development
+- Code pushes to GitHub; the site updates automatically
+
+opencode reads `CLAUDE.md` and loads `.claude/skills/` natively, so the wizard is available with no extra configuration.
 
 ## Detailed Step-by-Step Guide
 
@@ -62,8 +65,7 @@ For the full detailed setup procedure with checkpoints and validation steps, rea
 |---------|---------|
 | Cloudflare Pages | Static site hosting, global CDN, preview deploys |
 | Supabase | PostgreSQL, auth, file storage, edge functions |
-| Conductor | Parallel AI coding agents (macOS only) |
-| Claude Code | AI developer — writes, tests, deploys code |
+| AI coding tool | opencode (recommended), Zed, or Claude Code — writes, tests, deploys code |
 
 ### Optional services
 | Service | Purpose | Cost |
@@ -174,7 +176,7 @@ When updating an existing project from its approved My Brand template repository
 
 ## Platform Notes
 
-- **Conductor**: macOS only (as of March 2026). Non-Mac users use Claude Code directly in the terminal.
+- **opencode / Zed / Claude Code**: all cross-platform. **Conductor** (optional, advanced) is macOS-only and additionally requires Claude Code.
 - **iPhone App**: Native Swift/SwiftUI, requires macOS for Xcode builds
 - **Android App**: Native Kotlin/Jetpack Compose, builds on any OS via Android Studio
 - **Home Server**: Requires a dedicated Mac on the local network running HAOS

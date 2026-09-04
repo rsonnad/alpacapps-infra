@@ -212,7 +212,7 @@
         <ul>
           <li><strong>Cloudflare Pages</strong> (hosting) &mdash; Free, always included</li>
           <li><strong>Supabase</strong> (database, auth, storage, edge functions) &mdash; Free, always included</li>
-          <li><strong>Conductor</strong> (parallel AI coding agents, Mac app) &mdash; Free, always included</li>
+          <li><strong>An AI coding tool</strong> (opencode, Zed or Claude Code) &mdash; Free to install, always needed</li>
           <li><strong>Google Sign-In</strong> (OAuth user login) &mdash; Free</li>
           <li><strong>Resend</strong> (transactional email) &mdash; Free, 3,000 emails/month</li>
           <li><strong>Telnyx</strong> (SMS notifications) &mdash; ~$0.004/SMS + $1/mo phone number</li>
@@ -261,14 +261,16 @@
     </ul>
     <p>Then authenticate: <code>gh auth login</code> (follow prompts, choose HTTPS, authenticate via browser).</p>
 
-    <h3>Claude Code (required for Conductor)</h3>
-    <p>Claude Code is the AI developer engine that powers Conductor. Check if the Claude desktop app is installed:</p>
-    <ol>
-      <li>If not installed, sign up at <a href="https://claude.ai/referral/fzGCallNug" target="_blank">claude.ai</a> (Pro $20/mo recommended &mdash; <a href="https://claude.ai/referral/fzGCallNug" target="_blank">free week here</a>)</li>
-      <li>Download the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a></li>
-      <li>Open the app and verify Claude Code is accessible (click the <strong>Code</strong> tab)</li>
-    </ol>
-    <p>They won&rsquo;t use Claude Code directly &mdash; Conductor manages it for them. They just need it installed.</p>
+    <h3>An AI coding tool</h3>
+    <p>They need one AI coding agent. <strong>opencode is the recommended choice for anyone new</strong> &mdash; one command, no account setup beyond a model provider, and it works on macOS, Linux and Windows:</p>
+    <pre><code>curl -fsSL https://opencode.ai/install | bash</code></pre>
+    <p>Then <code>cd</code> into the project, run <code>opencode</code>, and use <code>/connect</code> to add a model provider.</p>
+    <p>Alternatives, if they'd rather have a GUI editor or already pay for Claude:</p>
+    <ul>
+      <li><strong>Zed</strong> &mdash; <code>brew install --cask zed</code> (macOS) or <code>curl -f https://zed.dev/install.sh | sh</code> (Linux), or download from <a href="https://zed.dev/download" target="_blank">zed.dev/download</a></li>
+      <li><strong>Claude Code</strong> &mdash; <code>npm install -g @anthropic-ai/claude-code</code>, or the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> with a <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Pro subscription</a></li>
+    </ul>
+    <p>All three read this project&rsquo;s <code>CLAUDE.md</code> and load the skills in <code>.claude/skills/</code>, so the setup wizard works in any of them.</p>
   </div>
 
   <!-- Step 3 -->
@@ -346,7 +348,7 @@ cd REPO-NAME</code></pre>
     <div class="validate">Ask the user to share their project ref (the random string) and confirm they have their database password saved. You'll need both for the next step.</div>
 
     <h3>What you'll need for the next step</h3>
-    <p>Record these two values &mdash; you'll paste them into Conductor in the next step:</p>
+    <p>Record these two values &mdash; you'll paste them into your AI tool in the next step:</p>
     <ul>
       <li><strong>Project ref:</strong> the random string from the URL (e.g., <code>abcdefghijklm</code>)</li>
       <li><strong>Database password:</strong> the password you set during project creation</li>
@@ -355,45 +357,37 @@ cd REPO-NAME</code></pre>
 
   <!-- Step 5 -->
   <div class="guide-step">
-    <h2><span class="step-num">5</span> Install Conductor and run the setup wizard</h2>
+    <h2><span class="step-num">5</span> Run the setup wizard</h2>
 
-    <p>Conductor is a Mac app that runs Claude Code agents in parallel. Instead of working in Claude Code directly, you&rsquo;ll manage everything from Conductor &mdash; each task gets its own workspace with a dedicated agent.</p>
-
-    <h3>Install Conductor</h3>
-    <ol>
-      <li>Download from <a href="https://conductor.build">conductor.build</a></li>
-      <li>Open Conductor and point it at the project folder you cloned in Step 3</li>
-      <li>Create a new workspace (name it &ldquo;setup&rdquo;)</li>
-    </ol>
-
-    <div class="callout" style="border-color: var(--text-muted); background: #f5f5f5;">
-      <strong>Prerequisites:</strong> Conductor requires Claude Code to be installed (Step 2). If you haven&rsquo;t installed it yet, do that first.
-    </div>
+    <p>Open the AI tool they installed in Step 2, in the project folder they cloned in Step 3.</p>
+    <pre><code>cd my-project
+opencode          # or: zed .    or: claude</code></pre>
 
     <h3>Run the setup wizard</h3>
-    <p>In the Conductor workspace, if on the <strong>Max plan</strong> ($100/mo), type:</p>
-    <pre><code>/setup-your-app-infra</code></pre>
+    <p>Type the slash command:</p>
+    <pre><code>/setup-my-brand</code></pre>
 
-    <p>If on the <strong>Pro plan</strong> ($20/mo) or lower (slash commands require Max), paste this prompt instead:</p>
-    <pre><code>Set up my YOUR_APP_NAME project. I chose the [PROFILE] profile and want these services: [LIST].
+    <p>If their tool doesn&rsquo;t support slash commands (or the command isn&rsquo;t found), paste this prompt instead &mdash; it does exactly the same thing:</p>
+    <pre><code>Set up my project. I chose the [PROFILE] profile and want these services: [LIST].
 My Supabase project ref is: [REF]
 My database password is: [PASSWORD]
 
-Follow the setup wizard in .claude/skills/setup-your-app-infra/SKILL.md to configure everything.
+Follow the setup wizard in .claude/skills/setup-my-brand/SKILL.md to configure everything.
 Handle all terminal work — CLI installs, database setup, edge functions, git pushes.
 Ask me when you need credentials for optional services (API keys, etc.).</code></pre>
 
     <p>Replace the bracketed values with:</p>
     <ul>
-      <li><code>[PROFILE]</code> &mdash; "Property Management" or "General AI Enablement"</li>
+      <li><code>[PROFILE]</code> &mdash; the profile they picked in Step 1 (the default is <strong>slim</strong> &mdash; core only)</li>
       <li><code>[LIST]</code> &mdash; the services they selected in Step 1</li>
       <li><code>[REF]</code> &mdash; Supabase project ref from Step 4</li>
       <li><code>[PASSWORD]</code> &mdash; database password from Step 4</li>
     </ul>
 
     <h3>What the wizard does</h3>
-    <p>The agent in your Conductor workspace will automatically:</p>
+    <p>The agent will automatically:</p>
     <ol>
+      <li>Apply the feature profile (defaults to slim &mdash; core only, no property management)</li>
       <li>Install and configure the Supabase CLI</li>
       <li>Link your Supabase project and fetch API keys</li>
       <li>Create database tables with Row Level Security</li>
@@ -405,17 +399,20 @@ Ask me when you need credentials for optional services (API keys, etc.).</code><
     </ol>
 
     <h3>Going forward</h3>
-    <p>After setup, Conductor is how you build everything. Create a new workspace for each task:</p>
-    <ul>
-      <li><strong>&ldquo;Add payments page&rdquo;</strong> &mdash; one workspace</li>
-      <li><strong>&ldquo;Fix login bug&rdquo;</strong> &mdash; another workspace, runs in parallel</li>
-      <li><strong>&ldquo;Write tests&rdquo;</strong> &mdash; a third workspace, all at the same time</li>
-    </ul>
-    <p>Each workspace gets its own git branch so agents never conflict.</p>
+    <p>After setup, this is how you build everything: open the tool in the project folder and describe what you want in plain English. It writes the code, commits, and pushes; the site redeploys automatically.</p>
+    <p>Do one task at a time, and work on a branch for anything large so you can discard it if you don&rsquo;t like the result.</p>
+
+    <details style="margin: 1rem 0; border: 1px solid #e2e0db; border-radius: 8px; padding: 0.75rem 1rem;">
+      <summary style="cursor: pointer; font-weight: 600;">Advanced: parallel agents with Conductor</summary>
+      <div style="padding-top: 0.75rem;">
+        <p><a href="https://conductor.build">Conductor</a> is a macOS app that runs several Claude Code agents at once, each in its own workspace on its own git branch &mdash; so &ldquo;add payments page&rdquo;, &ldquo;fix login bug&rdquo; and &ldquo;write tests&rdquo; can run in parallel without conflicting.</p>
+        <p style="margin-bottom: 0;"><strong>Skip this for a first project.</strong> It is macOS-only and requires Claude Code installed and subscribed. Everything in this guide works without it.</p>
+      </div>
+    </details>
 
     <div class="callout success">
       <strong>You're done!</strong>
-      Once the setup wizard finishes, your site is live on Cloudflare Pages with a fully configured Supabase backend. Start building by creating new Conductor workspaces and telling them what you want &mdash; the agents handle the code.
+      Once the setup wizard finishes, your site is live on Cloudflare Pages with a fully configured Supabase backend. Start building by telling your AI tool what you want &mdash; it handles the code.
     </div>
   </div>
 

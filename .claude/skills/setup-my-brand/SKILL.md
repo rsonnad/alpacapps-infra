@@ -38,6 +38,12 @@ You are an expert infrastructure setup assistant. You help users build full-stac
 
 ### Step 0: Detect Setup Mode
 
+**This wizard runs in any AI coding tool** — opencode, Zed or Claude Code. A few
+steps are Claude Code-specific and are marked as such; skip those when the user
+is running something else rather than asking them to run commands their tool
+does not have. opencode and Zed both read `CLAUDE.md` and load `.claude/skills/`
+natively, so no extra configuration is needed for either.
+
 Before anything else, check if this is a **new setup** or an **add-service-later** invocation:
 
 1. Check if `supabase/config.toml` exists (Supabase already set up)
@@ -81,7 +87,7 @@ After the user picks a persona (or Custom), show the **feature grid** grouped by
 - Website + Admin Dashboard (Cloudflare Pages) — Free
 - Database + Storage + Auth (Supabase) — Free
 - Tailwind CSS v4 (utility-class styling) — Free
-- AI Developer (Claude Code) — you're already here
+- An AI coding agent (opencode, Zed or Claude Code) — you're already here
 
 **Communication:**
 - [ ] Email notifications (Resend) — Free, 3,000/month
@@ -153,7 +159,7 @@ would be excluded, with the feature that owns it. Nothing is written.
 **Then ask the user (AskUserQuestion):**
 
 > Features you didn't select can be handled two ways:
-> - **Soft hide (Recommended)** — Keep files on disk but list them in `.claudeignore` so Claude Code ignores them. Fully reversible.
+> - **Soft hide (Recommended)** — Keep files on disk but list them in `.claudeignore` so your AI tool ignores them. Fully reversible.
 > - **Full prune** — Also delete them from disk. Cleaner project, but restoring a feature later means fetching it from the template repo.
 
 **Then apply it:**
@@ -184,7 +190,7 @@ for the migrations to apply.
 Add `.setup-state.json` to `.gitignore`. Commit `.claudeignore` (and the
 deletions, if pruned).
 
-**Important:** Run this BEFORE the rest of the wizard, so Claude Code benefits
+**Important:** Run this BEFORE the rest of the wizard, so your AI tool benefits
 from the reduced search scope for every later step.
 
 ### Step 2: GitHub + Cloudflare Pages
@@ -202,7 +208,9 @@ See `references/core-services.md` → "GitHub + Cloudflare Pages" for detailed s
 
 ### Step 2a: Developer Tooling
 
-Set up project-level Claude Code settings for LSP intelligence.
+Set up project-level settings for LSP intelligence.
+
+**Claude Code only.** If the user is running opencode or Zed, skip this step — both provide their own language-server integration — and tell them so rather than asking them to run a Claude Code command.
 
 **Steps (all handled by you):**
 1. Create `.claude/settings.json` with `{ "env": { "ENABLE_LSP_TOOL": "1" } }`
@@ -344,7 +352,9 @@ If yes, follow `references/mobile-setup.md` for:
 3. Platform setup (iOS/Android)
 4. OTA updates via Capgo (optional)
 
-### Step 12: Claude Code Permissions
+### Step 12: Tool Permissions
+
+**Claude Code only.** opencode and Zed manage permissions in their own settings; if the user is on one of those, skip this step and mention where their tool's permission settings live instead.
 
 **Silently (no user action):**
 1. Read `~/.claude/settings.json` (create with `{"permissions":{"allow":[]}}` if missing)

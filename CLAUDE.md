@@ -28,6 +28,10 @@ source-project identity, credentials, domains, people, or infrastructure.
 > Read `infra/infra-upgrade-guide.md` for step-by-step instructions to sync new features from
 > the my-brand-infra template repo. Machine-readable feature index: `infra/updates.json`
 
+> **Using opencode or Zed instead of Claude Code?**
+> Both read this `CLAUDE.md` and load `.claude/skills/` natively — no `AGENTS.md`
+> or `.agents/` copy is needed, and duplicating them only invites drift.
+
 ## Mandatory Behaviors
 
 1. After code changes: end response with `vYYMMDD.NN H:MMa [model]` + affected URLs (read `version.json`)

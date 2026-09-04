@@ -46,7 +46,7 @@ A complete property management platform template. Clone it, run the setup wizard
 | Tool | Install |
 |------|---------|
 | **Git** | [git-scm.com/downloads](https://git-scm.com/downloads) |
-| **Claude Code** | [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code/overview) |
+| **An AI coding tool** | **[opencode](https://opencode.ai)** &mdash; recommended, easiest: `curl -fsSL https://opencode.ai/install \| bash`<br>Or [Zed](https://zed.dev/download) (`brew install --cask zed`) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) |
 | **GitHub account** | [github.com/signup](https://github.com/signup) |
 | **Cloudflare account** | [dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) (free) |
 
@@ -57,8 +57,8 @@ A complete property management platform template. Clone it, run the setup wizard
 git clone https://github.com/YOUR_ORG/alpacapps-infra.git my-project
 cd my-project
 
-# 2. Open Claude Code
-claude
+# 2. Open your AI coding tool
+opencode        # or: zed .   or: claude
 
 # 3. Run the setup wizard
 /setup-my-brand

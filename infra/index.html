@@ -712,33 +712,34 @@
     <h2>
       <span class="step-num">1</span>
       <svg class="brand-icon" viewBox="0 0 24 24" fill="none"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Install Claude Code
+      Install an AI coding tool
       <span class="step-time">2 min</span>
     </h2>
-    <p><strong>Claude Code</strong> is your AI setup guide. It runs in your terminal, reads our setup instructions, and walks you through everything &mdash; detecting your OS, checking what you have installed, and telling you exactly what to do.</p>
+    <p>This is your AI setup guide. It runs on your machine, reads our setup instructions, and walks you through everything &mdash; detecting your OS, checking what you already have, and telling you exactly what to do.</p>
+    <p><strong>New to this? Use opencode.</strong> It&rsquo;s one command, works on macOS, Linux and Windows, and needs no subscription &mdash; just a model provider key.</p>
     <p>
-      <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #fff; padding: 0.65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Install Claude Code
+      <a href="https://opencode.ai" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #fff; padding: 0.65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem;">
+        Install opencode &mdash; recommended
       </a>
     </p>
-    <p style="font-size: 0.85rem; color: var(--text-muted);">Requires Node.js. Run <code>npm install -g @anthropic-ai/claude-code</code> then <code>claude</code> in your terminal. Free to start &mdash; Pro ($20/mo) or Max ($100/mo) recommended.</p>
+    <p style="font-size: 0.85rem; color: var(--text-muted);">Run <code>curl -fsSL https://opencode.ai/install | bash</code>, then <code>opencode</code> in your project folder and <code>/connect</code> to add a model provider.</p>
+    <p style="font-size: 0.85rem; color: var(--text-muted);"><strong>Prefer an editor?</strong> <a href="https://zed.dev/download" target="_blank">Zed</a> (<code>brew install --cask zed</code>) has a built-in AI agent panel. <strong>Already pay for Claude?</strong> <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank">Claude Code</a> (<code>npm install -g @anthropic-ai/claude-code</code>) works too. All three read this project&rsquo;s instructions and skills.</p>
   </div>
 
   <!-- STEP 2 -->
   <div class="setup-step">
     <h2>
       <span class="step-num">2</span>
-      Copy &amp; paste this prompt into Claude Code
+      Copy &amp; paste this prompt into your AI tool
       <span class="step-time">30 sec</span>
     </h2>
-    <p>Open your terminal, run <code>claude</code>, and paste this prompt. Claude Code will take it from here &mdash; including helping you set up screenshots, install tools, and create accounts.</p>
+    <p>Open your terminal, start your tool (<code>opencode</code>, or <code>zed .</code> / <code>claude</code>), and paste this prompt. It will take things from here &mdash; including helping you install tools and create accounts.</p>
 
     <div class="prompt-block" id="setup-prompt">
       <button class="copy-btn" onclick="copyPrompt()">Copy</button>Set up an My Brand project for me. Read the instructions at https://YOUR_DOMAIN/infra/llm-setup-instructions.md and walk me through it step by step.</div>
 
     <div style="margin-top: 1rem; padding: 0.85rem 1rem; background: color-mix(in srgb, var(--accent) 8%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); border-radius: 8px;">
-      <p style="margin: 0; font-size: 0.9rem;">Claude will guide you through <strong>screenshots</strong>, <strong>Git</strong>, <strong>GitHub CLI</strong>, and everything else based on your specific computer. No need to figure out which instructions apply to you &mdash; Claude detects your OS and adapts.</p>
+      <p style="margin: 0; font-size: 0.9rem;">The agent will guide you through <strong>Git</strong>, <strong>GitHub CLI</strong>, and everything else based on your specific computer. No need to work out which instructions apply to you &mdash; it detects your OS and adapts.</p>
     </div>
   </div>
 

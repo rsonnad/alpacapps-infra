@@ -6,6 +6,6 @@
 ## Initial Setup
 
 - Project created from your-app-infra template
-- Core services configured via `/setup-your-app-infra`
+- Core services configured via `/setup-my-brand`
 
 <!-- Add changelog entries as the project evolves -->

@@ -1015,7 +1015,7 @@
   <!-- Service picker (shown after Personal/Business is selected) -->
   <div id="service-picker" style="display: none; background: var(--bg); border: 2px solid var(--accent); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 2.5rem; box-shadow: var(--shadow);">
     <p style="font-weight: 700; font-size: 1.05rem; margin-bottom: 0.25rem;">Which services do you want to set up now?</p>
-    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">GitHub Pages, Supabase, Conductor, and Claude Code are always included. Pick what else you need &mdash; you can add more later.</p>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">GitHub Pages, Supabase, and your AI coding tool are always included. Pick what else you need &mdash; you can add more later.</p>
 
     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
 
@@ -1084,7 +1084,7 @@
 
     <!-- Picked summary + scroll cue -->
     <div id="picked-summary" style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.9rem;">
-      <strong>Your setup path:</strong> <span id="picked-list">GitHub Pages &rarr; Claude Code &rarr; Supabase &rarr; Conductor &rarr; Resend</span>
+      <strong>Your setup path:</strong> <span id="picked-list">GitHub Pages &rarr; opencode &rarr; Supabase &rarr; Resend</span>
       <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0.35rem 0 0;">Follow the steps below in order. Only the sections you picked will be highlighted.</p>
     </div>
   </div>
@@ -1147,7 +1147,7 @@
             <span>Website + Hosting</span>
             <span>Tailwind CSS v4</span>
           </div>
-          <div class="layer-services">Supabase &bull; GitHub Pages &bull; Conductor &bull; Tailwind &bull; Free</div>
+          <div class="layer-services">Supabase &bull; GitHub Pages &bull; opencode &bull; Tailwind &bull; Free</div>
         </div>
 
       </div>
@@ -1165,9 +1165,9 @@
     <div class="toc-grid">
       <a href="#architecture"><span class="num" style="background:var(--bg-warm);color:var(--text-muted);">&mdash;</span> Architecture &amp; Cost Calculator</a>
       <a href="#github"><span class="num">1</span> GitHub + Starter Template</a>
-      <a href="#claude-code"><span class="num">2</span> Install Claude Code &mdash; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">Free week here</a></a>
+      <a href="#coding-tool"><span class="num">2</span> Install your AI coding tool</a>
       <a href="#supabase"><span class="num">3</span> Supabase</a>
-      <a href="#conductor"><span class="num">4</span> Conductor</a>
+      <a href="#setup-wizard"><span class="num">4</span> Setup wizard</a>
       <a href="#google-auth"><span class="num">5</span> Google Sign-In</a>
       <a href="#gemini"><span class="num">6</span> Google Gemini (AI)</a>
       <a href="#resend"><span class="num">7</span> Resend (Email)</a>
@@ -1217,11 +1217,11 @@ Optional: Background Workers (cloud VM) &mdash;&rsaquo;    Cloudflare R2 (media 
         <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
       </label>
       <label class="calc-svc calc-svc--core calc-svc--locked">
-        <input type="checkbox" checked disabled data-svc="conductor">
+        <input type="checkbox" checked disabled data-svc="codingtool">
         <span class="calc-svc__check">&check;</span>
         <span class="calc-svc__info">
-          <span class="calc-svc__name">Conductor</span>
-          <span class="calc-svc__desc">Parallel AI coding agents (Mac app)</span>
+          <span class="calc-svc__name">AI coding tool</span>
+          <span class="calc-svc__desc">opencode, Zed or Claude Code</span>
         </span>
         <span class="cost-badge cost-free" style="margin-left:auto;">Free</span>
       </label>
@@ -1501,34 +1501,60 @@ cd my-salon-app</code><button onclick="copyCloneCommands()" style="position: abs
   </div>
   </details>
 
-  <!-- 2. Claude Code -->
-  <details class="section" id="claude-code">
-      <summary><h2><img src="https://cdn.simpleicons.org/claude" alt="Claude" class="service-icon">2. Install Claude Code &mdash; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">Get a free week</a></h2></summary>
+  <!-- 2. AI coding tool -->
+  <details class="section" id="coding-tool">
+      <summary><h2>2. Install your AI coding tool <span class="cost-badge cost-free">Free to install</span></h2></summary>
     <div class="section-body">
-    <p>Claude Code is the AI developer that powers everything. You need it installed before setting up Conductor (Step 4), which is where you&rsquo;ll do all your actual work.</p>
+    <p>This is the tool you&rsquo;ll actually work in. You describe what you want in plain English; it writes the code, runs the commands, and pushes changes. Pick <strong>one</strong> &mdash; you can switch later, and this template works with all of them.</p>
 
-    <div class="callout" style="border-color: var(--accent); background: var(--accent-light);">
-      <strong><a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent);">Click here for a free week of Claude Pro</a></strong> &mdash; no credit card required to start. This referral link gives you a full week of Pro-level usage to get your project set up.
+    <div class="callout" style="border-color: var(--success); background: var(--success-light);">
+      <strong>New to this? Use opencode.</strong> It&rsquo;s one command to install, runs in your terminal, and works with this template out of the box &mdash; no editor to learn and no extra accounts. Everything below assumes opencode unless you picked otherwise.
     </div>
 
-    <div class="callout">
-      <strong>Recommended: Claude Pro ($20/month) or higher</strong>
-      The free tier works, but you'll hit usage limits quickly when setting up infrastructure. The <a href="https://claude.ai/upgrade" target="_blank">Pro plan ($20/month)</a> gives you significantly more usage. For intensive development, consider Max ($100) or Max+ ($200).
-    </div>
-
-    <h3><span class="step-label step-you">You do (one time)</span></h3>
+    <h3><span class="step-label step-you">Option A &mdash; opencode (recommended, easiest)</span></h3>
+    <p>An open-source AI coding agent that runs in your terminal. Install it with one command:</p>
+    <pre data-lang="terminal"><code>curl -fsSL https://opencode.ai/install | bash</code></pre>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Prefer a package manager? Any of these work instead:</p>
+    <pre data-lang="terminal"><code>brew install anomalyco/tap/opencode    # macOS / Linux (Homebrew)
+npm install -g opencode-ai             # any platform with Node
+choco install opencode                 # Windows (Chocolatey)
+scoop install opencode                 # Windows (Scoop)</code></pre>
+    <p>Then point it at your project and connect a model:</p>
+    <pre data-lang="terminal"><code>cd my-project
+opencode</code></pre>
     <ol>
-      <li>Sign up for <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Claude Pro</a> ($20/month recommended &mdash; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">free week here</a>)</li>
-      <li>Download the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> &mdash; Claude Code is built in</li>
-      <li>Open the app and verify Claude Code is accessible (click the <strong>Code</strong> tab in the top right)</li>
+      <li>Type <code>/connect</code> inside opencode</li>
+      <li>Pick a provider and follow the prompts to paste an API key. opencode&rsquo;s own <strong>Zen</strong> provider is the quickest start; you can also use an Anthropic, OpenAI or Google key you already have.</li>
     </ol>
-
-    <div class="callout" style="border-color: var(--text-muted); background: var(--bg-warm);">
-      <strong>Already comfortable with the terminal?</strong>
-      You can also install Claude Code as a standalone CLI: <code>npm install -g @anthropic-ai/claude-code</code>. Same features, same skills.
+    <div class="callout" style="font-size: 0.88rem;">
+      <strong>Why this works with no extra setup:</strong> opencode reads this project&rsquo;s <code>CLAUDE.md</code> and loads the skills in <code>.claude/skills/</code> automatically, so <code>/setup-my-brand</code> is available the moment it starts.
     </div>
 
-    <p style="font-size: 0.9rem; color: var(--text-muted);">That&rsquo;s it for now &mdash; you&rsquo;ll use Claude Code through <strong>Conductor</strong> (Step 4), which gives you a much better workflow with parallel agents and workspace management.</p>
+    <h3><span class="step-label step-you">Option B &mdash; Zed</span></h3>
+    <p>A fast code editor with a built-in AI agent panel. Choose this if you want to see and edit your files in a normal editor window rather than working purely in the terminal.</p>
+    <pre data-lang="terminal"><code>brew install --cask zed                 # macOS (Homebrew)
+curl -f https://zed.dev/install.sh | sh # Linux</code></pre>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Or download the installer from <a href="https://zed.dev/download" target="_blank">zed.dev/download</a>. Open your project folder, then use the agent panel to run the setup wizard. Zed can also drive external agents (including opencode and Claude Code) through its ACP integration.</p>
+
+    <h3><span class="step-label step-you">Option C &mdash; Claude Code</span></h3>
+    <p>Anthropic&rsquo;s own agent, the tool this template&rsquo;s skills were originally written for. Requires a Claude subscription.</p>
+    <ol>
+      <li>Sign up for <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Claude Pro</a> (<a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">free week here</a>) &mdash; the free tier hits usage limits quickly during setup</li>
+      <li>Download the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> and open the <strong>Code</strong> tab, or install the CLI:</li>
+    </ol>
+    <pre data-lang="terminal"><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+    <details style="margin: 1.25rem 0; border: 1px solid var(--border, #e2e0db); border-radius: 8px; padding: 0.75rem 1rem;">
+      <summary style="cursor: pointer; font-weight: 600; font-size: 0.92rem;">Advanced: running several agents at once with Conductor</summary>
+      <div style="padding-top: 0.75rem;">
+        <p style="font-size: 0.88rem;">Once you&rsquo;re comfortable with the basics, <a href="https://conductor.build" target="_blank">Conductor</a> is a Mac app that runs multiple Claude Code agents in parallel, each in its own workspace on its own git branch &mdash; useful when you want to build a feature and fix a bug at the same time without them colliding.</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0;"><strong>Not for a first project:</strong> it&rsquo;s macOS-only, it requires Claude Code (Option C) installed and subscribed, and juggling parallel branches is a lot to take on while you&rsquo;re still learning the stack. Everything in this guide works fine without it.</p>
+      </div>
+    </details>
+
+    <div class="callout" style="font-size: 0.85rem; border-color: var(--text-muted); background: var(--bg-warm);">
+      <strong>Cost, honestly:</strong> opencode and Zed are free to install and you pay whichever model provider you connect &mdash; usually a few dollars of API usage for a setup like this. Claude Code needs a subscription ($20/month and up). All three do the same job here.
+    </div>
   </div>
   </details>
 
@@ -1592,53 +1618,35 @@ Don't ask me for permission at each step — just do the work end to end and sho
   </div>
   </details>
 
-  <!-- 4. Conductor -->
-  <details class="section" id="conductor">
-      <summary><h2>4. Conductor &mdash; Your Development Hub <span class="cost-badge cost-free">Free</span></h2></summary>
+  <!-- 4. Run the setup wizard -->
+  <details class="section" id="setup-wizard">
+      <summary><h2>4. Run the setup wizard <span class="cost-badge cost-free">Free</span></h2></summary>
     <div class="section-body">
-    <p>Conductor is where you&rsquo;ll do all your work. It&rsquo;s a Mac app that runs multiple Claude Code agents in parallel &mdash; each in its own workspace with its own branch. Instead of working in a single Claude Code session, you manage everything from Conductor.</p>
+    <p>This is the step that turns the template into <em>your</em> project. Open your coding tool in the project folder and run one command.</p>
 
-    <div class="callout" style="border-color: var(--success); background: var(--success-light);">
-      <strong>This is your main tool from here on.</strong> After this step, you&rsquo;ll use Conductor for all development &mdash; building features, fixing bugs, setting up services, running tests. Each task gets its own workspace with a dedicated Claude Code agent.
-    </div>
+    <h3><span class="step-label step-you">1. Start your tool in the project folder</span></h3>
+    <pre data-lang="terminal"><code>cd my-project
+opencode          # or: zed .    or: claude</code></pre>
 
-    <h3><span class="step-label step-you">1. Install Conductor</span></h3>
-    <ol>
-      <li>Download from <a href="https://conductor.build" target="_blank" style="color: var(--accent); font-weight: 600;">conductor.build</a></li>
-      <li>Open Conductor and point it at the project folder you cloned in Step 1</li>
-    </ol>
-
-    <h3><span class="step-label step-you">2. Create your first workspace and run the setup wizard</span></h3>
-    <ol>
-      <li>Create a new workspace in Conductor (name it something like &ldquo;setup&rdquo;)</li>
-      <li>In that workspace, type:
-        <pre data-lang="type in Conductor workspace"><code>/setup-my-brand</code></pre>
-      </li>
-      <li>The wizard will configure your project based on the profile you picked above &mdash; pruning unused modules, creating database tables, and pushing everything</li>
-    </ol>
+    <h3><span class="step-label step-you">2. Run the wizard</span></h3>
+    <pre data-lang="type into your AI tool"><code>/setup-my-brand</code></pre>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">If your tool doesn&rsquo;t support slash commands, ask for it in plain English instead &mdash; this does exactly the same thing:</p>
+    <pre data-lang="type into your AI tool"><code>Read .claude/skills/setup-my-brand/SKILL.md and follow those instructions to set up my project</code></pre>
 
     <div style="background: rgba(217,119,6,0.06); border: 2px solid rgba(217,119,6,0.3); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1rem 0;">
-      <p style="font-weight: 600; font-size: 1rem; color: var(--accent); margin-bottom: 0.5rem;">The wizard configures your project based on the profile you picked above.</p>
-      <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">It prunes unused modules, configures <code>.claudeignore</code>, creates your database tables, and pushes everything. If you picked <strong>Personal / Business</strong>, only the services you selected will be set up.</p>
-    </div>
-
-    <div class="callout warning" style="font-size: 0.85rem; border-color: #EF4444;">
-      <strong>Don&rsquo;t skip the setup wizard.</strong> If you don&rsquo;t run it, your project will have all the property management modules cluttering your codebase even if you don&rsquo;t need them.
+      <p style="font-weight: 600; font-size: 1rem; color: var(--accent); margin-bottom: 0.5rem;">The wizard asks what you&rsquo;re building, then configures the project to match.</p>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0;">It defaults to the <strong>slim</strong> profile &mdash; website, admin dashboard, auth, database and storage, and nothing else. Property management, smart home, payments and messaging are all opt-in. It then creates your database tables and pushes everything.</p>
     </div>
 
     <div class="callout warning" style="font-size: 0.85rem;">
-      <strong>Slash command not working?</strong>
-      The <code>/setup-my-brand</code> skill requires the <strong>Max plan ($100/month)</strong> or higher. If you're on the Pro plan, type this instead:
-      <pre data-lang="type in Conductor workspace" style="margin: 0.75rem 0 0.25rem 0;"><code>Read .claude/skills/setup-my-brand/SKILL.md and follow those instructions to set up my project</code></pre>
-      This does the exact same thing &mdash; Claude reads the setup guide and walks you through it step by step.
+      <strong>Don&rsquo;t skip the wizard.</strong> Without it you&rsquo;ll be left with every feature the template ships, including the whole property-management stack, cluttering your codebase.
     </div>
 
-    <h3><span class="step-label step-you">3. How to work with Conductor going forward</span></h3>
-    <p>After the setup wizard finishes, this is how you build with Conductor:</p>
+    <h3><span class="step-label step-you">3. How you work from here on</span></h3>
     <ol>
-      <li><strong>One task per workspace.</strong> Want to add a payments page and fix a bug? Create two workspaces and run them in parallel.</li>
-      <li><strong>Each workspace gets its own git branch</strong> so agents never conflict with each other.</li>
-      <li><strong>Just tell it what you want in plain English.</strong> Paste credentials, describe features, ask questions &mdash; the agent handles the code.</li>
+      <li><strong>Say what you want in plain English.</strong> Paste credentials, describe features, ask questions &mdash; the agent writes the code, commits, and pushes.</li>
+      <li><strong>One task at a time.</strong> Finish a change and let it push before starting the next; the site redeploys automatically on every push.</li>
+      <li><strong>Work on a branch for anything big</strong>, so you can throw it away if you don&rsquo;t like the result.</li>
     </ol>
 
     <div class="conversation">
@@ -1652,17 +1660,17 @@ Don't ask me for permission at each step — just do the work end to end and sho
     </div>
 
     <div class="callout" style="border-color: #d4883a; background: #fef9f0;">
-      <strong>Stuck on any step?</strong> Take a screenshot, paste it into any Conductor workspace, and ask: <em>&ldquo;What do I do?&rdquo;</em> &mdash; Claude can read screenshots and will walk you through it.
+      <strong>Stuck on any step?</strong> Describe what you&rsquo;re seeing, or paste a screenshot if your tool supports images, and ask: <em>&ldquo;What do I do?&rdquo;</em>
     </div>
 
     <h3>What the rest of this guide is for</h3>
     <p>The sections below explain each service in detail. For each one, you:</p>
     <ol>
       <li><strong>You</strong> create the account and copy credentials (in your browser)</li>
-      <li><strong>You</strong> paste the credentials into a Conductor workspace</li>
-      <li><strong>Claude</strong> handles everything else &mdash; updates config files, installs CLIs, creates tables, writes edge functions, deploys, and pushes code</li>
+      <li><strong>You</strong> paste the credentials into your AI tool</li>
+      <li><strong>The agent</strong> handles everything else &mdash; updates config files, installs CLIs, creates tables, writes edge functions, deploys, and pushes code</li>
     </ol>
-    <p>You never need to edit files yourself. Just tell Claude what you want.</p>
+    <p>You never need to edit files yourself. Just say what you want.</p>
   </div>
   </details>
 
@@ -2266,7 +2274,7 @@ npx wrangler d1 execute claude-sessions --file=schema.sql --remote</code></pre>
       <li>Enable GitHub Pages on the repo</li>
       <li>Create Supabase account and project</li>
       <li>Copy: project ref, anon key, DB password, and session pooler connection string</li>
-      <li>Download and install Conductor from <a href="https://conductor.build" target="_blank">conductor.build</a></li>
+      <li>Install your AI coding tool &mdash; <a href="https://opencode.ai" target="_blank">opencode</a> is the quickest: <code>curl -fsSL https://opencode.ai/install | bash</code></li>
     </ul>
 
     <p><strong>User Login &mdash; Free (Google OAuth):</strong></p>
@@ -2627,7 +2635,7 @@ function recalcCost() {
   var svcCosts = {
     'github':      { basic: 0, complicated: 0, hyper: 0 },
     'supabase':    { basic: 0, complicated: 0, hyper: 300 },
-    'conductor':   { basic: 0, complicated: 0, hyper: 0 },
+    'codingtool':  { basic: 0, complicated: 0, hyper: 0 },
     'claude':      { basic: 0, complicated: 320, hyper: 2400 },
     'google-auth': { basic: 0, complicated: 0, hyper: 0 },
     'resend':      { basic: 0, complicated: 0, hyper: 0 },
@@ -2647,7 +2655,7 @@ function recalcCost() {
   var svcLabels = {
     'github':      'GitHub Pages',
     'supabase':    'Supabase',
-    'conductor':   'Conductor',
+    'codingtool':  'AI coding tool',
     'claude':      'Claude Code',
     'google-auth': 'Google Sign-In',
     'gemini':      'Google Gemini (AI)',
@@ -2679,7 +2687,7 @@ function recalcCost() {
   };
 
   // Gather selected services. Core always included.
-  var selected = ['github', 'supabase', 'conductor', 'claude'];
+  var selected = ['github', 'supabase', 'codingtool'];
   document.querySelectorAll('#calc-services input[data-svc]:not(:disabled)').forEach(function(cb) {
     if (cb.checked) selected.push(cb.dataset.svc);
   });
@@ -2906,7 +2914,7 @@ function downloadClaudeMd() {
     '- `openLightbox(url)` for images\n' +
     '- Tailwind: use design tokens from `@theme` block (see `docs/PATTERNS.md`). Run `npm run css:build` after new classes.\n\n' +
     '## Quick Refs\n\n' +
-    '- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | Conductor | GitHub Pages\n' +
+    '- **Tech:** Vanilla HTML/JS + Tailwind v4 | Supabase | GitHub Pages\n' +
     '- **Live:** https://USERNAME.github.io/REPO/\n' +
     '- **Architecture:** Browser \u2192 GitHub Pages \u2192 Supabase (no server-side code)\n';
 
@@ -3020,13 +3028,13 @@ function updatePickedServices() {
     if (cb.checked) picks.push(cb.dataset.pick);
   });
 
-  var parts = ['GitHub Pages', 'Claude Code', 'Supabase', 'Conductor'];
+  var parts = ['GitHub Pages', 'opencode', 'Supabase'];
   picks.forEach(function(p) { parts.push(pickLabels[p] || p); });
   document.getElementById('picked-list').textContent = parts.join(' \u2192 ');
 
   // Highlight/dim sections based on picks
   // Always-visible sections: github, claude-code, supabase, architecture, checklist, template
-  var alwaysShow = ['github', 'claude-code', 'supabase', 'conductor', 'architecture', 'checklist', 'template'];
+  var alwaysShow = ['github', 'coding-tool', 'supabase', 'setup-wizard', 'architecture', 'checklist', 'template'];
   var pickedSections = picks.map(function(p) { return pickToSection[p]; }).filter(Boolean);
   var allVisible = alwaysShow.concat(pickedSections);
 
