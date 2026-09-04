@@ -1,12 +1,12 @@
 {
-  "version": "v260904.02 4:50p",
-  "release": 2,
-  "sha": "49c8561",
-  "fullSha": "49c8561e4300acd204123002058ce1d196566112",
+  "version": "v260904.03 4:58p",
+  "release": 3,
+  "sha": "748f71f",
+  "fullSha": "748f71fd48c2041bc24058beceaf23122ca14f75",
   "actor": "automated-deploy",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "ci",
-  "pushedAt": "2026-09-04T11:49:59-05:00",
-  "commits": [{"sha":"49c8561","message":"Setup path: two cost tracks, and restore AGENTS.md for Codex"}]
+  "pushedAt": "2026-09-04T11:58:15-05:00",
+  "commits": [{"sha":"748f71f","message":"Lead the premium track with ChatGPT, and move skills where Codex reads them"}]
 }
