@@ -1,12 +1,12 @@
 {
-  "version": "v260904.01 4:40p",
-  "release": 1,
-  "sha": "d21f565",
-  "fullSha": "d21f5653c1903a1c30e2917a0635ab8f9d58b88e",
+  "version": "v260904.02 4:50p",
+  "release": 2,
+  "sha": "49c8561",
+  "fullSha": "49c8561e4300acd204123002058ce1d196566112",
   "actor": "automated-deploy",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "ci",
-  "pushedAt": "2026-09-04T11:40:00-05:00",
-  "commits": [{"sha":"d21f565","message":"Setup path: offer opencode or Zed, with opencode recommended for beginners"}]
+  "pushedAt": "2026-09-04T11:49:59-05:00",
+  "commits": [{"sha":"49c8561","message":"Setup path: two cost tracks, and restore AGENTS.md for Codex"}]
 }
