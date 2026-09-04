@@ -1538,27 +1538,29 @@ curl -f https://zed.dev/install.sh | sh # Linux</code></pre>
     <h3 style="margin-top:2rem;">Track B &mdash; Premium <span class="cost-badge" style="margin-left:0.5rem;">$20&ndash;200/month</span></h3>
     <p>Flat-rate subscriptions with polished desktop apps. You pay monthly instead of per-use, which is simpler to predict and better value if you&rsquo;re coding every day.</p>
 
+    <div class="callout" style="border-color: var(--accent); background: var(--accent-light);">
+      <strong>Already pay for ChatGPT? You&rsquo;re done deciding.</strong> Codex is included in your existing plan &mdash; no second subscription, nothing extra to buy. This is the most common starting point.
+    </div>
+
+    <h4><span class="step-label step-you">ChatGPT / Codex (desktop app)</span></h4>
+    <p>OpenAI&rsquo;s coding agent, included with a paid ChatGPT plan. Available as a desktop app for macOS and Windows, a CLI, and IDE extensions.</p>
+    <ol>
+      <li>You already have this if you subscribe to <a href="https://chatgpt.com/pricing" target="_blank">ChatGPT Plus or Pro</a></li>
+      <li>Install the <a href="https://chatgpt.com/codex" target="_blank">Codex app</a>, or the CLI: <code>npm install -g @openai/codex</code></li>
+      <li>Open your project folder and sign in with your ChatGPT account</li>
+    </ol>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Codex reads this project&rsquo;s <code>AGENTS.md</code> and loads the wizard from <code>.agents/skills/</code> automatically &mdash; invoke it with <code>$setup-my-brand</code>, or just describe what you want and Codex will pick it up from the skill description.</p>
+
     <h4><span class="step-label step-you">Claude Code (desktop app)</span></h4>
-    <p>Anthropic&rsquo;s agent, and the tool this template&rsquo;s skills were originally written for &mdash; so slash commands like <code>/setup-my-brand</code> work natively.</p>
+    <p>Anthropic&rsquo;s agent. Choose this if you already subscribe to Claude, or you want the tool this template was originally built against.</p>
     <ol>
       <li>Sign up for <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Claude Pro</a> ($20/mo; <a href="https://claude.ai/referral/fzGCallNug" target="_blank" style="color: var(--accent); font-weight: 600;">free week here</a>) &mdash; Max ($100/mo) for heavy use</li>
       <li>Download the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> and open the <strong>Code</strong> tab</li>
     </ol>
-    <p style="font-size: 0.88rem; color: var(--text-muted);">Or install the CLI: <code>npm install -g @anthropic-ai/claude-code</code></p>
-
-    <h4><span class="step-label step-you">ChatGPT / Codex (desktop app)</span></h4>
-    <p>OpenAI&rsquo;s coding agent. Included with a ChatGPT paid plan, and available as a desktop app for macOS and Windows, a CLI, and IDE extensions.</p>
-    <ol>
-      <li>Subscribe to <a href="https://chatgpt.com/pricing" target="_blank">ChatGPT Plus or Pro</a></li>
-      <li>Install the <a href="https://chatgpt.com/codex" target="_blank">Codex app</a>, or the CLI: <code>npm install -g @openai/codex</code></li>
-      <li>Open your project folder and sign in with your ChatGPT account</li>
-    </ol>
-    <div class="callout" style="font-size: 0.85rem;">
-      <strong>One difference to know:</strong> Codex reads this project&rsquo;s <code>AGENTS.md</code>, and its support for the <code>/setup-my-brand</code> slash command is less certain than the others. If the command isn&rsquo;t recognised, just ask in plain English instead &mdash; Step 4 gives you the exact wording, and it does the same thing.
-    </div>
+    <p style="font-size: 0.88rem; color: var(--text-muted);">Or install the CLI: <code>npm install -g @anthropic-ai/claude-code</code>. Invoke the wizard with <code>/setup-my-brand</code>.</p>
 
     <div class="callout" style="font-size: 0.85rem; border-color: var(--text-muted); background: var(--bg-warm);">
-      <strong>Which track should you pick?</strong> If you&rsquo;re setting up one project and want the smallest bill, use <strong>opencode</strong> &mdash; you&rsquo;ll likely spend under $20 total. If you already pay for Claude or ChatGPT, use what you&rsquo;re paying for. All four do the same job here; none of them locks you in.
+      <strong>Which track should you pick?</strong> <strong>Already paying for ChatGPT or Claude?</strong> Use it &mdash; Codex and Claude Code are included, so this costs you nothing extra. <strong>Paying for neither?</strong> Use <strong>opencode</strong>; you&rsquo;ll likely spend under $20 total to get set up, versus $20/month for a subscription. All four do the same job here, and none of them locks you in.
     </div>
 
     <details style="margin: 1.25rem 0; border: 1px solid var(--border, #e2e0db); border-radius: 8px; padding: 0.75rem 1rem;">
@@ -1645,7 +1647,7 @@ opencode          # or: zed .    or: claude</code></pre>
     <h3><span class="step-label step-you">2. Run the wizard</span></h3>
     <pre data-lang="type into your AI tool"><code>/setup-my-brand</code></pre>
     <p style="font-size: 0.88rem; color: var(--text-muted);">If your tool doesn&rsquo;t support slash commands, ask for it in plain English instead &mdash; this does exactly the same thing:</p>
-    <pre data-lang="type into your AI tool"><code>Read .claude/skills/setup-my-brand/SKILL.md and follow those instructions to set up my project</code></pre>
+    <pre data-lang="type into your AI tool"><code>Read .agents/skills/setup-my-brand/SKILL.md and follow those instructions to set up my project</code></pre>
 
     <div style="background: rgba(217,119,6,0.06); border: 2px solid rgba(217,119,6,0.3); border-radius: 10px; padding: 1.25rem 1.5rem; margin: 1rem 0;">
       <p style="font-weight: 600; font-size: 1rem; color: var(--accent); margin-bottom: 0.5rem;">The wizard asks what you&rsquo;re building, then configures the project to match.</p>

@@ -272,11 +272,15 @@
 
     <p><strong>Track B &mdash; Premium</strong> ($20&ndash;200/month flat, polished desktop apps). Best if they already subscribe, or code every day.</p>
     <ul>
-      <li><strong>Claude Code</strong> &mdash; the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> (Code tab) with a <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Pro subscription</a>, or <code>npm install -g @anthropic-ai/claude-code</code>. Slash commands work natively here.</li>
-      <li><strong>ChatGPT / Codex</strong> &mdash; the <a href="https://chatgpt.com/codex" target="_blank">Codex app</a> (macOS/Windows) or <code>npm install -g @openai/codex</code>, with a ChatGPT Plus or Pro plan.</li>
+      <li><strong>ChatGPT / Codex</strong> &mdash; <em>ask about this first.</em> Most people already pay for ChatGPT, and Codex is included in that plan, so it costs them nothing extra. The <a href="https://chatgpt.com/codex" target="_blank">Codex app</a> (macOS/Windows) or <code>npm install -g @openai/codex</code>.</li>
+      <li><strong>Claude Code</strong> &mdash; the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> (Code tab) with a <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Pro subscription</a>, or <code>npm install -g @anthropic-ai/claude-code</code>.</li>
     </ul>
 
-    <p>All four read this project&rsquo;s instructions: Codex, opencode and Zed read <code>AGENTS.md</code>; Claude Code reads <code>CLAUDE.md</code>, which imports it. opencode, Zed and Claude Code also load <code>.claude/skills/</code>, so <code>/setup-my-brand</code> works in those. In Codex, use the plain-English prompt in Step 5 instead if the slash command isn&rsquo;t recognised.</p>
+    <div class="callout">
+      <strong>Ask what they already pay for before recommending anything.</strong> If they have ChatGPT, point them at Codex. If they have Claude, point them at Claude Code. If neither, opencode is cheapest by a wide margin.
+    </div>
+
+    <p>All four read this project&rsquo;s instructions and load the setup wizard. Codex, opencode and Zed read <code>AGENTS.md</code> and load skills from <code>.agents/skills/</code>; Claude Code reads <code>CLAUDE.md</code> (which imports <code>AGENTS.md</code>) and picks the wizard up through <code>.claude/skills/</code>. Invoke it with <code>$setup-my-brand</code> in Codex or <code>/setup-my-brand</code> in the others.</p>
   </div>
 
   <!-- Step 3 -->
@@ -370,7 +374,7 @@ cd REPO-NAME</code></pre>
 opencode          # or: zed .   claude   codex</code></pre>
 
     <h3>Run the setup wizard</h3>
-    <p>Type the slash command:</p>
+    <p>Invoke the wizard &mdash; <code>$setup-my-brand</code> in Codex, <code>/setup-my-brand</code> in opencode, Zed or Claude Code:</p>
     <pre><code>/setup-my-brand</code></pre>
 
     <p>If their tool doesn&rsquo;t support slash commands (or the command isn&rsquo;t found), paste this prompt instead &mdash; it does exactly the same thing:</p>
@@ -378,7 +382,7 @@ opencode          # or: zed .   claude   codex</code></pre>
 My Supabase project ref is: [REF]
 My database password is: [PASSWORD]
 
-Follow the setup wizard in .claude/skills/setup-my-brand/SKILL.md to configure everything.
+Follow the setup wizard in .agents/skills/setup-my-brand/SKILL.md to configure everything.
 Handle all terminal work — CLI installs, database setup, edge functions, git pushes.
 Ask me when you need credentials for optional services (API keys, etc.).</code></pre>
 

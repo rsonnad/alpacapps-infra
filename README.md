@@ -46,7 +46,7 @@ A complete property management platform template. Clone it, run the setup wizard
 | Tool | Install |
 |------|---------|
 | **Git** | [git-scm.com/downloads](https://git-scm.com/downloads) |
-| **An AI coding tool** | **Ultra Low Cost** &mdash; **[opencode](https://opencode.ai)** (easiest, best for beginners): `curl -fsSL https://opencode.ai/install \| bash` &nbsp;·&nbsp; [Zed](https://zed.dev/download) (`brew install --cask zed`) for the technical<br>**Premium** &mdash; [Claude Code](https://claude.ai/download) or [ChatGPT Codex](https://chatgpt.com/codex) desktop apps ($20&ndash;200/mo) |
+| **An AI coding tool** | **Ultra Low Cost** &mdash; **[opencode](https://opencode.ai)** (easiest, best for beginners): `curl -fsSL https://opencode.ai/install \| bash` &nbsp;·&nbsp; [Zed](https://zed.dev/download) (`brew install --cask zed`) for the technical<br>**Premium** &mdash; already pay for ChatGPT? [Codex](https://chatgpt.com/codex) is included. Or [Claude Code](https://claude.ai/download) ($20&ndash;200/mo) |
 | **GitHub account** | [github.com/signup](https://github.com/signup) |
 | **Cloudflare account** | [dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) (free) |
 

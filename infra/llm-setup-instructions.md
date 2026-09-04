@@ -45,17 +45,17 @@ The user pastes a setup prompt into Claude Code. Claude Code should:
    - **Ultra Low Cost** (free tool + your own API key, usually under $20 for a setup):
      - opencode — *simplest, best for beginners*: `curl -fsSL https://opencode.ai/install | bash`
      - Zed — *best for the already-technical*: `brew install --cask zed`
-   - **Premium** ($20–200/month flat):
+   - **Premium** ($20–200/month flat) — **ask what they already subscribe to first:**
+     - ChatGPT/Codex desktop — *most common;* included in any paid ChatGPT plan. Codex app or `npm install -g @openai/codex`
      - Claude Code desktop — Claude app (Code tab) or `npm install -g @anthropic-ai/claude-code`
-     - ChatGPT/Codex desktop — Codex app or `npm install -g @openai/codex`
 
 ### Phase 2: Run the setup wizard
 With the tool installed, the user runs it in the project folder and uses it for:
-- Running the setup wizard — `/setup-my-brand`, or "Read .claude/skills/setup-my-brand/SKILL.md and follow it"
+- Running the setup wizard — `/setup-my-brand`, or "Read .agents/skills/setup-my-brand/SKILL.md and follow it"
 - All future development
 - Code pushes to GitHub; the site updates automatically
 
-Codex, opencode and Zed read `AGENTS.md`; Claude Code reads `CLAUDE.md`, which imports it. opencode, Zed and Claude Code also load `.claude/skills/`, so `/setup-my-brand` works there. Codex may not support the slash command — use the plain-English prompt instead.
+Codex, opencode and Zed read `AGENTS.md` and load skills from `.agents/skills/`; Claude Code reads `CLAUDE.md` (which imports `AGENTS.md`) and picks the wizard up via `.claude/skills/`. Invoke it with `$setup-my-brand` in Codex, `/setup-my-brand` elsewhere.
 
 ## Detailed Step-by-Step Guide
 
@@ -69,7 +69,7 @@ For the full detailed setup procedure with checkpoints and validation steps, rea
 |---------|---------|
 | Cloudflare Pages | Static site hosting, global CDN, preview deploys |
 | Supabase | PostgreSQL, auth, file storage, edge functions |
-| AI coding tool | Ultra Low Cost: opencode / Zed. Premium: Claude Code / ChatGPT Codex |
+| AI coding tool | Ultra Low Cost: opencode / Zed. Premium: ChatGPT Codex / Claude Code |
 
 ### Optional services
 | Service | Purpose | Cost |

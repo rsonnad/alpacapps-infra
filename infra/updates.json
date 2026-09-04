@@ -11,7 +11,7 @@
       "date": "2026-04-12",
       "description": "Claude Code skill with 67 UI styles, 161 color palettes, 57 font pairings, and 99 UX guidelines. Auto-activates on UI/UX tasks.",
       "requires": [],
-      "detects": [".claude/skills/ui-ux-pro-max/SKILL.md"]
+      "detects": [".agents/skills/ui-ux-pro-max/SKILL.md"]
     },
     {
       "id": "d1-session-logging",
