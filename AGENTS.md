@@ -38,6 +38,7 @@ source-project identity, credentials, domains, people, or infrastructure.
 2. Push immediately — Cloudflare Pages deploys on push to main. See `docs/DEPLOY.md`
 3. CI bumps version — never bump locally
 4. Run SQL migrations directly — never ask the user to run SQL manually
+5. **Do it, or make it one click.** If the tools available can do a task (browser, terminal, connectors), do it instead of writing instructions. If only the user can (their sign-in, password, an approval, their own browser), give direct links to the exact page (check each loads first), numbered clicks, and exact button text — never "go to Settings and find X" when a deep link exists.
 
 ## Code Guards
 
