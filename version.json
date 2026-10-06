@@ -1,12 +1,12 @@
 {
-  "version": "v260904.03 4:58p",
-  "release": 3,
-  "sha": "748f71f",
-  "fullSha": "748f71fd48c2041bc24058beceaf23122ca14f75",
+  "version": "v261006.01 3:54a",
+  "release": 1,
+  "sha": "c9b0173",
+  "fullSha": "c9b01739b309750b93643333cd87e90fab7694e7",
   "actor": "automated-deploy",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "ci",
-  "pushedAt": "2026-09-04T11:58:15-05:00",
-  "commits": [{"sha":"748f71f","message":"Lead the premium track with ChatGPT, and move skills where Codex reads them"}]
+  "pushedAt": "2026-10-06T10:53:56+07:00",
+  "commits": [{"sha":"c9b0173","message":"docs(agents): add 'do it, or make it one click' rule"}]
 }
