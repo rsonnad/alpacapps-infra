@@ -1,12 +1,12 @@
 {
-  "version": "v261006.01 3:54a",
+  "version": "v261029.01 2:51p",
   "release": 1,
-  "sha": "c9b0173",
-  "fullSha": "c9b01739b309750b93643333cd87e90fab7694e7",
+  "sha": "06df32c",
+  "fullSha": "06df32c402ce3842e30833ed70c3fa783196d188",
   "actor": "automated-deploy",
   "source": "cloudflare-pages-deploy",
   "model": "ci",
   "machine": "ci",
-  "pushedAt": "2026-10-06T10:53:56+07:00",
-  "commits": [{"sha":"c9b0173","message":"docs(agents): add 'do it, or make it one click' rule"}]
+  "pushedAt": "2026-10-29T15:49:35+01:00",
+  "commits": [{"sha":"06df32c","message":"docs: prefer Cursor with Grok 4.7 and document Grok Bot webhooks"}]
 }
