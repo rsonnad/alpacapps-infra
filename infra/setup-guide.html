@@ -212,7 +212,7 @@
         <ul>
           <li><strong>Cloudflare Pages</strong> (hosting) &mdash; Free, always included</li>
           <li><strong>Supabase</strong> (database, auth, storage, edge functions) &mdash; Free, always included</li>
-          <li><strong>An AI coding tool</strong> &mdash; opencode or Zed (low cost), or Claude Code / ChatGPT Codex (subscription)</li>
+          <li><strong>An AI coding tool</strong> &mdash; Cursor with Grok 4.7 (preferred), or Claude Code, Codex, opencode, or Zed</li>
           <li><strong>Google Sign-In</strong> (OAuth user login) &mdash; Free</li>
           <li><strong>Resend</strong> (transactional email) &mdash; Free, 3,000 emails/month</li>
           <li><strong>Telnyx</strong> (SMS notifications) &mdash; ~$0.004/SMS + $1/mo phone number</li>
@@ -262,25 +262,26 @@
     <p>Then authenticate: <code>gh auth login</code> (follow prompts, choose HTTPS, authenticate via browser).</p>
 
     <h3>An AI coding tool</h3>
-    <p>They need one AI coding agent. Help them pick a <strong>track</strong> first &mdash; the two cost very different amounts.</p>
+    <p>Recommend <strong>Cursor with Grok 4.7</strong>. <a href="https://cursor.com/download" target="_blank">Install Cursor</a>, sign in, open the project folder, and select <strong>Grok 4.7</strong> in Agent&rsquo;s model picker. There is no separate model installer. <a href="https://grok.com" target="_blank">Open Grok</a> for companion chat or get its app there. Check <a href="https://prod.cursor.com/help/models-and-usage/grok-4-7" target="_blank">model availability</a> and <a href="https://cursor.com/pricing" target="_blank">current plans</a>.</p>
+    <p>In Cursor Agent, ask: <em>Read AGENTS.md and .agents/skills/setup-my-brand/SKILL.md, then follow the setup wizard.</em></p>
 
-    <p><strong>Track A &mdash; Ultra Low Cost</strong> (free tools, bring your own API key, usually under $20 for a setup). Recommended for most people.</p>
+    <p><strong>Track A &mdash; Ultra Low Cost</strong> (free tools, bring your own API key, usually under $20 for a setup). Available as an alternative.</p>
     <ul>
-      <li><strong>opencode</strong> &mdash; <em>best for beginners.</em> <code>curl -fsSL https://opencode.ai/install | bash</code>, then <code>opencode</code> in the project folder and <code>/connect</code> to add a model provider.</li>
+      <li><strong>opencode</strong> &mdash; <em>API-key alternative.</em> <code>curl -fsSL https://opencode.ai/install | bash</code>, then <code>opencode</code> in the project folder and <code>/connect</code> to add a model provider.</li>
       <li><strong>Zed</strong> &mdash; <em>best for the already-technical.</em> <code>brew install --cask zed</code> (macOS) or <code>curl -f https://zed.dev/install.sh | sh</code> (Linux), or <a href="https://zed.dev/download" target="_blank">zed.dev/download</a>.</li>
     </ul>
 
-    <p><strong>Track B &mdash; Premium</strong> ($20&ndash;200/month flat, polished desktop apps). Best if they already subscribe, or code every day.</p>
+    <p><strong>Other subscription options</strong> &mdash; keep these if they suit the user&rsquo;s existing workflow.</p>
     <ul>
-      <li><strong>ChatGPT / Codex</strong> &mdash; <em>ask about this first.</em> Most people already pay for ChatGPT, and Codex is included in that plan, so it costs them nothing extra. The <a href="https://chatgpt.com/codex" target="_blank">Codex app</a> (macOS/Windows) or <code>npm install -g @openai/codex</code>.</li>
+      <li><strong>ChatGPT / Codex</strong> &mdash; Check the user&rsquo;s existing ChatGPT access and usage limits before buying another subscription. The <a href="https://chatgpt.com/codex" target="_blank">Codex app</a> (macOS/Windows) or <code>npm install -g @openai/codex</code>.</li>
       <li><strong>Claude Code</strong> &mdash; the <a href="https://claude.ai/download" target="_blank">Claude desktop app</a> (Code tab) with a <a href="https://claude.ai/referral/fzGCallNug" target="_blank">Pro subscription</a>, or <code>npm install -g @anthropic-ai/claude-code</code>.</li>
     </ul>
 
     <div class="callout">
-      <strong>Ask what they already pay for before recommending anything.</strong> If they have ChatGPT, point them at Codex. If they have Claude, point them at Claude Code. If neither, opencode is cheapest by a wide margin.
+      <strong>Prefer Cursor with Grok 4.7; respect existing subscriptions.</strong> Save account credentials, recovery codes, and API keys in the project&rsquo;s Bitwarden collection. Configure runtime secrets server-side and keep only vault item references in gitignored local documentation.
     </div>
 
-    <p>All four read this project&rsquo;s instructions and load the setup wizard. Codex, opencode and Zed read <code>AGENTS.md</code> and load skills from <code>.agents/skills/</code>; Claude Code reads <code>CLAUDE.md</code> (which imports <code>AGENTS.md</code>) and picks the wizard up through <code>.claude/skills/</code>. Invoke it with <code>$setup-my-brand</code> in Codex or <code>/setup-my-brand</code> in the others.</p>
+    <p>For Cursor, explicitly ask Agent to read the two files above. The other tools also support the setup wizard. Codex, opencode and Zed read <code>AGENTS.md</code> and load skills from <code>.agents/skills/</code>; Claude Code reads <code>CLAUDE.md</code> (which imports <code>AGENTS.md</code>) and picks the wizard up through <code>.claude/skills/</code>. Invoke it with <code>$setup-my-brand</code> in Codex or <code>/setup-my-brand</code> in the others.</p>
   </div>
 
   <!-- Step 3 -->
@@ -371,27 +372,30 @@ cd REPO-NAME</code></pre>
 
     <p>Open the AI tool they installed in Step 2, in the project folder they cloned in Step 3.</p>
     <pre><code>cd my-project
-opencode          # or: zed .   claude   codex</code></pre>
+# Preferred: open the project folder in Cursor; select Grok 4.7 in Agent
+# Alternatives: opencode   zed .   claude   codex</code></pre>
 
     <h3>Run the setup wizard</h3>
-    <p>Invoke the wizard &mdash; <code>$setup-my-brand</code> in Codex, <code>/setup-my-brand</code> in opencode, Zed or Claude Code:</p>
+    <p>In Cursor, use the explicit file-reading prompt above. Otherwise invoke the wizard &mdash; <code>$setup-my-brand</code> in Codex, <code>/setup-my-brand</code> in opencode, Zed or Claude Code:</p>
     <pre><code>/setup-my-brand</code></pre>
 
     <p>If their tool doesn&rsquo;t support slash commands (or the command isn&rsquo;t found), paste this prompt instead &mdash; it does exactly the same thing:</p>
     <pre><code>Set up my project. I chose the [PROFILE] profile and want these services: [LIST].
 My Supabase project ref is: [REF]
-My database password is: [PASSWORD]
+My project Bitwarden collection is: [COLLECTION]
+My Supabase credential item is: [SUPABASE_ITEM]
+Retrieve secrets through authorized Bitwarden access; never print them.
 
 Follow the setup wizard in .agents/skills/setup-my-brand/SKILL.md to configure everything.
 Handle all terminal work — CLI installs, database setup, edge functions, git pushes.
-Ask me when you need credentials for optional services (API keys, etc.).</code></pre>
+Save all new credentials in that Bitwarden collection. Ask for vault item references when needed.</code></pre>
 
     <p>Replace the bracketed values with:</p>
     <ul>
       <li><code>[PROFILE]</code> &mdash; the profile they picked in Step 1 (the default is <strong>slim</strong> &mdash; core only)</li>
       <li><code>[LIST]</code> &mdash; the services they selected in Step 1</li>
       <li><code>[REF]</code> &mdash; Supabase project ref from Step 4</li>
-      <li><code>[PASSWORD]</code> &mdash; database password from Step 4</li>
+      <li><code>[COLLECTION]</code> and <code>[SUPABASE_ITEM]</code> &mdash; your project&rsquo;s Bitwarden collection and Supabase credential item names; do not paste the password</li>
     </ul>
 
     <h3>What the wizard does</h3>
@@ -403,7 +407,7 @@ Ask me when you need credentials for optional services (API keys, etc.).</code><
       <li>Create database tables with Row Level Security</li>
       <li>Set up storage buckets</li>
       <li>Deploy edge functions</li>
-      <li>Configure each optional service you selected (asking you for API keys as needed)</li>
+      <li>Configure each optional service you selected using credentials saved in Bitwarden</li>
       <li>Generate your CLAUDE.md and documentation files</li>
       <li>Commit and push everything to GitHub</li>
     </ol>
@@ -427,10 +431,30 @@ Ask me when you need credentials for optional services (API keys, etc.).</code><
     </div>
   </div>
 
+  <div class="guide-step" id="grokbot-webhooks">
+    <h2>Optional: Grok Bot &amp; webhook routines</h2>
+    <p><a href="https://grokbot.com" target="_blank">Install Grok Bot</a>, the SpaceXAI agentic harness, sign in, and create a project Bot. Check your plan for access before purchasing; Premium and above include Grok Bot with shared usage; Plus does not include it.</p>
+    <ol>
+      <li>Ask the Bot to create a routine triggered by a webhook, with a narrow task and expected output. For a first test, ask it only to summarize the event in its chat.</li>
+      <li>On desktop, click the Bot&rsquo;s name, open <strong>Details</strong>, find <strong>Routines</strong>, and open the routine. In <strong>Webhook</strong>, copy <strong>POST to</strong> (URL) and <strong>key</strong> (raw secret). The <strong>header</strong> field already contains the full Authorization header; do not add another Bearer prefix.</li>
+      <li>Save the URL, key, routine name, purpose, and environment in a project-specific Bitwarden item, for example <code>Your Project &mdash; Grok Bot Webhook</code>. Store account logins, recovery codes, and provider API keys in the same project collection. Never paste secret values into this repository or chat.</li>
+      <li>Retrieve the URL/key from Bitwarden into the sender&rsquo;s server-side secret store as <code>GROKBOT_WEBHOOK_URL</code> and <code>GROKBOT_WEBHOOK_KEY</code> (raw key only). Run the test below in that environment. Do not put secrets in browser JavaScript, shell history, or logs.</li>
+      <li>Check the HTTP result, then the Bot&rsquo;s chat. A 200 means the call started a run; it does not confirm the work finished. Confirm the expected test summary before connecting real events.</li>
+    </ol>
+    <pre><code>curl --silent --show-error --output /dev/null --write-out '%{http_code}\n' \
+  --request POST "$GROKBOT_WEBHOOK_URL" \
+  --header "Authorization: Bearer $GROKBOT_WEBHOOK_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"event":"setup.test","environment":"staging"}'</code></pre>
+    <p>These Grok Bot routine webhooks use Bearer authentication; separate Grok automations webhooks use HMAC signatures.</p>
+    <p>For failures, check the routine is active and the saved URL/key are current. If Webhook fields are absent, update the desktop app and consult support; use a schedule meanwhile. If your event provider cannot send a custom Bearer header, use a server-side adapter that verifies the provider&rsquo;s signature before forwarding a minimal payload. Keep the Bot key in that adapter&rsquo;s secret store.</p>
+    <p><a href="https://cursor.com/help/grok-bot/routines" target="_blank">Official webhook routine instructions</a> &bull; <a href="https://x.ai/bot" target="_blank">Grok Bot installation guide</a></p>
+  </div>
+
   <!-- Optional services reference -->
   <div class="guide-step">
     <h2><span class="step-num">?</span> Optional services reference</h2>
-    <p>When the agent asks for credentials for optional services, direct the user to these vendor pages. For each service, the user needs to create an account and get an API key.</p>
+    <p>For each optional service, create an account and obtain credentials at these vendor pages, then save them in the project&rsquo;s Bitwarden collection. Give the agent the item reference and authorized vault access; do not paste secret values into chat.</p>
 
     <h3>Google Sign-In (OAuth)</h3>
     <ul>

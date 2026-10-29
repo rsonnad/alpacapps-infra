@@ -9,7 +9,9 @@ counts, Keychain item names, local paths, or credentials from another project.
 1. Create a project-specific Bitwarden organization or collection, for example
    named after your own project.
 2. Store every password, recovery code, API token, OAuth secret, and SSH
-   credential there.
+   credential there, including Cursor/Grok/Grok Bot logins, recovery codes,
+   provider API keys, and webhook URLs and Bearer keys. For each webhook, record
+   the routine name and environment with its URL/key.
 3. Install the Bitwarden CLI using the vendor's current instructions.
 4. Authenticate interactively in the operator's local environment. Do not add
    an auto-unlock script, Keychain lookup, master-password command, or session

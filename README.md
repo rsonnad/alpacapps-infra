@@ -46,7 +46,7 @@ A complete property management platform template. Clone it, run the setup wizard
 | Tool | Install |
 |------|---------|
 | **Git** | [git-scm.com/downloads](https://git-scm.com/downloads) |
-| **An AI coding tool** | **Ultra Low Cost** &mdash; **[opencode](https://opencode.ai)** (easiest, best for beginners): `curl -fsSL https://opencode.ai/install \| bash` &nbsp;·&nbsp; [Zed](https://zed.dev/download) (`brew install --cask zed`) for the technical<br>**Premium** &mdash; already pay for ChatGPT? [Codex](https://chatgpt.com/codex) is included. Or [Claude Code](https://claude.ai/download) ($20&ndash;200/mo) |
+| **An AI coding tool** | **Preferred: [Cursor](https://cursor.com/download) with Grok 4.7** selected in Agent. [Grok](https://grok.com) for companion chat. Alternatives: [Claude Code](https://claude.ai/download), [Codex](https://chatgpt.com/codex), [opencode](https://opencode.ai), or [Zed](https://zed.dev/download). Check current access and usage limits. |
 | **GitHub account** | [github.com/signup](https://github.com/signup) |
 | **Cloudflare account** | [dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) (free) |
 
@@ -58,10 +58,11 @@ git clone https://github.com/YOUR_ORG/alpacapps-infra.git my-project
 cd my-project
 
 # 2. Open your AI coding tool
-opencode        # or: zed .   claude   codex
+# Open this folder in Cursor and select Grok 4.7 in Agent
+# Alternatives: opencode   zed .   claude   codex
 
 # 3. Run the setup wizard
-/setup-my-brand
+# In Agent: Read AGENTS.md and .agents/skills/setup-my-brand/SKILL.md; follow the wizard.
 ```
 
 The wizard will:
@@ -71,6 +72,10 @@ The wizard will:
 4. Set up Supabase (database, auth, storage, edge functions)
 5. Customize branding, domain, and credentials
 6. Deploy your site live on Cloudflare Pages
+
+### Optional: Grok Bot
+
+Install [Grok Bot](https://grokbot.com) the SpaceXAI agentic harness, for persistent project bots and webhook routines. Routine webhooks use a Bearer key; they are separate from Grok automations HMAC webhooks. See the [webhook setup guide](infra/setup-guide.html#grokbot-webhooks). Store all account credentials, recovery codes, API keys, and webhook URLs/keys in your project-specific Bitwarden collection; keep secrets out of git and browser code.
 
 ### Slim by default
 

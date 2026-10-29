@@ -1,6 +1,6 @@
 # My Brand Setup Instructions (Machine-Readable)
 
-> **For Claude, ChatGPT, or any LLM helping a user set up My Brand.**
+> **For Cursor/Grok, Claude, ChatGPT, or any LLM helping a user set up My Brand.**
 > This file is the canonical setup reference. The HTML page at `/infra/` is the human-friendly overview.
 
 ## Overview
@@ -8,15 +8,15 @@
 My Brand is a full-stack platform using:
 - **Cloudflare Pages** — static site hosting with global CDN (free tier: unlimited sites, 500 builds/month)
 - **Supabase** — PostgreSQL database, auth, storage, edge functions (free tier)
-- **An AI coding agent** — two tracks: *Ultra Low Cost* (opencode for beginners, Zed for the technical) or *Premium* (Claude Code desktop, ChatGPT/Codex desktop)
+- **An AI coding agent** — prefer Cursor with Grok 4.7; Claude Code, Codex, opencode, and Zed remain alternatives
 - **Tailwind CSS v4** — styling framework
 
 Architecture: Browser → Cloudflare Pages → Supabase (no server-side code). Edge functions handle sensitive operations.
 
 ## Setup Flow
 
-### Phase 1: Claude Code guides initial setup
-The user pastes a setup prompt into Claude Code. Claude Code should:
+### Phase 1: Your AI coding agent guides initial setup
+Recommend Cursor with Grok 4.7. The user opens the project folder and pastes a setup prompt into Agent. The agent should:
 
 1. **Set up screenshots** — Detect the user's OS and help them set up one-click full-screen screenshot-to-clipboard:
    - **macOS**: Install [Shottr](https://shottr.cc) (free) or use ⌘+Ctrl+Shift+3
@@ -41,13 +41,10 @@ The user pastes a setup prompt into Claude Code. Claude Code should:
 
 5. **Set up Supabase** — Create project, configure auth, run initial migrations
 
-6. **Install an AI coding tool** — pick a cost track first:
-   - **Ultra Low Cost** (free tool + your own API key, usually under $20 for a setup):
-     - opencode — *simplest, best for beginners*: `curl -fsSL https://opencode.ai/install | bash`
-     - Zed — *best for the already-technical*: `brew install --cask zed`
-   - **Premium** ($20–200/month flat) — **ask what they already subscribe to first:**
-     - ChatGPT/Codex desktop — *most common;* included in any paid ChatGPT plan. Codex app or `npm install -g @openai/codex`
-     - Claude Code desktop — Claude app (Code tab) or `npm install -g @anthropic-ai/claude-code`
+6. **Install an AI coding tool** — recommend [Cursor](https://cursor.com/download), open the project folder, and select **Grok 4.7** in Agent. No separate model install is needed. [Grok](https://grok.com) is available for companion chat. Check [model availability](https://prod.cursor.com/help/models-and-usage/grok-4-7) and [current pricing](https://cursor.com/pricing).
+   - Keep Claude Code and Codex as alternatives; check the user's existing subscription and limits.
+   - API-key alternatives: opencode or Zed.
+   - Save every account login, recovery code, API key, and webhook URL/key in the project's Bitwarden collection. Use server-side secret storage at runtime, with item references in gitignored local docs. Never commit or print secret values.
 
 ### Phase 2: Run the setup wizard
 With the tool installed, the user runs it in the project folder and uses it for:
@@ -55,7 +52,7 @@ With the tool installed, the user runs it in the project folder and uses it for:
 - All future development
 - Code pushes to GitHub; the site updates automatically
 
-Codex, opencode and Zed read `AGENTS.md` and load skills from `.agents/skills/`; Claude Code reads `CLAUDE.md` (which imports `AGENTS.md`) and picks the wizard up via `.claude/skills/`. Invoke it with `$setup-my-brand` in Codex, `/setup-my-brand` elsewhere.
+In Cursor, ask Agent to read `AGENTS.md` and `.agents/skills/setup-my-brand/SKILL.md` explicitly. Codex, opencode and Zed read `AGENTS.md` and load skills from `.agents/skills/`; Claude Code reads `CLAUDE.md` (which imports `AGENTS.md`) and picks the wizard up via `.claude/skills/`. Use `$setup-my-brand` in Codex, or `/setup-my-brand` in opencode, Zed, or Claude Code. Cursor uses the explicit file-reading prompt above.
 
 ## Detailed Step-by-Step Guide
 
@@ -64,12 +61,12 @@ For the full detailed setup procedure with checkpoints and validation steps, rea
 
 ## Service Options
 
-### Core (always included, free)
+### Core services and tooling
 | Service | Purpose |
 |---------|---------|
 | Cloudflare Pages | Static site hosting, global CDN, preview deploys |
 | Supabase | PostgreSQL, auth, file storage, edge functions |
-| AI coding tool | Ultra Low Cost: opencode / Zed. Premium: ChatGPT Codex / Claude Code |
+| AI coding tool | Preferred: Cursor + Grok 4.7. Alternatives: Claude Code / Codex / opencode / Zed |
 
 ### Optional services
 | Service | Purpose | Cost |
@@ -88,10 +85,15 @@ For the full detailed setup procedure with checkpoints and validation steps, rea
 | Custom Domain | Your own domain name | ~$10/yr |
 | PayPal | Checkout, payouts & instant transfers | % per transaction |
 | VAPI | AI voice calling & phone agents | Pay-as-you-go |
+| Grok Bot | SpaceXAI agentic harness for persistent bots and webhook routines; [setup](https://YOUR_DOMAIN/infra/setup-guide.html#grokbot-webhooks) | Eligible subscription; shared usage |
 | Discord Bot | AI assistant bot for community server | Free |
 | iPhone App | Native iOS (Swift/SwiftUI) + App Store | $99/yr (Apple Developer) |
 | Android App | Native Android (Kotlin/Compose) + Play Store | $25 one-time (Google Play) |
 | Home Server | Local Mac for HAOS, cameras, media, 30+ devices | ~$150 one-time |
+
+### Grok Bot webhook setup
+
+Install the SpaceXAI agentic harness from https://grokbot.com. Premium and above include Grok Bot; Plus does not. Ask the Bot for a webhook-triggered routine. On desktop, open the Bot's **Details → Routines**, select the routine, and copy its **Webhook → POST to** and **key** fields (raw key, not the full header) into a project-specific Bitwarden item. Load them into server-side secrets as `GROKBOT_WEBHOOK_URL` and `GROKBOT_WEBHOOK_KEY`. Send JSON by POST with `Authorization: Bearer <key>`. These routine webhooks are separate from Grok automations HMAC webhooks. A 200 starts a run; verify completion in the Bot chat. Check active status and current credentials on failure. Full steps and a test command: https://YOUR_DOMAIN/infra/setup-guide.html#grokbot-webhooks. Official reference: https://cursor.com/help/grok-bot/routines.
 
 ## Project Profiles
 
